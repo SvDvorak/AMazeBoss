@@ -33,6 +33,8 @@ Advanced
 Trigger:
 Tile that does nothing itself but activates something else, like a arrow-fire-thingy in the wall. Can fixed?
 
-Arrow-fire-thingy, fires 
+Arrow-fire-thingy, fires
+
+Tiles that can be raised or lowered
 
 Add a way for boss to run into certain items in room which creates new items for the hero to use. For example, boss runs into a tree then branches fall down which can be used as sticks for a spike trap. The hero could not get these items himself without the boss interacting with it. Could be trap reuse, boss runs into wallmounted spear, wood sticks from it can be reused next round.
