@@ -1,0 +1,38 @@
+A Maze Boss
+
+Hero without equipment uses tactics to kill boss using room and its traps.
+
+Boss attacks hero using shortest distance (A* for example).
+Room has items and traps, some in fixed positions. Example, pillars fixed in room, movable boxes, spots to place spikes, loose sticks to use as spikes.
+Hero can pick up some items and place them in room. Loose sticks can only be placed in spots for spikes.
+Boss is cursed by being frozen at start, hero activates boss when ready. Hero gets curse and gets frozen while boss rampages in room. Curse gets switched again if player is hit by boss (hero loses one health) or boss walks over curse tile.
+Hero can activate curse switch at any time with the curse crystal he has. Player can then select where he wants to be when becoming frozen.
+If boss has no path to the hero, he will destroy items/blocks to create a path to the player. Maybe destroy those towards the player.
+
+Spikes:
+Starts as holes in ground without sticks, hero must place sticks in holes to create trap. Does one damage to boss.
+Holes in ground tile has fixed position in room. Usually more spike-tiles than there are sticks in room.
+
+Wall-mounted item:
+Boss must run straight into wall to take damage. Running past it does nothing. Must be mounted on wall or pillar.
+
+Boxes:
+Blocks path of boss, movable by hero. Maybe do box-puzzle movement style mechanic later on?
+Running into box pushes box?
+
+Curse switch:
+Switches curse with hero again, freezing the boss.
+
+Fixed statics:
+Tiles that do nothing but block the boss's path.
+Pillars, walls, holes in ground
+
+
+Advanced
+
+Trigger:
+Tile that does nothing itself but activates something else, like a arrow-fire-thingy in the wall. Can fixed?
+
+Arrow-fire-thingy, fires 
+
+Add a way for boss to run into certain items in room which creates new items for the hero to use. For example, boss runs into a tree then branches fall down which can be used as sticks for a spike trap. The hero could not get these items himself without the boss interacting with it. Could be trap reuse, boss runs into wallmounted spear, wood sticks from it can be reused next round.
