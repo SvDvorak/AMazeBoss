@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets;
+using Assets.LevelEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -13,14 +14,20 @@ public class PlaceTile : MonoBehaviour
 
     public void Start()
     {
+        LoadTileTypeTemplates();
+
+        Events.instance.AddListener<TileSelected>(NewTileTypeSelected);
+    }
+
+    private void LoadTileTypeTemplates()
+    {
         var tileTypes = TileTypeHelper.GetAsList();
         var allTiles = LoadTiles();
 
         foreach (var tileType in tileTypes)
         {
             var tileTypeGameObjects = allTiles
-                .Where(x => x.name.ToUpper().Contains(tileType.ToString().ToUpper()))
-                .Select(x => x as GameObject)
+                .Where(x => x.NameContains(tileType.ToString()))
                 .ToList();
 
             if (tileTypeGameObjects.Count == 0)
@@ -30,20 +37,17 @@ public class PlaceTile : MonoBehaviour
 
             _tileTemplates.Add(tileType, tileTypeGameObjects);
         }
-
-        Events.instance.AddListener<TileSelected>(NewTileTypeSelected);
     }
 
-    private static Object[] LoadTiles()
+    private static GameObject[] LoadTiles()
     {
         try
         {
-            var allLoaded = Resources.LoadAll("Tiles");
-            return (Object[]) allLoaded;
+            return Resources.LoadAll<GameObject>("Tiles");
         }
         catch (Exception)
         {
-            throw new Exception("Cannot load anything from Resources/Tiles");
+            throw new Exception("Cannot load tiles from Resources/Tiles");
         }
     }
 

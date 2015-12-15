@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets;
 using UnityEngine;
 
 public class RoomInfo
@@ -15,6 +16,8 @@ public class RoomInfo
         RemoveTile(tilePos);
 
         _walkableTiles.Add(tilePos, gameObject);
+
+        Events.instance.Raise(new TileAdded(tilePos, gameObject));
     }
 
     public static void RemoveTile(TilePos tilePos)
