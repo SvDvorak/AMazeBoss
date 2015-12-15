@@ -1,106 +1,134 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets;
-using Assets.LevelEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-public class PlaceTile : MonoBehaviour
+namespace Assets.LevelEditor
 {
-    private TileType _tileSelected = TileType.Normal;
-    private readonly Dictionary<TileType, List<GameObject>> _tileTemplates = new Dictionary<TileType, List<GameObject>>();
-
-    public void Start()
+    public class PlaceTile : MonoBehaviour
     {
-        LoadTileTypeTemplates();
+        public Material PreviewMaterial;
 
-        Events.instance.AddListener<TileSelected>(NewTileTypeSelected);
-    }
+        private TileType _tileSelected;
+        private readonly Dictionary<TileType, List<GameObject>> _tileTemplates = new Dictionary<TileType, List<GameObject>>();
+        private GameObject _preview;
 
-    private void LoadTileTypeTemplates()
-    {
-        var tileTypes = TileTypeHelper.GetAsList();
-        var allTiles = LoadTiles();
-
-        foreach (var tileType in tileTypes)
+        public void Start()
         {
-            var tileTypeGameObjects = allTiles
-                .Where(x => x.NameContains(tileType.ToString()))
-                .ToList();
+            LoadTileTypeTemplates();
+            NewTileTypeSelected(new TileSelected(TileType.Normal));
 
-            if (tileTypeGameObjects.Count == 0)
+            Events.instance.AddListener<TileSelected>(NewTileTypeSelected);
+        }
+
+        private void LoadTileTypeTemplates()
+        {
+            var tileTypes = TileTypeHelper.GetAsList();
+            var allTiles = LoadTiles();
+
+            foreach (var tileType in tileTypes)
             {
-                Debug.LogWarning("No tiles available for " + tileType);
+                var tileTypeGameObjects = allTiles
+                    .Where(x => x.NameContains(tileType.ToString()))
+                    .ToList();
+
+                if (tileTypeGameObjects.Count == 0)
+                {
+                    Debug.LogWarning("No tiles available for " + tileType);
+                }
+
+                _tileTemplates.Add(tileType, tileTypeGameObjects);
+            }
+        }
+
+        private static GameObject[] LoadTiles()
+        {
+            try
+            {
+                return Resources.LoadAll<GameObject>("Tiles");
+            }
+            catch (Exception)
+            {
+                throw new Exception("Cannot load tiles from Resources/Tiles");
+            }
+        }
+
+        private void NewTileTypeSelected(TileSelected e)
+        {
+            _tileSelected = e.TileTypeSelected;
+
+            CreatePreview();
+        }
+
+        private void CreatePreview()
+        {
+            if (_preview != null)
+            {
+                Destroy(_preview);
+                _preview = null;
             }
 
-            _tileTemplates.Add(tileType, tileTypeGameObjects);
+            _preview = Instantiate(_tileTemplates[_tileSelected].First());
+            _preview.GetComponent<MeshRenderer>().material = PreviewMaterial;
         }
-    }
 
-    private static GameObject[] LoadTiles()
-    {
-        try
+        public void Update()
         {
-            return Resources.LoadAll<GameObject>("Tiles");
+            var mouseTilePosition = GetMouseTilePosition();
+
+            UpdatePreview(mouseTilePosition);
+
+            Action<TilePos> clickAction = null;
+            if (Input.GetMouseButtonDown(0))
+            {
+                clickAction = AddOrReplaceTile;
+            }
+            else if(Input.GetMouseButtonDown(1))
+            {
+                clickAction = RoomInfo.RemoveTile;
+            }
+
+            if (mouseTilePosition.HasValue && clickAction != null)
+            {
+                clickAction(mouseTilePosition.Value);
+            }
         }
-        catch (Exception)
+
+        private void UpdatePreview(TilePos? mouseTilePosition)
         {
-            throw new Exception("Cannot load tiles from Resources/Tiles");
+            if (mouseTilePosition.HasValue)
+            {
+                _preview.transform.position = mouseTilePosition.Value.ToV3();
+            }
         }
-    }
 
-    private void NewTileTypeSelected(TileSelected e)
-    {
-        _tileSelected = e.TileTypeSelected;
-    }
-
-    public void Update()
-    {
-        Action<TilePos> clickAction = null;
-        if (Input.GetMouseButtonDown(0))
+        private static TilePos? GetMouseTilePosition()
         {
-            clickAction = AddOrReplaceTile;
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var hPlane = new Plane(Vector3.up, Vector3.zero);
+            float distance = 0;
+            if (hPlane.Raycast(ray, out distance))
+            {
+                var planePos = ray.GetPoint(distance);
+                var tilePos = new TilePos(planePos);
+
+                return tilePos;
+            }
+
+            return null;
         }
-        else if(Input.GetMouseButtonDown(1))
+
+        private void AddOrReplaceTile(TilePos tilePos)
         {
-            clickAction = RoomInfo.RemoveTile;
+            var tiles = _tileTemplates[_tileSelected];
+            if (tiles.Count == 0)
+            {
+                throw new Exception("Cannot place tile, no template available for " + _tileSelected);
+            }
+
+            var tileTemplate = tiles[Random.Range(0, tiles.Count)];
+            RoomInfo.AddOrReplaceTile(tilePos, tileTemplate);
         }
-
-        var mouseTilePosition = GetMouseTilePosition();
-        if (mouseTilePosition.HasValue && clickAction != null)
-        {
-            clickAction(mouseTilePosition.Value);
-        }
-    }
-
-    private static TilePos? GetMouseTilePosition()
-    {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hPlane = new Plane(Vector3.up, Vector3.zero);
-        float distance = 0;
-        if (hPlane.Raycast(ray, out distance))
-        {
-            var planePos = ray.GetPoint(distance);
-            var tilePos = new TilePos(planePos);
-
-            return tilePos;
-        }
-
-        return null;
-    }
-
-    private void AddOrReplaceTile(TilePos tilePos)
-    {
-        var tiles = _tileTemplates[_tileSelected];
-        if (tiles.Count == 0)
-        {
-            throw new Exception("Cannot place tile, no template available for " + _tileSelected);
-        }
-
-        var tileTemplate = tiles[Random.Range(0, tiles.Count)];
-        var tileInstance = (GameObject)Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(Random.Range(0, 4)*90, Vector3.up));
-        RoomInfo.AddOrReplaceTile(tilePos, tileInstance);
     }
 }

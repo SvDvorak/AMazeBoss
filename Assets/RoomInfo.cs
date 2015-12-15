@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoomInfo
 {
+    private static readonly GameObject _tiles = new GameObject("Tiles");
     private static readonly Dictionary<TilePos, GameObject> _walkableTiles = new Dictionary<TilePos,GameObject>();
 
     public static bool CanWalk(TilePos pos)
@@ -11,13 +12,15 @@ public class RoomInfo
         return _walkableTiles.ContainsKey(pos);
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, GameObject gameObject)
+    public static void AddOrReplaceTile(TilePos tilePos, GameObject tileTemplate)
     {
         RemoveTile(tilePos);
 
-        _walkableTiles.Add(tilePos, gameObject);
+        var tile = (GameObject)Object.Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(Random.Range(0, 4) * 90, Vector3.up));
+        tile.transform.SetParent(_tiles.transform);
+        _walkableTiles.Add(tilePos, tile);
 
-        Events.instance.Raise(new TileAdded(tilePos, gameObject));
+        Events.instance.Raise(new TileAdded(tilePos, tile));
     }
 
     public static void RemoveTile(TilePos tilePos)
