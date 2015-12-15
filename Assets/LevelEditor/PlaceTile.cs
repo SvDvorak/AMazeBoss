@@ -128,7 +128,7 @@ namespace Assets.LevelEditor
             }
 
             var tileTemplate = tiles[Random.Range(0, tiles.Count)];
-            RoomInfo.AddOrReplaceTile(tilePos, tileTemplate);
+            RoomInfo.AddOrReplaceTile(tilePos, _tileSelected, tileTemplate);
         }
     }
 }

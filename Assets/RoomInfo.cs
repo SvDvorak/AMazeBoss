@@ -2,33 +2,50 @@
 using Assets;
 using UnityEngine;
 
+public class TileInfo
+{
+    public TileType Type { get; private set; }
+    public GameObject GameObject { get; private set; }
+
+    public TileInfo(TileType type, GameObject gameObject)
+    {
+        Type = type;
+        GameObject = gameObject;
+    }
+}
+
 public class RoomInfo
 {
-    private static readonly GameObject _tiles = new GameObject("Tiles");
-    private static readonly Dictionary<TilePos, GameObject> _walkableTiles = new Dictionary<TilePos,GameObject>();
+    private static readonly GameObject TilesRoot = new GameObject("Tiles");
+    private static readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
 
-    public static bool CanWalk(TilePos pos)
+    public static Dictionary<TilePos, TileInfo> GetAllTiles()
     {
-        return _walkableTiles.ContainsKey(pos);
+        return Tiles;
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, GameObject tileTemplate)
+    public static bool HasTileAt(TilePos pos)
+    {
+        return Tiles.ContainsKey(pos);
+    }
+
+    public static void AddOrReplaceTile(TilePos tilePos, TileType tileType, GameObject tileTemplate)
     {
         RemoveTile(tilePos);
 
         var tile = (GameObject)Object.Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(Random.Range(0, 4) * 90, Vector3.up));
-        tile.transform.SetParent(_tiles.transform);
-        _walkableTiles.Add(tilePos, tile);
+        tile.transform.SetParent(TilesRoot.transform);
+        Tiles.Add(tilePos, new TileInfo(tileType, tile));
 
         Events.instance.Raise(new TileAdded(tilePos, tile));
     }
 
     public static void RemoveTile(TilePos tilePos)
     {
-        if (CanWalk(tilePos))
+        if (HasTileAt(tilePos))
         {
-            GameObject.Destroy(_walkableTiles[tilePos]);
-            _walkableTiles.Remove(tilePos);
+            GameObject.Destroy(Tiles[tilePos].GameObject);
+            Tiles.Remove(tilePos);
         }
     }
 }
