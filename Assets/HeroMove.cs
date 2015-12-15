@@ -4,8 +4,7 @@ public class HeroMove : MonoBehaviour
 {
 	void Update ()
 	{
-        const int multiplier = 2;
-        var currentPos = new TilePos(transform.position/multiplier);
+        var currentPos = new TilePos(transform.position);
 	    var moveDirection = new TilePos(0, 0);
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -27,7 +26,7 @@ public class HeroMove : MonoBehaviour
 
 	    if (RoomInfo.CanWalk(moveDirection + currentPos))
 	    {
-	        transform.Translate(moveDirection.ToV3()*multiplier);
+	        transform.Translate(moveDirection.ToV3());
 	    }
 	}
 }
