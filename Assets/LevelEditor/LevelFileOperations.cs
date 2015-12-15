@@ -47,6 +47,15 @@ public class LevelFileOperations : MonoBehaviour
 
     public void Load(string path)
     {
-        Debug.Log(path);
+        var streamReader = new StreamReader(path);
+        var json = streamReader.ReadToEnd();
+        streamReader.Close();
+
+        var tiles = JsonUtility
+            .FromJson<FileTiles>(json)
+            .Tiles
+            .ToDictionary(fileTile => new TilePos(fileTile.X, fileTile.Z), fileTile => fileTile.Type);
+
+        RoomInfo.SetAllTiles(tiles);
     }
 }

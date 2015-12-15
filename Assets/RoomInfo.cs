@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets;
 using UnityEngine;
 
@@ -17,16 +18,16 @@ public class TileInfo
 public class RoomInfo
 {
     private static readonly GameObject TilesRoot = new GameObject("Tiles");
-    private static readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
+    private static Dictionary<TilePos, TileInfo> _tiles = new Dictionary<TilePos, TileInfo>();
 
     public static Dictionary<TilePos, TileInfo> GetAllTiles()
     {
-        return Tiles;
+        return _tiles;
     }
 
     public static bool HasTileAt(TilePos pos)
     {
-        return Tiles.ContainsKey(pos);
+        return _tiles.ContainsKey(pos);
     }
 
     public static void AddOrReplaceTile(TilePos tilePos, TileType tileType, GameObject tileTemplate)
@@ -35,7 +36,7 @@ public class RoomInfo
 
         var tile = (GameObject)Object.Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(Random.Range(0, 4) * 90, Vector3.up));
         tile.transform.SetParent(TilesRoot.transform);
-        Tiles.Add(tilePos, new TileInfo(tileType, tile));
+        _tiles.Add(tilePos, new TileInfo(tileType, tile));
 
         Events.instance.Raise(new TileAdded(tilePos, tile));
     }
@@ -44,8 +45,16 @@ public class RoomInfo
     {
         if (HasTileAt(tilePos))
         {
-            GameObject.Destroy(Tiles[tilePos].GameObject);
-            Tiles.Remove(tilePos);
+            GameObject.Destroy(_tiles[tilePos].GameObject);
+            _tiles.Remove(tilePos);
+        }
+    }
+
+    public static void SetAllTiles(Dictionary<TilePos, TileType> tiles)
+    {
+        foreach (var tile in tiles)
+        {
+            _tiles.Add(tile.Key, new TileInfo(tile.Value, null));
         }
     }
 }
