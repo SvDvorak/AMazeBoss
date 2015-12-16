@@ -8,16 +8,16 @@ namespace Assets
     {
         public static int GetCount()
         {
-            return Enum.GetNames(typeof(TileType)).Length;
+            return Enum.GetNames(typeof(MainTileType)).Length;
         }
 
-        public static List<TileType> GetAsList()
+        public static List<MainTileType> GetAsList()
         {
-            return Enum.GetValues(typeof(TileType)).Cast<TileType>().ToList();
+            return Enum.GetValues(typeof(MainTileType)).Cast<MainTileType>().ToList();
         }
     }
 
-    public enum TileType
+    public enum MainTileType
     {
         Normal,
         Pillar,

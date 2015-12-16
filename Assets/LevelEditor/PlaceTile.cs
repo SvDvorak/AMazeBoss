@@ -8,12 +8,12 @@ namespace Assets.LevelEditor
     {
         public Material PreviewMaterial;
 
-        private TileType _tileSelected;
+        private MainTileType _tileSelected;
         private GameObject _preview;
 
         public void Start()
         {
-            NewTileTypeSelected(new TileSelected(TileType.Normal));
+            NewTileTypeSelected(new TileSelected(MainTileType.Normal));
 
             Events.instance.AddListener<TileSelected>(NewTileTypeSelected);
         }
@@ -33,7 +33,7 @@ namespace Assets.LevelEditor
                 _preview = null;
             }
 
-            _preview = Instantiate(TileLoader.Retrieve(new TileTypeA(_tileSelected)).Templates.First());
+            _preview = Instantiate(TileLoader.Retrieve(new CompleteTileType(_tileSelected)).Templates.First());
             _preview.GetComponent<MeshRenderer>().material = PreviewMaterial;
         }
 

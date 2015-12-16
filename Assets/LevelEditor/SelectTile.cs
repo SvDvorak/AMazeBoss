@@ -5,22 +5,22 @@ namespace Assets.LevelEditor
 {
     public class SelectTile : MonoBehaviour
     {
-        private Dictionary<int, TileType> _numberToTileType;
+        private Dictionary<int, MainTileType> _numberToTileType;
 
         public void Start()
         {
-            _numberToTileType = new Dictionary<int, TileType>
+            _numberToTileType = new Dictionary<int, MainTileType>
                 {
-                    { 1, TileType.Normal },
-                    { 2, TileType.Pillar },
-                    { 3, TileType.Wall },
-                    { 4, TileType.Spike }
+                    { 1, MainTileType.Normal },
+                    { 2, MainTileType.Pillar },
+                    { 3, MainTileType.Wall },
+                    { 4, MainTileType.Spike }
                 };
         }
 
         public void Update()
         {
-            TileType? selected = null;
+            MainTileType? selected = null;
             for (int i = 1; i <= _numberToTileType.Keys.Count; i++)
             {
                 if (Input.GetKeyDown(i.ToString()))

@@ -8,10 +8,10 @@ using Random = UnityEngine.Random;
 
 public class TileInfo
 {
-    public TileTypeA TileType { get; private set; }
+    public CompleteTileType TileType { get; private set; }
     public GameObject GameObject { get; private set; }
 
-    public TileInfo(TileTypeA tileType, GameObject gameObject)
+    public TileInfo(CompleteTileType tileType, GameObject gameObject)
     {
         TileType = tileType;
         GameObject = gameObject;
@@ -28,17 +28,17 @@ public class RoomInfo
         return Tiles.ContainsKey(pos);
     }
 
-    public static bool HasTileAt(TilePos pos, TileType type)
+    public static bool HasTileAt(TilePos pos, MainTileType type)
     {
         return Tiles.ContainsKey(pos) && Tiles[pos].TileType.Main == type;
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, TileType type)
+    public static void AddOrReplaceTile(TilePos tilePos, MainTileType type)
     {
-        AddOrReplaceTile(tilePos, new TileTypeA(type));
+        AddOrReplaceTile(tilePos, new CompleteTileType(type));
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, TileTypeA type, float? rotation = null)
+    public static void AddOrReplaceTile(TilePos tilePos, CompleteTileType type, float? rotation = null)
     {
         RemoveTile(tilePos);
 
@@ -73,7 +73,7 @@ public class RoomInfo
         return Tiles;
     }
 
-    public static void SetAllTiles(Dictionary<TilePos, TileType> tiles)
+    public static void SetAllTiles(Dictionary<TilePos, MainTileType> tiles)
     {
         ClearTiles();
         foreach (var tile in tiles)

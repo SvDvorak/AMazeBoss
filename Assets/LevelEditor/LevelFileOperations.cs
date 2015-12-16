@@ -19,11 +19,11 @@ public class FileTiles
 [Serializable]
 public class FileTile
 {
-    public TileType Type;
+    public MainTileType Type;
     public int X;
     public int Z;
 
-    public FileTile(TileType type, int x, int z)
+    public FileTile(MainTileType type, int x, int z)
     {
         Type = type;
         X = x;
