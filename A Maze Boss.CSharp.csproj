@@ -84,6 +84,7 @@
     <Compile Include="Assets\LevelEditor\ShowFileDialogs.cs" />
     <Compile Include="Assets\LevelEditor\TileBottomSpawner.cs" />
     <Compile Include="Assets\LevelEditor\TileType.cs" />
+    <Compile Include="Assets\LevelEditor\WallAdjuster.cs" />
     <Compile Include="Assets\RoomInfo.cs" />
     <Compile Include="Assets\TileLoader.cs" />
     <Compile Include="Assets\TilePos.cs" />

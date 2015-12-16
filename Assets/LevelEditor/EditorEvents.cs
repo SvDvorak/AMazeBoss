@@ -2,9 +2,9 @@
 
 public class TileSelected : GameEvent
 {
-    public TileSelected(TileType selected)
+    public TileSelected(TileType selectedType)
     {
-        TileTypeSelected = selected;
+        TileTypeSelected = selectedType;
     }
 
     public TileType TileTypeSelected { get; private set; }

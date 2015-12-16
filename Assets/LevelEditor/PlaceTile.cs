@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Assets.LevelEditor
 {
@@ -35,7 +33,7 @@ namespace Assets.LevelEditor
                 _preview = null;
             }
 
-            _preview = Instantiate(TileLoader.Retrieve(_tileSelected));
+            _preview = Instantiate(TileLoader.Retrieve(new TileTypeA(_tileSelected)).Templates.First());
             _preview.GetComponent<MeshRenderer>().material = PreviewMaterial;
         }
 
@@ -73,7 +71,7 @@ namespace Assets.LevelEditor
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             var hPlane = new Plane(Vector3.up, Vector3.zero);
-            float distance = 0;
+            float distance;
             if (hPlane.Raycast(ray, out distance))
             {
                 var planePos = ray.GetPoint(distance);

@@ -37,7 +37,7 @@ public class LevelFileOperations : MonoBehaviour
     {
         var tileInfos = RoomInfo.GetAllTiles();
         var tiles = new FileTiles(tileInfos
-            .Select(tile => new FileTile(tile.Value.Type, tile.Key.X, tile.Key.Z))
+            .Select(tile => new FileTile(tile.Value.TileType.Main, tile.Key.X, tile.Key.Z))
             .ToList());
         var json = JsonUtility.ToJson(tiles);
         var streamWriter = new StreamWriter(path, false);

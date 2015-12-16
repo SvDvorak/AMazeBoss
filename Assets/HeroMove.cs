@@ -24,7 +24,7 @@ public class HeroMove : MonoBehaviour
             moveDirection = new TilePos(1, 0);
         }
 
-	    if (RoomInfo.HasTileAt(moveDirection + currentPos))
+	    if (RoomInfo.HasAnyTileAt(moveDirection + currentPos))
 	    {
 	        transform.Translate(moveDirection.ToV3());
 	    }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets;
 using UnityEngine;
@@ -7,12 +8,12 @@ using Random = UnityEngine.Random;
 
 public class TileInfo
 {
-    public TileType Type { get; private set; }
+    public TileTypeA TileType { get; private set; }
     public GameObject GameObject { get; private set; }
 
-    public TileInfo(TileType type, GameObject gameObject)
+    public TileInfo(TileTypeA tileType, GameObject gameObject)
     {
-        Type = type;
+        TileType = tileType;
         GameObject = gameObject;
     }
 }
@@ -22,32 +23,45 @@ public class RoomInfo
     private static readonly GameObject TilesRoot = new GameObject("Tiles");
     private static readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
 
-    public static bool HasTileAt(TilePos pos)
+    public static bool HasAnyTileAt(TilePos pos)
     {
         return Tiles.ContainsKey(pos);
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, TileType tileType)
+    public static bool HasTileAt(TilePos pos, TileType type)
+    {
+        return Tiles.ContainsKey(pos) && Tiles[pos].TileType.Main == type;
+    }
+
+    public static void AddOrReplaceTile(TilePos tilePos, TileType type)
+    {
+        AddOrReplaceTile(tilePos, new TileTypeA(type));
+    }
+
+    public static void AddOrReplaceTile(TilePos tilePos, TileTypeA type, float? rotation = null)
     {
         RemoveTile(tilePos);
 
-        var tileTemplate = TileLoader.Retrieve(tileType);
-        var tile = CreateTile(tilePos, tileTemplate);
-        Tiles.Add(tilePos, new TileInfo(tileType, tile));
+        var tileTemplate = TileLoader.Retrieve(type);
 
-        Events.instance.Raise(new TileAdded(tilePos, tile));
+        var randomTemplate = tileTemplate.Templates[Random.Range(0, tileTemplate.Templates.Count)];
+        var tile = CreateTile(tilePos, randomTemplate, rotation);
+        Tiles.Add(tilePos, new TileInfo(tileTemplate.TileType, tile));
+
+        Events.instance.Raise(new TileAdded(tilePos, type.Main, tile));
     }
 
-    private static GameObject CreateTile(TilePos tilePos, GameObject tileTemplate)
+    private static GameObject CreateTile(TilePos tilePos, GameObject tileTemplate, float? rotation)
     {
-        var tile = (GameObject)Object.Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(Random.Range(0, 4) * 90, Vector3.up));
+        var createRotation = rotation ?? Random.Range(0, 4) * 90;
+        var tile = (GameObject)Object.Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(createRotation, Vector3.up));
         tile.transform.SetParent(TilesRoot.transform);
         return tile;
     }
 
     public static void RemoveTile(TilePos tilePos)
     {
-        if (HasTileAt(tilePos))
+        if (HasAnyTileAt(tilePos))
         {
             GameObject.Destroy(Tiles[tilePos].GameObject);
             Tiles.Remove(tilePos);
