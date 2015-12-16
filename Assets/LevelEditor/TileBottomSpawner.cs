@@ -16,6 +16,13 @@ namespace Assets.LevelEditor
             _emptyBottom = bottoms.Single(x => x.NameContains("empty"));
 
             Events.instance.AddListener<TileAdded>(TileAdded);
+            Events.instance.AddListener<LoadingScene>(Unregister);
+        }
+
+        private void Unregister(LoadingScene e)
+        {
+            Events.instance.RemoveListener<TileAdded>(TileAdded);
+            Events.instance.RemoveListener<LoadingScene>(Unregister);
         }
 
         private void TileAdded(TileAdded e)

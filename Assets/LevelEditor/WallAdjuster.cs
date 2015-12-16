@@ -24,17 +24,24 @@ namespace Assets.LevelEditor
 
     public class WallAdjuster : MonoBehaviour
     {
-        private Dictionary<string, ConnectionSet> _connectionSets = new Dictionary<string, ConnectionSet>();
+        private readonly Dictionary<string, ConnectionSet> _connectionSets = new Dictionary<string, ConnectionSet>();
         private bool _isAdjusting;
 
         public void Start()
         {
             Events.instance.AddListener<TileAdded>(AdjustWalls);
+            Events.instance.AddListener<LoadingScene>(Unregister);
 
             _connectionSets.Add("1010", new ConnectionSet("straight", 0));
             _connectionSets.Add("1000", new ConnectionSet("straight", 0));
             _connectionSets.Add("1100", new ConnectionSet("curved", 0));
             ExpandUniqueConnections();
+        }
+
+        private void Unregister(LoadingScene e)
+        {
+            Events.instance.RemoveListener<TileAdded>(AdjustWalls);
+            Events.instance.RemoveListener<LoadingScene>(Unregister);
         }
 
         private void ExpandUniqueConnections()

@@ -8,9 +8,11 @@ namespace Assets.LevelEditor
         {
             RoomInfo.Init();
 
-            if (LoadLevel.EditorLevelPath != "")
+            var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
+
+            if (lastUsedPath != "")
             {
-                FileOperations.FileOperations.Load(LoadLevel.EditorLevelPath);
+                FileOperations.FileOperations.Load(lastUsedPath);
             }
         }
     }

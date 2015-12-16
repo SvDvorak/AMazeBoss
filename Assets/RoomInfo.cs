@@ -20,7 +20,8 @@ public class TileInfo
     }
 }
 
-public class RoomInfo
+
+public static class RoomInfo
 {
     private static GameObject _tilesRoot;
     private static readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
@@ -31,6 +32,11 @@ public class RoomInfo
     };
 
     private static bool _pauseEvents;
+
+    static RoomInfo()
+    {
+        Events.instance.AddListener<LoadingScene>(x => ClearTiles());
+    }
 
     public static void Init()
     {

@@ -9,27 +9,32 @@ namespace Assets.LevelEditor
 
         public void Start()
         {
-            if (LoadLevel.EditorLevelPath != "")
-            {
-                _lastUsedPath = LoadLevel.EditorLevelPath;
-            }
+            _lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
         }
 
         public void Save(string path)
         {
-            _lastUsedPath = path;
+            SetLastUsedPath(path);
             FileOperations.FileOperations.Save(path);
         }
 
         public void Load(string path)
         {
-            _lastUsedPath = path;
+            SetLastUsedPath(path);
             FileOperations.FileOperations.Load(path);
         }
 
         public void Clear()
         {
+            SetLastUsedPath("");
             RoomInfo.ClearTiles();
+        }
+
+        private void SetLastUsedPath(string path)
+        {
+            _lastUsedPath = path;
+            LoadLevel.EditorLevelPath = path;
+            PlayerPrefs.SetString("LastEditorLevel", path);
         }
 
         public void Play()
@@ -37,8 +42,7 @@ namespace Assets.LevelEditor
             if(_lastUsedPath != "")
             {
                 Save(_lastUsedPath);
-                RoomInfo.ClearTiles();
-                LoadLevel.EditorLevelPath = _lastUsedPath;
+                Events.instance.Raise(new LoadingScene());
                 SceneManager.LoadScene("test_scene");
             }
         }

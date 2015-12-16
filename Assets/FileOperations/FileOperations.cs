@@ -41,5 +41,19 @@ namespace Assets.FileOperations
 
             RoomInfo.SetAllTiles(tiles);
         }
+
+        public static string GetLastUsedPath()
+        {
+            if (LoadLevel.EditorLevelPath != "")
+            {
+                return LoadLevel.EditorLevelPath;
+            }
+            else if (PlayerPrefs.HasKey("LastEditorLevel"))
+            {
+                return PlayerPrefs.GetString("LastEditorLevel");
+            }
+
+            return null;
+        }
     }
 }

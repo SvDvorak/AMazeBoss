@@ -1,4 +1,5 @@
-﻿using Assets.FileOperations;
+﻿using Assets;
+using Assets.FileOperations;
 using UnityEngine;
 
 public class LoadLevel : MonoBehaviour
@@ -8,12 +9,13 @@ public class LoadLevel : MonoBehaviour
 
 	public void Start ()
     {
+        RoomInfo.Init();
+
         if(EditorLevelPath != "")
         {
             LevelPath = EditorLevelPath;
         }
 
-	    RoomInfo.Init();
         FileOperations.Load(LevelPath);
     }
 }

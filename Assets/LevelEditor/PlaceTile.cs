@@ -18,6 +18,13 @@ namespace Assets.LevelEditor
             NewTileTypeSelected(new TileSelected(MainTileType.Normal));
 
             Events.instance.AddListener<TileSelected>(NewTileTypeSelected);
+            Events.instance.AddListener<LoadingScene>(Unregister);
+        }
+
+        private void Unregister(LoadingScene e)
+        {
+            Events.instance.RemoveListener<TileSelected>(NewTileTypeSelected);
+            Events.instance.RemoveListener<LoadingScene>(Unregister);
         }
 
         private void NewTileTypeSelected(TileSelected e)
@@ -46,7 +53,7 @@ namespace Assets.LevelEditor
             if (mouseTilePosition.HasValue)
             {
                 UpdatePreview(mouseTilePosition.Value);
-                PositionInfo.text = String.Format("X: {0}\nY: {1}", mouseTilePosition.Value.X, mouseTilePosition.Value.Z);
+                PositionInfo.text = string.Format("X: {0}\nY: {1}", mouseTilePosition.Value.X, mouseTilePosition.Value.Z);
             }
 
             Action<TilePos> clickAction = null;
