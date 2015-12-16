@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.LevelEditor
 {
     public class PlaceTile : MonoBehaviour
     {
         public Material PreviewMaterial;
+        public Text PositionInfo;
 
         private MainTileType _tileSelected;
         private GameObject _preview;
@@ -41,7 +43,11 @@ namespace Assets.LevelEditor
         {
             var mouseTilePosition = GetMouseTilePosition();
 
-            UpdatePreview(mouseTilePosition);
+            if (mouseTilePosition.HasValue)
+            {
+                UpdatePreview(mouseTilePosition.Value);
+                PositionInfo.text = String.Format("X: {0}\nY: {1}", mouseTilePosition.Value.X, mouseTilePosition.Value.Z);
+            }
 
             Action<TilePos> clickAction = null;
             if (Input.GetMouseButtonDown(0))
@@ -61,10 +67,7 @@ namespace Assets.LevelEditor
 
         private void UpdatePreview(TilePos? mouseTilePosition)
         {
-            if (mouseTilePosition.HasValue)
-            {
-                _preview.transform.position = mouseTilePosition.Value.ToV3();
-            }
+            _preview.transform.position = mouseTilePosition.Value.ToV3();
         }
 
         private static TilePos? GetMouseTilePosition()
