@@ -2,6 +2,8 @@
 using System.Linq;
 using Assets;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class TileInfo
 {
@@ -18,43 +20,60 @@ public class TileInfo
 public class RoomInfo
 {
     private static readonly GameObject TilesRoot = new GameObject("Tiles");
-    private static Dictionary<TilePos, TileInfo> _tiles = new Dictionary<TilePos, TileInfo>();
-
-    public static Dictionary<TilePos, TileInfo> GetAllTiles()
-    {
-        return _tiles;
-    }
+    private static readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
 
     public static bool HasTileAt(TilePos pos)
     {
-        return _tiles.ContainsKey(pos);
+        return Tiles.ContainsKey(pos);
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, TileType tileType, GameObject tileTemplate)
+    public static void AddOrReplaceTile(TilePos tilePos, TileType tileType)
     {
         RemoveTile(tilePos);
 
-        var tile = (GameObject)Object.Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(Random.Range(0, 4) * 90, Vector3.up));
-        tile.transform.SetParent(TilesRoot.transform);
-        _tiles.Add(tilePos, new TileInfo(tileType, tile));
+        var tileTemplate = TileLoader.Retrieve(tileType);
+        var tile = CreateTile(tilePos, tileTemplate);
+        Tiles.Add(tilePos, new TileInfo(tileType, tile));
 
         Events.instance.Raise(new TileAdded(tilePos, tile));
+    }
+
+    private static GameObject CreateTile(TilePos tilePos, GameObject tileTemplate)
+    {
+        var tile = (GameObject)Object.Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(Random.Range(0, 4) * 90, Vector3.up));
+        tile.transform.SetParent(TilesRoot.transform);
+        return tile;
     }
 
     public static void RemoveTile(TilePos tilePos)
     {
         if (HasTileAt(tilePos))
         {
-            GameObject.Destroy(_tiles[tilePos].GameObject);
-            _tiles.Remove(tilePos);
+            GameObject.Destroy(Tiles[tilePos].GameObject);
+            Tiles.Remove(tilePos);
         }
+    }
+
+    public static Dictionary<TilePos, TileInfo> GetAllTiles()
+    {
+        return Tiles;
     }
 
     public static void SetAllTiles(Dictionary<TilePos, TileType> tiles)
     {
+        ClearTiles();
         foreach (var tile in tiles)
         {
-            _tiles.Add(tile.Key, new TileInfo(tile.Value, null));
+            AddOrReplaceTile(tile.Key, tile.Value);
+        }
+    }
+
+    private static void ClearTiles()
+    {
+        var tilePositions = Tiles.Select(x => x.Key).ToList();
+        foreach (var tilePos in tilePositions)
+        {
+            RemoveTile(tilePos);
         }
     }
 }
