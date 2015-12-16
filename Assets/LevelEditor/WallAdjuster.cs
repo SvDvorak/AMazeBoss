@@ -96,7 +96,7 @@ namespace Assets.LevelEditor
             var tileTransform = tileInfo.GameObject.transform;
             if (tileInfo.TileType.Subtype != connectionSet.SubtypeName)
             {
-                RoomInfo.AddOrReplaceTile(tilePos, new CompleteTileType(MainTileType.Wall, connectionSet.SubtypeName), connectionSet.Rotation * 90);
+                RoomInfo.AddOrReplaceTile(tilePos, new CompleteTileType(MainTileType.Wall, connectionSet.SubtypeName), connectionSet.Rotation);
             }
             else if (Math.Abs((int) (tileTransform.rotation.eulerAngles.y - connectionSet.Rotation*90)) > 0.001f)
             {
