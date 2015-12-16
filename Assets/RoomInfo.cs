@@ -10,11 +10,13 @@ public class TileInfo
 {
     public CompleteTileType TileType { get; private set; }
     public GameObject GameObject { get; private set; }
+    public int Rotation { get; private set; }
 
-    public TileInfo(CompleteTileType tileType, GameObject gameObject)
+    public TileInfo(CompleteTileType tileType, GameObject gameObject, int rotation)
     {
         TileType = tileType;
         GameObject = gameObject;
+        Rotation = rotation;
     }
 }
 
@@ -22,6 +24,11 @@ public class RoomInfo
 {
     private static readonly GameObject TilesRoot = new GameObject("Tiles");
     private static readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
+    private static readonly HashSet<MainTileType> WalkableTiles = new HashSet<MainTileType>()
+    {
+        MainTileType.Normal,
+        MainTileType.Spike
+    };
 
     public static bool HasAnyTileAt(TilePos pos)
     {
@@ -33,28 +40,36 @@ public class RoomInfo
         return Tiles.ContainsKey(pos) && Tiles[pos].TileType.Main == type;
     }
 
+    public static bool CanMoveTo(TilePos pos)
+    {
+        return HasAnyTileAt(pos) && WalkableTiles.Contains(Tiles[pos].TileType.Main);
+    }
+
     public static void AddOrReplaceTile(TilePos tilePos, MainTileType type)
     {
         AddOrReplaceTile(tilePos, new CompleteTileType(type));
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, CompleteTileType type, float? rotation = null)
+    public static void AddOrReplaceTile(TilePos tilePos, CompleteTileType type, int? preferredRotation = null)
     {
         RemoveTile(tilePos);
 
         var tileTemplate = TileLoader.Retrieve(type);
 
         var randomTemplate = tileTemplate.Templates[Random.Range(0, tileTemplate.Templates.Count)];
+        var rotation = preferredRotation ?? Random.Range(0, 4);
         var tile = CreateTile(tilePos, randomTemplate, rotation);
-        Tiles.Add(tilePos, new TileInfo(tileTemplate.TileType, tile));
+        Tiles.Add(tilePos, new TileInfo(tileTemplate.TileType, tile, rotation));
 
         Events.instance.Raise(new TileAdded(tilePos, type.Main, tile));
     }
 
-    private static GameObject CreateTile(TilePos tilePos, GameObject tileTemplate, float? rotation)
+    private static GameObject CreateTile(TilePos tilePos, GameObject tileTemplate, int rotation)
     {
-        var createRotation = rotation ?? Random.Range(0, 4) * 90;
-        var tile = (GameObject)Object.Instantiate(tileTemplate, tilePos.ToV3(), Quaternion.AngleAxis(createRotation, Vector3.up));
+        var tile = (GameObject)Object.Instantiate(
+            tileTemplate,
+            tilePos.ToV3(),
+            Quaternion.AngleAxis(rotation * 90, Vector3.up));
         tile.transform.SetParent(TilesRoot.transform);
         return tile;
     }
@@ -73,12 +88,12 @@ public class RoomInfo
         return Tiles;
     }
 
-    public static void SetAllTiles(Dictionary<TilePos, CompleteTileType> tiles)
+    public static void SetAllTiles(Dictionary<TilePos, TileInfo> tiles)
     {
         ClearTiles();
         foreach (var tile in tiles)
         {
-            AddOrReplaceTile(tile.Key, tile.Value);
+            AddOrReplaceTile(tile.Key, tile.Value.TileType, tile.Value.Rotation);
         }
     }
 

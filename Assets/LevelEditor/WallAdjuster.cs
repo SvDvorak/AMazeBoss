@@ -77,11 +77,6 @@ namespace Assets.LevelEditor
             }
 
             _isAdjusting = false;
-
-            //var toCheck = new Queue<TilePos>();
-            //toCheck.Enqueue(e.TilePos);
-            //_alreadyChecked = new HashSet<TilePos>();
-            //AdjustWall(toCheck);
         }
 
         private void AdjustAccordingToNeighbors(TilePos tilePos, TileInfo tileInfo)
@@ -107,51 +102,11 @@ namespace Assets.LevelEditor
             {
                 tileTransform.rotation = Quaternion.Euler(0, connectionSet.Rotation*90, 0);
             }
-
-            //var straightType = new CompleteTileType(MainTileType.Wall, "straight");
-            //var rotation = tileInfo.GameObject.transform.rotation.eulerAngles.y;
-
-            //if (front && back)
-            //{
-            //    if (!tileInfo.TileType.Equals(straightType) || Math.Abs(rotation) > 0.001f)
-            //    {
-            //        RoomInfo.AddOrReplaceTile(tilePos, straightType, 0);
-            //    }
-            //}
-
-            //if (left && right)
-            //{
-            //    if (!tileInfo.TileType.Equals(straightType) || Math.Abs(rotation - 90) > 0.001f)
-            //    {
-            //        RoomInfo.AddOrReplaceTile(tilePos, straightType, 90);
-            //    }
-            //}
         }
 
         private string IsWall(TilePos tilePos)
         {
             return (RoomInfo.HasTileAt(tilePos, MainTileType.Wall) ? 1 : 0).ToString();
         }
-
-        //private HashSet<TilePos> _alreadyChecked;
-
-        //private void AdjustWall(Queue<TilePos> toCheck)
-        //{
-        //    if (!toCheck.Any())
-        //    {
-        //        return;
-        //    }
-
-        //    var current = toCheck.Dequeue();
-        //    _alreadyChecked.Add(current);
-
-        //    var adjacentPos = new TilePos(current.X + 1, current.Z);
-        //    if (RoomInfo.HasTileAt(adjacentPos, TileType.Wall))
-        //    {
-        //        var nextCheck = new Queue<TilePos>();
-        //        nextCheck.Enqueue(adjacentPos);
-        //        AdjustWall(nextCheck);
-        //    }
-        //}
     }
 }
