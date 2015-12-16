@@ -73,7 +73,7 @@ public class RoomInfo
         return Tiles;
     }
 
-    public static void SetAllTiles(Dictionary<TilePos, MainTileType> tiles)
+    public static void SetAllTiles(Dictionary<TilePos, CompleteTileType> tiles)
     {
         ClearTiles();
         foreach (var tile in tiles)
@@ -82,7 +82,7 @@ public class RoomInfo
         }
     }
 
-    private static void ClearTiles()
+    public static void ClearTiles()
     {
         var tilePositions = Tiles.Select(x => x.Key).ToList();
         foreach (var tilePos in tilePositions)

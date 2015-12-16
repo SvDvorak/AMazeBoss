@@ -82,7 +82,7 @@
     <Compile Include="Assets\LevelEditor\EditorEvents.cs" />
     <Compile Include="Assets\LevelEditor\IEnumerableExtensions.cs" />
     <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
-    <Compile Include="Assets\LevelEditor\LevelFileOperations.cs" />
+    <Compile Include="Assets\LevelEditor\UIInteractions.cs" />
     <Compile Include="Assets\LevelEditor\PlaceTile.cs" />
     <Compile Include="Assets\LevelEditor\SelectTile.cs" />
     <Compile Include="Assets\LevelEditor\ShowFileDialogs.cs" />
