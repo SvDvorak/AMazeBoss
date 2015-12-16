@@ -100,7 +100,7 @@ namespace Assets.LevelEditor
 
             var connectionSet = _connectionSets[connections];
 
-            var tileTransform = tileInfo.GameObject.transform;
+            var tileTransform = tileInfo.Tile.transform;
             if (tileInfo.TileType.Subtype != connectionSet.SubtypeName)
             {
                 RoomInfo.AddOrReplaceTile(tilePos, new CompleteTileType(MainTileType.Wall, connectionSet.SubtypeName), connectionSet.Rotation);

@@ -9,13 +9,13 @@ using Random = UnityEngine.Random;
 public class TileInfo
 {
     public CompleteTileType TileType { get; private set; }
-    public GameObject GameObject { get; private set; }
+    public GameObject Tile { get; private set; }
     public int Rotation { get; private set; }
 
-    public TileInfo(CompleteTileType tileType, GameObject gameObject, int rotation)
+    public TileInfo(CompleteTileType tileType, GameObject tile, int rotation)
     {
         TileType = tileType;
-        GameObject = gameObject;
+        Tile = tile;
         Rotation = rotation;
     }
 }
@@ -71,7 +71,7 @@ public static class RoomInfo
 
         var randomTemplate = tileTemplate.Templates[Random.Range(0, tileTemplate.Templates.Count)];
         var rotation = preferredRotation ?? Random.Range(0, 4);
-        var tile = CreateTile(tilePos, randomTemplate, rotation);
+        var tile = CreateParented(tilePos, randomTemplate, tileTemplate.Bottom, rotation);
         Tiles.Add(tilePos, new TileInfo(tileTemplate.TileType, tile, rotation));
 
         if(!_pauseEvents)
@@ -80,21 +80,24 @@ public static class RoomInfo
         }
     }
 
-    private static GameObject CreateTile(TilePos tilePos, GameObject tileTemplate, int rotation)
+    private static GameObject CreateParented(TilePos tilePos, GameObject tileTemplate, GameObject bottomTemplate, int rotation = 0)
     {
-        var tile = (GameObject)Object.Instantiate(
-            tileTemplate,
-            tilePos.ToV3(),
-            Quaternion.AngleAxis(rotation * 90, Vector3.up));
-        tile.transform.SetParent(_tilesRoot.transform);
-        return tile;
+        var tileInstance = (GameObject)Object.Instantiate(
+             tileTemplate,
+             tilePos.ToV3(),
+             Quaternion.AngleAxis(rotation * 90, Vector3.up));
+        tileInstance.transform.SetParent(_tilesRoot.transform);
+        var bottomInstance = Object.Instantiate(bottomTemplate);
+        bottomInstance.transform.SetParent(tileInstance.transform, false);
+
+        return tileInstance;
     }
 
     public static void RemoveTile(TilePos tilePos)
     {
         if (HasAnyTileAt(tilePos))
         {
-            GameObject.Destroy(Tiles[tilePos].GameObject);
+            GameObject.Destroy(Tiles[tilePos].Tile);
             Tiles.Remove(tilePos);
         }
     }

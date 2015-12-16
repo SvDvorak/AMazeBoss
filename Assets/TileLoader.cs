@@ -56,11 +56,13 @@ namespace Assets
     {
         public CompleteTileType TileType;
         public List<GameObject> Templates;
+        public GameObject Bottom;
 
-        public TileTypeTemplate(CompleteTileType tileType, List<GameObject> templates)
+        public TileTypeTemplate(CompleteTileType tileType, List<GameObject> templates, GameObject bottom)
         {
             TileType = tileType;
             Templates = templates;
+            Bottom = bottom;
         }
     }
 
@@ -69,9 +71,17 @@ namespace Assets
         private static readonly Dictionary<MainTileType, Dictionary<string, List<GameObject>>> TileTemplates =
             new Dictionary<MainTileType, Dictionary<string, List<GameObject>>>();
 
+        private static GameObject _bottom;
+
         static TileLoader()
         {
             LoadTileTypeTemplates();
+            LoadBottom();
+        }
+
+        private static void LoadBottom()
+        {
+             _bottom = Resources.LoadAll<GameObject>("Bottoms").First();
         }
 
         private static void LoadTileTypeTemplates()
@@ -151,7 +161,7 @@ namespace Assets
                 subTypeTemplates = defaultSubtypeTemplates.Value;
             }
 
-            return new TileTypeTemplate(completeType, subTypeTemplates);
+            return new TileTypeTemplate(completeType, subTypeTemplates, _bottom);
         }
     }
 }
