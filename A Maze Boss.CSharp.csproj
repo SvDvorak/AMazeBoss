@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Events.cs" />
+    <Compile Include="Assets\ExitLevel.cs" />
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
     <Compile Include="Assets\FileOperations\FileTile.cs" />
     <Compile Include="Assets\FileOperations\FileTiles.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\HeroMove.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorEvents.cs" />
+    <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
     <Compile Include="Assets\LevelEditor\IEnumerableExtensions.cs" />
     <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />

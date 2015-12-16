@@ -6,11 +6,17 @@ public class InterfaceBlockingEditorControls : MonoBehaviour
 
     public void MouseEnteredInterface()
     {
-        EditorInteractionsToDisable.SetActive(false);
+        if(EditorInteractionsToDisable != null)
+        {
+            EditorInteractionsToDisable.SetActive(false);
+        }
     }
 
     public void MouseExitedInterface()
     {
-        EditorInteractionsToDisable.SetActive(true);
+        if(EditorInteractionsToDisable != null)
+        {
+            EditorInteractionsToDisable.SetActive(true);
+        }
     }
 }

@@ -22,13 +22,20 @@ public class TileInfo
 
 public class RoomInfo
 {
-    private static readonly GameObject TilesRoot = new GameObject("Tiles");
+    private static GameObject _tilesRoot;
     private static readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
     private static readonly HashSet<MainTileType> WalkableTiles = new HashSet<MainTileType>()
     {
         MainTileType.Normal,
         MainTileType.Spike
     };
+
+    private static bool _pauseEvents;
+
+    public static void Init()
+    {
+        _tilesRoot = new GameObject("Tiles");
+    }
 
     public static bool HasAnyTileAt(TilePos pos)
     {
@@ -61,7 +68,10 @@ public class RoomInfo
         var tile = CreateTile(tilePos, randomTemplate, rotation);
         Tiles.Add(tilePos, new TileInfo(tileTemplate.TileType, tile, rotation));
 
-        Events.instance.Raise(new TileAdded(tilePos, type.Main, tile));
+        if(!_pauseEvents)
+        {
+            Events.instance.Raise(new TileAdded(tilePos, type.Main, tile));
+        }
     }
 
     private static GameObject CreateTile(TilePos tilePos, GameObject tileTemplate, int rotation)
@@ -70,7 +80,7 @@ public class RoomInfo
             tileTemplate,
             tilePos.ToV3(),
             Quaternion.AngleAxis(rotation * 90, Vector3.up));
-        tile.transform.SetParent(TilesRoot.transform);
+        tile.transform.SetParent(_tilesRoot.transform);
         return tile;
     }
 
@@ -90,11 +100,13 @@ public class RoomInfo
 
     public static void SetAllTiles(Dictionary<TilePos, TileInfo> tiles)
     {
+        _pauseEvents = true;
         ClearTiles();
         foreach (var tile in tiles)
         {
             AddOrReplaceTile(tile.Key, tile.Value.TileType, tile.Value.Rotation);
         }
+        _pauseEvents = false;
     }
 
     public static void ClearTiles()
