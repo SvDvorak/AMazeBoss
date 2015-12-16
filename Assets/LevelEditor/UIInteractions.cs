@@ -12,7 +12,15 @@ namespace Assets.LevelEditor
             _lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
         }
 
-        public void Save(string path)
+        public void Save()
+        {
+            if (_lastUsedPath != "")
+            {
+                SaveAs(_lastUsedPath);
+            }
+        }
+
+        public void SaveAs(string path)
         {
             SetLastUsedPath(path);
             FileOperations.FileOperations.Save(path);
@@ -41,7 +49,7 @@ namespace Assets.LevelEditor
         {
             if(_lastUsedPath != "")
             {
-                Save(_lastUsedPath);
+                SaveAs(_lastUsedPath);
                 Events.instance.Raise(new LoadingScene());
                 SceneManager.LoadScene("test_scene");
             }
