@@ -22,6 +22,8 @@ namespace Assets
         Normal,
         Pillar,
         Wall,
-        Spike
+        Spike,
+        Hero,
+        Boss
     }
 }

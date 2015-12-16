@@ -28,7 +28,9 @@ public static class RoomInfo
     private static readonly HashSet<MainTileType> WalkableTiles = new HashSet<MainTileType>()
     {
         MainTileType.Normal,
-        MainTileType.Spike
+        MainTileType.Spike,
+        MainTileType.Hero,
+        MainTileType.Boss
     };
 
     private static bool _pauseEvents;

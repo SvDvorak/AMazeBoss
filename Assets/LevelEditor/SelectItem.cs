@@ -3,20 +3,17 @@ using UnityEngine;
 
 namespace Assets.LevelEditor
 {
-    public class SelectTile : MonoBehaviour
+    public class SelectItem : MonoBehaviour
     {
-        private Dictionary<int, MainTileType> _numberToTileType;
-
-        public void Start()
-        {
-            _numberToTileType = new Dictionary<int, MainTileType>
+        private readonly Dictionary<int, MainTileType> _numberToTileType = new Dictionary<int, MainTileType>
                 {
                     { 1, MainTileType.Normal },
                     { 2, MainTileType.Pillar },
                     { 3, MainTileType.Wall },
-                    { 4, MainTileType.Spike }
+                    { 4, MainTileType.Spike },
+                    { 5, MainTileType.Hero },
+                    { 6, MainTileType.Boss },
                 };
-        }
 
         public void Update()
         {

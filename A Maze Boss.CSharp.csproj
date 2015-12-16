@@ -85,8 +85,8 @@
     <Compile Include="Assets\LevelEditor\IEnumerableExtensions.cs" />
     <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />
-    <Compile Include="Assets\LevelEditor\PlaceTile.cs" />
-    <Compile Include="Assets\LevelEditor\SelectTile.cs" />
+    <Compile Include="Assets\LevelEditor\PlaceItem.cs" />
+    <Compile Include="Assets\LevelEditor\SelectItem.cs" />
     <Compile Include="Assets\LevelEditor\ShowFileDialogs.cs" />
     <Compile Include="Assets\LevelEditor\UIInteractions.cs" />
     <Compile Include="Assets\LevelEditor\WallAdjuster.cs" />

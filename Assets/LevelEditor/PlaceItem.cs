@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.LevelEditor
 {
-    public class PlaceTile : MonoBehaviour
+    public class PlaceItem : MonoBehaviour
     {
         public Material PreviewMaterial;
         public Text PositionInfo;
