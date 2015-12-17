@@ -13,7 +13,7 @@ namespace Assets.LevelEditor
 
             var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
 
-            if (lastUsedPath != "")
+            if (!string.IsNullOrEmpty(lastUsedPath))
             {
                 FileOperations.FileOperations.Load(lastUsedPath);
             }

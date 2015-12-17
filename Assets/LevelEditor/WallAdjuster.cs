@@ -29,19 +29,20 @@ namespace Assets.LevelEditor
 
         public void Start()
         {
-            Events.instance.AddListener<TileAdded>(AdjustWalls);
-            Events.instance.AddListener<LoadingScene>(Unregister);
-
             _connectionSets.Add("1010", new ConnectionSet("straight", 0));
             _connectionSets.Add("1000", new ConnectionSet("straight", 0));
             _connectionSets.Add("1100", new ConnectionSet("curved", 0));
             ExpandUniqueConnections();
         }
 
-        private void Unregister(LoadingScene e)
+        public void OnEnable()
+        {
+            Events.instance.AddListener<TileAdded>(AdjustWalls);
+        }
+
+        public void OnDisable()
         {
             Events.instance.RemoveListener<TileAdded>(AdjustWalls);
-            Events.instance.RemoveListener<LoadingScene>(Unregister);
         }
 
         private void ExpandUniqueConnections()

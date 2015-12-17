@@ -51,10 +51,10 @@ namespace Assets
             _timeTillMove -= Time.deltaTime;
         }
 
-        private Tuple<int, List<TilePos>> CalculateMoveToHero(TilePos currentPosition)
+        private Tuple<float, List<TilePos>> CalculateMoveToHero(TilePos currentPosition)
         {
             var heroPosition = GetHeroPosition();
-            Tuple<int, List<TilePos>> victoryPath = new Tuple<int, List<TilePos>>();
+            Tuple<float, List<TilePos>> victoryPath = new Tuple<float, List<TilePos>>();
 
             var moveDirections = new List<TilePos>()
                     {
@@ -65,8 +65,8 @@ namespace Assets
                     };
 
             var visited = new HashSet<TilePos>();
-            var positionsToCheck = new List<Tuple<int, List<TilePos>>>();
-            positionsToCheck.Add(new Tuple<int, List<TilePos>>(0, new List<TilePos>() { currentPosition }));
+            var positionsToCheck = new List<Tuple<float, List<TilePos>>>();
+            positionsToCheck.Add(new Tuple<float, List<TilePos>>(0, new List<TilePos>() { currentPosition }));
             while (positionsToCheck.Count > 0)
             {
                 var path = positionsToCheck[0];
@@ -85,7 +85,7 @@ namespace Assets
                     if (RoomInfo.CanMoveTo(move) && !visited.Contains(move))
                     {
                         var cost = (heroPosition - move).Length();
-                        positionsToCheck.Add(new Tuple<int, List<TilePos>>(cost, path.Item2.Concat(move).ToList()));
+                        positionsToCheck.Add(new Tuple<float, List<TilePos>>(cost, path.Item2.Concat(move).ToList()));
                     }
                 }
 

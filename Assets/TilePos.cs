@@ -69,7 +69,12 @@ public struct TilePos
         return string.Format("X: {0}, Y: {1}", X, Z);
     }
 
-    public int Length()
+    public float Length()
+    {
+        return Mathf.Sqrt(X*X + Z*Z);
+    }
+
+    public int ManhattanDistance()
     {
         return X + Z;
     }

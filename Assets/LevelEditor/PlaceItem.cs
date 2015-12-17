@@ -16,15 +16,16 @@ namespace Assets.LevelEditor
         public void Start()
         {
             NewTileTypeSelected(new TileSelected(MainTileType.Normal));
-
-            Events.instance.AddListener<TileSelected>(NewTileTypeSelected);
-            Events.instance.AddListener<LoadingScene>(Unregister);
         }
 
-        private void Unregister(LoadingScene e)
+        public void OnEnable()
+        {
+            Events.instance.AddListener<TileSelected>(NewTileTypeSelected);
+        }
+
+        public void OnDisable()
         {
             Events.instance.RemoveListener<TileSelected>(NewTileTypeSelected);
-            Events.instance.RemoveListener<LoadingScene>(Unregister);
         }
 
         private void NewTileTypeSelected(TileSelected e)
