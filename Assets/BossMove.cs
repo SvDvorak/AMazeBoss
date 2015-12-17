@@ -17,6 +17,12 @@ namespace Assets
     {
         private GameObject _hero;
         private float _timeTillMove;
+        private readonly MovementCalculator _movementCalculator;
+
+        public BossMove()
+        {
+            _movementCalculator = new MovementCalculator();
+        }
 
         public void Start ()
         {
@@ -33,79 +39,17 @@ namespace Assets
             if (_timeTillMove <= 0)
             {
                 var currentPosition = new TilePos(transform.position);
-                var path = CalculateMoveToHero(currentPosition);
+                var movementCalculation = _movementCalculator.CalculateMoveToHero(currentPosition, GetHeroPosition());
 
-                if (path.Item2.Count > 1)
+                if (movementCalculation.Successful)
                 {
-                    var move = (path.Item2.Skip(1).First() - currentPosition);
-
-                    if (RoomInfo.CanMoveTo(currentPosition + move))
-                    {
-                        transform.Translate(move.ToV3(), Space.World);
-                    }
+                    transform.position = movementCalculation.Path.First().ToV3();
                 }
 
                 _timeTillMove += 0.2f;
             }
 
             _timeTillMove -= Time.deltaTime;
-        }
-
-        private Tuple<float, List<TilePos>> CalculateMoveToHero(TilePos currentPosition)
-        {
-            var heroPosition = GetHeroPosition();
-            Tuple<float, List<TilePos>> victoryPath = new Tuple<float, List<TilePos>>();
-
-            var moveDirections = new List<TilePos>()
-                    {
-                        new TilePos(0, 1),
-                        new TilePos(0, -1),
-                        new TilePos(-1, 0),
-                        new TilePos(1, 0),
-                    };
-
-            var visited = new HashSet<TilePos>();
-            var positionsToCheck = new List<Tuple<float, List<TilePos>>>();
-            positionsToCheck.Add(new Tuple<float, List<TilePos>>(0, new List<TilePos>() { currentPosition }));
-            while (positionsToCheck.Count > 0)
-            {
-                var path = positionsToCheck[0];
-                positionsToCheck.RemoveAt(0);
-                var pos = path.Item2[path.Item2.Count-1];
-
-                if (pos == heroPosition)
-                {
-                    victoryPath = path;
-                    break;
-                }
-
-                foreach (var moveDirection in moveDirections)
-                {
-                    var move = pos + moveDirection;
-                    if (RoomInfo.CanMoveTo(move) && !visited.Contains(move))
-                    {
-                        var cost = (heroPosition - move).Length();
-                        positionsToCheck.Add(new Tuple<float, List<TilePos>>(cost, path.Item2.Concat(move).ToList()));
-                    }
-                }
-
-                visited.Add(pos);
-                positionsToCheck = positionsToCheck.OrderBy(x => x.Item1).ToList();
-            }
-
-            return victoryPath;
-        }
-
-        public struct Tuple<T1, T2>
-        {
-            public readonly T1 Item1;
-            public readonly T2 Item2;
-
-            public Tuple(T1 item1, T2 item2)
-            {
-                Item2 = item2;
-                Item1 = item1;
-            }
         }
 
         private TilePos GetHeroPosition()
