@@ -26,7 +26,7 @@ public class HeroMove : MonoBehaviour
 
 	    if (RoomInfo.CanMoveTo(moveDirection + currentPos))
 	    {
-	        transform.Translate(moveDirection.ToV3());
+	        transform.Translate(moveDirection.ToV3(), Space.World);
 	    }
 	}
 }
