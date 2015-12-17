@@ -22,6 +22,21 @@ public struct TilePos
         return new TilePos(pos1.X + pos2.X, pos1.Z + pos2.Z);
     }
 
+    public static TilePos operator -(TilePos pos1, TilePos pos2)
+    {
+        return new TilePos(pos1.X - pos2.X, pos1.Z - pos2.Z);
+    }
+
+    public static bool operator ==(TilePos pos1, TilePos pos2)
+    {
+        return pos1.Equals(pos2);
+    }
+
+    public static bool operator !=(TilePos pos1, TilePos pos2)
+    {
+        return !pos1.Equals(pos2);
+    }
+
     public Vector3 ToV3()
     {
         return new Vector3(X, 0, Z)*TileLength;
@@ -47,5 +62,15 @@ public struct TilePos
         {
             return (X*397) ^ Z;
         }
+    }
+
+    public override string ToString()
+    {
+        return string.Format("X: {0}, Y: {1}", X, Z);
+    }
+
+    public int Length()
+    {
+        return X + Z;
     }
 }

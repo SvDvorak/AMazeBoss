@@ -70,6 +70,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BossMove.cs" />
     <Compile Include="Assets\SceneLoading.cs" />
     <Compile Include="Assets\Events.cs" />
     <Compile Include="Assets\ExitLevel.cs" />

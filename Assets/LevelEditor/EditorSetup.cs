@@ -4,8 +4,11 @@ namespace Assets.LevelEditor
 {
     public class EditorSetup : MonoBehaviour
     {
+        public static bool IsInEditor;
+
         public void Start ()
         {
+            IsInEditor = true;
             RoomInfo.Init();
 
             var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
@@ -14,6 +17,11 @@ namespace Assets.LevelEditor
             {
                 FileOperations.FileOperations.Load(lastUsedPath);
             }
+        }
+
+        public void OnDestroy()
+        {
+            IsInEditor = false;
         }
     }
 }
