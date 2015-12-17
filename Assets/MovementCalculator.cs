@@ -93,7 +93,7 @@ namespace Assets
 
         private void AddNewPathToContinueIfNotBlockedOrVisited(TilePos move, Tuple<float, List<TilePos>> path)
         {
-            if (RoomInfo.CanMoveTo(move) && !_visited.Contains(move))
+            if (RoomInfo.Instance.CanMoveTo(move) && !_visited.Contains(move))
             {
                 var cost = (_targetPosition - move).Length();
                 var newPath = path.Item2.Concat(move).ToList();

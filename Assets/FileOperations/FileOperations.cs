@@ -9,7 +9,7 @@ namespace Assets.FileOperations
     {
         public static void Save(string path)
         {
-            var tileInfos = RoomInfo.GetAllTiles();
+            var tileInfos = RoomInfo.Instance.GetAllTiles();
             var tiles = new FileTiles(tileInfos
                 .Select(x => CreateFileTile(x))
                 .ToList());
@@ -39,7 +39,7 @@ namespace Assets.FileOperations
                     fileTile => new TileInfo(
                         new CompleteTileType(fileTile.MainType, fileTile.Subtype), null, fileTile.Rotation));
 
-            RoomInfo.SetAllTiles(tiles);
+            RoomInfo.Instance.SetAllTiles(tiles);
         }
 
         public static string GetLastUsedPath()

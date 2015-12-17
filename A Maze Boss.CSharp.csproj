@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BossMove.cs" />
+    <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\SceneLoading.cs" />
     <Compile Include="Assets\Events.cs" />
     <Compile Include="Assets\ExitLevel.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\RoomInfo.cs" />
     <Compile Include="Assets\TileLoader.cs" />
     <Compile Include="Assets\TilePos.cs" />
+    <Compile Include="Assets\Tuple.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />

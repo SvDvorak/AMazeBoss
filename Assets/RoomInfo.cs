@@ -21,11 +21,25 @@ public class TileInfo
 }
 
 
-public static class RoomInfo
+public class RoomInfo
 {
-    private static GameObject _tilesRoot;
-    private static readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
-    private static readonly HashSet<MainTileType> WalkableTiles = new HashSet<MainTileType>()
+    private static RoomInfo _instance;
+    public static RoomInfo Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new RoomInfo();
+            }
+            return _instance;
+        }
+        set { _instance = value; }
+    }
+
+    private GameObject _tilesRoot;
+    private readonly Dictionary<TilePos, TileInfo> Tiles = new Dictionary<TilePos, TileInfo>();
+    private readonly HashSet<MainTileType> WalkableTiles = new HashSet<MainTileType>()
     {
         MainTileType.Normal,
         MainTileType.Spike,
@@ -33,39 +47,39 @@ public static class RoomInfo
         MainTileType.Boss
     };
 
-    private static bool _pauseEvents;
+    private bool _pauseEvents;
 
-    static RoomInfo()
+    public RoomInfo()
     {
         Events.instance.AddListener<LoadingScene>(x => ClearTiles());
     }
 
-    public static void Init()
+    public void Init()
     {
         _tilesRoot = new GameObject("Tiles");
     }
 
-    public static bool HasAnyTileAt(TilePos pos)
+    public bool HasAnyTileAt(TilePos pos)
     {
         return Tiles.ContainsKey(pos);
     }
 
-    public static bool HasTileAt(TilePos pos, MainTileType type)
+    public bool HasTileAt(TilePos pos, MainTileType type)
     {
         return Tiles.ContainsKey(pos) && Tiles[pos].TileType.Main == type;
     }
 
-    public static bool CanMoveTo(TilePos pos)
+    public bool CanMoveTo(TilePos pos)
     {
         return HasAnyTileAt(pos) && WalkableTiles.Contains(Tiles[pos].TileType.Main);
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, MainTileType type)
+    public void AddOrReplaceTile(TilePos tilePos, MainTileType type)
     {
         AddOrReplaceTile(tilePos, new CompleteTileType(type));
     }
 
-    public static void AddOrReplaceTile(TilePos tilePos, CompleteTileType type, int? preferredRotation = null)
+    public void AddOrReplaceTile(TilePos tilePos, CompleteTileType type, int? preferredRotation = null)
     {
         RemoveTile(tilePos);
 
@@ -82,7 +96,7 @@ public static class RoomInfo
         }
     }
 
-    private static GameObject CreateParented(TilePos tilePos, GameObject tileTemplate, GameObject bottomTemplate, int rotation = 0)
+    private GameObject CreateParented(TilePos tilePos, GameObject tileTemplate, GameObject bottomTemplate, int rotation = 0)
     {
         var tileInstance = (GameObject)Object.Instantiate(
              tileTemplate,
@@ -95,7 +109,7 @@ public static class RoomInfo
         return tileInstance;
     }
 
-    public static void RemoveTile(TilePos tilePos)
+    public void RemoveTile(TilePos tilePos)
     {
         if (HasAnyTileAt(tilePos))
         {
@@ -104,12 +118,12 @@ public static class RoomInfo
         }
     }
 
-    public static Dictionary<TilePos, TileInfo> GetAllTiles()
+    public Dictionary<TilePos, TileInfo> GetAllTiles()
     {
         return Tiles;
     }
 
-    public static void SetAllTiles(Dictionary<TilePos, TileInfo> tiles)
+    public void SetAllTiles(Dictionary<TilePos, TileInfo> tiles)
     {
         _pauseEvents = true;
         ClearTiles();
@@ -120,7 +134,7 @@ public static class RoomInfo
         _pauseEvents = false;
     }
 
-    public static void ClearTiles()
+    public void ClearTiles()
     {
         var tilePositions = Tiles.Select(x => x.Key).ToList();
         foreach (var tilePos in tilePositions)

@@ -24,7 +24,7 @@ public class HeroMove : MonoBehaviour
             moveDirection = new TilePos(1, 0);
         }
 
-	    if (RoomInfo.CanMoveTo(moveDirection + currentPos))
+	    if (RoomInfo.Instance.CanMoveTo(moveDirection + currentPos))
 	    {
 	        transform.Translate(moveDirection.ToV3(), Space.World);
 	    }

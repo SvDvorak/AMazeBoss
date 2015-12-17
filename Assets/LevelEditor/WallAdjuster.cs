@@ -75,7 +75,7 @@ namespace Assets.LevelEditor
 
             _isAdjusting = true;
 
-            var copiedTileInfos = new Dictionary<TilePos, TileInfo>(RoomInfo.GetAllTiles());
+            var copiedTileInfos = new Dictionary<TilePos, TileInfo>(RoomInfo.Instance.GetAllTiles());
             foreach (var tile in copiedTileInfos)
             {
                 if (tile.Value.TileType.Main == MainTileType.Wall)
@@ -104,7 +104,7 @@ namespace Assets.LevelEditor
             var tileTransform = tileInfo.Tile.transform;
             if (tileInfo.TileType.Subtype != connectionSet.SubtypeName)
             {
-                RoomInfo.AddOrReplaceTile(tilePos, new CompleteTileType(MainTileType.Wall, connectionSet.SubtypeName), connectionSet.Rotation);
+                RoomInfo.Instance.AddOrReplaceTile(tilePos, new CompleteTileType(MainTileType.Wall, connectionSet.SubtypeName), connectionSet.Rotation);
             }
             else if (Math.Abs((int) (tileTransform.rotation.eulerAngles.y - connectionSet.Rotation*90)) > 0.001f)
             {
@@ -114,7 +114,7 @@ namespace Assets.LevelEditor
 
         private string IsWall(TilePos tilePos)
         {
-            return (RoomInfo.HasTileAt(tilePos, MainTileType.Wall) ? 1 : 0).ToString();
+            return (RoomInfo.Instance.HasTileAt(tilePos, MainTileType.Wall) ? 1 : 0).ToString();
         }
     }
 }
