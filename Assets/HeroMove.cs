@@ -48,7 +48,7 @@ namespace Assets
                 }
             }
 
-            if (RoomInfo.Instance.CanMoveTo(newMove + currentPos))
+            if (RoomInfoTwo.Instance.CanMoveTo(newMove + currentPos))
             {
                 transform.Translate(newMove.ToV3(), Space.World);
             }

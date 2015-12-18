@@ -66,14 +66,18 @@ namespace Assets
         }
     }
 
-    public static class TileLoader
+    public static class TileSubtypes
+    {
+    }
+
+    public static class TemplateLoader
     {
         private static readonly Dictionary<MainTileType, Dictionary<string, List<GameObject>>> TileTemplates =
             new Dictionary<MainTileType, Dictionary<string, List<GameObject>>>();
 
         private static GameObject _bottom;
 
-        static TileLoader()
+        static TemplateLoader()
         {
             LoadTileTypeTemplates();
             LoadBottom();

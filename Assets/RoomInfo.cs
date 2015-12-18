@@ -21,6 +21,151 @@ public class TileInfo
 }
 
 
+public interface IRoomObject
+{
+    void Add(TilePos position, RoomInfoTwo roomInfo);
+}
+
+public class Tile : IRoomObject
+{
+    public readonly MainTileType Type;
+    public TilePos Position { get; set; }
+    public int? Rotation { get; set; }
+    public string Subtype { get; set; }
+
+    public Tile(MainTileType type)
+    {
+        Type = type;
+    }
+
+    public Tile Copy()
+    {
+        return new Tile(Type) { Position = Position, Rotation = Rotation };
+    }
+
+    public void Add(TilePos position, RoomInfoTwo roomInfo)
+    {
+        Position = position;
+        roomInfo.AddOrReplaceTiles(this);
+    }
+
+    public bool CanHoldItem(TilePos position)
+    {
+        return true;
+    }
+
+#region Equality-members
+    protected bool Equals(Tile other)
+    {
+        return Type == other.Type && Position.Equals(other.Position) && Rotation == other.Rotation && string.Equals(Subtype, other.Subtype);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj))
+        {
+            return false;
+        }
+        if (ReferenceEquals(this, obj))
+        {
+            return true;
+        }
+        if (obj.GetType() != this.GetType())
+        {
+            return false;
+        }
+        return Equals((Tile) obj);
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            var hashCode = (int) Type;
+            hashCode = (hashCode*397) ^ Position.GetHashCode();
+            hashCode = (hashCode*397) ^ Rotation.GetHashCode();
+            hashCode = (hashCode*397) ^ (Subtype != null ? Subtype.GetHashCode() : 0);
+            return hashCode;
+        }
+    }
+    #endregion
+}
+
+public class RoomInfoTwo
+{
+    private static RoomInfoTwo _instance;
+    public static RoomInfoTwo Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new RoomInfoTwo();
+            }
+            return _instance;
+        }
+        set { _instance = value; }
+    }
+
+    private readonly Dictionary<TilePos, Tile> _tiles = new Dictionary<TilePos, Tile>();
+
+    public void AddOrReplaceTiles(params Tile[] tiles)
+    {
+        var tileList = tiles.ToList();
+        RemoveTiles(tiles.Select(x => x.Position).ToArray());
+
+        foreach (var tile in tileList)
+        {
+            _tiles.Add(tile.Position, tile);
+        }
+
+        Events.instance.Raise(new TilesAddedTwo(tileList));
+    }
+
+    public bool HasAnyTileAt(TilePos pos)
+    {
+        return _tiles.ContainsKey(pos);
+    }
+
+    public bool HasTileAt(TilePos position, MainTileType type)
+    {
+        return HasAnyTileAt(position) && _tiles[position].Type == type;
+    }
+
+    public bool CanMoveTo(TilePos position)
+    {
+        return HasAnyTileAt(position) && _tiles[position].CanHoldItem(position);
+    }
+
+    public void RemoveTiles(params TilePos[] tilePositions)
+    {
+        var removedTilePositions = new List<TilePos>();
+        foreach (var tilePosition in tilePositions.Where(HasAnyTileAt))
+        {
+            _tiles.Remove(tilePosition);
+            removedTilePositions.Add(tilePosition);
+        }
+
+        Events.instance.Raise(new TilesRemoved(removedTilePositions));
+    }
+
+    public void ClearTiles()
+    {
+        RemoveTiles(_tiles.Select(x => x.Key).ToArray());
+    }
+
+    public List<Tile> GetAllTiles()
+    {
+        return _tiles.Select(x => x.Value).ToList();
+    }
+
+    public void SetAllTiles(Dictionary<TilePos, Tile> tiles)
+    {
+        ClearTiles();
+        AddOrReplaceTiles(tiles.Select(x => x.Value).ToArray());
+    }
+}
+
 public class RoomInfo
 {
     private static RoomInfo _instance;
@@ -83,7 +228,7 @@ public class RoomInfo
     {
         RemoveTile(tilePos);
 
-        var tileTemplate = TileLoader.Retrieve(type);
+        var tileTemplate = TemplateLoader.Retrieve(type);
 
         var randomTemplate = tileTemplate.Templates[Random.Range(0, tileTemplate.Templates.Count)];
         var rotation = preferredRotation ?? Random.Range(0, 4);

@@ -35,7 +35,7 @@ namespace Assets.LevelEditor
         public void Clear()
         {
             SetLastUsedPath("");
-            RoomInfo.Instance.ClearTiles();
+            RoomInfoTwo.Instance.ClearTiles();
         }
 
         private void SetLastUsedPath(string path)

@@ -5,17 +5,45 @@ using UnityEngine.UI;
 
 namespace Assets.LevelEditor
 {
+    public class ItemPreview
+    {
+        private GameObject _previewObject;
+        private readonly Material _previewMaterial;
+
+        public ItemPreview(Material previewMaterial)
+        {
+            _previewMaterial = previewMaterial;
+        }
+
+        public void Recreate(MainTileType tile)
+        {
+            if (_previewObject != null)
+            {
+                GameObject.Destroy(_previewObject);
+                _previewObject = null;
+            }
+
+            _previewObject = GameObject.Instantiate(TemplateLoader.Retrieve(new CompleteTileType(tile)).Templates.First());
+            _previewObject.GetComponent<MeshRenderer>().material = _previewMaterial;
+        }
+
+        public void Update(TilePos position)
+        {
+            _previewObject.transform.position = position.ToV3();
+        }
+    }
+
     public class PlaceItem : MonoBehaviour
     {
         public Material PreviewMaterial;
         public Text PositionInfo;
 
-        private MainTileType _tileSelected;
-        private GameObject _preview;
+        private Tile _tileSelected;
+        private ItemPreview _preview;
 
         public void Start()
         {
-            NewTileTypeSelected(new TileSelected(MainTileType.Normal));
+            _preview = new ItemPreview(PreviewMaterial);
         }
 
         public void OnEnable()
@@ -30,21 +58,9 @@ namespace Assets.LevelEditor
 
         private void NewTileTypeSelected(TileSelected e)
         {
-            _tileSelected = e.TileTypeSelected;
+            _tileSelected = e.SelectedTile;
 
-            CreatePreview();
-        }
-
-        private void CreatePreview()
-        {
-            if (_preview != null)
-            {
-                Destroy(_preview);
-                _preview = null;
-            }
-
-            _preview = Instantiate(TileLoader.Retrieve(new CompleteTileType(_tileSelected)).Templates.First());
-            _preview.GetComponent<MeshRenderer>().material = PreviewMaterial;
+            _preview.Recreate(_tileSelected.Type);
         }
 
         public void Update()
@@ -53,18 +69,18 @@ namespace Assets.LevelEditor
 
             if (mouseTilePosition.HasValue)
             {
-                UpdatePreview(mouseTilePosition.Value);
+                _preview.Update(mouseTilePosition.Value);
                 PositionInfo.text = string.Format("X: {0}\nY: {1}", mouseTilePosition.Value.X, mouseTilePosition.Value.Z);
             }
 
             Action<TilePos> clickAction = null;
             if (Input.GetMouseButtonDown(0))
             {
-                clickAction = tilePos => RoomInfo.Instance.AddOrReplaceTile(tilePos, _tileSelected);
+                clickAction = AddTile;
             }
-            else if(Input.GetMouseButtonDown(1))
+            else if (Input.GetMouseButtonDown(1))
             {
-                clickAction = RoomInfo.Instance.RemoveTile;
+                clickAction = x => RoomInfoTwo.Instance.RemoveTiles(x);
             }
 
             if (mouseTilePosition.HasValue && clickAction != null)
@@ -73,9 +89,12 @@ namespace Assets.LevelEditor
             }
         }
 
-        private void UpdatePreview(TilePos? mouseTilePosition)
+        private void AddTile(TilePos tilePos)
         {
-            _preview.transform.position = mouseTilePosition.Value.ToV3();
+            var selectedCopy = _tileSelected.Copy();
+            selectedCopy.Position = tilePos;
+
+            RoomInfoTwo.Instance.AddOrReplaceTiles(selectedCopy);
         }
 
         private static TilePos? GetMouseTilePosition()

@@ -1,4 +1,5 @@
-﻿using Assets;
+﻿using System.Collections.Generic;
+using Assets;
 using UnityEngine;
 
 public class TileAdded : GameEvent
@@ -12,5 +13,25 @@ public class TileAdded : GameEvent
         TilePos = tilePos;
         TileType = tileType;
         GameObject = gameObject;
+    }
+}
+
+public class TilesAddedTwo : GameEvent
+{
+    public List<Tile> Tiles { get; private set; }
+
+    public TilesAddedTwo(List<Tile> tiles)
+    {
+        Tiles = tiles;
+    }
+}
+
+public class TilesRemoved : GameEvent
+{
+    public List<TilePos> TilePositions { get; private set; }
+
+    public TilesRemoved(List<TilePos> tilePositions)
+    {
+        TilePositions = tilePositions;
     }
 }

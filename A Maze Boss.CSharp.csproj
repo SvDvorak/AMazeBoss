@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -96,9 +94,10 @@
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\RoomInfo.cs" />
     <Compile Include="Assets\SceneLoading.cs" />
-    <Compile Include="Assets\TileLoader.cs" />
+    <Compile Include="Assets\TemplateLoader.cs" />
     <Compile Include="Assets\TilePos.cs" />
     <Compile Include="Assets\Tuple.cs" />
+    <Compile Include="Assets\UnityRoomObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />

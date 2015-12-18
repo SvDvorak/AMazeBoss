@@ -37,12 +37,12 @@ namespace Assets.LevelEditor
 
         public void OnEnable()
         {
-            Events.instance.AddListener<TileAdded>(AdjustWalls);
+            Events.instance.AddListener<TilesAddedTwo>(AdjustWalls);
         }
 
         public void OnDisable()
         {
-            Events.instance.RemoveListener<TileAdded>(AdjustWalls);
+            Events.instance.RemoveListener<TilesAddedTwo>(AdjustWalls);
         }
 
         private void ExpandUniqueConnections()
@@ -66,33 +66,34 @@ namespace Assets.LevelEditor
             }
         }
 
-        private void AdjustWalls(TileAdded e)
+        private void AdjustWalls(TilesAddedTwo e)
         {
-            if (_isAdjusting || e.TileType != MainTileType.Wall)
+            if (_isAdjusting || e.Tiles.Any(x => x.Type != MainTileType.Wall))
             {
                 return;
             }
 
             _isAdjusting = true;
 
-            var copiedTileInfos = new Dictionary<TilePos, TileInfo>(RoomInfo.Instance.GetAllTiles());
+            var copiedTileInfos = RoomInfoTwo.Instance.GetAllTiles();
             foreach (var tile in copiedTileInfos)
             {
-                if (tile.Value.TileType.Main == MainTileType.Wall)
+                if (tile.Type == MainTileType.Wall)
                 {
-                    AdjustAccordingToNeighbors(tile.Key, tile.Value);
+                    AdjustAccordingToNeighbors(tile);
                 }
             }
 
             _isAdjusting = false;
         }
 
-        private void AdjustAccordingToNeighbors(TilePos tilePos, TileInfo tileInfo)
+        private void AdjustAccordingToNeighbors(Tile tile)
         {
-            var connections = IsWall(tilePos + new TilePos(0, 1)) +
-                IsWall(tilePos + new TilePos(1, 0)) +
-                IsWall(tilePos + new TilePos(0, -1)) +
-                IsWall(tilePos + new TilePos(-1, 0));
+            var connections =
+                IsWall(tile.Position + new TilePos(0, 1)) +
+                IsWall(tile.Position + new TilePos(1, 0)) +
+                IsWall(tile.Position + new TilePos(0, -1)) +
+                IsWall(tile.Position + new TilePos(-1, 0));
 
             if (!_connectionSets.ContainsKey(connections))
             {
@@ -101,20 +102,18 @@ namespace Assets.LevelEditor
 
             var connectionSet = _connectionSets[connections];
 
-            var tileTransform = tileInfo.Tile.transform;
-            if (tileInfo.TileType.Subtype != connectionSet.SubtypeName)
+            var expectedTile = tile.Copy();
+            expectedTile.Subtype = connectionSet.SubtypeName;
+            expectedTile.Rotation = connectionSet.Rotation;
+            if (!expectedTile.Equals(tile))
             {
-                RoomInfo.Instance.AddOrReplaceTile(tilePos, new CompleteTileType(MainTileType.Wall, connectionSet.SubtypeName), connectionSet.Rotation);
-            }
-            else if (Math.Abs((int) (tileTransform.rotation.eulerAngles.y - connectionSet.Rotation*90)) > 0.001f)
-            {
-                tileTransform.rotation = Quaternion.Euler(0, connectionSet.Rotation*90, 0);
+                RoomInfoTwo.Instance.AddOrReplaceTiles(expectedTile);
             }
         }
 
         private string IsWall(TilePos tilePos)
         {
-            return (RoomInfo.Instance.HasTileAt(tilePos, MainTileType.Wall) ? 1 : 0).ToString();
+            return (RoomInfoTwo.Instance.HasTileAt(tilePos, MainTileType.Wall) ? 1 : 0).ToString();
         }
     }
 }

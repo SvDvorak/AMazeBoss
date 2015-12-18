@@ -8,15 +8,15 @@ namespace Assets.LevelEditor
 
         public void Start ()
         {
-            IsInEditor = true;
-            RoomInfo.Instance.Init();
+            //IsInEditor = true;
+            //RoomInfo.Instance.Init();
 
-            var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
+            //var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
 
-            if (!string.IsNullOrEmpty(lastUsedPath))
-            {
-                FileOperations.FileOperations.Load(lastUsedPath);
-            }
+            //if (!string.IsNullOrEmpty(lastUsedPath))
+            //{
+            //    FileOperations.FileOperations.Load(lastUsedPath);
+            //}
         }
 
         public void OnDestroy()
