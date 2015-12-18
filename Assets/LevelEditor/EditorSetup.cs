@@ -9,7 +9,7 @@ namespace Assets.LevelEditor
         public void Start ()
         {
             IsInEditor = true;
-            RoomInfo.Init();
+            RoomInfo.Instance.Init();
 
             var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
 

@@ -60,11 +60,11 @@ namespace Assets.LevelEditor
             Action<TilePos> clickAction = null;
             if (Input.GetMouseButtonDown(0))
             {
-                clickAction = tilePos => RoomInfo.AddOrReplaceTile(tilePos, _tileSelected);
+                clickAction = tilePos => RoomInfo.Instance.AddOrReplaceTile(tilePos, _tileSelected);
             }
             else if(Input.GetMouseButtonDown(1))
             {
-                clickAction = RoomInfo.RemoveTile;
+                clickAction = RoomInfo.Instance.RemoveTile;
             }
 
             if (mouseTilePosition.HasValue && clickAction != null)

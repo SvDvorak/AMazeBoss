@@ -9,7 +9,7 @@ public class LoadLevel : MonoBehaviour
 
 	public void Start ()
     {
-        RoomInfo.Init();
+        RoomInfo.Instance.Init();
 
         if(EditorLevelPath != "")
         {
