@@ -1,32 +1,63 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class HeroMove : MonoBehaviour
+namespace Assets
 {
-	void Update ()
-	{
-        var currentPos = new TilePos(transform.position);
-	    var moveDirection = new TilePos(0, 0);
+    public class HeroMove : MonoBehaviour
+    {
+        private readonly Dictionary<KeyCode, TilePos> _moveDirections = new Dictionary<KeyCode, TilePos>
+            {
+                { KeyCode.UpArrow, new TilePos(0, 1) },
+                { KeyCode.DownArrow, new TilePos(0, -1) },
+                { KeyCode.LeftArrow, new TilePos(-1, 0) },
+                { KeyCode.RightArrow, new TilePos(1, 0) }
+            };
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-	    {
-	        moveDirection = new TilePos(0, 1);
-	    }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        private bool _frozen = false;
+
+        public void OnEnable()
         {
-	        moveDirection = new TilePos(0, -1);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            moveDirection = new TilePos(-1, 0);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            moveDirection = new TilePos(1, 0);
+            Events.instance.AddListener<CurseSwitch>(SetCurse);
         }
 
-	    if (RoomInfo.Instance.CanMoveTo(moveDirection + currentPos))
-	    {
-	        transform.Translate(moveDirection.ToV3(), Space.World);
-	    }
-	}
+        public void OnDisable()
+        {
+            Events.instance.RemoveListener<CurseSwitch>(SetCurse);
+        }
+
+        private void SetCurse(CurseSwitch e)
+        {
+            _frozen = !e.CurseBoss;
+        }
+
+        public void Update()
+        {
+            if (_frozen)
+            {
+                return;
+            }
+
+            var currentPos = new TilePos(transform.position);
+            var newMove = new TilePos(0, 0);
+
+            foreach (var moveDirection in _moveDirections)
+            {
+                if (Input.GetKeyDown(moveDirection.Key))
+                {
+                    newMove = moveDirection.Value;
+                }
+            }
+
+            if (RoomInfo.Instance.CanMoveTo(newMove + currentPos))
+            {
+                transform.Translate(newMove.ToV3(), Space.World);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                _frozen = true;
+                Events.instance.Raise(new CurseSwitch(false));
+            }
+        }
+    }
 }

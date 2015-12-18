@@ -14,17 +14,22 @@ namespace Assets
             RemoveCurrentPositionIfSuccesful(path);
         }
 
-        public bool Successful
-        {
-            get { return Path.Count > 0; }
-        }
-
         private void RemoveCurrentPositionIfSuccesful(List<TilePos> path)
         {
             if (Successful)
             {
                 path.RemoveAt(0);
             }
+        }
+
+        public bool Successful
+        {
+            get { return Path.Count > 0; }
+        }
+
+        public TilePos NextStep()
+        {
+            return Path.First();
         }
     }
 
@@ -42,7 +47,7 @@ namespace Assets
         private HashSet<TilePos> _visited;
         private TilePos _targetPosition;
 
-        public MovementCalculation CalculateMoveToHero(TilePos currentPosition, TilePos targetPosition)
+        public MovementCalculation CalculateMoveToTarget(TilePos currentPosition, TilePos targetPosition)
         {
             _targetPosition = targetPosition;
             var victoryPath = new Tuple<float, List<TilePos>>();

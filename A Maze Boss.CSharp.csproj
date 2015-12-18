@@ -71,8 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BossMove.cs" />
-    <Compile Include="Assets\MovementCalculator.cs" />
-    <Compile Include="Assets\SceneLoading.cs" />
+    <Compile Include="Assets\CurseSwitch.cs" />
     <Compile Include="Assets\Events.cs" />
     <Compile Include="Assets\ExitLevel.cs" />
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
@@ -81,6 +80,7 @@
     <Compile Include="Assets\GameEvents.cs" />
     <Compile Include="Assets\GameObjectExtensions.cs" />
     <Compile Include="Assets\HeroMove.cs" />
+    <Compile Include="Assets\IEnumerableExtensions.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorEvents.cs" />
     <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
@@ -93,7 +93,9 @@
     <Compile Include="Assets\LevelEditor\UIInteractions.cs" />
     <Compile Include="Assets\LevelEditor\WallAdjuster.cs" />
     <Compile Include="Assets\LoadLevel.cs" />
+    <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\RoomInfo.cs" />
+    <Compile Include="Assets\SceneLoading.cs" />
     <Compile Include="Assets\TileLoader.cs" />
     <Compile Include="Assets\TilePos.cs" />
     <Compile Include="Assets\Tuple.cs" />

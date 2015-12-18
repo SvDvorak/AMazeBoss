@@ -1,23 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Assets.LevelEditor;
 using UnityEngine;
 
 namespace Assets
 {
-    public static class IEnumerableExtensions
-    {
-        public static IEnumerable<T> Concat<T>(this IEnumerable<T> list, T item)
-        {
-            return list.Concat(new[] { item });
-        }
-    }
-
     public class BossMove : MonoBehaviour
     {
         private GameObject _hero;
         private float _timeTillMove;
+        private bool _frozen;
+
         private readonly MovementCalculator _movementCalculator;
+        private MovementCalculation _currentMovePlan;
 
         public BossMove()
         {
@@ -26,24 +20,47 @@ namespace Assets
 
         public void Start ()
         {
+            _frozen = true;
             _timeTillMove = 1;
         }
-	
+
+        public void OnEnable()
+        {
+            Events.instance.AddListener<CurseSwitch>(SetCurse);
+        }
+
+        public void OnDisable()
+        {
+            Events.instance.RemoveListener<CurseSwitch>(SetCurse);
+        }
+
+        private void SetCurse(CurseSwitch e)
+        {
+            _frozen = e.CurseBoss;
+        }
+
         public void Update ()
         {
-            if (EditorSetup.IsInEditor)
+            if (EditorSetup.IsInEditor || _frozen)
             {
                 return;
+            }
+
+            var targetPosition = GetHeroPosition();
+            if (_currentMovePlan != null && _currentMovePlan.NextStep() == targetPosition)
+            {
+                _frozen = true;
+                Events.instance.Raise(new CurseSwitch(true));
             }
 
             if (_timeTillMove <= 0)
             {
                 var currentPosition = new TilePos(transform.position);
-                var movementCalculation = _movementCalculator.CalculateMoveToHero(currentPosition, GetHeroPosition());
+                _currentMovePlan = _movementCalculator.CalculateMoveToTarget(currentPosition, targetPosition);
 
-                if (movementCalculation.Successful)
+                if (_currentMovePlan.Successful)
                 {
-                    transform.position = movementCalculation.Path.First().ToV3();
+                    transform.position = _currentMovePlan.NextStep().ToV3();
                 }
 
                 _timeTillMove += 0.2f;
