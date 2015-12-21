@@ -45,6 +45,7 @@ namespace Assets.EntitasRefactor
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreatePreviewTilePositionChangedSystem())
                 .Add(pool.CreatePreviewTileTypeChangedSystem())
+                .Add(pool.CreatePreviewMaterialChangeSystem())
 
             // Render
                 .Add(pool.CreateTileTemplateSelectorSystem())

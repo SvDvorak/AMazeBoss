@@ -12,16 +12,16 @@ namespace Entitas {
             _rotationComponentPool.Clear();
         }
 
-        public Entity AddRotation(int newRotation) {
+        public Entity AddRotation(int newValue) {
             var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new Assets.EntitasRefactor.RotationComponent();
-            component.Value = newRotation;
+            component.Value = newValue;
             return AddComponent(ComponentIds.Rotation, component);
         }
 
-        public Entity ReplaceRotation(int newRotation) {
+        public Entity ReplaceRotation(int newValue) {
             var previousComponent = hasRotation ? rotation : null;
             var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new Assets.EntitasRefactor.RotationComponent();
-            component.Value = newRotation;
+            component.Value = newValue;
             ReplaceComponent(ComponentIds.Rotation, component);
             if (previousComponent != null) {
                 _rotationComponentPool.Push(previousComponent);
