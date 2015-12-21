@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Entitas;
-using UnityEngine;
 
-namespace Assets.EntitasRefactor
+namespace Assets.EntitasRefactor.Input
 {
     public class SelectTileSystem : IInitializeSystem, IExecuteSystem, ISetPool
     {
@@ -36,7 +33,7 @@ namespace Assets.EntitasRefactor
             MainTileType? selected = null;
             for (int i = 1; i <= _numberToTileType.Keys.Count; i++)
             {
-                if (Input.GetKeyDown(i.ToString()))
+                if (UnityEngine.Input.GetKeyDown(i.ToString()))
                 {
                     selected = _numberToTileType[i];
                 }

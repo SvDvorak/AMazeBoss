@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-namespace Assets.EntitasRefactor
+namespace Assets.EntitasRefactor.Render
 {
     public class RenderPositionsSystem : IReactiveSystem
     {

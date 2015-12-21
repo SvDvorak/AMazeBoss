@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-namespace Assets.EntitasRefactor
+namespace Assets.EntitasRefactor.Render
 {
     public class AddViewSystem : IReactiveSystem
     {

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Entitas;
+﻿using Entitas;
 using UnityEngine;
 
-namespace Assets.EntitasRefactor
+namespace Assets.EntitasRefactor.Input
 {
     public class MouseInputSystem : IExecuteSystem, ISetPool
     {
@@ -34,7 +30,7 @@ namespace Assets.EntitasRefactor
 
         private static TilePos GetMouseTilePosition()
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
             var hPlane = new Plane(Vector3.up, Vector3.zero);
             float distance;
             if (hPlane.Raycast(ray, out distance))
