@@ -70,6 +70,16 @@
   <ItemGroup>
     <Compile Include="Assets\BossMove.cs" />
     <Compile Include="Assets\CurseSwitch.cs" />
+    <Compile Include="Assets\EntitasRefactor\AddViewSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\EntitasSetup.cs" />
+    <Compile Include="Assets\EntitasRefactor\MouseInputSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\PlaceTileSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\Preview\PreviewChangedSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\Preview\PreviewTilePositionChangedSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\Preview\PreviewTileTypeChangedSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\RenderPositionsSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\SelectTileSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\TileSelectComponent.cs" />
     <Compile Include="Assets\Events.cs" />
     <Compile Include="Assets\ExitLevel.cs" />
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
@@ -77,6 +87,22 @@
     <Compile Include="Assets\FileOperations\FileTiles.cs" />
     <Compile Include="Assets\GameEvents.cs" />
     <Compile Include="Assets\GameObjectExtensions.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.AddViewSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.InputComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.MouseInputSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.PlaceTileSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.PositionComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.Preview.PreviewTilePositionChangedSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.Preview.PreviewTileTypeChangedSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.PreviewComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.RenderPositionsSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.ResourceComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.SelectTileSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.TileComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.TileSelectComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.ViewComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\ComponentIds.cs" />
+    <Compile Include="Assets\Generated\Pools.cs" />
     <Compile Include="Assets\HeroMove.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
@@ -90,6 +116,37 @@
     <Compile Include="Assets\LevelEditor\ShowFileDialogs.cs" />
     <Compile Include="Assets\LevelEditor\UIInteractions.cs" />
     <Compile Include="Assets\LevelEditor\WallAdjuster.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Attributes\DontGenerateAttribute.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Attributes\PoolAttribute.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Attributes\SingleEntityAttribute.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\DebugSystems\DebugSystems.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\DebugSystems\DebugSystemsBehaviour.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\EntityBehaviour.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\PoolObserver\PoolObserver.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\PoolObserver\PoolObserverBehaviour.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity\Properties.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Entity.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Extensions\CollectionExtension.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Extensions\GroupExtension.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Extensions\IMatcherExtension.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Extensions\PoolExtension.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Group.cs" />
+    <Compile Include="Assets\Libraries\Entitas\GroupObserver.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Interfaces\IComponent.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Interfaces\IExecuteSystem.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Interfaces\IInitializeSystem.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Interfaces\IMatcher.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Interfaces\IReactiveSystem.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Interfaces\ISystem.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Matcher\Matcher.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Matcher\MatcherEquals.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Matcher\MatcherInterfaces.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Matcher\MatcherStatic.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Matcher\MatcherToString.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Matcher\TriggerOnEvent.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Pool.cs" />
+    <Compile Include="Assets\Libraries\Entitas\ReactiveSystem.cs" />
+    <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
     <Compile Include="Assets\LoadLevel.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\RoomInfo.cs" />
@@ -100,6 +157,7 @@
     <Compile Include="Assets\UnityRoomObjects.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Libraries\LICENSE.txt" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
   </ItemGroup>

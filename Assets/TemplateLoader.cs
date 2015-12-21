@@ -68,6 +68,17 @@ namespace Assets
 
     public static class TileSubtypes
     {
+        private static Dictionary<MainTileType, List<string>> _subtypes = new Dictionary<MainTileType, List<string>>();
+
+        public static void SetSubtypes(Dictionary<MainTileType, List<string>> subtypes)
+        {
+            _subtypes = subtypes;
+        }
+
+        public static List<string> GetSubtypesFor(MainTileType type)
+        {
+            return _subtypes[type];
+        } 
     }
 
     public static class TemplateLoader
@@ -92,6 +103,7 @@ namespace Assets
         {
             var tileTypes = TileTypeHelper.GetAsList();
             var allTiles = LoadTiles();
+            var subtypeNames = new Dictionary<MainTileType, List<string>>();
 
             foreach (var mainType in tileTypes)
             {
@@ -104,8 +116,11 @@ namespace Assets
                     Debug.LogWarning("No tiles available for " + mainType);
                 }
 
+                subtypeNames.Add(mainType, tileTypeGameObjects.Select(x => x.name).ToList());
                 AddSubtypes(mainType, tileTypeGameObjects);
             }
+
+            TileSubtypes.SetSubtypes(subtypeNames);
         }
 
         private static void AddSubtypes(MainTileType mainType, List<GameObject> tileTypeGameObjects)

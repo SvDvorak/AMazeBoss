@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets;
+using Assets.LevelEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -23,39 +24,55 @@ public class TileInfo
 
 public interface IRoomObject
 {
-    void Add(TilePos position, RoomInfoTwo roomInfo);
+    void AddToRoom(TilePos position, RoomInfoTwo roomInfo);
 }
 
-public class Tile : IRoomObject
+public class StandardTile : IRoomObject
 {
-    public readonly MainTileType Type;
+    public MainTileType Type { get; private set; }
+    public string Subtype { get; set; }
     public TilePos Position { get; set; }
     public int? Rotation { get; set; }
-    public string Subtype { get; set; }
 
-    public Tile(MainTileType type)
+    public StandardTile(MainTileType type)
     {
         Type = type;
+        Subtype = "";
     }
 
-    public Tile Copy()
+    public virtual StandardTile Copy()
     {
-        return new Tile(Type) { Position = Position, Rotation = Rotation };
+        return new StandardTile(Type) { Position = Position, Rotation = Rotation };
     }
 
-    public void Add(TilePos position, RoomInfoTwo roomInfo)
+    protected void CopyProperties(StandardTile tile)
+    {
+        tile.Type = Type;
+        tile.Subtype = Subtype;
+        tile.Position = Position;
+        tile.Rotation = Rotation;
+    }
+
+    public virtual void AddToRoom(TilePos position, RoomInfoTwo roomInfo)
     {
         Position = position;
+
+        if (Subtype == "")
+        {
+            var subtypes = TileSubtypes.GetSubtypesFor(Type);
+            Subtype = subtypes.Count > 0 ? subtypes.First() : "";
+        }
+
         roomInfo.AddOrReplaceTiles(this);
     }
 
-    public bool CanHoldItem(TilePos position)
+    public virtual bool CanHoldItem(TilePos position)
     {
         return true;
     }
 
 #region Equality-members
-    protected bool Equals(Tile other)
+    protected bool Equals(StandardTile other)
     {
         return Type == other.Type && Position.Equals(other.Position) && Rotation == other.Rotation && string.Equals(Subtype, other.Subtype);
     }
@@ -74,7 +91,7 @@ public class Tile : IRoomObject
         {
             return false;
         }
-        return Equals((Tile) obj);
+        return Equals((StandardTile) obj);
     }
 
     public override int GetHashCode()
@@ -89,6 +106,37 @@ public class Tile : IRoomObject
         }
     }
     #endregion
+}
+
+public class WallTile : StandardTile
+{
+    private readonly WallAdjuster _wallAdjuster;
+
+    public WallTile() : base(MainTileType.Wall)
+    {
+        _wallAdjuster = new WallAdjuster();
+    }
+
+    public override StandardTile Copy()
+    {
+        var newTile = new WallTile();
+        CopyProperties(newTile);
+        return newTile;
+    }
+
+    public override void AddToRoom(TilePos position, RoomInfoTwo roomInfo)
+    {
+        Position = position;
+
+        _wallAdjuster.UpdateAccordingToNeighbors(this);
+
+        roomInfo.AddOrReplaceTiles(this);
+    }
+
+    public override bool CanHoldItem(TilePos position)
+    {
+        return false;
+    }
 }
 
 public class RoomInfoTwo
@@ -107,9 +155,9 @@ public class RoomInfoTwo
         set { _instance = value; }
     }
 
-    private readonly Dictionary<TilePos, Tile> _tiles = new Dictionary<TilePos, Tile>();
+    private readonly Dictionary<TilePos, StandardTile> _tiles = new Dictionary<TilePos, StandardTile>();
 
-    public void AddOrReplaceTiles(params Tile[] tiles)
+    public void AddOrReplaceTiles(params StandardTile[] tiles)
     {
         var tileList = tiles.ToList();
         RemoveTiles(tiles.Select(x => x.Position).ToArray());
@@ -154,12 +202,12 @@ public class RoomInfoTwo
         RemoveTiles(_tiles.Select(x => x.Key).ToArray());
     }
 
-    public List<Tile> GetAllTiles()
+    public List<StandardTile> GetAllTiles()
     {
         return _tiles.Select(x => x.Value).ToList();
     }
 
-    public void SetAllTiles(Dictionary<TilePos, Tile> tiles)
+    public void SetAllTiles(Dictionary<TilePos, StandardTile> tiles)
     {
         ClearTiles();
         AddOrReplaceTiles(tiles.Select(x => x.Value).ToArray());

@@ -26,9 +26,9 @@ public class UnityRoomObjects : MonoBehaviour
         }
     }
 
-    private void TileAdded(Tile tile)
+    private void TileAdded(StandardTile tile)
     {
-        var tileTemplate = TemplateLoader.Retrieve(new CompleteTileType(tile.Type));
+        var tileTemplate = TemplateLoader.Retrieve(new CompleteTileType(tile.Type, tile.Subtype));
 
         var randomTemplate = tileTemplate.Templates[Random.Range(0, tileTemplate.Templates.Count)];
         var templateInstance = CreateParented(tile, randomTemplate, tileTemplate.Bottom);
@@ -36,7 +36,7 @@ public class UnityRoomObjects : MonoBehaviour
     }
 
     private GameObject CreateParented(
-        Tile tile,
+        StandardTile tile,
         GameObject tileTemplate,
         GameObject bottomTemplate)
     {

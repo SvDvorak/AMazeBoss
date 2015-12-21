@@ -38,7 +38,7 @@ namespace Assets.LevelEditor
         public Material PreviewMaterial;
         public Text PositionInfo;
 
-        private Tile _tileSelected;
+        private StandardTile _tileSelected;
         private ItemPreview _preview;
 
         public void Start()
@@ -91,10 +91,7 @@ namespace Assets.LevelEditor
 
         private void AddTile(TilePos tilePos)
         {
-            var selectedCopy = _tileSelected.Copy();
-            selectedCopy.Position = tilePos;
-
-            RoomInfoTwo.Instance.AddOrReplaceTiles(selectedCopy);
+            _tileSelected.Copy().AddToRoom(tilePos, RoomInfoTwo.Instance);
         }
 
         private static TilePos? GetMouseTilePosition()

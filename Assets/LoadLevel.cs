@@ -9,8 +9,6 @@ public class LoadLevel : MonoBehaviour
 
 	public void Start ()
     {
-        RoomInfo.Instance.Init();
-
         if(EditorLevelPath != "")
         {
             LevelPath = EditorLevelPath;

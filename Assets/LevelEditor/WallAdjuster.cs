@@ -22,27 +22,16 @@ namespace Assets.LevelEditor
         }
     }
 
-    public class WallAdjuster : MonoBehaviour
+    public class WallAdjuster
     {
         private readonly Dictionary<string, ConnectionSet> _connectionSets = new Dictionary<string, ConnectionSet>();
-        private bool _isAdjusting;
 
-        public void Start()
+        public WallAdjuster()
         {
             _connectionSets.Add("1010", new ConnectionSet("straight", 0));
             _connectionSets.Add("1000", new ConnectionSet("straight", 0));
             _connectionSets.Add("1100", new ConnectionSet("curved", 0));
             ExpandUniqueConnections();
-        }
-
-        public void OnEnable()
-        {
-            Events.instance.AddListener<TilesAddedTwo>(AdjustWalls);
-        }
-
-        public void OnDisable()
-        {
-            Events.instance.RemoveListener<TilesAddedTwo>(AdjustWalls);
         }
 
         private void ExpandUniqueConnections()
@@ -66,28 +55,28 @@ namespace Assets.LevelEditor
             }
         }
 
-        private void AdjustWalls(TilesAddedTwo e)
-        {
-            if (_isAdjusting || e.Tiles.Any(x => x.Type != MainTileType.Wall))
-            {
-                return;
-            }
+        //private void AdjustWalls(TilesAddedTwo e)
+        //{
+        //    if (_isAdjusting || e.Tiles.Any(x => x.Type != MainTileType.Wall))
+        //    {
+        //        return;
+        //    }
 
-            _isAdjusting = true;
+        //    _isAdjusting = true;
 
-            var copiedTileInfos = RoomInfoTwo.Instance.GetAllTiles();
-            foreach (var tile in copiedTileInfos)
-            {
-                if (tile.Type == MainTileType.Wall)
-                {
-                    AdjustAccordingToNeighbors(tile);
-                }
-            }
+        //    var copiedTileInfos = RoomInfoTwo.Instance.GetAllTiles();
+        //    foreach (var tile in copiedTileInfos)
+        //    {
+        //        if (tile.Type == MainTileType.Wall)
+        //        {
+        //            AdjustAccordingToNeighbors(tile);
+        //        }
+        //    }
 
-            _isAdjusting = false;
-        }
+        //    _isAdjusting = false;
+        //}
 
-        private void AdjustAccordingToNeighbors(Tile tile)
+        public void UpdateAccordingToNeighbors(WallTile tile)
         {
             var connections =
                 IsWall(tile.Position + new TilePos(0, 1)) +
@@ -102,13 +91,8 @@ namespace Assets.LevelEditor
 
             var connectionSet = _connectionSets[connections];
 
-            var expectedTile = tile.Copy();
-            expectedTile.Subtype = connectionSet.SubtypeName;
-            expectedTile.Rotation = connectionSet.Rotation;
-            if (!expectedTile.Equals(tile))
-            {
-                RoomInfoTwo.Instance.AddOrReplaceTiles(expectedTile);
-            }
+            tile.Subtype = connectionSet.SubtypeName;
+            tile.Rotation = connectionSet.Rotation;
         }
 
         private string IsWall(TilePos tilePos)

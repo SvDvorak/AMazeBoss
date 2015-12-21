@@ -18,9 +18,9 @@ public class TileAdded : GameEvent
 
 public class TilesAddedTwo : GameEvent
 {
-    public List<Tile> Tiles { get; private set; }
+    public List<StandardTile> Tiles { get; private set; }
 
-    public TilesAddedTwo(List<Tile> tiles)
+    public TilesAddedTwo(List<StandardTile> tiles)
     {
         Tiles = tiles;
     }
