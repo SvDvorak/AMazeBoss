@@ -6,7 +6,7 @@ namespace Assets.EntitasRefactor.Render
 {
     public class AddViewSystem : IReactiveSystem
     {
-        private Transform _viewsContainer = new GameObject("Views").transform;
+        private readonly Transform _viewsContainer = new GameObject("Views").transform;
 
         public TriggerOnEvent trigger { get { return Matcher.Resource.OnEntityAddedOrRemoved(); } }
 
@@ -41,6 +41,9 @@ namespace Assets.EntitasRefactor.Render
 
             var view = GameObject.Instantiate(resourceObject);
             view.transform.SetParent(_viewsContainer);
+
+            var rotation = entity.hasRotation ? entity.rotation.Value : Random.Range(0, 4);
+            view.transform.rotation = Quaternion.AngleAxis(rotation * 90, Vector3.up);
 
             entity.AddView(view);
         }

@@ -5,26 +5,25 @@ namespace Assets.EntitasRefactor.Input
 {
     public class MouseInputSystem : IExecuteSystem, ISetPool
     {
-        private Group _inputGroup;
+        private Pool _pool;
 
         public void SetPool(Pool pool)
         {
-            _inputGroup = pool.GetGroup(Matcher.Input);
+            _pool = pool;
         }
 
         public void Execute()
         {
             var currentPosition = GetMouseTilePosition();
             var hasMoved = true;
-            var mouseEntity = _inputGroup.GetSingleEntity();
-            if (mouseEntity.hasPosition)
+            if (_pool.inputEntity.hasPosition)
             {
-                hasMoved = mouseEntity.position.Value != currentPosition;
+                hasMoved = _pool.inputEntity.position.Value != currentPosition;
             }
 
             if (hasMoved)
             {
-                mouseEntity.ReplacePosition(currentPosition);
+                _pool.inputEntity.ReplacePosition(currentPosition);
             }
         }
 

@@ -32,34 +32,27 @@ namespace Assets.EntitasRefactor
 #else
         return new Systems()
 #endif
+            // Initialize
+                .Add(pool.CreateTileTemplateLoaderSystem())
 
+            // Input
                 .Add(pool.CreateMouseInputSystem())
 
+            // Update
                 .Add(pool.CreateSelectTileSystem())
                 .Add(pool.CreatePlaceTileSystem())
                 .Add(pool.CreateRemoveTileSystem())
+                .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreatePreviewTilePositionChangedSystem())
                 .Add(pool.CreatePreviewTileTypeChangedSystem())
 
+            // Render
+                .Add(pool.CreateTileTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateRenderPositionsSystem())
 
-                .Add(pool.CreateDestroySystem());
-            // Initialize
-            //.Add(pool.CreateSystem<CreatePlayerSystem>())
-            //.Add(pool.CreateSystem<CreateOpponentsSystem>())
-            //.Add(pool.CreateSystem<CreateFinishLineSystem>())
-
-            // Input
-            //.Add(pool.CreateSystem<InputSystem>())
-
-            // Update
-            //.Add(pool.CreateSystem<AccelerateSystem>())
-            //.Add(pool.CreateSystem<MoveSystem>())
-            //.Add(pool.CreateSystem<ReachedFinishSystem>())
-
             // Destroy
-            //.Add(pool.CreateSystem<DestroySystem>());
+                .Add(pool.CreateDestroySystem());
         }
     }
 }

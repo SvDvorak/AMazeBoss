@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using UnityEngine;
 
@@ -23,6 +24,11 @@ namespace Assets.EntitasRefactor
                 {
                     GameObject.Destroy(entity.view.Value);
                 }
+                if (entity.hasParent)
+                {
+                    Execute(_pool.FindChildrenFor(entity));
+                }
+
                 _pool.DestroyEntity(entity);
             }
         }

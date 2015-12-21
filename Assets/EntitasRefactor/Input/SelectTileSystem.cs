@@ -16,11 +16,11 @@ namespace Assets.EntitasRefactor.Input
                     { 6, MainTileType.Boss },
                 };
 
-        private Group _inputGroup;
+        private Pool _pool;
 
         public void SetPool(Pool pool)
         {
-            _inputGroup = pool.GetGroup(Matcher.Input);
+            _pool = pool;
         }
 
         public void Initialize()
@@ -46,7 +46,7 @@ namespace Assets.EntitasRefactor.Input
         {
             if (selected.HasValue)
             {
-                _inputGroup.GetSingleEntity().ReplaceTileSelect(selected.Value);
+                _pool.inputEntity.ReplaceTileSelect(selected.Value);
             }
         }
     }

@@ -33,15 +33,12 @@ namespace Assets.EntitasRefactor.Input
         {
             Pool.CreateEntity()
                 .AddTile(type)
-                .AddPosition(position)
-                .AddResource("Tiles/Normal");
+                .AddPosition(position);
         }
 
         private void UpdateTile(Entity tile, MainTileType selectedType)
         {
-            tile
-                .ReplaceTile(selectedType)
-                .ReplaceResource("Tiles/Normal2");
+            tile.ReplaceTile(selectedType);
         }
     }
 }

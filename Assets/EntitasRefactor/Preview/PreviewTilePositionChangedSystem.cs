@@ -11,7 +11,7 @@ namespace Assets.EntitasRefactor.Preview
         {
             var tilePosition = entities.SingleEntity().position.Value;
 
-            GetPreviewEntity()
+            Pool.previewEntity
                 .ReplacePosition(tilePosition);
         }
     }

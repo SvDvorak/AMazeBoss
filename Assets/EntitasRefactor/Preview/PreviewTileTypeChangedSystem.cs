@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 
 namespace Assets.EntitasRefactor.Preview
@@ -11,9 +12,9 @@ namespace Assets.EntitasRefactor.Preview
         {
             var selectedTile = entities.SingleEntity().tileSelect.Type;
 
-            GetPreviewEntity()
-                .ReplaceTile(selectedTile)
-                .ReplaceResource("Tiles/Normal");
+            var tileTemplates = Pool.tileTemplates.Value.Retrieve(selectedTile);
+            Pool.previewEntity
+                .ReplaceResource(tileTemplates.Item2.First());
         }
     }
 }
