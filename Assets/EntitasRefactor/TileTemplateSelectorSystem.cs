@@ -9,11 +9,14 @@ using Random = UnityEngine.Random;
 
 namespace Assets.EntitasRefactor
 {
-    public class TileTemplateSelectorSystem : IReactiveSystem, ISetPool
+    public class TileTemplateSelectorSystem : IMultiReactiveSystem, ISetPool
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.Tile.OnEntityAdded(); } }
+        public TriggerOnEvent[] triggers
+        {
+            get { return new[] { Matcher.Tile.OnEntityAdded(), Matcher.Subtype.OnEntityAdded() }; }
+        }
 
         public void SetPool(Pool pool)
         {
@@ -33,7 +36,7 @@ namespace Assets.EntitasRefactor
             List<string> templateNames;
             if (entity.hasSubtype)
             {
-                templateNames = _pool.tileTemplates.Value.Retrieve(entity.tile.Type, entity.subtype.Value);
+                templateNames = _pool.tileTemplates.Value.Retrieve(entity.tile.Type, entity.subtype.Value.ToUpper());
             }
             else
             {
@@ -88,7 +91,8 @@ namespace Assets.EntitasRefactor
         {
             var subTypes = new SubtemplateNames();
 
-            var templatesWithSubtypes = tileTypeGameObjects.Where(x => x.NameContains("_")).GroupBy(x => GetSubtype(x)).ToList();
+            var templatesWithSubtypes =
+                tileTypeGameObjects.Where(x => x.NameContains("_")).GroupBy(x => GetSubtype(x)).ToList();
             foreach (var subtype in templatesWithSubtypes)
             {
                 subTypes.Add(subtype.Key.ToUpper(), subtype.Select(x => _tilesPath + x.name).ToList());

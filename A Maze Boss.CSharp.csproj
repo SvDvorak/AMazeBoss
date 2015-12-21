@@ -87,6 +87,7 @@
     <Compile Include="Assets\EntitasRefactor\Render\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Render\RenderPositionsSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\TileTemplateSelectorSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\WallAdjustmentSystem.cs" />
     <Compile Include="Assets\Events.cs" />
     <Compile Include="Assets\ExitLevel.cs" />
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.TileTemplateSelectorSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.TileTemplatesGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.ViewComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.WallAdjustmentSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\ComponentIds.cs" />
     <Compile Include="Assets\Generated\Pools.cs" />
     <Compile Include="Assets\HeroMove.cs" />
