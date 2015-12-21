@@ -1,15 +1,17 @@
 public static class ComponentIds {
-    public const int Input = 0;
-    public const int Position = 1;
-    public const int Preview = 2;
-    public const int Resource = 3;
-    public const int Tile = 4;
-    public const int TileSelect = 5;
-    public const int View = 6;
+    public const int Destroyed = 0;
+    public const int Input = 1;
+    public const int Position = 2;
+    public const int Preview = 3;
+    public const int Resource = 4;
+    public const int Tile = 5;
+    public const int TileSelect = 6;
+    public const int View = 7;
 
-    public const int TotalComponents = 7;
+    public const int TotalComponents = 8;
 
     public static readonly string[] componentNames = {
+        "Destroyed",
         "Input",
         "Position",
         "Preview",
@@ -20,6 +22,7 @@ public static class ComponentIds {
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(Assets.EntitasRefactor.DestroyedComponent),
         typeof(Assets.EntitasRefactor.InputComponent),
         typeof(Assets.EntitasRefactor.PositionComponent),
         typeof(Assets.EntitasRefactor.PreviewComponent),

@@ -71,6 +71,7 @@
     <Compile Include="Assets\BossMove.cs" />
     <Compile Include="Assets\CurseSwitch.cs" />
     <Compile Include="Assets\EntitasRefactor\AddViewSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\DestroySystem.cs" />
     <Compile Include="Assets\EntitasRefactor\EntitasSetup.cs" />
     <Compile Include="Assets\EntitasRefactor\MouseInputSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\PlaceTileSystem.cs" />
@@ -88,6 +89,8 @@
     <Compile Include="Assets\GameEvents.cs" />
     <Compile Include="Assets\GameObjectExtensions.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.AddViewSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.DestroySystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.InputComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.MouseInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.PlaceTileSystemGeneratedExtension.cs" />

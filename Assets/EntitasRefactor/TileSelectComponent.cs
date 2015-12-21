@@ -37,4 +37,8 @@ namespace Assets.EntitasRefactor
     {
         public GameObject Value;
     }
+
+    public class DestroyedComponent : IComponent
+    {
+    }
 }

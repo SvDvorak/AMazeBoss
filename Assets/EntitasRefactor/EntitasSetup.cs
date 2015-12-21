@@ -34,12 +34,16 @@ namespace Assets.EntitasRefactor
 #endif
 
                 .Add(pool.CreateMouseInputSystem())
+
                 .Add(pool.CreateSelectTileSystem())
                 .Add(pool.CreatePlaceTileSystem())
                 .Add(pool.CreatePreviewTilePositionChangedSystem())
                 .Add(pool.CreatePreviewTileTypeChangedSystem())
+
                 .Add(pool.CreateAddViewSystem())
-                .Add(pool.CreateRenderPositionsSystem());
+                .Add(pool.CreateRenderPositionsSystem())
+
+                .Add(pool.CreateDestroySystem());
             // Initialize
             //.Add(pool.CreateSystem<CreatePlayerSystem>())
             //.Add(pool.CreateSystem<CreateOpponentsSystem>())
