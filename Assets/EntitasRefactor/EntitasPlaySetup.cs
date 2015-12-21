@@ -1,0 +1,53 @@
+﻿using Entitas;
+using Entitas.Unity.VisualDebugging;
+using UnityEngine;
+
+namespace Assets.EntitasRefactor
+{
+    public class EntitasPlaySetup : MonoBehaviour
+    {
+        Systems _systems;
+
+        public void Start()
+        {
+            Random.seed = 42;
+
+            _systems = CreateSystems(Pools.pool);
+
+            _systems.Initialize();
+        }
+
+        public void Update()
+        {
+            _systems.Execute();
+        }
+
+        public void OnDestroy()
+        {
+            _systems.DeactivateReactiveSystems();
+            Pools.pool.DestroyAllEntities();
+        }
+
+        public Systems CreateSystems(Pool pool)
+        {
+#if (UNITY_EDITOR)
+            return new DebugSystems()
+#else
+        return new Systems()
+#endif
+            // Initialize
+                .Add(pool.CreateTileTemplateLoaderSystem())
+
+            // Update
+                .Add(pool.CreateBottomSpawnerSystem())
+
+            // Render
+                .Add(pool.CreateTileTemplateSelectorSystem())
+                .Add(pool.CreateAddViewSystem())
+                .Add(pool.CreateRenderPositionsSystem())
+
+            // Destroy
+                .Add(pool.CreateDestroySystem());
+        }
+    }
+}

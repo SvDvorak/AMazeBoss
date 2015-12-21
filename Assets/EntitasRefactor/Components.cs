@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.EntitasRefactor
 {
+    [SingleEntity]
+    public class PausedComponent : IComponent
+    {
+    }
+
     public class TileSelectComponent : IComponent
     {
         public MainTileType Type;

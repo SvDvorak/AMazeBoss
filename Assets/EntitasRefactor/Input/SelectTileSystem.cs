@@ -30,6 +30,11 @@ namespace Assets.EntitasRefactor.Input
 
         public void Execute()
         {
+            if (_pool.isPaused)
+            {
+                return;
+            }
+
             MainTileType? selected = null;
             for (int i = 1; i <= _numberToTileType.Keys.Count; i++)
             {

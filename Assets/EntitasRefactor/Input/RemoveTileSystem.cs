@@ -6,6 +6,11 @@ namespace Assets.EntitasRefactor.Input
     {
         public void Execute()
         {
+            if (Pool.isPaused)
+            {
+                return;
+            }
+
             var input = InputGroup.GetSingleEntity();
             if (!input.hasPosition)
             {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Entitas;
 using UnityEngine;
 
 namespace Assets.FileOperations
@@ -9,20 +10,20 @@ namespace Assets.FileOperations
     {
         public static void Save(string path)
         {
-            var tileInfos = RoomInfo.Instance.GetAllTiles();
-            var tiles = new FileTiles(tileInfos
+            var editorTiles = Pools.pool.GetEntities(Matcher.Tile);
+            var fileTiles = new FileTiles(editorTiles
                 .Select(x => CreateFileTile(x))
                 .ToList());
-            var json = JsonUtility.ToJson(tiles);
+            var json = JsonUtility.ToJson(fileTiles);
             var streamWriter = new StreamWriter(path, false);
             streamWriter.Write(json);
             streamWriter.Close();
         }
 
-        private static FileTile CreateFileTile(KeyValuePair<TilePos, TileInfo> tile)
+        private static FileTile CreateFileTile(Entity entity)
         {
-            var tileType = tile.Value.TileType;
-            return new FileTile(tileType.Main, tileType.Subtype, tile.Key.X, tile.Key.Z, tile.Value.Rotation);
+            var pos = entity.position.Value;
+            return new FileTile(entity.tile.Type, entity.subtype.Value, pos.X, pos.Z, entity.rotation.Value);
         }
 
         public static void Load(string path)
@@ -31,15 +32,18 @@ namespace Assets.FileOperations
             var json = streamReader.ReadToEnd();
             streamReader.Close();
 
-            var tiles = JsonUtility
+            var pool = Pools.pool;
+
+            JsonUtility
                 .FromJson<FileTiles>(json)
                 .Tiles
-                .ToDictionary(
-                    fileTile => new TilePos(fileTile.X, fileTile.Z),
-                    fileTile => new TileInfo(
-                        new CompleteTileType(fileTile.MainType, fileTile.Subtype), null, fileTile.Rotation));
-
-            RoomInfo.Instance.SetAllTiles(tiles);
+                .ForEach(
+                    tile =>
+                        pool.CreateEntity()
+                            .AddTile(tile.MainType)
+                            .AddSubtype(tile.Subtype)
+                            .AddPosition(new TilePos(tile.X, tile.Z))
+                            .AddRotation(tile.Rotation));
         }
 
         public static string GetLastUsedPath()
@@ -48,7 +52,7 @@ namespace Assets.FileOperations
             {
                 return LoadLevel.EditorLevelPath;
             }
-            else if (PlayerPrefs.HasKey("LastEditorLevel"))
+            if (PlayerPrefs.HasKey("LastEditorLevel"))
             {
                 return PlayerPrefs.GetString("LastEditorLevel");
             }

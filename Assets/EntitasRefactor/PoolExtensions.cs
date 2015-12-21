@@ -10,5 +10,13 @@ namespace Assets.EntitasRefactor
             var entities = pool.GetEntities(Matcher.AllOf(Matcher.Tile, Matcher.Position));
             return entities.SingleOrDefault(x => x.position.Value == position);
         }
+
+        public static void Clear(this Pool pool, IMatcher matcher)
+        {
+            foreach (var entity in pool.GetEntities(matcher))
+            {
+                entity.IsDestroyed(true);
+            }
+        }
     }
 }

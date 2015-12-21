@@ -71,7 +71,7 @@ namespace Assets.EntitasRefactor
 
         public void Execute(List<Entity> entities)
         {
-            var walls = _tilesGroup.GetEntities();
+            var walls = _tilesGroup.GetEntities().Where(x => x.tile.Type == MainTileType.Wall);
             _wallTiles = new HashSet<TilePos>(walls.Select(x => x.position.Value));
 
             foreach (var wall in walls)

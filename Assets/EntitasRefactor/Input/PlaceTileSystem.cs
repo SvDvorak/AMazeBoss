@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using UnityEngine;
 
 namespace Assets.EntitasRefactor.Input
 {
@@ -6,6 +7,11 @@ namespace Assets.EntitasRefactor.Input
     {
         public void Execute()
         {
+            if (Pool.isPaused)
+            {
+                return;
+            }
+
             var input = InputGroup.GetSingleEntity();
             if (!input.hasTileSelect || !input.hasPosition)
             {
@@ -33,12 +39,18 @@ namespace Assets.EntitasRefactor.Input
         {
             Pool.CreateEntity()
                 .AddTile(type)
-                .AddPosition(position);
+                .AddPosition(position)
+                .AddRotation(Random.Range(0, 4));
         }
 
         private void UpdateTile(Entity tile, MainTileType selectedType)
         {
             tile.ReplaceTile(selectedType);
+
+            if (tile.hasSubtype)
+            {
+                tile.RemoveSubtype();
+            }
         }
     }
 }

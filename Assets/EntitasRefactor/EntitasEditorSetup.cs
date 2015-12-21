@@ -4,11 +4,37 @@ using UnityEngine;
 
 namespace Assets.EntitasRefactor
 {
-    public class EntitasSetup : MonoBehaviour
+    public class EntitasEditorSetup : MonoBehaviour
     {
-        Systems _systems;
+        private Systems _systems;
+
+        public static bool IsInEditor;
 
         public void Start()
+        {
+            IsInEditor = true;
+            SetupEntitas();
+            LoadLevel();
+        }
+
+        private static void LoadLevel()
+        {
+            var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
+
+            if (!string.IsNullOrEmpty(lastUsedPath))
+            {
+                FileOperations.FileOperations.Load(lastUsedPath);
+            }
+        }
+
+        public void OnDestroy()
+        {
+            IsInEditor = false;
+            _systems.DeactivateReactiveSystems();
+            Pools.pool.DestroyAllEntities();
+        }
+
+        private void SetupEntitas()
         {
             Random.seed = 42;
 

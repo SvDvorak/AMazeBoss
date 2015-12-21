@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,12 +75,15 @@
     <Compile Include="Assets\EntitasRefactor\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Components.cs" />
     <Compile Include="Assets\EntitasRefactor\DestroySystem.cs" />
-    <Compile Include="Assets\EntitasRefactor\EntitasSetup.cs" />
+    <Compile Include="Assets\EntitasRefactor\EditorSetup.cs" />
+    <Compile Include="Assets\EntitasRefactor\EntitasEditorSetup.cs" />
+    <Compile Include="Assets\EntitasRefactor\EntitasPlaySetup.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\InputSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\PlaceTileSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\RemoveTileSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\SelectTileSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\InterfaceBlockingEditorControls.cs" />
     <Compile Include="Assets\EntitasRefactor\PoolExtensions.cs" />
     <Compile Include="Assets\EntitasRefactor\Preview\PreviewChangedSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Preview\PreviewTilePositionChangedSystem.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="Assets\EntitasRefactor\Render\AddViewSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Render\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Render\RenderPositionsSystem.cs" />
+    <Compile Include="Assets\EntitasRefactor\TileTemplateLoaderSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\TileTemplateSelectorSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\WallAdjustmentSystem.cs" />
     <Compile Include="Assets\Events.cs" />
@@ -105,6 +111,7 @@
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.Input.SelectTileSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.InputComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.ParentComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EntitasRefactor.PausedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.PositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.Preview.PreviewTilePositionChangedSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.EntitasRefactor.Preview.PreviewTileTypeChangedSystemGeneratedExtension.cs" />
@@ -128,9 +135,7 @@
     <Compile Include="Assets\IEnumerableExtensions.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorEvents.cs" />
-    <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
     <Compile Include="Assets\LevelEditor\IEnumerableExtensions.cs" />
-    <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />
     <Compile Include="Assets\LevelEditor\PlaceItem.cs" />
     <Compile Include="Assets\LevelEditor\SelectItem.cs" />

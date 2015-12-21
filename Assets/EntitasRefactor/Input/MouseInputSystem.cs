@@ -14,6 +14,11 @@ namespace Assets.EntitasRefactor.Input
 
         public void Execute()
         {
+            if (_pool.isPaused)
+            {
+                return;
+            }
+
             var currentPosition = GetMouseTilePosition();
             var hasMoved = true;
             if (_pool.inputEntity.hasPosition)

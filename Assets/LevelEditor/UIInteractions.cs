@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.EntitasRefactor;
+using Entitas;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.LevelEditor
@@ -28,6 +30,7 @@ namespace Assets.LevelEditor
 
         public void Load(string path)
         {
+            Clear();
             SetLastUsedPath(path);
             FileOperations.FileOperations.Load(path);
         }
@@ -35,7 +38,7 @@ namespace Assets.LevelEditor
         public void Clear()
         {
             SetLastUsedPath("");
-            RoomInfoTwo.Instance.ClearTiles();
+            Pools.pool.Clear(Matcher.Tile);
         }
 
         private void SetLastUsedPath(string path)
@@ -51,7 +54,7 @@ namespace Assets.LevelEditor
             {
                 SaveAs(_lastUsedPath);
                 Events.instance.Raise(new LoadingScene());
-                SceneManager.LoadScene("test_scene");
+                SceneManager.LoadScene("PlayScene");
             }
         }
     }

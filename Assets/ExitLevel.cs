@@ -8,7 +8,7 @@ public class ExitLevel : MonoBehaviour
 	    if (Input.GetKeyDown(KeyCode.Escape) && LoadLevel.EditorLevelPath != "")
 	    {
             RoomInfoTwo.Instance.ClearTiles();
-            SceneManager.LoadScene("editor");
+            SceneManager.LoadScene("Editor2");
         }
     }
 }
