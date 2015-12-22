@@ -5,13 +5,13 @@ namespace Assets.FileOperations
     [Serializable]
     public class FileTile
     {
-        public MainTileType MainType;
+        public string MainType;
         public string Subtype;
         public int X;
         public int Z;
         public int Rotation;
 
-        public FileTile(MainTileType mainType, string subtype, int x, int z, int rotation)
+        public FileTile(string mainType, string subtype, int x, int z, int rotation)
         {
             Rotation = rotation;
             MainType = mainType;

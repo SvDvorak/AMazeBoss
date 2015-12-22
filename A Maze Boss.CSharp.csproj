@@ -75,18 +75,17 @@
     <Compile Include="Assets\EntitasRefactor\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Components.cs" />
     <Compile Include="Assets\EntitasRefactor\DestroySystem.cs" />
-    <Compile Include="Assets\EntitasRefactor\EditorSetup.cs" />
     <Compile Include="Assets\EntitasRefactor\EntitasEditorSetup.cs" />
     <Compile Include="Assets\EntitasRefactor\EntitasPlaySetup.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\InputSystem.cs" />
-    <Compile Include="Assets\EntitasRefactor\Placeables\IPlaceable.cs" />
-    <Compile Include="Assets\EntitasRefactor\Placeables\Item.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\PutDownPlaceableSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\RemoveObjectSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\SelectPlaceableSystem.cs" />
-    <Compile Include="Assets\EntitasRefactor\Placeables\Tile.cs" />
     <Compile Include="Assets\EntitasRefactor\InterfaceBlockingEditorControls.cs" />
+    <Compile Include="Assets\EntitasRefactor\Placeables\IPlaceable.cs" />
+    <Compile Include="Assets\EntitasRefactor\Placeables\Item.cs" />
+    <Compile Include="Assets\EntitasRefactor\Placeables\Tile.cs" />
     <Compile Include="Assets\EntitasRefactor\PoolExtensions.cs" />
     <Compile Include="Assets\EntitasRefactor\Preview\PreviewChangedSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Preview\PreviewTilePositionChangedSystem.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="Assets\IEnumerableExtensions.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorEvents.cs" />
+    <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
     <Compile Include="Assets\LevelEditor\IEnumerableExtensions.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />
     <Compile Include="Assets\LevelEditor\PlaceItem.cs" />
@@ -192,6 +192,5 @@
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
