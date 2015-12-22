@@ -12,7 +12,8 @@ namespace Assets.EntitasRefactor.Render
         {
             var preview = entities.SingleEntity();
             var previewMaterial = Resources.Load<Material>("Preview");
-            preview.view.Value.GetComponent<MeshRenderer>().material = previewMaterial;
+            var renderer = preview.view.Value.GetComponentInChildren<Renderer>();
+            renderer.material = previewMaterial;
         }
     }
 }

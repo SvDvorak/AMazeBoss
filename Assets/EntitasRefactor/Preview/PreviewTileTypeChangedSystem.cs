@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Entitas;
+using UnityEngine;
 
 namespace Assets.EntitasRefactor.Preview
 {
@@ -12,9 +13,8 @@ namespace Assets.EntitasRefactor.Preview
         {
             var selectedPlaceable = entities.SingleEntity().placeableSelected.Value;
 
-            //var tileTemplates = Pool.tileTemplates.Value.Retrieve(selectedPlaceable);
-            //Pool.previewEntity
-            //    .ReplaceResource(tileTemplates.Item2.First());
+            var tileTemplates = Pool.tileTemplates.Value.Retrieve(selectedPlaceable.Maintype);
+            Pool.previewEntity.ReplaceResource(tileTemplates.Item2.First());
         }
     }
 }

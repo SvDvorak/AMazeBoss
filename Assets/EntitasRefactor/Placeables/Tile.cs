@@ -7,6 +7,8 @@ namespace Assets.EntitasRefactor.Placeables
     {
         private readonly MainTileType _type;
 
+        public string Maintype { get { return _type.ToString(); } }
+
         public Tile(MainTileType type)
         {
             _type = type;

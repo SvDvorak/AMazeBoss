@@ -7,6 +7,8 @@ namespace Assets.EntitasRefactor.Placeables
     {
         private readonly ItemType _type;
 
+        public string Maintype { get { return _type.ToString(); } }
+
         public Item(ItemType type)
         {
             _type = type;
