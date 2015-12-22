@@ -1,78 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.EntitasRefactor.Placeables;
 using Entitas;
-using UnityEngine;
 
 namespace Assets.EntitasRefactor.Input
 {
-    public interface IPlaceable
-    {
-        void Place(Pool pool, TilePos position);
-    }
-
-    public class Tile : IPlaceable
-    {
-        private readonly MainTileType _type;
-
-        public Tile(MainTileType type)
-        {
-            _type = type;
-        }
-
-        public void Place(Pool pool, TilePos position)
-        {
-            var currentTile = pool.GetTileAt(position);
-
-            if(currentTile == null)
-            {
-                pool.CreateEntity()
-                    .AddTile(_type)
-                    .AddMaintype(_type.ToString())
-                    .AddPosition(position)
-                    .AddRotation(Random.Range(0, 4));
-            }
-            else
-            {
-                currentTile
-                    .ReplaceTile(_type)
-                    .ReplaceMaintype(_type.ToString())
-                    .ReplaceRotation((currentTile.rotation.Value + 1)%4);
-
-                if (currentTile.hasSubtype)
-                {
-                    currentTile.RemoveSubtype();
-                }
-            }
-        }
-    }
-
-    public class Item : IPlaceable
-    {
-        private readonly ItemType _type;
-
-        public Item(ItemType type)
-        {
-            _type = type;
-        }
-
-        public void Place(Pool pool, TilePos position)
-        {
-            var currentTile = pool.GetTileAt(position);
-
-            if (currentTile == null)
-            {
-                pool.CreateEntity()
-                    .AddItem(_type)
-                    .AddPosition(position)
-                    .AddRotation(Random.Range(0, 4));
-            }
-            else
-            {
-                currentTile.ReplaceItem(_type);
-            }
-        }
-    }
-
     public class SelectPlaceableSystem : IInitializeSystem, IExecuteSystem, ISetPool
     {
         private readonly Dictionary<int, IPlaceable> _numberToPlaceable = new Dictionary<int, IPlaceable>

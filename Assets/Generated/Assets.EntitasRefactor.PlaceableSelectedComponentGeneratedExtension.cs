@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.EntitasRefactor.Placeables;
 
 namespace Entitas {
     public partial class Entity {
@@ -12,13 +13,13 @@ namespace Entitas {
             _placeableSelectedComponentPool.Clear();
         }
 
-        public Entity AddPlaceableSelected(Assets.EntitasRefactor.Input.IPlaceable newValue) {
+        public Entity AddPlaceableSelected(IPlaceable newValue) {
             var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.EntitasRefactor.PlaceableSelectedComponent();
             component.Value = newValue;
             return AddComponent(ComponentIds.PlaceableSelected, component);
         }
 
-        public Entity ReplacePlaceableSelected(Assets.EntitasRefactor.Input.IPlaceable newValue) {
+        public Entity ReplacePlaceableSelected(IPlaceable newValue) {
             var previousComponent = hasPlaceableSelected ? placeableSelected : null;
             var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.EntitasRefactor.PlaceableSelectedComponent();
             component.Value = newValue;

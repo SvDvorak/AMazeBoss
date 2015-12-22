@@ -10,6 +10,11 @@ namespace Assets.EntitasRefactor
             return GetEntityAt(pool, position, Matcher.AllOf(Matcher.Tile, Matcher.Position));
         }
 
+        public static Entity GetItemAt(this Pool pool, TilePos position)
+        {
+            return GetEntityAt(pool, position, Matcher.AllOf(Matcher.Item, Matcher.Position));
+        }
+
         private static Entity GetEntityAt(Pool pool, TilePos position, IMatcher entityMatcher)
         {
             var entities = pool.GetEntities(entityMatcher);

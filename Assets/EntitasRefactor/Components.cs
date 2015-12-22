@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.EntitasRefactor.Input;
+using Assets.EntitasRefactor.Placeables;
 using Entitas;
 using Entitas.CodeGenerator;
 using UnityEngine;
@@ -70,6 +71,11 @@ namespace Assets.EntitasRefactor
     public class RotationComponent : IComponent
     {
         public int Value;
+
+        public int GetNextRotation()
+        {
+            return (Value + 1)%4;
+        }
     }
 
     public class TileComponent : IComponent

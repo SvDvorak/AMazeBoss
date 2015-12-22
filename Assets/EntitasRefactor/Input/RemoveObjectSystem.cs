@@ -27,6 +27,13 @@ namespace Assets.EntitasRefactor.Input
 
         private void RemoveTile(TilePos tilePos)
         {
+            var selectedItem = Pool.GetItemAt(tilePos);
+            if (selectedItem != null)
+            {
+                selectedItem.IsDestroyed(true);
+                return;
+            }
+
             var selectedTile = Pool.GetTileAt(tilePos);
             if (selectedTile != null)
             {
