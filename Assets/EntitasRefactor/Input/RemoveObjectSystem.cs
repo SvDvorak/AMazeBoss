@@ -2,7 +2,7 @@
 
 namespace Assets.EntitasRefactor.Input
 {
-    public class RemoveTileSystem : InputSystem, IExecuteSystem
+    public class RemoveObjectSystem : InputSystem, IExecuteSystem
     {
         public void Execute()
         {

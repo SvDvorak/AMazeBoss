@@ -36,13 +36,13 @@ namespace Assets.EntitasRefactor
         return new Systems()
 #endif
             // Initialize
-                .Add(pool.CreateTileTemplateLoaderSystem())
+                .Add(pool.CreateTemplateLoaderSystem())
 
             // Update
                 .Add(pool.CreateBottomSpawnerSystem())
 
             // Render
-                .Add(pool.CreateTileTemplateSelectorSystem())
+                .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateRenderPositionsSystem())
 

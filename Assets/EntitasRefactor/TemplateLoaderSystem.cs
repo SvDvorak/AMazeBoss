@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace Assets.EntitasRefactor
 {
-    public class TileTemplateLoaderSystem : IInitializeSystem, ISetPool
+    public class TemplateLoaderSystem : IInitializeSystem, ISetPool
     {
-        private readonly string _tilesPath = "Tiles/";
         private Pool _pool;
 
         public void SetPool(Pool pool)
@@ -18,19 +17,20 @@ namespace Assets.EntitasRefactor
 
         public void Initialize()
         {
-            LoadTileTypeTemplates();
+            var templateNames = new TemplateNames();
+            LoadTileTypeTemplates(templateNames, "Tiles/", EnumHelper.GetAsList<MainTileType>().Select(x => x.ToString()));
+            LoadTileTypeTemplates(templateNames, "Items/", EnumHelper.GetAsList<ItemType>().Select(x => x.ToString()));
+            _pool.SetTileTemplates(templateNames);
         }
 
-        private void LoadTileTypeTemplates()
+        private void LoadTileTypeTemplates(TemplateNames templateNames, string typeClass, IEnumerable<string> mainTypes)
         {
-            var tileTypes = TileTypeHelper.GetAsList();
-            var allTiles = LoadTiles();
-            var templateNames = new TemplateNames();
+            var allTiles = LoadTiles(typeClass);
 
-            foreach (var mainType in tileTypes)
+            foreach (var mainType in mainTypes)
             {
                 var tileTypeGameObjects = allTiles
-                    .Where(x => GameObjectExtensions.NameContains(x, mainType.ToString()))
+                    .Where(x => x.NameContains(mainType.ToString()))
                     .ToList();
 
                 if (tileTypeGameObjects.Count == 0)
@@ -38,13 +38,11 @@ namespace Assets.EntitasRefactor
                     Debug.LogWarning("No tiles available for " + mainType);
                 }
 
-                templateNames.Add(mainType, GetSubtypes(tileTypeGameObjects));
+                templateNames.Add(mainType.ToUpper(), GetSubtypes(tileTypeGameObjects, typeClass));
             }
-
-            _pool.SetTileTemplates(templateNames);
         }
 
-        private SubtemplateNames GetSubtypes(List<GameObject> tileTypeGameObjects)
+        private SubtemplateNames GetSubtypes(List<GameObject> tileTypeGameObjects, string type)
         {
             var subTypes = new SubtemplateNames();
 
@@ -52,12 +50,12 @@ namespace Assets.EntitasRefactor
                 tileTypeGameObjects.Where(x => x.NameContains("_")).GroupBy(x => GetSubtype(x)).ToList();
             foreach (var subtype in templatesWithSubtypes)
             {
-                subTypes.Add(subtype.Key.ToUpper(), subtype.Select(x => _tilesPath + x.name).ToList());
+                subTypes.Add(subtype.Key.ToUpper(), subtype.Select(x => type + x.name).ToList());
             }
 
             if (templatesWithSubtypes.Count == 0)
             {
-                subTypes.Add("", tileTypeGameObjects.Select(x => _tilesPath + x.name).ToList());
+                subTypes.Add("", tileTypeGameObjects.Select(x => type + x.name).ToList());
             }
 
             return subTypes;
@@ -69,11 +67,11 @@ namespace Assets.EntitasRefactor
             return x.name.Substring(subTypeIndex + 1);
         }
 
-        private GameObject[] LoadTiles()
+        private GameObject[] LoadTiles(string path)
         {
             try
             {
-                return Resources.LoadAll<GameObject>(_tilesPath);
+                return Resources.LoadAll<GameObject>(path);
             }
             catch (Exception)
             {

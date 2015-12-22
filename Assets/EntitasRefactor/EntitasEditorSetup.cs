@@ -59,14 +59,14 @@ namespace Assets.EntitasRefactor
         return new Systems()
 #endif
             // Initialize
-                .Add(pool.CreateTileTemplateLoaderSystem())
+                .Add(pool.CreateTemplateLoaderSystem())
 
             // Input
                 .Add(pool.CreateMouseInputSystem())
 
             // Update
-                .Add(pool.CreateSelectTileSystem())
-                .Add(pool.CreatePlaceTileSystem())
+                .Add(pool.CreateSelectPlaceableSystem())
+                .Add(pool.CreatePutDownPlaceableSystem())
                 .Add(pool.CreateRemoveTileSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateWallAdjustmentSystem())
@@ -75,7 +75,7 @@ namespace Assets.EntitasRefactor
                 .Add(pool.CreatePreviewMaterialChangeSystem())
 
             // Render
-                .Add(pool.CreateTileTemplateSelectorSystem())
+                .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateRenderPositionsSystem())
 

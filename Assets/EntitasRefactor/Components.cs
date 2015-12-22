@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.EntitasRefactor.Input;
 using Entitas;
 using Entitas.CodeGenerator;
 using UnityEngine;
@@ -12,9 +13,9 @@ namespace Assets.EntitasRefactor
     {
     }
 
-    public class TileSelectComponent : IComponent
+    public class PlaceableSelectedComponent : IComponent
     {
-        public MainTileType Type;
+        public IPlaceable Value;
     }
 
     [SingleEntity]
@@ -76,9 +77,19 @@ namespace Assets.EntitasRefactor
         public MainTileType Type;
     }
 
+    public class MaintypeComponent : IComponent
+    {
+        public string Value;
+    }
+
     public class SubtypeComponent : IComponent
     {
         public string Value;
+    }
+
+    public class ItemComponent : IComponent
+    {
+        public ItemType Type;
     }
 
     public class ResourceComponent : IComponent
@@ -101,19 +112,17 @@ namespace Assets.EntitasRefactor
         public TemplateNames Value;
     }
 
-    public class TemplateNames : Dictionary<MainTileType, SubtemplateNames>
+    public class TemplateNames : Dictionary<string, SubtemplateNames>
     {
-        private KeyValuePair<string, List<string>> _firstSubtypeNames;
-
-        public Tuple<string, List<string>> Retrieve(MainTileType type)
+        public Tuple<string, List<string>> Retrieve(string type)
         {
-            _firstSubtypeNames = this[type].First();
-            return new Tuple<string, List<string>>(_firstSubtypeNames.Key, _firstSubtypeNames.Value);
+            var firstSubtypeNames = this[type.ToUpper()].First();
+            return new Tuple<string, List<string>>(firstSubtypeNames.Key, firstSubtypeNames.Value);
         }
 
-        public List<string> Retrieve(MainTileType type, string subtype)
+        public List<string> Retrieve(string type, string subtype)
         {
-            return this[type][subtype];
+            return this[type.ToUpper()][subtype.ToUpper()];
         }
     }
 

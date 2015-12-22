@@ -236,8 +236,6 @@ public class RoomInfo
     {
         MainTileType.Normal,
         MainTileType.Spike,
-        MainTileType.Hero,
-        MainTileType.Boss
     };
 
     private bool _pauseEvents;

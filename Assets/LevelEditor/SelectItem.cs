@@ -12,8 +12,8 @@ namespace Assets.LevelEditor
                     { 2, new StandardTile(MainTileType.Pillar) },
                     { 3, new WallTile() },
                     { 4, new StandardTile(MainTileType.Spike) },
-                    { 5, new StandardTile(MainTileType.Hero) },
-                    { 6, new StandardTile(MainTileType.Boss) },
+                    //{ 5, new StandardTile(MainTileType.Hero) },
+                    //{ 6, new StandardTile(MainTileType.Boss) },
                 };
 
         public void Start()

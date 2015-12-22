@@ -7,7 +7,12 @@ namespace Assets.EntitasRefactor
     {
         public static Entity GetTileAt(this Pool pool, TilePos position)
         {
-            var entities = pool.GetEntities(Matcher.AllOf(Matcher.Tile, Matcher.Position));
+            return GetEntityAt(pool, position, Matcher.AllOf(Matcher.Tile, Matcher.Position));
+        }
+
+        private static Entity GetEntityAt(Pool pool, TilePos position, IMatcher entityMatcher)
+        {
+            var entities = pool.GetEntities(entityMatcher);
             return entities.SingleOrDefault(x => x.position.Value == position);
         }
 

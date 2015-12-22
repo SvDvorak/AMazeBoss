@@ -101,7 +101,7 @@ namespace Assets
 
         private static void LoadTileTypeTemplates()
         {
-            var tileTypes = TileTypeHelper.GetAsList();
+            var tileTypes = EnumHelper.GetAsList<MainTileType>();
             var allTiles = LoadTiles();
             var subtypeNames = new Dictionary<MainTileType, List<string>>();
 

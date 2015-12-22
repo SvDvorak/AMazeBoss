@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace Assets
 {
-    public static class TileTypeHelper
+    public static class EnumHelper
     {
-        public static int GetCount()
+        public static int GetCount<T>()
         {
-            return Enum.GetNames(typeof(MainTileType)).Length;
+            return Enum.GetNames(typeof(T)).Length;
         }
 
-        public static List<MainTileType> GetAsList()
+        public static List<T> GetAsList<T>()
         {
-            return Enum.GetValues(typeof(MainTileType)).Cast<MainTileType>().ToList();
+            return Enum.GetValues(typeof(T)).Cast<T>().ToList();
         }
     }
 
@@ -23,6 +23,10 @@ namespace Assets
         Pillar,
         Wall,
         Spike,
+    }
+
+    public enum ItemType
+    {
         Hero,
         Boss
     }

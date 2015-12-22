@@ -6,15 +6,15 @@ namespace Assets.EntitasRefactor.Preview
 {
     public class PreviewTileTypeChangedSystem : PreviewChangedSystem, IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.TileSelect.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.PlaceableSelected.OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {
-            var selectedTile = entities.SingleEntity().tileSelect.Type;
+            var selectedPlaceable = entities.SingleEntity().placeableSelected.Value;
 
-            var tileTemplates = Pool.tileTemplates.Value.Retrieve(selectedTile);
-            Pool.previewEntity
-                .ReplaceResource(tileTemplates.Item2.First());
+            //var tileTemplates = Pool.tileTemplates.Value.Retrieve(selectedPlaceable);
+            //Pool.previewEntity
+            //    .ReplaceResource(tileTemplates.Item2.First());
         }
     }
 }

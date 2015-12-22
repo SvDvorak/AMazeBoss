@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Entitas;
 using Assets;
@@ -6,13 +7,13 @@ using Random = UnityEngine.Random;
 
 namespace Assets.EntitasRefactor
 {
-    public class TileTemplateSelectorSystem : IMultiReactiveSystem, ISetPool
+    public class TemplateSelectorSystem : IMultiReactiveSystem, ISetPool
     {
         private Pool _pool;
 
         public TriggerOnEvent[] triggers
         {
-            get { return new[] { Matcher.Tile.OnEntityAdded(), Matcher.Subtype.OnEntityAdded() }; }
+            get { return new[] { Matcher.Maintype.OnEntityAdded(), Matcher.Subtype.OnEntityAdded() }; }
         }
 
         public void SetPool(Pool pool)
@@ -24,20 +25,20 @@ namespace Assets.EntitasRefactor
         {
             foreach (var entity in entities)
             {
-                entity.ReplaceResource(RetrieveTileTemplateName(entity));
+                entity.ReplaceResource(RetrieveTemplateName(entity));
             }
         }
 
-        private string RetrieveTileTemplateName(Entity entity)
+        private string RetrieveTemplateName(Entity entity)
         {
             List<string> templateNames;
             if (entity.hasSubtype)
             {
-                templateNames = _pool.tileTemplates.Value.Retrieve(entity.tile.Type, entity.subtype.Value.ToUpper());
+                templateNames = _pool.tileTemplates.Value.Retrieve(entity.maintype.Value, entity.subtype.Value);
             }
             else
             {
-                var selectedSubtype = _pool.tileTemplates.Value.Retrieve(entity.tile.Type);
+                var selectedSubtype = _pool.tileTemplates.Value.Retrieve(entity.maintype.Value);
                 entity.AddSubtype(selectedSubtype.Item1);
                 templateNames = selectedSubtype.Item2;
             }
