@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.LevelEditor.Placeables;
+﻿using Assets.LevelEditor.Placeables;
 using Entitas;
 using Entitas.CodeGenerator;
 
@@ -27,5 +23,4 @@ namespace Assets.LevelEditor
     public class PreviewComponent : IComponent
     {
     }
-
 }

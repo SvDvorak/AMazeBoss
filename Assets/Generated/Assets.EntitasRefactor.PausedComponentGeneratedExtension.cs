@@ -1,6 +1,8 @@
+using Assets.LevelEditor;
+
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.LevelEditor.PausedComponent pausedComponent = new Assets.LevelEditor.PausedComponent();
+        static readonly PausedComponent pausedComponent = new PausedComponent();
 
         public bool isPaused {
             get { return HasComponent(ComponentIds.Paused); }

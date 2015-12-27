@@ -9,7 +9,7 @@ namespace Assets
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.Escape) && LoadLevel.EditorLevelPath != "")
             {
-                SceneManager.LoadScene("Editor2");
+                SceneManager.LoadScene("Editor");
             }
         }
     }

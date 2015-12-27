@@ -1,6 +1,8 @@
+using Assets.LevelEditor;
+
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.LevelEditor.InputComponent inputComponent = new Assets.LevelEditor.InputComponent();
+        static readonly InputComponent inputComponent = new InputComponent();
 
         public bool isInput {
             get { return HasComponent(ComponentIds.Input); }

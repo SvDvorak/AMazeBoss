@@ -1,4 +1,5 @@
 using Assets;
+using Assets.LevelEditor;
 
 public static class ComponentIds {
     public const int Boss = 0;
@@ -52,14 +53,14 @@ public static class ComponentIds {
         typeof(ChildComponent),
         typeof(DestroyedComponent),
         typeof(HeroComponent),
-        typeof(Assets.LevelEditor.InputComponent),
+        typeof(InputComponent),
         typeof(ItemComponent),
         typeof(MaintypeComponent),
         typeof(ParentComponent),
-        typeof(Assets.LevelEditor.PausedComponent),
-        typeof(Assets.LevelEditor.PlaceableSelectedComponent),
+        typeof(PausedComponent),
+        typeof(PlaceableSelectedComponent),
         typeof(PositionComponent),
-        typeof(Assets.LevelEditor.PreviewComponent),
+        typeof(PreviewComponent),
         typeof(ResourceComponent),
         typeof(RotationComponent),
         typeof(SubtypeComponent),

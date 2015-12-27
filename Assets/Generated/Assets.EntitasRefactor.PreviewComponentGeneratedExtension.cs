@@ -1,6 +1,8 @@
+using Assets.LevelEditor;
+
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.LevelEditor.PreviewComponent previewComponent = new Assets.LevelEditor.PreviewComponent();
+        static readonly PreviewComponent previewComponent = new PreviewComponent();
 
         public bool isPreview {
             get { return HasComponent(ComponentIds.Preview); }

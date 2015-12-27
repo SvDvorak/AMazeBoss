@@ -111,7 +111,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenFile.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentExtensionsGenerator.cs" />

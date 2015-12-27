@@ -1,27 +1,28 @@
 using System.Collections.Generic;
+using Assets.LevelEditor;
 using Assets.LevelEditor.Placeables;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.LevelEditor.PlaceableSelectedComponent placeableSelected { get { return (Assets.LevelEditor.PlaceableSelectedComponent)GetComponent(ComponentIds.PlaceableSelected); } }
+        public PlaceableSelectedComponent placeableSelected { get { return (PlaceableSelectedComponent)GetComponent(ComponentIds.PlaceableSelected); } }
 
         public bool hasPlaceableSelected { get { return HasComponent(ComponentIds.PlaceableSelected); } }
 
-        static readonly Stack<Assets.LevelEditor.PlaceableSelectedComponent> _placeableSelectedComponentPool = new Stack<Assets.LevelEditor.PlaceableSelectedComponent>();
+        static readonly Stack<PlaceableSelectedComponent> _placeableSelectedComponentPool = new Stack<PlaceableSelectedComponent>();
 
         public static void ClearPlaceableSelectedComponentPool() {
             _placeableSelectedComponentPool.Clear();
         }
 
         public Entity AddPlaceableSelected(Placeable newValue) {
-            var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.LevelEditor.PlaceableSelectedComponent();
+            var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new PlaceableSelectedComponent();
             component.Value = newValue;
             return AddComponent(ComponentIds.PlaceableSelected, component);
         }
 
         public Entity ReplacePlaceableSelected(Placeable newValue) {
             var previousComponent = hasPlaceableSelected ? placeableSelected : null;
-            var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.LevelEditor.PlaceableSelectedComponent();
+            var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new PlaceableSelectedComponent();
             component.Value = newValue;
             ReplaceComponent(ComponentIds.PlaceableSelected, component);
             if (previousComponent != null) {
