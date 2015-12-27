@@ -41,6 +41,7 @@ namespace Assets
             // Update
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
+                .Add(pool.CreateHeroMoveSystem())
 
             // Render
                 .Add(pool.CreateTemplateSelectorSystem())

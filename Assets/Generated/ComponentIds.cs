@@ -1,19 +1,16 @@
-using Assets;
-using Assets.LevelEditor;
-
 public static class ComponentIds {
     public const int Boss = 0;
     public const int Child = 1;
     public const int Destroyed = 2;
     public const int Hero = 3;
-    public const int Input = 4;
-    public const int Item = 5;
-    public const int Maintype = 6;
-    public const int Parent = 7;
-    public const int Paused = 8;
-    public const int PlaceableSelected = 9;
-    public const int Position = 10;
-    public const int Preview = 11;
+    public const int Item = 4;
+    public const int Input = 5;
+    public const int Paused = 6;
+    public const int PlaceableSelected = 7;
+    public const int Preview = 8;
+    public const int Maintype = 9;
+    public const int Parent = 10;
+    public const int Position = 11;
     public const int Resource = 12;
     public const int Rotation = 13;
     public const int Subtype = 14;
@@ -30,14 +27,14 @@ public static class ComponentIds {
         "Child",
         "Destroyed",
         "Hero",
-        "Input",
         "Item",
-        "Maintype",
-        "Parent",
+        "Input",
         "Paused",
         "PlaceableSelected",
-        "Position",
         "Preview",
+        "Maintype",
+        "Parent",
+        "Position",
         "Resource",
         "Rotation",
         "Subtype",
@@ -49,25 +46,25 @@ public static class ComponentIds {
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(BossComponent),
-        typeof(ChildComponent),
-        typeof(DestroyedComponent),
-        typeof(HeroComponent),
-        typeof(InputComponent),
-        typeof(ItemComponent),
-        typeof(MaintypeComponent),
-        typeof(ParentComponent),
-        typeof(PausedComponent),
-        typeof(PlaceableSelectedComponent),
-        typeof(PositionComponent),
-        typeof(PreviewComponent),
-        typeof(ResourceComponent),
-        typeof(RotationComponent),
-        typeof(SubtypeComponent),
-        typeof(ThinkDelayComponent),
-        typeof(TileComponent),
-        typeof(TileTemplates),
-        typeof(ViewComponent),
-        typeof(WalkableComponent)
+        typeof(Assets.BossComponent),
+        typeof(Assets.ChildComponent),
+        typeof(Assets.DestroyedComponent),
+        typeof(Assets.HeroComponent),
+        typeof(Assets.ItemComponent),
+        typeof(Assets.LevelEditor.InputComponent),
+        typeof(Assets.LevelEditor.PausedComponent),
+        typeof(Assets.LevelEditor.PlaceableSelectedComponent),
+        typeof(Assets.LevelEditor.PreviewComponent),
+        typeof(Assets.MaintypeComponent),
+        typeof(Assets.ParentComponent),
+        typeof(Assets.PositionComponent),
+        typeof(Assets.ResourceComponent),
+        typeof(Assets.RotationComponent),
+        typeof(Assets.SubtypeComponent),
+        typeof(Assets.ThinkDelayComponent),
+        typeof(Assets.TileComponent),
+        typeof(Assets.TileTemplates),
+        typeof(Assets.ViewComponent),
+        typeof(Assets.WalkableComponent)
     };
 }

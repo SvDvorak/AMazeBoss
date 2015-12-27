@@ -67,7 +67,7 @@ namespace Assets.LevelEditor
             // Update
                 .Add(pool.CreateSelectPlaceableSystem())
                 .Add(pool.CreatePutDownPlaceableSystem())
-                .Add(pool.CreateRemoveObjectSystem())
+                .Add(pool.CreateRemovePlaceableSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateWallAdjustmentSystem())
                 .Add(pool.CreatePreviewTilePositionChangedSystem())
