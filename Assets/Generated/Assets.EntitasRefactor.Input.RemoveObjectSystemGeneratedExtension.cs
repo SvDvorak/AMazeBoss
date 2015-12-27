@@ -1,6 +1,6 @@
 namespace Entitas {
     public partial class Pool {
-        public ISystem CreateRemoveTileSystem() {
+        public ISystem CreateRemoveObjectSystem() {
             return this.CreateSystem<Assets.EntitasRefactor.Input.RemoveObjectSystem>();
         }
     }

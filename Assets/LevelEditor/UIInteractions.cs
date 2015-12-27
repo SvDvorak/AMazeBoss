@@ -41,7 +41,7 @@ namespace Assets.LevelEditor
         public void Clear()
         {
             SetLastUsedPath("");
-            Pools.pool.Clear(Matcher.Tile);
+            Pools.pool.Clear(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
         }
 
         private void SetLastUsedPath(string path)

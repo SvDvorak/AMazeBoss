@@ -16,7 +16,7 @@ namespace Assets
 
         public BossMove()
         {
-            _movementCalculator = new MovementCalculator();
+            _movementCalculator = new MovementCalculator(null);
         }
 
         public void Start ()
@@ -59,7 +59,7 @@ namespace Assets
                 var currentPosition = new TilePos(transform.position);
                 _currentMovePlan = _movementCalculator.CalculateMoveToTarget(currentPosition, targetPosition);
 
-                if (_currentMovePlan.Successful)
+                if (_currentMovePlan.HasStepsLeft)
                 {
                     transform.position = _currentMovePlan.NextStep().ToV3();
                 }

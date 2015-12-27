@@ -40,6 +40,7 @@ namespace Assets.EntitasRefactor
 
             // Update
                 .Add(pool.CreateBottomSpawnerSystem())
+                .Add(pool.CreateBossMoveSystem())
 
             // Render
                 .Add(pool.CreateTemplateSelectorSystem())

@@ -53,7 +53,7 @@ namespace Assets.EntitasRefactor
         private Group _tilesGroup;
         private HashSet<TilePos> _wallTiles;
 
-        public TriggerOnEvent trigger { get { return Matcher.Tile.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.Maintype.OnEntityAdded(); } }
         public IMatcher ensureComponents { get { return Matcher.Position; } }
 
         public WallAdjustmentSystem()
@@ -71,7 +71,7 @@ namespace Assets.EntitasRefactor
 
         public void Execute(List<Entity> entities)
         {
-            var walls = _tilesGroup.GetEntities().Where(x => x.tile.Type == MainTileType.Wall);
+            var walls = _tilesGroup.GetEntities().Where(x => x.maintype.Value == MainTileType.Wall.ToString());
             _wallTiles = new HashSet<TilePos>(walls.Select(x => x.position.Value));
 
             foreach (var wall in walls)

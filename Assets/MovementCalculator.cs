@@ -16,21 +16,26 @@ namespace Assets
 
         private void RemoveCurrentPositionIfSuccesful(List<TilePos> path)
         {
-            if (Successful)
+            if (HasStepsLeft)
             {
                 path.RemoveAt(0);
             }
         }
 
-        public bool Successful
+        public bool HasStepsLeft
         {
-            get { return Path.Count > 0; }
+            get { return Path != null && Path.Count > 0; }
         }
 
         public TilePos NextStep()
         {
             return Path.First();
         }
+    }
+
+    public interface IWalkableValidator
+    {
+        bool CanMoveTo(TilePos position);
     }
 
     public class MovementCalculator
@@ -43,9 +48,16 @@ namespace Assets
                 new TilePos(1, 0)
             };
 
+        private readonly IWalkableValidator _walkValidator;
+
         private List<Tuple<float, List<TilePos>>> _pathsToContinue;
         private HashSet<TilePos> _visited;
         private TilePos _targetPosition;
+
+        public MovementCalculator(IWalkableValidator walkValidator)
+        {
+            _walkValidator = walkValidator;
+        }
 
         public MovementCalculation CalculateMoveToTarget(TilePos currentPosition, TilePos targetPosition)
         {
@@ -98,7 +110,7 @@ namespace Assets
 
         private void AddNewPathToContinueIfNotBlockedOrVisited(TilePos move, Tuple<float, List<TilePos>> path)
         {
-            if (RoomInfoTwo.Instance.CanMoveTo(move) && !_visited.Contains(move))
+            if (_walkValidator.CanMoveTo(move) && !_visited.Contains(move))
             {
                 var cost = (_targetPosition - move).Length();
                 var newPath = path.Item2.Concat(move).ToList();

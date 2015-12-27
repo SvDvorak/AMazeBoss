@@ -1,26 +1,32 @@
 public static class ComponentIds {
-    public const int Child = 0;
-    public const int Destroyed = 1;
-    public const int Input = 2;
-    public const int Item = 3;
-    public const int Maintype = 4;
-    public const int Parent = 5;
-    public const int Paused = 6;
-    public const int PlaceableSelected = 7;
-    public const int Position = 8;
-    public const int Preview = 9;
-    public const int Resource = 10;
-    public const int Rotation = 11;
-    public const int Subtype = 12;
-    public const int Tile = 13;
-    public const int TileTemplates = 14;
-    public const int View = 15;
+    public const int Boss = 0;
+    public const int Child = 1;
+    public const int Destroyed = 2;
+    public const int Hero = 3;
+    public const int Input = 4;
+    public const int Item = 5;
+    public const int Maintype = 6;
+    public const int Parent = 7;
+    public const int Paused = 8;
+    public const int PlaceableSelected = 9;
+    public const int Position = 10;
+    public const int Preview = 11;
+    public const int Resource = 12;
+    public const int Rotation = 13;
+    public const int Subtype = 14;
+    public const int ThinkDelay = 15;
+    public const int Tile = 16;
+    public const int TileTemplates = 17;
+    public const int View = 18;
+    public const int Walkable = 19;
 
-    public const int TotalComponents = 16;
+    public const int TotalComponents = 20;
 
     public static readonly string[] componentNames = {
+        "Boss",
         "Child",
         "Destroyed",
+        "Hero",
         "Input",
         "Item",
         "Maintype",
@@ -32,14 +38,18 @@ public static class ComponentIds {
         "Resource",
         "Rotation",
         "Subtype",
+        "ThinkDelay",
         "Tile",
         "TileTemplates",
-        "View"
+        "View",
+        "Walkable"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(Assets.EntitasRefactor.BossComponent),
         typeof(Assets.EntitasRefactor.ChildComponent),
         typeof(Assets.EntitasRefactor.DestroyedComponent),
+        typeof(Assets.EntitasRefactor.HeroComponent),
         typeof(Assets.EntitasRefactor.InputComponent),
         typeof(Assets.EntitasRefactor.ItemComponent),
         typeof(Assets.EntitasRefactor.MaintypeComponent),
@@ -51,8 +61,10 @@ public static class ComponentIds {
         typeof(Assets.EntitasRefactor.ResourceComponent),
         typeof(Assets.EntitasRefactor.RotationComponent),
         typeof(Assets.EntitasRefactor.SubtypeComponent),
+        typeof(Assets.EntitasRefactor.ThinkDelayComponent),
         typeof(Assets.EntitasRefactor.TileComponent),
         typeof(Assets.EntitasRefactor.TileTemplates),
-        typeof(Assets.EntitasRefactor.ViewComponent)
+        typeof(Assets.EntitasRefactor.ViewComponent),
+        typeof(Assets.EntitasRefactor.WalkableComponent)
     };
 }

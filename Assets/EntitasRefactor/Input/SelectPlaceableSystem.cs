@@ -9,12 +9,12 @@ namespace Assets.EntitasRefactor.Input
     {
         private readonly Dictionary<int, IPlaceable> _numberToPlaceable = new Dictionary<int, IPlaceable>
                 {
-                    { 1, new Tile(MainTileType.Normal) },
+                    { 1, new Tile(MainTileType.Normal, e => e.IsWalkable(true)) },
                     { 2, new Tile(MainTileType.Pillar) },
                     { 3, new Tile(MainTileType.Wall) },
-                    { 4, new Tile(MainTileType.Spike) },
-                    { 5, new Item(ItemType.Hero) },
-                    { 6, new Item(ItemType.Boss) }
+                    { 4, new Tile(MainTileType.Spike, e => e.IsWalkable(true)) },
+                    { 5, new Item(ItemType.Hero, e => e.IsHero(true)) },
+                    { 6, new Item(ItemType.Boss, e => e.IsBoss(true)) }
                 };
 
         private Pool _pool;

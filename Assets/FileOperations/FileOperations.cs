@@ -7,25 +7,74 @@ using UnityEngine;
 
 namespace Assets.FileOperations
 {
+    public class DescriptorResolver
+    {
+        public IEnumerable<string> ToDescriptors(Entity entity)
+        {
+            var descriptors = new List<string>();
+            if (entity.isTile)
+            {
+                descriptors.Add("TILE");
+            }
+            if (entity.isWalkable)
+            {
+                descriptors.Add("WALKABLE");
+            }
+            if (entity.isItem)
+            {
+                descriptors.Add("ITEM");
+            }
+            if (entity.isHero)
+            {
+                descriptors.Add("HERO");
+            }
+            if (entity.isBoss)
+            {
+                descriptors.Add("BOSS");
+            }
+
+            return descriptors;
+        }
+
+        private readonly Dictionary<string, Action<Entity>> _fromDescriptors = new Dictionary<string, Action<Entity>>()
+            {
+                { "TILE", (entity) => entity.IsTile(true) },
+                { "WALKABLE", (entity) => entity.IsWalkable(true) },
+                { "ITEM", (entity) => entity.IsItem(true) },
+                { "HERO", (entity) => entity.IsHero(true) },
+                { "BOSS", (entity) => entity.IsBoss(true) }
+            };
+
+        public void FromDescriptors(string descriptors, Entity entity)
+        {
+            foreach (var descriptor in descriptors.Split(';'))
+            {
+                _fromDescriptors[descriptor](entity);
+            }
+        }
+    }
+
     public class FileOperations
     {
+        private static readonly DescriptorResolver DescriptorResolver = new DescriptorResolver();
+
         public static void Save(string path)
         {
-            var editorTiles = Pools.pool.GetEntities(Matcher.Tile);
-            var fileTiles = new FileTiles(editorTiles
-                .Select(x => CreateFileTile(x))
+            var editorObjects = Pools.pool.GetEntities(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
+            var fileObjects = new MapObjects(editorObjects
+                .Select(x => CreateFileObject(x))
                 .ToList());
-            var json = JsonUtility.ToJson(fileTiles);
+            var json = JsonUtility.ToJson(fileObjects);
             var streamWriter = new StreamWriter(path, false);
             streamWriter.Write(json);
             streamWriter.Close();
         }
 
-        private static FileTile CreateFileTile(Entity entity)
+        private static FileObject CreateFileObject(Entity entity)
         {
             var pos = entity.position.Value;
             var subtype = entity.hasSubtype ? entity.subtype.Value : "";
-            return new FileTile(entity.maintype.Value, subtype, pos.X, pos.Z, entity.rotation.Value);
+            return new FileObject(entity.maintype.Value, subtype, pos.X, pos.Z, entity.rotation.Value, DescriptorResolver.ToDescriptors(entity));
         }
 
         public static void Load(string path)
@@ -37,23 +86,24 @@ namespace Assets.FileOperations
             var pool = Pools.pool;
 
             JsonUtility
-                .FromJson<FileTiles>(json)
+                .FromJson<MapObjects>(json)
                 .Tiles
                 .ForEach(tile => CreateEntity(pool, tile));
         }
 
-        private static void CreateEntity(Pool pool, FileTile tile)
+        private static void CreateEntity(Pool pool, FileObject mapObject)
         {
             var entity = pool.CreateEntity()
-                .AddTile(Enum.Parse<MainTileType>(tile.MainType))
-                .AddMaintype(tile.MainType)
-                .AddPosition(new TilePos(tile.X, tile.Z))
-                .AddRotation(tile.Rotation);
+                .AddMaintype(mapObject.MainType)
+                .AddPosition(new TilePos(mapObject.X, mapObject.Z))
+                .AddRotation(mapObject.Rotation);
 
-            if (tile.Subtype != "")
+            if (mapObject.Subtype != "")
             {
-                entity.AddSubtype(tile.Subtype);
+                entity.AddSubtype(mapObject.Subtype);
             }
+
+            DescriptorResolver.FromDescriptors(mapObject.Descriptors, entity);
         }
 
         public static string GetLastUsedPath()

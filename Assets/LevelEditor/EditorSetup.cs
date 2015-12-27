@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.EntitasRefactor
+namespace Assets.LevelEditor
 {
     public class EditorSetup : MonoBehaviour
     {

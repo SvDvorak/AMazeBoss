@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Assets.EntitasRefactor.Input;
 using Assets.EntitasRefactor.Placeables;
 using Entitas;
@@ -34,30 +32,6 @@ namespace Assets.EntitasRefactor
         public int Id;
     }
 
-    public static class EntityExtensions
-    {
-        private static int _freeParentId;
-        private static int FreeParentId { get { return _freeParentId++; } }
-
-        public static void AddParent(this Entity entity)
-        {
-            entity.AddParent(FreeParentId);
-        }
-
-        public static Entity FindChildFor(this Pool pool, Entity entity)
-        {
-            return pool.FindChildrenFor(entity).SingleEntity();
-        }
-
-        public static List<Entity> FindChildrenFor(this Pool pool, Entity entity)
-        {
-            return pool
-                .GetEntities(Matcher.Child)
-                .Where(x => x.child.ParentId == entity.parent.Id)
-                .ToList();
-        }
-    }
-
     public class ChildComponent : IComponent
     {
         public int ParentId;
@@ -78,11 +52,6 @@ namespace Assets.EntitasRefactor
         }
     }
 
-    public class TileComponent : IComponent
-    {
-        public MainTileType Type;
-    }
-
     public class MaintypeComponent : IComponent
     {
         public string Value;
@@ -93,9 +62,27 @@ namespace Assets.EntitasRefactor
         public string Value;
     }
 
+    public class TileComponent : IComponent
+    {
+    }
+
+    public class WalkableComponent : IComponent
+    {
+    }
+
     public class ItemComponent : IComponent
     {
-        public ItemType Type;
+    }
+
+    public class BossComponent : IComponent
+    {
+    }
+
+    public class HeroComponent : IComponent { }
+
+    public class ThinkDelayComponent : IComponent
+    {
+        public float TimeLeft;
     }
 
     public class ResourceComponent : IComponent
@@ -108,31 +95,5 @@ namespace Assets.EntitasRefactor
         public GameObject Value;
     }
 
-    public class DestroyedComponent : IComponent
-    {
-    }
-
-    [SingleEntity]
-    public class TileTemplates : IComponent
-    {
-        public TemplateNames Value;
-    }
-
-    public class TemplateNames : Dictionary<string, SubtemplateNames>
-    {
-        public Tuple<string, List<string>> Retrieve(string type)
-        {
-            var firstSubtypeNames = this[type.ToUpper()].First();
-            return new Tuple<string, List<string>>(firstSubtypeNames.Key, firstSubtypeNames.Value);
-        }
-
-        public List<string> Retrieve(string type, string subtype)
-        {
-            return this[type.ToUpper()][subtype.ToUpper()];
-        }
-    }
-
-    public class SubtemplateNames : Dictionary<string, List<string>>
-    {
-    }
+    public class DestroyedComponent : IComponent { }
 }

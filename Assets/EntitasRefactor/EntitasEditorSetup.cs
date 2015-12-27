@@ -67,7 +67,7 @@ namespace Assets.EntitasRefactor
             // Update
                 .Add(pool.CreateSelectPlaceableSystem())
                 .Add(pool.CreatePutDownPlaceableSystem())
-                .Add(pool.CreateRemoveTileSystem())
+                .Add(pool.CreateRemoveObjectSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateWallAdjustmentSystem())
                 .Add(pool.CreatePreviewTilePositionChangedSystem())

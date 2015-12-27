@@ -4,11 +4,11 @@ using System.Collections.Generic;
 namespace Assets.FileOperations
 {
     [Serializable]
-    public class FileTiles
+    public class MapObjects
     {
-        public List<FileTile> Tiles;
+        public List<FileObject> Tiles;
 
-        public FileTiles(List<FileTile> tiles)
+        public MapObjects(List<FileObject> tiles)
         {
             Tiles = tiles;
         }

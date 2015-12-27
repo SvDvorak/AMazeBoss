@@ -1,38 +1,22 @@
-using System.Collections.Generic;
-
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.TileComponent tile { get { return (Assets.EntitasRefactor.TileComponent)GetComponent(ComponentIds.Tile); } }
+        static readonly Assets.EntitasRefactor.TileComponent tileComponent = new Assets.EntitasRefactor.TileComponent();
 
-        public bool hasTile { get { return HasComponent(ComponentIds.Tile); } }
-
-        static readonly Stack<Assets.EntitasRefactor.TileComponent> _tileComponentPool = new Stack<Assets.EntitasRefactor.TileComponent>();
-
-        public static void ClearTileComponentPool() {
-            _tileComponentPool.Clear();
-        }
-
-        public Entity AddTile(Assets.MainTileType newType) {
-            var component = _tileComponentPool.Count > 0 ? _tileComponentPool.Pop() : new Assets.EntitasRefactor.TileComponent();
-            component.Type = newType;
-            return AddComponent(ComponentIds.Tile, component);
-        }
-
-        public Entity ReplaceTile(Assets.MainTileType newType) {
-            var previousComponent = hasTile ? tile : null;
-            var component = _tileComponentPool.Count > 0 ? _tileComponentPool.Pop() : new Assets.EntitasRefactor.TileComponent();
-            component.Type = newType;
-            ReplaceComponent(ComponentIds.Tile, component);
-            if (previousComponent != null) {
-                _tileComponentPool.Push(previousComponent);
+        public bool isTile {
+            get { return HasComponent(ComponentIds.Tile); }
+            set {
+                if (value != isTile) {
+                    if (value) {
+                        AddComponent(ComponentIds.Tile, tileComponent);
+                    } else {
+                        RemoveComponent(ComponentIds.Tile);
+                    }
+                }
             }
-            return this;
         }
 
-        public Entity RemoveTile() {
-            var component = tile;
-            RemoveComponent(ComponentIds.Tile);
-            _tileComponentPool.Push(component);
+        public Entity IsTile(bool value) {
+            isTile = value;
             return this;
         }
     }
