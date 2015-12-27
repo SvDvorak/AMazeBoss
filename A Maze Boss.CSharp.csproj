@@ -85,8 +85,8 @@
     <Compile Include="Assets\EntitasRefactor\Input\RemoveObjectSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\Input\SelectPlaceableSystem.cs" />
     <Compile Include="Assets\EntitasRefactor\InterfaceBlockingEditorControls.cs" />
-    <Compile Include="Assets\EntitasRefactor\Placeables\IPlaceable.cs" />
     <Compile Include="Assets\EntitasRefactor\Placeables\Item.cs" />
+    <Compile Include="Assets\EntitasRefactor\Placeables\Placeable.cs" />
     <Compile Include="Assets\EntitasRefactor\Placeables\Tile.cs" />
     <Compile Include="Assets\EntitasRefactor\PoolExtensions.cs" />
     <Compile Include="Assets\EntitasRefactor\Preview\PreviewChangedSystem.cs" />

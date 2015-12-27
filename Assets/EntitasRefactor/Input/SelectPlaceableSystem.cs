@@ -7,14 +7,14 @@ namespace Assets.EntitasRefactor.Input
 {
     public class SelectPlaceableSystem : IInitializeSystem, IExecuteSystem, ISetPool
     {
-        private readonly Dictionary<int, IPlaceable> _numberToPlaceable = new Dictionary<int, IPlaceable>
+        private readonly Dictionary<int, Placeable> _numberToPlaceable = new Dictionary<int, Placeable>
                 {
-                    { 1, new Tile(MainTileType.Normal, e => e.IsWalkable(true)) },
-                    { 2, new Tile(MainTileType.Pillar) },
-                    { 3, new Tile(MainTileType.Wall) },
-                    { 4, new Tile(MainTileType.Spike, e => e.IsWalkable(true)) },
-                    { 5, new Item(ItemType.Hero, e => e.IsHero(true)) },
-                    { 6, new Item(ItemType.Boss, e => e.IsBoss(true)) }
+                    { 1, new Tile(MainTileType.Normal.ToString(), e => e.IsWalkable(true)) },
+                    { 2, new Tile(MainTileType.Pillar.ToString()) },
+                    { 3, new Tile(MainTileType.Wall.ToString()) },
+                    { 4, new Tile(MainTileType.Spike.ToString(), e => e.IsWalkable(true)) },
+                    { 5, new Item(ItemType.Hero.ToString(), e => e.IsHero(true)) },
+                    { 6, new Item(ItemType.Boss.ToString(), e => e.IsBoss(true)) }
                 };
 
         private Pool _pool;
@@ -36,7 +36,7 @@ namespace Assets.EntitasRefactor.Input
                 return;
             }
 
-            IPlaceable selected = null;
+            Placeable selected = null;
             for (int i = 1; i <= _numberToPlaceable.Keys.Count; i++)
             {
                 if (UnityEngine.Input.GetKeyDown(i.ToString()))
@@ -48,7 +48,7 @@ namespace Assets.EntitasRefactor.Input
             SetObjectSelected(selected);
         }
 
-        private void SetObjectSelected(IPlaceable selected)
+        private void SetObjectSelected(Placeable selected)
         {
             if (selected != null)
             {

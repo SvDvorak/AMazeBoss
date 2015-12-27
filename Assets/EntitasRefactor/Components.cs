@@ -14,7 +14,7 @@ namespace Assets.EntitasRefactor
 
     public class PlaceableSelectedComponent : IComponent
     {
-        public IPlaceable Value;
+        public Placeable Value;
     }
 
     [SingleEntity]
