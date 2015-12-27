@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.ThinkDelayComponent thinkDelay { get { return (Assets.EntitasRefactor.ThinkDelayComponent)GetComponent(ComponentIds.ThinkDelay); } }
+        public ThinkDelayComponent thinkDelay { get { return (ThinkDelayComponent)GetComponent(ComponentIds.ThinkDelay); } }
 
         public bool hasThinkDelay { get { return HasComponent(ComponentIds.ThinkDelay); } }
 
-        static readonly Stack<Assets.EntitasRefactor.ThinkDelayComponent> _thinkDelayComponentPool = new Stack<Assets.EntitasRefactor.ThinkDelayComponent>();
+        static readonly Stack<ThinkDelayComponent> _thinkDelayComponentPool = new Stack<ThinkDelayComponent>();
 
         public static void ClearThinkDelayComponentPool() {
             _thinkDelayComponentPool.Clear();
         }
 
         public Entity AddThinkDelay(float newTimeLeft) {
-            var component = _thinkDelayComponentPool.Count > 0 ? _thinkDelayComponentPool.Pop() : new Assets.EntitasRefactor.ThinkDelayComponent();
+            var component = _thinkDelayComponentPool.Count > 0 ? _thinkDelayComponentPool.Pop() : new ThinkDelayComponent();
             component.TimeLeft = newTimeLeft;
             return AddComponent(ComponentIds.ThinkDelay, component);
         }
 
         public Entity ReplaceThinkDelay(float newTimeLeft) {
             var previousComponent = hasThinkDelay ? thinkDelay : null;
-            var component = _thinkDelayComponentPool.Count > 0 ? _thinkDelayComponentPool.Pop() : new Assets.EntitasRefactor.ThinkDelayComponent();
+            var component = _thinkDelayComponentPool.Count > 0 ? _thinkDelayComponentPool.Pop() : new ThinkDelayComponent();
             component.TimeLeft = newTimeLeft;
             ReplaceComponent(ComponentIds.ThinkDelay, component);
             if (previousComponent != null) {

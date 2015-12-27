@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.SubtypeComponent subtype { get { return (Assets.EntitasRefactor.SubtypeComponent)GetComponent(ComponentIds.Subtype); } }
+        public SubtypeComponent subtype { get { return (SubtypeComponent)GetComponent(ComponentIds.Subtype); } }
 
         public bool hasSubtype { get { return HasComponent(ComponentIds.Subtype); } }
 
-        static readonly Stack<Assets.EntitasRefactor.SubtypeComponent> _subtypeComponentPool = new Stack<Assets.EntitasRefactor.SubtypeComponent>();
+        static readonly Stack<SubtypeComponent> _subtypeComponentPool = new Stack<SubtypeComponent>();
 
         public static void ClearSubtypeComponentPool() {
             _subtypeComponentPool.Clear();
         }
 
         public Entity AddSubtype(string newValue) {
-            var component = _subtypeComponentPool.Count > 0 ? _subtypeComponentPool.Pop() : new Assets.EntitasRefactor.SubtypeComponent();
+            var component = _subtypeComponentPool.Count > 0 ? _subtypeComponentPool.Pop() : new SubtypeComponent();
             component.Value = newValue;
             return AddComponent(ComponentIds.Subtype, component);
         }
 
         public Entity ReplaceSubtype(string newValue) {
             var previousComponent = hasSubtype ? subtype : null;
-            var component = _subtypeComponentPool.Count > 0 ? _subtypeComponentPool.Pop() : new Assets.EntitasRefactor.SubtypeComponent();
+            var component = _subtypeComponentPool.Count > 0 ? _subtypeComponentPool.Pop() : new SubtypeComponent();
             component.Value = newValue;
             ReplaceComponent(ComponentIds.Subtype, component);
             if (previousComponent != null) {

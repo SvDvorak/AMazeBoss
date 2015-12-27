@@ -1,6 +1,6 @@
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.EntitasRefactor.PreviewComponent previewComponent = new Assets.EntitasRefactor.PreviewComponent();
+        static readonly Assets.LevelEditor.PreviewComponent previewComponent = new Assets.LevelEditor.PreviewComponent();
 
         public bool isPreview {
             get { return HasComponent(ComponentIds.Preview); }

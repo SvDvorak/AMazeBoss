@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 
-public class ShowFileDialogs : MonoBehaviour
+namespace Assets.LevelEditor
 {
-    public GameObject SaveDialog;
-    public GameObject LoadDialog;
-
-    public void ShowSave()
+    public class ShowFileDialogs : MonoBehaviour
     {
-        LoadDialog.SetActive(false);
-        SaveDialog.SetActive(true);
-    }
+        public GameObject SaveDialog;
+        public GameObject LoadDialog;
 
-    public void ShowLoad()
-    {
-        SaveDialog.SetActive(false);
-        LoadDialog.SetActive(true);
+        public void ShowSave()
+        {
+            LoadDialog.SetActive(false);
+            SaveDialog.SetActive(true);
+        }
+
+        public void ShowLoad()
+        {
+            SaveDialog.SetActive(false);
+            LoadDialog.SetActive(true);
+        }
     }
 }

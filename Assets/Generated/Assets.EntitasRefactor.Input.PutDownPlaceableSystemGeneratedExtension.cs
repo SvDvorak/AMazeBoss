@@ -1,7 +1,9 @@
+using Assets.LevelEditor;
+
 namespace Entitas {
     public partial class Pool {
         public ISystem CreatePutDownPlaceableSystem() {
-            return this.CreateSystem<Assets.EntitasRefactor.Input.PutDownPlaceableSystem>();
+            return this.CreateSystem<PutDownPlaceableSystem>();
         }
     }
 }

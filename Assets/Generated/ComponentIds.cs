@@ -1,3 +1,5 @@
+using Assets;
+
 public static class ComponentIds {
     public const int Boss = 0;
     public const int Child = 1;
@@ -46,25 +48,25 @@ public static class ComponentIds {
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(Assets.EntitasRefactor.BossComponent),
-        typeof(Assets.EntitasRefactor.ChildComponent),
-        typeof(Assets.EntitasRefactor.DestroyedComponent),
-        typeof(Assets.EntitasRefactor.HeroComponent),
-        typeof(Assets.EntitasRefactor.InputComponent),
-        typeof(Assets.EntitasRefactor.ItemComponent),
-        typeof(Assets.EntitasRefactor.MaintypeComponent),
-        typeof(Assets.EntitasRefactor.ParentComponent),
-        typeof(Assets.EntitasRefactor.PausedComponent),
-        typeof(Assets.EntitasRefactor.PlaceableSelectedComponent),
-        typeof(Assets.EntitasRefactor.PositionComponent),
-        typeof(Assets.EntitasRefactor.PreviewComponent),
-        typeof(Assets.EntitasRefactor.ResourceComponent),
-        typeof(Assets.EntitasRefactor.RotationComponent),
-        typeof(Assets.EntitasRefactor.SubtypeComponent),
-        typeof(Assets.EntitasRefactor.ThinkDelayComponent),
-        typeof(Assets.EntitasRefactor.TileComponent),
-        typeof(Assets.EntitasRefactor.TileTemplates),
-        typeof(Assets.EntitasRefactor.ViewComponent),
-        typeof(Assets.EntitasRefactor.WalkableComponent)
+        typeof(BossComponent),
+        typeof(ChildComponent),
+        typeof(DestroyedComponent),
+        typeof(HeroComponent),
+        typeof(Assets.LevelEditor.InputComponent),
+        typeof(ItemComponent),
+        typeof(MaintypeComponent),
+        typeof(ParentComponent),
+        typeof(Assets.LevelEditor.PausedComponent),
+        typeof(Assets.LevelEditor.PlaceableSelectedComponent),
+        typeof(PositionComponent),
+        typeof(Assets.LevelEditor.PreviewComponent),
+        typeof(ResourceComponent),
+        typeof(RotationComponent),
+        typeof(SubtypeComponent),
+        typeof(ThinkDelayComponent),
+        typeof(TileComponent),
+        typeof(TileTemplates),
+        typeof(ViewComponent),
+        typeof(WalkableComponent)
     };
 }

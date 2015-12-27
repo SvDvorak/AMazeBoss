@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.TileTemplates tileTemplates { get { return (Assets.EntitasRefactor.TileTemplates)GetComponent(ComponentIds.TileTemplates); } }
+        public TileTemplates tileTemplates { get { return (TileTemplates)GetComponent(ComponentIds.TileTemplates); } }
 
         public bool hasTileTemplates { get { return HasComponent(ComponentIds.TileTemplates); } }
 
-        static readonly Stack<Assets.EntitasRefactor.TileTemplates> _tileTemplatesComponentPool = new Stack<Assets.EntitasRefactor.TileTemplates>();
+        static readonly Stack<TileTemplates> _tileTemplatesComponentPool = new Stack<TileTemplates>();
 
         public static void ClearTileTemplatesComponentPool() {
             _tileTemplatesComponentPool.Clear();
         }
 
-        public Entity AddTileTemplates(Assets.EntitasRefactor.TemplateNames newValue) {
-            var component = _tileTemplatesComponentPool.Count > 0 ? _tileTemplatesComponentPool.Pop() : new Assets.EntitasRefactor.TileTemplates();
+        public Entity AddTileTemplates(TemplateNames newValue) {
+            var component = _tileTemplatesComponentPool.Count > 0 ? _tileTemplatesComponentPool.Pop() : new TileTemplates();
             component.Value = newValue;
             return AddComponent(ComponentIds.TileTemplates, component);
         }
 
-        public Entity ReplaceTileTemplates(Assets.EntitasRefactor.TemplateNames newValue) {
+        public Entity ReplaceTileTemplates(TemplateNames newValue) {
             var previousComponent = hasTileTemplates ? tileTemplates : null;
-            var component = _tileTemplatesComponentPool.Count > 0 ? _tileTemplatesComponentPool.Pop() : new Assets.EntitasRefactor.TileTemplates();
+            var component = _tileTemplatesComponentPool.Count > 0 ? _tileTemplatesComponentPool.Pop() : new TileTemplates();
             component.Value = newValue;
             ReplaceComponent(ComponentIds.TileTemplates, component);
             if (previousComponent != null) {
@@ -40,11 +41,11 @@ namespace Entitas {
     public partial class Pool {
         public Entity tileTemplatesEntity { get { return GetGroup(Matcher.TileTemplates).GetSingleEntity(); } }
 
-        public Assets.EntitasRefactor.TileTemplates tileTemplates { get { return tileTemplatesEntity.tileTemplates; } }
+        public TileTemplates tileTemplates { get { return tileTemplatesEntity.tileTemplates; } }
 
         public bool hasTileTemplates { get { return tileTemplatesEntity != null; } }
 
-        public Entity SetTileTemplates(Assets.EntitasRefactor.TemplateNames newValue) {
+        public Entity SetTileTemplates(TemplateNames newValue) {
             if (hasTileTemplates) {
                 throw new SingleEntityException(Matcher.TileTemplates);
             }
@@ -53,7 +54,7 @@ namespace Entitas {
             return entity;
         }
 
-        public Entity ReplaceTileTemplates(Assets.EntitasRefactor.TemplateNames newValue) {
+        public Entity ReplaceTileTemplates(TemplateNames newValue) {
             var entity = tileTemplatesEntity;
             if (entity == null) {
                 entity = SetTileTemplates(newValue);

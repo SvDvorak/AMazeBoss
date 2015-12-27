@@ -1,6 +1,8 @@
+using Assets;
+
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.EntitasRefactor.ItemComponent itemComponent = new Assets.EntitasRefactor.ItemComponent();
+        static readonly ItemComponent itemComponent = new ItemComponent();
 
         public bool isItem {
             get { return HasComponent(ComponentIds.Item); }

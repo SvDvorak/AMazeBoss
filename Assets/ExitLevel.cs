@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ExitLevel : MonoBehaviour
+namespace Assets
 {
-	public void Update ()
-	{
-	    if (Input.GetKeyDown(KeyCode.Escape) && LoadLevel.EditorLevelPath != "")
-	    {
-            RoomInfoTwo.Instance.ClearTiles();
-            SceneManager.LoadScene("Editor2");
+    public class ExitLevel : MonoBehaviour
+    {
+        public void Update ()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape) && LoadLevel.EditorLevelPath != "")
+            {
+                SceneManager.LoadScene("Editor2");
+            }
         }
     }
 }

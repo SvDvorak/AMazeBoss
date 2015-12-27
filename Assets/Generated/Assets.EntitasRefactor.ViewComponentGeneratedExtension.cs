@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.ViewComponent view { get { return (Assets.EntitasRefactor.ViewComponent)GetComponent(ComponentIds.View); } }
+        public ViewComponent view { get { return (ViewComponent)GetComponent(ComponentIds.View); } }
 
         public bool hasView { get { return HasComponent(ComponentIds.View); } }
 
-        static readonly Stack<Assets.EntitasRefactor.ViewComponent> _viewComponentPool = new Stack<Assets.EntitasRefactor.ViewComponent>();
+        static readonly Stack<ViewComponent> _viewComponentPool = new Stack<ViewComponent>();
 
         public static void ClearViewComponentPool() {
             _viewComponentPool.Clear();
         }
 
         public Entity AddView(UnityEngine.GameObject newValue) {
-            var component = _viewComponentPool.Count > 0 ? _viewComponentPool.Pop() : new Assets.EntitasRefactor.ViewComponent();
+            var component = _viewComponentPool.Count > 0 ? _viewComponentPool.Pop() : new ViewComponent();
             component.Value = newValue;
             return AddComponent(ComponentIds.View, component);
         }
 
         public Entity ReplaceView(UnityEngine.GameObject newValue) {
             var previousComponent = hasView ? view : null;
-            var component = _viewComponentPool.Count > 0 ? _viewComponentPool.Pop() : new Assets.EntitasRefactor.ViewComponent();
+            var component = _viewComponentPool.Count > 0 ? _viewComponentPool.Pop() : new ViewComponent();
             component.Value = newValue;
             ReplaceComponent(ComponentIds.View, component);
             if (previousComponent != null) {

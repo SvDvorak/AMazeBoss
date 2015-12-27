@@ -1,19 +1,20 @@
-﻿using Assets;
-using Assets.FileOperations;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LoadLevel : MonoBehaviour
+namespace Assets
 {
-    public static string EditorLevelPath = "";
-    public string LevelPath;
-
-	public void Start ()
+    public class LoadLevel : MonoBehaviour
     {
-        if(EditorLevelPath != "")
-        {
-            LevelPath = EditorLevelPath;
-        }
+        public static string EditorLevelPath = "";
+        public string LevelPath;
 
-        FileOperations.Load(LevelPath);
+        public void Start ()
+        {
+            if(EditorLevelPath != "")
+            {
+                LevelPath = EditorLevelPath;
+            }
+
+            FileOperations.FileOperations.Load(LevelPath);
+        }
     }
 }

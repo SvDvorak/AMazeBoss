@@ -1,6 +1,6 @@
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.EntitasRefactor.PausedComponent pausedComponent = new Assets.EntitasRefactor.PausedComponent();
+        static readonly Assets.LevelEditor.PausedComponent pausedComponent = new Assets.LevelEditor.PausedComponent();
 
         public bool isPaused {
             get { return HasComponent(ComponentIds.Paused); }

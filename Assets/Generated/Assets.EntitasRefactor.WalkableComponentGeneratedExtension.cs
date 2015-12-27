@@ -1,6 +1,8 @@
+using Assets;
+
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.EntitasRefactor.WalkableComponent walkableComponent = new Assets.EntitasRefactor.WalkableComponent();
+        static readonly WalkableComponent walkableComponent = new WalkableComponent();
 
         public bool isWalkable {
             get { return HasComponent(ComponentIds.Walkable); }

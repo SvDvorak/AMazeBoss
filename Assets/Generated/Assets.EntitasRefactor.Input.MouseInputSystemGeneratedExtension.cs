@@ -1,7 +1,9 @@
+using Assets.Input;
+
 namespace Entitas {
     public partial class Pool {
         public ISystem CreateMouseInputSystem() {
-            return this.CreateSystem<Assets.EntitasRefactor.Input.MouseInputSystem>();
+            return this.CreateSystem<MouseInputSystem>();
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets
+namespace Assets.LevelEditor
 {
     public static class EnumHelper
     {

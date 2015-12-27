@@ -1,6 +1,8 @@
+using Assets;
+
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.EntitasRefactor.DestroyedComponent destroyedComponent = new Assets.EntitasRefactor.DestroyedComponent();
+        static readonly DestroyedComponent destroyedComponent = new DestroyedComponent();
 
         public bool isDestroyed {
             get { return HasComponent(ComponentIds.Destroyed); }

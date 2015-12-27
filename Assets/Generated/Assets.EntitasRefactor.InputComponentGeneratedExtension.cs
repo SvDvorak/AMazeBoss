@@ -1,6 +1,6 @@
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.EntitasRefactor.InputComponent inputComponent = new Assets.EntitasRefactor.InputComponent();
+        static readonly Assets.LevelEditor.InputComponent inputComponent = new Assets.LevelEditor.InputComponent();
 
         public bool isInput {
             get { return HasComponent(ComponentIds.Input); }

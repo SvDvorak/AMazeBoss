@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets.LevelEditor.Placeables;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.PlaceableSelectedComponent placeableSelected { get { return (Assets.EntitasRefactor.PlaceableSelectedComponent)GetComponent(ComponentIds.PlaceableSelected); } }
+        public Assets.LevelEditor.PlaceableSelectedComponent placeableSelected { get { return (Assets.LevelEditor.PlaceableSelectedComponent)GetComponent(ComponentIds.PlaceableSelected); } }
 
         public bool hasPlaceableSelected { get { return HasComponent(ComponentIds.PlaceableSelected); } }
 
-        static readonly Stack<Assets.EntitasRefactor.PlaceableSelectedComponent> _placeableSelectedComponentPool = new Stack<Assets.EntitasRefactor.PlaceableSelectedComponent>();
+        static readonly Stack<Assets.LevelEditor.PlaceableSelectedComponent> _placeableSelectedComponentPool = new Stack<Assets.LevelEditor.PlaceableSelectedComponent>();
 
         public static void ClearPlaceableSelectedComponentPool() {
             _placeableSelectedComponentPool.Clear();
         }
 
-        public Entity AddPlaceableSelected(Assets.EntitasRefactor.Placeables.Placeable newValue) {
-            var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.EntitasRefactor.PlaceableSelectedComponent();
+        public Entity AddPlaceableSelected(Placeable newValue) {
+            var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.LevelEditor.PlaceableSelectedComponent();
             component.Value = newValue;
             return AddComponent(ComponentIds.PlaceableSelected, component);
         }
 
-        public Entity ReplacePlaceableSelected(Assets.EntitasRefactor.Placeables.Placeable newValue) {
+        public Entity ReplacePlaceableSelected(Placeable newValue) {
             var previousComponent = hasPlaceableSelected ? placeableSelected : null;
-            var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.EntitasRefactor.PlaceableSelectedComponent();
+            var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.LevelEditor.PlaceableSelectedComponent();
             component.Value = newValue;
             ReplaceComponent(ComponentIds.PlaceableSelected, component);
             if (previousComponent != null) {

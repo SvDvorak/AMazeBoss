@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.RotationComponent rotation { get { return (Assets.EntitasRefactor.RotationComponent)GetComponent(ComponentIds.Rotation); } }
+        public RotationComponent rotation { get { return (RotationComponent)GetComponent(ComponentIds.Rotation); } }
 
         public bool hasRotation { get { return HasComponent(ComponentIds.Rotation); } }
 
-        static readonly Stack<Assets.EntitasRefactor.RotationComponent> _rotationComponentPool = new Stack<Assets.EntitasRefactor.RotationComponent>();
+        static readonly Stack<RotationComponent> _rotationComponentPool = new Stack<RotationComponent>();
 
         public static void ClearRotationComponentPool() {
             _rotationComponentPool.Clear();
         }
 
         public Entity AddRotation(int newValue) {
-            var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new Assets.EntitasRefactor.RotationComponent();
+            var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new RotationComponent();
             component.Value = newValue;
             return AddComponent(ComponentIds.Rotation, component);
         }
 
         public Entity ReplaceRotation(int newValue) {
             var previousComponent = hasRotation ? rotation : null;
-            var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new Assets.EntitasRefactor.RotationComponent();
+            var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new RotationComponent();
             component.Value = newValue;
             ReplaceComponent(ComponentIds.Rotation, component);
             if (previousComponent != null) {

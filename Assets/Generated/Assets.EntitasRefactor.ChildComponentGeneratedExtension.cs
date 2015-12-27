@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.ChildComponent child { get { return (Assets.EntitasRefactor.ChildComponent)GetComponent(ComponentIds.Child); } }
+        public ChildComponent child { get { return (ChildComponent)GetComponent(ComponentIds.Child); } }
 
         public bool hasChild { get { return HasComponent(ComponentIds.Child); } }
 
-        static readonly Stack<Assets.EntitasRefactor.ChildComponent> _childComponentPool = new Stack<Assets.EntitasRefactor.ChildComponent>();
+        static readonly Stack<ChildComponent> _childComponentPool = new Stack<ChildComponent>();
 
         public static void ClearChildComponentPool() {
             _childComponentPool.Clear();
         }
 
         public Entity AddChild(int newParentId) {
-            var component = _childComponentPool.Count > 0 ? _childComponentPool.Pop() : new Assets.EntitasRefactor.ChildComponent();
+            var component = _childComponentPool.Count > 0 ? _childComponentPool.Pop() : new ChildComponent();
             component.ParentId = newParentId;
             return AddComponent(ComponentIds.Child, component);
         }
 
         public Entity ReplaceChild(int newParentId) {
             var previousComponent = hasChild ? child : null;
-            var component = _childComponentPool.Count > 0 ? _childComponentPool.Pop() : new Assets.EntitasRefactor.ChildComponent();
+            var component = _childComponentPool.Count > 0 ? _childComponentPool.Pop() : new ChildComponent();
             component.ParentId = newParentId;
             ReplaceComponent(ComponentIds.Child, component);
             if (previousComponent != null) {

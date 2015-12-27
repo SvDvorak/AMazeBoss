@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.ResourceComponent resource { get { return (Assets.EntitasRefactor.ResourceComponent)GetComponent(ComponentIds.Resource); } }
+        public ResourceComponent resource { get { return (ResourceComponent)GetComponent(ComponentIds.Resource); } }
 
         public bool hasResource { get { return HasComponent(ComponentIds.Resource); } }
 
-        static readonly Stack<Assets.EntitasRefactor.ResourceComponent> _resourceComponentPool = new Stack<Assets.EntitasRefactor.ResourceComponent>();
+        static readonly Stack<ResourceComponent> _resourceComponentPool = new Stack<ResourceComponent>();
 
         public static void ClearResourceComponentPool() {
             _resourceComponentPool.Clear();
         }
 
         public Entity AddResource(string newPath) {
-            var component = _resourceComponentPool.Count > 0 ? _resourceComponentPool.Pop() : new Assets.EntitasRefactor.ResourceComponent();
+            var component = _resourceComponentPool.Count > 0 ? _resourceComponentPool.Pop() : new ResourceComponent();
             component.Path = newPath;
             return AddComponent(ComponentIds.Resource, component);
         }
 
         public Entity ReplaceResource(string newPath) {
             var previousComponent = hasResource ? resource : null;
-            var component = _resourceComponentPool.Count > 0 ? _resourceComponentPool.Pop() : new Assets.EntitasRefactor.ResourceComponent();
+            var component = _resourceComponentPool.Count > 0 ? _resourceComponentPool.Pop() : new ResourceComponent();
             component.Path = newPath;
             ReplaceComponent(ComponentIds.Resource, component);
             if (previousComponent != null) {

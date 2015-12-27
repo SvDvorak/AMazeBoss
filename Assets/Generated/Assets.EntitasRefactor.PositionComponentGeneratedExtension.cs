@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using Assets;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.EntitasRefactor.PositionComponent position { get { return (Assets.EntitasRefactor.PositionComponent)GetComponent(ComponentIds.Position); } }
+        public PositionComponent position { get { return (PositionComponent)GetComponent(ComponentIds.Position); } }
 
         public bool hasPosition { get { return HasComponent(ComponentIds.Position); } }
 
-        static readonly Stack<Assets.EntitasRefactor.PositionComponent> _positionComponentPool = new Stack<Assets.EntitasRefactor.PositionComponent>();
+        static readonly Stack<PositionComponent> _positionComponentPool = new Stack<PositionComponent>();
 
         public static void ClearPositionComponentPool() {
             _positionComponentPool.Clear();
         }
 
         public Entity AddPosition(TilePos newValue) {
-            var component = _positionComponentPool.Count > 0 ? _positionComponentPool.Pop() : new Assets.EntitasRefactor.PositionComponent();
+            var component = _positionComponentPool.Count > 0 ? _positionComponentPool.Pop() : new PositionComponent();
             component.Value = newValue;
             return AddComponent(ComponentIds.Position, component);
         }
 
         public Entity ReplacePosition(TilePos newValue) {
             var previousComponent = hasPosition ? position : null;
-            var component = _positionComponentPool.Count > 0 ? _positionComponentPool.Pop() : new Assets.EntitasRefactor.PositionComponent();
+            var component = _positionComponentPool.Count > 0 ? _positionComponentPool.Pop() : new PositionComponent();
             component.Value = newValue;
             ReplaceComponent(ComponentIds.Position, component);
             if (previousComponent != null) {

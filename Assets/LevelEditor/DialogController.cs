@@ -3,31 +3,34 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[Serializable]
-public class ButtonClickedEvent : UnityEvent<string> { }
-
-public class DialogController : MonoBehaviour
+namespace Assets.LevelEditor
 {
-    public string OperationText;
-    public ButtonClickedEvent Operation;
-    public Button OperationButton;
-    public Text ButtonText;
-    public InputField Path;
+    [Serializable]
+    public class ButtonClickedEvent : UnityEvent<string> { }
 
-    public void Start()
+    public class DialogController : MonoBehaviour
     {
-        ButtonText.text = OperationText;
-        OperationButton.onClick.AddListener(SaveAndClose);
-    }
+        public string OperationText;
+        public ButtonClickedEvent Operation;
+        public Button OperationButton;
+        public Text ButtonText;
+        public InputField Path;
 
-    private void SaveAndClose()
-    {
-        Operation.Invoke(Path.text);
-        Close();
-    }
+        public void Start()
+        {
+            ButtonText.text = OperationText;
+            OperationButton.onClick.AddListener(SaveAndClose);
+        }
 
-    public void Close()
-    {
-        gameObject.SetActive(false);
+        private void SaveAndClose()
+        {
+            Operation.Invoke(Path.text);
+            Close();
+        }
+
+        public void Close()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

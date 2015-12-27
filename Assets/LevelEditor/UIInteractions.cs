@@ -1,5 +1,4 @@
-﻿using Assets.EntitasRefactor;
-using Entitas;
+﻿using Entitas;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -56,7 +55,6 @@ namespace Assets.LevelEditor
             if(_lastUsedPath != "")
             {
                 SaveAs(_lastUsedPath);
-                Events.instance.Raise(new LoadingScene());
                 SceneManager.LoadScene("PlayScene");
             }
         }
