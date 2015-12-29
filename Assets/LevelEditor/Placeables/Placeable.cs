@@ -12,10 +12,6 @@ namespace Assets.LevelEditor.Placeables
 
         public abstract Entity GetExistingEntityAt(Pool pool, TilePos position);
 
-        protected Placeable(string type) : this(type, x => { })
-        {
-        }
-
         protected Placeable(string type, Action<Entity> addComponentsAction)
         {
             Maintype = type;
@@ -33,15 +29,14 @@ namespace Assets.LevelEditor.Placeables
                 currentObject.IsDestroyed(true);
             }
 
-            var newTile = pool.CreateEntity()
-                .IsTile(true)
+            var newObject = pool.CreateEntity()
                 .ReplaceMaintype(Maintype)
                 .ReplacePosition(position)
                 .AddRotation(newRotation);
 
-            _addComponentsAction(newTile);
+            _addComponentsAction(newObject);
 
-            return newTile;
+            return newObject;
         }
     }
 }

@@ -57,8 +57,9 @@ namespace Assets.LevelEditor
         public WallAdjustmentSystem()
         {
             _connections.Add("1010", new ConnectionSet("straight", 0));
-            _connections.Add("1000", new ConnectionSet("straight", 0));
+            _connections.Add("0010", new ConnectionSet("end", 0));
             _connections.Add("1100", new ConnectionSet("curved", 0));
+            _connections.Add("1110", new ConnectionSet("t", 0));
             _connections.ExpandUniqueConnections();
         }
 
