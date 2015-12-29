@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -85,11 +83,12 @@
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ChildComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroySystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.MouseInputSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.IsAnimatingGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PausedComponentGeneratedExtension.cs" />
@@ -113,6 +112,8 @@
     <Compile Include="Assets\Generated\Assets.TemplateLoaderSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TemplateSelectorSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ThinkDelayComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.TickComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.TickSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TileTemplatesGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ViewComponentGeneratedExtension.cs" />
@@ -176,9 +177,11 @@
     <Compile Include="Assets\PoolExtensions.cs" />
     <Compile Include="Assets\Render\AddViewSystem.cs" />
     <Compile Include="Assets\Render\PreviewMaterialChangeSystem.cs" />
+    <Compile Include="Assets\Render\RenderComponent.cs" />
     <Compile Include="Assets\Render\RenderPositionsSystem.cs" />
     <Compile Include="Assets\TemplateLoaderSystem.cs" />
     <Compile Include="Assets\TemplateSelectorSystem.cs" />
+    <Compile Include="Assets\TickSystem.cs" />
     <Compile Include="Assets\TilePos.cs" />
     <Compile Include="Assets\TileTemplates.cs" />
     <Compile Include="Assets\Tuple.cs" />

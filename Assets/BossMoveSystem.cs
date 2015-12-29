@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using System.Collections.Generic;
+using Entitas;
 using UnityEngine;
 
 namespace Assets
@@ -18,11 +19,13 @@ namespace Assets
         }
     }
 
-    public class BossMoveSystem : IExecuteSystem, ISetPool
+    public class BossMoveSystem : IReactiveSystem, ISetPool
     {
         private MovementCalculator _movementCalculator;
         private Group _bossGroup;
         private Group _heroGroup;
+
+        public TriggerOnEvent trigger { get { return Matcher.Tick.OnEntityAddedOrRemoved(); } }
 
         public void SetPool(Pool pool)
         {
@@ -31,7 +34,7 @@ namespace Assets
             _heroGroup = pool.GetGroup(Matcher.Hero);
         }
 
-        public void Execute()
+        public void Execute(List<Entity> entities)
         {
             foreach (var boss in _bossGroup.GetEntities())
             {
@@ -41,27 +44,13 @@ namespace Assets
 
         public void MoveBoss(Entity boss)
         {
-            if (!boss.hasThinkDelay)
+            var targetPosition = GetHeroPosition();
+
+            var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, targetPosition);
+
+            if (currentMovePlan.HasStepsLeft)
             {
-                var targetPosition = GetHeroPosition();
-
-                var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, targetPosition);
-
-                if (currentMovePlan.HasStepsLeft)
-                {
-                    boss.ReplacePosition(currentMovePlan.NextStep());
-                }
-
-                boss.AddThinkDelay(0.5f);
-            }
-            else
-            {
-                boss.ReplaceThinkDelay(boss.thinkDelay.TimeLeft - Time.deltaTime);
-
-                if (boss.thinkDelay.TimeLeft < 0)
-                {
-                    boss.RemoveThinkDelay();
-                }
+                boss.ReplacePosition(currentMovePlan.NextStep());
             }
         }
 

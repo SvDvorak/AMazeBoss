@@ -39,6 +39,7 @@ namespace Assets
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Update
+                .Add(pool.CreateTickSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())

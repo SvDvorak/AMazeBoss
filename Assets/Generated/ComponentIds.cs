@@ -3,30 +3,33 @@ public static class ComponentIds {
     public const int Child = 1;
     public const int Destroyed = 2;
     public const int Hero = 3;
-    public const int Item = 4;
-    public const int Input = 5;
-    public const int Paused = 6;
-    public const int PlaceableSelected = 7;
-    public const int Preview = 8;
-    public const int Maintype = 9;
-    public const int Parent = 10;
-    public const int Position = 11;
-    public const int Resource = 12;
-    public const int Rotation = 13;
-    public const int Subtype = 14;
-    public const int ThinkDelay = 15;
-    public const int Tile = 16;
-    public const int TileTemplates = 17;
-    public const int View = 18;
-    public const int Walkable = 19;
+    public const int IsAnimating = 4;
+    public const int Item = 5;
+    public const int Input = 6;
+    public const int Paused = 7;
+    public const int PlaceableSelected = 8;
+    public const int Preview = 9;
+    public const int Maintype = 10;
+    public const int Parent = 11;
+    public const int Position = 12;
+    public const int Resource = 13;
+    public const int Rotation = 14;
+    public const int Subtype = 15;
+    public const int ThinkDelay = 16;
+    public const int Tick = 17;
+    public const int Tile = 18;
+    public const int TileTemplates = 19;
+    public const int View = 20;
+    public const int Walkable = 21;
 
-    public const int TotalComponents = 20;
+    public const int TotalComponents = 22;
 
     public static readonly string[] componentNames = {
         "Boss",
         "Child",
         "Destroyed",
         "Hero",
+        "IsAnimating",
         "Item",
         "Input",
         "Paused",
@@ -39,6 +42,7 @@ public static class ComponentIds {
         "Rotation",
         "Subtype",
         "ThinkDelay",
+        "Tick",
         "Tile",
         "TileTemplates",
         "View",
@@ -50,6 +54,7 @@ public static class ComponentIds {
         typeof(Assets.ChildComponent),
         typeof(Assets.DestroyedComponent),
         typeof(Assets.HeroComponent),
+        typeof(Assets.IsAnimating),
         typeof(Assets.ItemComponent),
         typeof(Assets.LevelEditor.InputComponent),
         typeof(Assets.LevelEditor.PausedComponent),
@@ -62,6 +67,7 @@ public static class ComponentIds {
         typeof(Assets.RotationComponent),
         typeof(Assets.SubtypeComponent),
         typeof(Assets.ThinkDelayComponent),
+        typeof(Assets.TickComponent),
         typeof(Assets.TileComponent),
         typeof(Assets.TileTemplates),
         typeof(Assets.ViewComponent),

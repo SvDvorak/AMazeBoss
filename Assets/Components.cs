@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using Entitas.CodeGenerator;
 using UnityEngine;
 
 namespace Assets
@@ -61,14 +62,14 @@ namespace Assets
         public float TimeLeft;
     }
 
-    public class ResourceComponent : IComponent
+    [SingleEntity]
+    public class TickComponent : IComponent
     {
-        public string Path;
+        public float TimeLeft;
     }
 
-    public class ViewComponent : IComponent
+    public class IsAnimating : IComponent
     {
-        public GameObject Value;
     }
 
     public class DestroyedComponent : IComponent { }
