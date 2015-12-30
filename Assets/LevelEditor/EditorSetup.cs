@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.LevelEditor
 {
-    public class EntitasEditorSetup : MonoBehaviour
+    public class EditorSetup : MonoBehaviour
     {
         private Systems _systems;
 
@@ -70,6 +70,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateRemovePlaceableSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateWallAdjustmentSystem())
+                .Add(pool.CreateRemoveImpossiblyPlacedItemsSystem())
                 .Add(pool.CreatePreviewTilePositionChangedSystem())
                 .Add(pool.CreatePreviewTileTypeChangedSystem())
                 .Add(pool.CreatePreviewMaterialChangeSystem())

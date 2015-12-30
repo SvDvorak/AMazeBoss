@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +62,9 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Libraries\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="A Maze Boss.CSharp.Plugins.csproj">
@@ -72,13 +77,14 @@
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Components.cs" />
     <Compile Include="Assets\DestroySystem.cs" />
-    <Compile Include="Assets\EntitasPlaySetup.cs" />
     <Compile Include="Assets\EntityExtensions.cs" />
     <Compile Include="Assets\ExitLevel.cs" />
     <Compile Include="Assets\FileOperations\FileObject.cs" />
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
     <Compile Include="Assets\FileOperations\MapObjects.cs" />
+    <Compile Include="Assets\GameObjectConfigurer.cs" />
     <Compile Include="Assets\GameObjectExtensions.cs" />
+    <Compile Include="Assets\Generated\Assets.AnimatorComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
@@ -88,7 +94,7 @@
     <Compile Include="Assets\Generated\Assets.HeroComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.MouseInputSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.IsAnimatingGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.IsMovingSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PausedComponentGeneratedExtension.cs" />
@@ -97,13 +103,17 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.Preview.PreviewTileTypeChangedSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PreviewComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PutDownPlaceableSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.RemoveImpossiblyPlacedItemsSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.RemovePlaceableSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SelectPlaceableSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.WallAdjustmentSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MoveSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MovingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ParentComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.AddViewSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.MoveAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.PreviewMaterialChangeSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.RenderPositionsSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ResourceComponentGeneratedExtension.cs" />
@@ -111,22 +121,21 @@
     <Compile Include="Assets\Generated\Assets.SubtypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TemplateLoaderSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TemplateSelectorSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.ThinkDelayComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TickComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.TickSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TileTemplatesGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ViewComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.WalkableComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\ComponentIds.cs" />
     <Compile Include="Assets\Generated\Pools.cs" />
+    <Compile Include="Assets\HeroBehaviorConfigurer.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
-    <Compile Include="Assets\Input\InputSystem.cs" />
     <Compile Include="Assets\Input\MouseInputSystem.cs" />
+    <Compile Include="Assets\IsMovingSystem.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
-    <Compile Include="Assets\LevelEditor\EntitasEditorSetup.cs" />
+    <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
     <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />
     <Compile Include="Assets\LevelEditor\Placeables\Item.cs" />
@@ -136,6 +145,7 @@
     <Compile Include="Assets\LevelEditor\Preview\PreviewTilePositionChangedSystem.cs" />
     <Compile Include="Assets\LevelEditor\Preview\PreviewTileTypeChangedSystem.cs" />
     <Compile Include="Assets\LevelEditor\PutDownPlaceableSystem.cs" />
+    <Compile Include="Assets\LevelEditor\RemoveImpossiblyPlacedItemsSystem.cs" />
     <Compile Include="Assets\LevelEditor\RemovePlaceableSystem.cs" />
     <Compile Include="Assets\LevelEditor\SelectPlaceableSystem.cs" />
     <Compile Include="Assets\LevelEditor\ShowFileDialogs.cs" />
@@ -173,20 +183,25 @@
     <Compile Include="Assets\Libraries\Entitas\ReactiveSystem.cs" />
     <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
     <Compile Include="Assets\LoadLevel.cs" />
+    <Compile Include="Assets\MoveSystem.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
+    <Compile Include="Assets\PlaySetup.cs" />
     <Compile Include="Assets\PoolExtensions.cs" />
     <Compile Include="Assets\Render\AddViewSystem.cs" />
+    <Compile Include="Assets\Render\MoveAnimationSystem.cs" />
     <Compile Include="Assets\Render\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\Render\RenderComponent.cs" />
     <Compile Include="Assets\Render\RenderPositionsSystem.cs" />
     <Compile Include="Assets\TemplateLoaderSystem.cs" />
     <Compile Include="Assets\TemplateSelectorSystem.cs" />
-    <Compile Include="Assets\TickSystem.cs" />
     <Compile Include="Assets\TilePos.cs" />
     <Compile Include="Assets\TileTemplates.cs" />
     <Compile Include="Assets\Tuple.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Libraries\Demigiant\DOTween\DOTween.XML" />
+    <None Include="Assets\Libraries\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\Libraries\Demigiant\DOTween\readme.txt" />
     <None Include="Assets\Libraries\LICENSE.txt" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

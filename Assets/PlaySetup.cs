@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets
 {
-    public class EntitasPlaySetup : MonoBehaviour
+    public class PlaySetup : MonoBehaviour
     {
         Systems _systems;
 
@@ -39,15 +39,16 @@ namespace Assets
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Update
-                .Add(pool.CreateTickSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
+                .Add(pool.CreateIsMovingSystem())
 
             // Render
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
-                .Add(pool.CreateRenderPositionsSystem())
+                .Add(pool.CreateMoveAnimationSystem())
+                .Add(pool.CreateMoveSystem())
 
             // Destroy
                 .Add(pool.CreateDestroySystem());

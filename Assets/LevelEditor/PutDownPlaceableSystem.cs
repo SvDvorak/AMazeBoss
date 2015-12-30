@@ -3,16 +3,23 @@ using Entitas;
 
 namespace Assets.LevelEditor
 {
-    public class PutDownPlaceableSystem : InputSystem, IExecuteSystem
+    public class PutDownPlaceableSystem : IExecuteSystem, ISetPool
     {
+        private Pool _pool;
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
+
         public void Execute()
         {
-            if (Pool.isPaused)
+            if (_pool.isPaused)
             {
                 return;
             }
 
-            var input = InputGroup.GetSingleEntity();
+            var input = _pool.inputEntity;
             if (!input.hasPlaceableSelected || !input.hasPosition)
             {
                 return;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
@@ -9,7 +6,9 @@ namespace Assets
 {
     public class HeroMoveSystem : IExecuteSystem, ISetPool
     {
+        private Pool _pool;
         private Group _heroes;
+        private Group _movingGroup;
 
         private readonly Dictionary<KeyCode, TilePos> _moveDirections = new Dictionary<KeyCode, TilePos>
             {
@@ -19,16 +18,20 @@ namespace Assets
                 { KeyCode.RightArrow, new TilePos(1, 0) }
             };
 
-        private Pool _pool;
-
         public void SetPool(Pool pool)
         {
             _pool = pool;
             _heroes = pool.GetGroup(Matcher.AllOf(Matcher.Hero, Matcher.Position));
+            _movingGroup = pool.GetGroup(Matcher.Moving);
         }
 
         public void Execute()
         {
+            if (_movingGroup.count > 0)
+            {
+                return;
+            }
+
             var hero = _heroes.GetSingleEntity();
             var inputMoveDirection = new TilePos(0, 0);
 
@@ -40,10 +43,12 @@ namespace Assets
                 }
             }
 
-            var newMove = inputMoveDirection + hero.position.Value;
-            if (_pool.CanMoveTo(newMove))
+            var hasMoved = inputMoveDirection.Length() > 0;
+            var canMoveToTile = _pool.CanMoveTo(inputMoveDirection + hero.position.Value);
+            if (hasMoved && canMoveToTile)
             {
-                hero.ReplacePosition(newMove);
+                hero.ReplacePosition(inputMoveDirection + hero.position.Value);
+                _pool.ReplaceTick(0);
             }
         }
     }

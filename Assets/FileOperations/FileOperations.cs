@@ -73,8 +73,7 @@ namespace Assets.FileOperations
         private static FileObject CreateFileObject(Entity entity)
         {
             var pos = entity.position.Value;
-            var subtype = entity.hasSubtype ? entity.subtype.Value : "";
-            return new FileObject(entity.maintype.Value, subtype, pos.X, pos.Z, entity.rotation.Value, DescriptorResolver.ToDescriptors(entity));
+            return new FileObject(entity.maintype.Value, entity.subtype.Value, pos.X, pos.Z, entity.rotation.Value, DescriptorResolver.ToDescriptors(entity));
         }
 
         public static void Load(string path)
@@ -95,13 +94,9 @@ namespace Assets.FileOperations
         {
             var entity = pool.CreateEntity()
                 .AddMaintype(mapObject.MainType)
+                .AddSubtype(mapObject.Subtype)
                 .AddPosition(new TilePos(mapObject.X, mapObject.Z))
                 .AddRotation(mapObject.Rotation);
-
-            if (mapObject.Subtype != "")
-            {
-                entity.AddSubtype(mapObject.Subtype);
-            }
 
             DescriptorResolver.FromDescriptors(mapObject.Descriptors, entity);
         }

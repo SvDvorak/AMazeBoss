@@ -99,6 +99,12 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Libraries\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\Libraries\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="A Maze Boss.CSharp.Plugins.csproj">
@@ -161,6 +167,9 @@
     <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferencesConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Libraries\Demigiant\DOTween\DOTween.XML" />
+    <None Include="Assets\Libraries\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\Libraries\Demigiant\DOTween\readme.txt" />
     <None Include="Assets\Libraries\LICENSE.txt" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

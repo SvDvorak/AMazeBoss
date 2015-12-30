@@ -12,16 +12,16 @@ namespace Entitas {
             _tickComponentPool.Clear();
         }
 
-        public Entity AddTick(float newTimeLeft) {
+        public Entity AddTick(float newTime) {
             var component = _tickComponentPool.Count > 0 ? _tickComponentPool.Pop() : new Assets.TickComponent();
-            component.TimeLeft = newTimeLeft;
+            component.Time = newTime;
             return AddComponent(ComponentIds.Tick, component);
         }
 
-        public Entity ReplaceTick(float newTimeLeft) {
+        public Entity ReplaceTick(float newTime) {
             var previousComponent = hasTick ? tick : null;
             var component = _tickComponentPool.Count > 0 ? _tickComponentPool.Pop() : new Assets.TickComponent();
-            component.TimeLeft = newTimeLeft;
+            component.Time = newTime;
             ReplaceComponent(ComponentIds.Tick, component);
             if (previousComponent != null) {
                 _tickComponentPool.Push(previousComponent);
@@ -44,21 +44,21 @@ namespace Entitas {
 
         public bool hasTick { get { return tickEntity != null; } }
 
-        public Entity SetTick(float newTimeLeft) {
+        public Entity SetTick(float newTime) {
             if (hasTick) {
                 throw new SingleEntityException(Matcher.Tick);
             }
             var entity = CreateEntity();
-            entity.AddTick(newTimeLeft);
+            entity.AddTick(newTime);
             return entity;
         }
 
-        public Entity ReplaceTick(float newTimeLeft) {
+        public Entity ReplaceTick(float newTime) {
             var entity = tickEntity;
             if (entity == null) {
-                entity = SetTick(newTimeLeft);
+                entity = SetTick(newTime);
             } else {
-                entity.ReplaceTick(newTimeLeft);
+                entity.ReplaceTick(newTime);
             }
 
             return entity;

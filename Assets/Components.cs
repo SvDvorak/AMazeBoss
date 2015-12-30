@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using Entitas.CodeGenerator;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Assets
@@ -17,6 +18,10 @@ namespace Assets
     public class PositionComponent : IComponent
     {
         public TilePos Value;
+    }
+
+    public class MovingComponent : IComponent
+    {
     }
 
     public class RotationComponent : IComponent
@@ -55,21 +60,19 @@ namespace Assets
     {
     }
 
-    public class HeroComponent : IComponent { }
-
-    public class ThinkDelayComponent : IComponent
+    public class HeroComponent : IComponent
     {
-        public float TimeLeft;
     }
 
     [SingleEntity]
     public class TickComponent : IComponent
     {
-        public float TimeLeft;
+        public float Time;
     }
 
-    public class IsAnimating : IComponent
+    public class AnimatorComponent : IComponent
     {
+        public Animator Value;
     }
 
     public class DestroyedComponent : IComponent { }
