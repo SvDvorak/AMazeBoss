@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
 using Entitas;
+using UnityEngine;
 
 namespace Assets
 {
@@ -10,10 +11,16 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var moving in entities)
+            foreach (var positioned in entities)
             {
-                var transform = moving.view.Value.transform;
-                transform.DOMove(moving.position.Value.ToV3(), 1).SetEase(Ease.Linear);
+                var transform = positioned.view.Value.transform;
+                var newPosition = positioned.position.Value.ToV3();
+                transform.DOMove(newPosition, 1).SetEase(Ease.Linear);
+
+                if (positioned.isMoving)
+                {
+                    transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
+                }
             }
         }
     }
