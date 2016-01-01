@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Assets
     {
         private Pool _pool;
         private Group _heroes;
-        private Group _movingGroup;
+        private Group _positionGroup;
 
         private readonly Dictionary<KeyCode, TilePos> _moveDirections = new Dictionary<KeyCode, TilePos>
             {
@@ -22,17 +23,34 @@ namespace Assets
         {
             _pool = pool;
             _heroes = pool.GetGroup(Matcher.AllOf(Matcher.Hero, Matcher.Position));
-            _movingGroup = pool.GetGroup(Matcher.Moving);
+            _positionGroup = pool.GetGroup(Matcher.Position);
         }
 
         public void Execute()
         {
-            if (_movingGroup.count > 0)
-            {
-                return;
-            }
-
             var hero = _heroes.GetSingleEntity();
+            var inputMoveDirection = GetInputMoveDirection();
+
+            var hasMoved = inputMoveDirection.Length() > 0;
+            var newPosition = inputMoveDirection + hero.position.Value;
+            var canMoveToTile = _pool.CanMoveTo(newPosition);
+            if (hasMoved && canMoveToTile)
+            {
+                if (_positionGroup.GetEntities().Count(x => x.IsMoving()) > 0)
+                {
+                    hero.ReplaceQueuedPosition(newPosition);
+                    _pool.ReplaceTick(0);
+                }
+                else
+                {
+                    hero.ReplacePosition(newPosition);
+                    _pool.ReplaceTick(0);
+                }
+            }
+        }
+
+        private TilePos GetInputMoveDirection()
+        {
             var inputMoveDirection = new TilePos(0, 0);
 
             foreach (var moveDirection in _moveDirections)
@@ -42,14 +60,7 @@ namespace Assets
                     inputMoveDirection = moveDirection.Value;
                 }
             }
-
-            var hasMoved = inputMoveDirection.Length() > 0;
-            var canMoveToTile = _pool.CanMoveTo(inputMoveDirection + hero.position.Value);
-            if (hasMoved && canMoveToTile)
-            {
-                hero.ReplacePosition(inputMoveDirection + hero.position.Value);
-                _pool.ReplaceTick(0);
-            }
+            return inputMoveDirection;
         }
     }
 }

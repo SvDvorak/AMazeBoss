@@ -13,11 +13,13 @@ namespace Assets
         {
             foreach (var positioned in entities)
             {
+                positioned.IsFinishedMoving(false);
+
                 var transform = positioned.view.Value.transform;
                 var newPosition = positioned.position.Value.ToV3();
-                transform.DOMove(newPosition, 1).SetEase(Ease.Linear);
+                transform.DOMove(newPosition, 0.5f).SetEase(Ease.Linear).OnComplete(() => positioned.IsFinishedMoving(true));
 
-                if (positioned.isMoving)
+                if (positioned.IsMoving())
                 {
                     transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
                 }

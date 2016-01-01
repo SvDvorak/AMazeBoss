@@ -14,17 +14,11 @@ namespace Assets
             entity.AddParent(FreeParentId);
         }
 
-        public static Entity FindChildFor(this Pool pool, Entity entity)
+        public static bool IsMoving(this Entity entity)
         {
-            return pool.FindChildrenFor(entity).SingleEntity();
-        }
-
-        public static List<Entity> FindChildrenFor(this Pool pool, Entity entity)
-        {
-            return pool
-                .GetEntities(Matcher.Child)
-                .Where(x => x.child.ParentId == entity.parent.Id)
-                .ToList();
+            var target = entity.position.Value.ToV3();
+            var current = entity.view.Value.transform.position;
+            return entity.hasPosition && entity.hasView && target != current;
         }
     }
 }

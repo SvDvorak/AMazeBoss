@@ -20,8 +20,13 @@ namespace Assets
         public TilePos Value;
     }
 
-    public class MovingComponent : IComponent
+    public class FinishedMoving : IComponent
     {
+    }
+
+    public class QueuedPositionComponent : IComponent
+    {
+        public TilePos Value;
     }
 
     public class RotationComponent : IComponent

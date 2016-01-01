@@ -42,13 +42,13 @@ namespace Assets
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
-                .Add(pool.CreateIsMovingSystem())
+                .Add(pool.CreateQueuePositionSystem())
 
             // Render
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
-                .Add(pool.CreateMoveAnimationSystem())
                 .Add(pool.CreateMoveSystem())
+                .Add(pool.CreateMoveAnimationSystem())
 
             // Destroy
                 .Add(pool.CreateDestroySystem());
