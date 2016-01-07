@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using Entitas;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.LevelEditor
 {
     public class UIInteractions : MonoBehaviour
     {
+        public Text PositionInfo;
+
         private string _lastUsedPath = "";
 
         public void Start()
@@ -28,6 +32,7 @@ namespace Assets.LevelEditor
 
         public void Load(string path)
         {
+            Clear();
             SetLastUsedPath(path);
             FileOperations.FileOperations.Load(path);
         }
@@ -35,7 +40,7 @@ namespace Assets.LevelEditor
         public void Clear()
         {
             SetLastUsedPath("");
-            RoomInfo.Instance.ClearTiles();
+            Pools.pool.Clear(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
         }
 
         private void SetLastUsedPath(string path)
@@ -50,8 +55,16 @@ namespace Assets.LevelEditor
             if(_lastUsedPath != "")
             {
                 SaveAs(_lastUsedPath);
-                Events.instance.Raise(new LoadingScene());
-                SceneManager.LoadScene("test_scene");
+                SceneManager.LoadScene("PlayScene");
+            }
+        }
+
+        public void Update()
+        {
+            if(Pools.pool.inputEntity.hasPosition)
+            {
+                var position = Pools.pool.inputEntity.position.Value;
+                PositionInfo.text = string.Format("X: {0}\nZ: {1}", position.X, position.Z);
             }
         }
     }

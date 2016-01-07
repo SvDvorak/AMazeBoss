@@ -1,19 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets
+namespace Assets.LevelEditor
 {
-    public static class TileTypeHelper
+    public static class EnumHelper
     {
-        public static int GetCount()
+        public static int GetCount<T>()
         {
-            return Enum.GetNames(typeof(MainTileType)).Length;
+            return System.Enum.GetNames(typeof(T)).Length;
         }
 
-        public static List<MainTileType> GetAsList()
+        public static List<T> GetAsList<T>()
         {
-            return Enum.GetValues(typeof(MainTileType)).Cast<MainTileType>().ToList();
+            return System.Enum.GetValues(typeof(T)).Cast<T>().ToList();
+        }
+    }
+
+    public static class Enum
+    {
+        public static T Parse<T>(string name)
+        {
+            return (T) System.Enum.Parse(typeof (T), name);
         }
     }
 
@@ -23,6 +30,10 @@ namespace Assets
         Pillar,
         Wall,
         Spike,
+    }
+
+    public enum ItemType
+    {
         Hero,
         Boss
     }

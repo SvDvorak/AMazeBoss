@@ -82,6 +82,12 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\Libraries\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Libraries\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="AMazeBoss.CSharp.Plugins.csproj">
@@ -94,9 +100,60 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenFile.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentExtensionsGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\IndicesLookupGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\PoolAttributeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\PoolsGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\SystemExtensionsGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\TypeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\ICodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\IComponentCodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\IPoolCodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\ISystemCodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.CodeGenerator\Editor\CodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.CodeGenerator\Editor\CodeGeneratorConfig.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.CodeGenerator\Editor\CodeGeneratorPreferencesDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\DebugSystems\Editor\DebugSystemsInspector.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\DebugSystems\Editor\SystemsMonitor.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Editor\EntitasHierarchyIcon.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Editor\EntitasStats.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Editor\VisualDebuggingConfig.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Editor\VisualDebuggingPreferencesDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\DefaultInstanceCreator\DefaultArrayCreator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\DefaultInstanceCreator\DefaultStringCreator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\DefaultInstanceCreator\IDefaultInstanceCreator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\EntityInspector.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\AnimationCurveTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\ArrayTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\BoolTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\BoundsTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\ColorTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\DateTimeTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\DictionaryTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\EnumTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\FloatTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\HashSetTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\ITypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\IntTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\ListTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\RectTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\StringTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\UnityObjectTypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\Vector2TypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\Vector3TypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\Vector4TypeDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\PoolObserver\Editor\PoolObserverInspector.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasCheckForUpdates.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferences.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferencesConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Libraries\Demigiant\DOTween\DOTween.XML" />
+    <None Include="Assets\Libraries\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\Libraries\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Libraries\LICENSE.txt" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
   </ItemGroup>

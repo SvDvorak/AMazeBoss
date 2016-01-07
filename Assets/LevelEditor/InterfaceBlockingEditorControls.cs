@@ -1,22 +1,17 @@
 ﻿using UnityEngine;
 
-public class InterfaceBlockingEditorControls : MonoBehaviour
+namespace Assets.LevelEditor
 {
-    public GameObject EditorInteractionsToDisable;
-
-    public void MouseEnteredInterface()
+    public class InterfaceBlockingEditorControls : MonoBehaviour
     {
-        if(EditorInteractionsToDisable != null)
+        public void MouseExitedInterface()
         {
-            EditorInteractionsToDisable.SetActive(false);
+            Pools.pool.isPaused = false;
         }
-    }
 
-    public void MouseExitedInterface()
-    {
-        if(EditorInteractionsToDisable != null)
+        public void MouseEnteredInterface()
         {
-            EditorInteractionsToDisable.SetActive(true);
+            Pools.pool.isPaused = true;
         }
     }
 }
