@@ -44,6 +44,8 @@ namespace Assets
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
                 .Add(pool.CreateQueuePositionSystem())
+                .Add(pool.CreateSpikeSystem())
+
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 
             // Render

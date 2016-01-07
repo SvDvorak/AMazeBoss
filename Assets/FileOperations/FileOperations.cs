@@ -9,52 +9,46 @@ namespace Assets.FileOperations
 {
     public class DescriptorResolver
     {
-        public IEnumerable<string> ToDescriptors(Entity entity)
+        private class DescriptorSet
         {
-            var descriptors = new List<string>();
-            if (entity.isTile)
+            public DescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity> setDescriptor)
             {
-                descriptors.Add("TILE");
-            }
-            if (entity.isWalkable)
-            {
-                descriptors.Add("WALKABLE");
-            }
-            if (entity.isDynamic)
-            {
-                descriptors.Add("DYNAMIC");
-            }
-            if (entity.isItem)
-            {
-                descriptors.Add("ITEM");
-            }
-            if (entity.isHero)
-            {
-                descriptors.Add("HERO");
-            }
-            if (entity.isBoss)
-            {
-                descriptors.Add("BOSS");
+                DescriptorText = descriptorText;
+                HasDescriptor = hasDescriptor;
+                SetDescriptor = setDescriptor;
             }
 
-            return descriptors;
+            public string DescriptorText { get; private set; }
+            public Func<Entity, bool> HasDescriptor { get; private set; }
+            public Action<Entity> SetDescriptor  { get; private set; }
         }
 
-        private readonly Dictionary<string, Action<Entity>> _fromDescriptors = new Dictionary<string, Action<Entity>>()
+        private readonly List<DescriptorSet> _descriptorSets = new List<DescriptorSet>()
             {
-                { "TILE", (entity) => entity.IsTile(true) },
-                { "WALKABLE", (entity) => entity.IsWalkable(true) },
-                { "DYNAMIC", (entity) => entity.IsDynamic(true) },
-                { "ITEM", (entity) => entity.IsItem(true) },
-                { "HERO", (entity) => entity.IsHero(true) },
-                { "BOSS", (entity) => entity.IsBoss(true) }
+                new DescriptorSet("TILE", e => e.isTile, e => e.IsTile(true)),
+                new DescriptorSet("WALKABLE", e => e.isWalkable, e => e.IsWalkable(true)),
+                new DescriptorSet("SPIKE", e => e.isSpike, e => e.IsSpike(true)),
+                new DescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
+                new DescriptorSet("ITEM", e => e.isItem, e => e.IsItem(true)),
+                new DescriptorSet("HERO", e => e.isHero, e => e.IsHero(true)),
+                new DescriptorSet("BOSS", e => e.isBoss, e => e.IsBoss(true)),
+                new DescriptorSet("HEALTH", e => e.hasHealth, e => e.AddHealth(3))
             };
+
+        public IEnumerable<string> ToDescriptors(Entity entity)
+        {
+            return _descriptorSets
+                .Where(ds => ds.HasDescriptor(entity))
+                .Select(ds => ds.DescriptorText)
+                .ToList();
+        }
 
         public void FromDescriptors(string descriptors, Entity entity)
         {
             foreach (var descriptor in descriptors.Split(';'))
             {
-                _fromDescriptors[descriptor](entity);
+                var correctDescriptorSet = _descriptorSets.Single(ds => ds.DescriptorText == descriptor);
+                correctDescriptorSet.SetDescriptor(entity);
             }
         }
     }

@@ -53,6 +53,10 @@ namespace Assets
     {
     }
 
+    public class SpikeComponent : IComponent
+    {
+    }
+
     public class ItemComponent : IComponent
     {
     }
@@ -71,6 +75,11 @@ namespace Assets
 
     public class ActiveTurnComponent : IComponent
     {
+    }
+
+    public class HealthComponent : IComponent
+    {
+        public int Value;
     }
 
     public class ActingTimeComponent : IComponent

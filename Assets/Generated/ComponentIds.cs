@@ -6,25 +6,27 @@ public static class ComponentIds {
     public const int Child = 4;
     public const int Destroyed = 5;
     public const int Dynamic = 6;
-    public const int Hero = 7;
-    public const int Item = 8;
-    public const int Input = 9;
-    public const int Paused = 10;
-    public const int PlaceableSelected = 11;
-    public const int Preview = 12;
-    public const int Maintype = 13;
-    public const int Parent = 14;
-    public const int Position = 15;
-    public const int QueuedPosition = 16;
-    public const int Resource = 17;
-    public const int Rotation = 18;
-    public const int Subtype = 19;
-    public const int Tile = 20;
-    public const int TileTemplates = 21;
-    public const int View = 22;
-    public const int Walkable = 23;
+    public const int Health = 7;
+    public const int Hero = 8;
+    public const int Item = 9;
+    public const int Input = 10;
+    public const int Paused = 11;
+    public const int PlaceableSelected = 12;
+    public const int Preview = 13;
+    public const int Maintype = 14;
+    public const int Parent = 15;
+    public const int Position = 16;
+    public const int QueuedPosition = 17;
+    public const int Resource = 18;
+    public const int Rotation = 19;
+    public const int Spike = 20;
+    public const int Subtype = 21;
+    public const int Tile = 22;
+    public const int TileTemplates = 23;
+    public const int View = 24;
+    public const int Walkable = 25;
 
-    public const int TotalComponents = 24;
+    public const int TotalComponents = 26;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -34,6 +36,7 @@ public static class ComponentIds {
         "Child",
         "Destroyed",
         "Dynamic",
+        "Health",
         "Hero",
         "Item",
         "Input",
@@ -46,6 +49,7 @@ public static class ComponentIds {
         "QueuedPosition",
         "Resource",
         "Rotation",
+        "Spike",
         "Subtype",
         "Tile",
         "TileTemplates",
@@ -61,6 +65,7 @@ public static class ComponentIds {
         typeof(Assets.ChildComponent),
         typeof(Assets.DestroyedComponent),
         typeof(Assets.DynamicComponent),
+        typeof(Assets.HealthComponent),
         typeof(Assets.HeroComponent),
         typeof(Assets.ItemComponent),
         typeof(Assets.LevelEditor.InputComponent),
@@ -73,6 +78,7 @@ public static class ComponentIds {
         typeof(Assets.QueuedPositionComponent),
         typeof(Assets.ResourceComponent),
         typeof(Assets.RotationComponent),
+        typeof(Assets.SpikeComponent),
         typeof(Assets.SubtypeComponent),
         typeof(Assets.TileComponent),
         typeof(Assets.TileTemplates),
