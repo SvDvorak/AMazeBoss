@@ -95,8 +95,11 @@ namespace Assets.LevelEditor
 
             var connectionSet = _connections[connections];
 
-            tile.ReplaceSubtype(connectionSet.SubtypeName);
-            tile.ReplaceRotation(connectionSet.Rotation);
+            if (tile.subtype.Value != connectionSet.SubtypeName || tile.rotation.Value != connectionSet.Rotation)
+            {
+                tile.ReplaceSubtype(connectionSet.SubtypeName);
+                tile.ReplaceRotation(connectionSet.Rotation);
+            }
         }
 
         private string IsWall(TilePos tilePos)

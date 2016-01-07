@@ -1,29 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 
 namespace Assets.Render
 {
-    public class MoveAnimationSystem : IMultiReactiveSystem, IEnsureComponents
+    public class MoveAnimationSystem : IExecuteSystem, ISetPool
     {
-        public TriggerOnEvent[] triggers
+        private Group _animatables;
+
+        public void SetPool(Pool pool)
         {
-            get
-            {
-                return new[]
-                    {
-                        Matcher.Position.OnEntityAddedOrRemoved(),
-                        Matcher.FinishedMoving.OnEntityAddedOrRemoved()
-                    };
-            }
+            _animatables = pool.GetGroup(Matcher.Animator);
         }
 
-        public IMatcher ensureComponents { get { return Matcher.Animator; } }
-
-        public void Execute(List<Entity> entities)
+        public void Execute()
         {
-            foreach (var e in entities)
+            foreach (var e in _animatables.GetEntities())
             {
-                e.animator.Value.SetBool("IsMoving", e.IsMoving());
+                e.animator.Value.SetBool("IsMoving", e.hasActingTime && e.IsMoving());
             }
         }
     }

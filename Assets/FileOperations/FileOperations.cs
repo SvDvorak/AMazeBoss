@@ -20,6 +20,10 @@ namespace Assets.FileOperations
             {
                 descriptors.Add("WALKABLE");
             }
+            if (entity.isDynamic)
+            {
+                descriptors.Add("DYNAMIC");
+            }
             if (entity.isItem)
             {
                 descriptors.Add("ITEM");
@@ -40,6 +44,7 @@ namespace Assets.FileOperations
             {
                 { "TILE", (entity) => entity.IsTile(true) },
                 { "WALKABLE", (entity) => entity.IsWalkable(true) },
+                { "DYNAMIC", (entity) => entity.IsDynamic(true) },
                 { "ITEM", (entity) => entity.IsItem(true) },
                 { "HERO", (entity) => entity.IsHero(true) },
                 { "BOSS", (entity) => entity.IsBoss(true) }

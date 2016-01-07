@@ -20,10 +20,6 @@ namespace Assets
         public TilePos Value;
     }
 
-    public class FinishedMoving : IComponent
-    {
-    }
-
     public class QueuedPositionComponent : IComponent
     {
         public TilePos Value;
@@ -69,10 +65,17 @@ namespace Assets
     {
     }
 
-    [SingleEntity]
-    public class TickComponent : IComponent
+    public class DynamicComponent : IComponent
     {
-        public float Time;
+    }
+
+    public class ActiveTurnComponent : IComponent
+    {
+    }
+
+    public class ActingTimeComponent : IComponent
+    {
+        public float TimeLeft;
     }
 
     public class AnimatorComponent : IComponent

@@ -13,8 +13,8 @@ namespace Assets.LevelEditor
                     { 2, new Tile(MainTileType.Pillar.ToString()) },
                     { 3, new Tile(MainTileType.Wall.ToString()) },
                     { 4, new Tile(MainTileType.Spike.ToString(), e => e.IsWalkable(true)) },
-                    { 5, new Item(ItemType.Hero.ToString(), e => e.IsHero(true)) },
-                    { 6, new Item(ItemType.Boss.ToString(), e => e.IsBoss(true)) }
+                    { 5, new Item(ItemType.Hero.ToString(), e => e.IsDynamic(true).IsHero(true)) },
+                    { 6, new Item(ItemType.Boss.ToString(), e => e.IsDynamic(true).IsBoss(true)) }
                 };
 
         private Pool _pool;

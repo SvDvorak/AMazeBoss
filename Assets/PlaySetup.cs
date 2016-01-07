@@ -39,12 +39,15 @@ namespace Assets
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Update
+                .Add(pool.CreateNextTurnSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
                 .Add(pool.CreateQueuePositionSystem())
+                .Add(pool.CreateRemoveActingOnDoneSystem())
 
             // Render
+                .Add(pool.CreateSubtypeSelectorSystem())
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateMoveSystem())

@@ -65,17 +65,18 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateMouseInputSystem())
 
             // Update
+                .Add(pool.CreateWallAdjustmentSystem())
                 .Add(pool.CreateSelectPlaceableSystem())
                 .Add(pool.CreatePutDownPlaceableSystem())
                 .Add(pool.CreateRemovePlaceableSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
-                .Add(pool.CreateWallAdjustmentSystem())
                 .Add(pool.CreateRemoveImpossiblyPlacedItemsSystem())
                 .Add(pool.CreatePreviewTilePositionChangedSystem())
                 .Add(pool.CreatePreviewTileTypeChangedSystem())
                 .Add(pool.CreatePreviewMaterialChangeSystem())
 
             // Render
+                .Add(pool.CreateSubtypeSelectorSystem())
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateRenderPositionsSystem())

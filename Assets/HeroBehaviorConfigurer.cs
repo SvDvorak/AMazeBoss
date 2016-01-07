@@ -14,6 +14,7 @@ namespace Assets
 
         public void OnDetachEntity(Entity entity)
         {
+            entity.RemoveAnimator();
         }
     }
 }

@@ -4,13 +4,13 @@ using Random = UnityEngine.Random;
 
 namespace Assets
 {
-    public class TemplateSelectorSystem : IMultiReactiveSystem, ISetPool
+    public class TemplateSelectorSystem : IReactiveSystem, ISetPool
     {
         private Pool _pool;
 
-        public TriggerOnEvent[] triggers
+        public TriggerOnEvent trigger
         {
-            get { return new[] { Matcher.Maintype.OnEntityAdded(), Matcher.Subtype.OnEntityAdded() }; }
+            get { return Matcher.AllOf(Matcher.Maintype, Matcher.Subtype).OnEntityAdded(); }
         }
 
         public void SetPool(Pool pool)
@@ -28,18 +28,7 @@ namespace Assets
 
         private string RetrieveTemplateName(Entity entity)
         {
-            List<string> templateNames;
-            if (entity.hasSubtype)
-            {
-                templateNames = _pool.tileTemplates.Value.Retrieve(entity.maintype.Value, entity.subtype.Value);
-            }
-            else
-            {
-                var selectedSubtype = _pool.tileTemplates.Value.Retrieve(entity.maintype.Value);
-                entity.AddSubtype(selectedSubtype.Item1);
-                templateNames = selectedSubtype.Item2;
-            }
-
+            var templateNames = _pool.tileTemplates.Value.Retrieve(entity.maintype.Value, entity.subtype.Value);
             return templateNames[Random.Range(0, templateNames.Count)];
         }
     }

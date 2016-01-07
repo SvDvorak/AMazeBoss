@@ -13,11 +13,10 @@ namespace Assets
         {
             foreach (var positioned in entities)
             {
-                positioned.IsFinishedMoving(false);
-
                 var transform = positioned.view.Value.transform;
                 var newPosition = positioned.position.Value.ToV3();
-                transform.DOMove(newPosition, 0.5f).SetEase(Ease.Linear).OnComplete(() => positioned.IsFinishedMoving(true));
+                transform.DOMove(newPosition, 0.5f).SetEase(Ease.Linear);
+                positioned.ReplaceActingTime(0.5f);
 
                 if (positioned.IsMoving())
                 {

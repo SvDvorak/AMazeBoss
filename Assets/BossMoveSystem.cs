@@ -25,7 +25,7 @@ namespace Assets
         private Group _bossGroup;
         private Group _heroGroup;
 
-        public TriggerOnEvent trigger { get { return Matcher.Tick.OnEntityAddedOrRemoved(); } }
+        public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {
