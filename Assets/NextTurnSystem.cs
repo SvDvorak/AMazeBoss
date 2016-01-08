@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Entitas;
 
 namespace Assets
@@ -22,6 +19,7 @@ namespace Assets
             var hasActingEntities = dynamicEntities.Any(x => x.hasActingTime);
             foreach (var entity in dynamicEntities)
             {
+                entity.isActiveTurn = false;
                 entity.isActiveTurn = !hasActingEntities;
             }
         }
