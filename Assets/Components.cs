@@ -78,6 +78,10 @@ namespace Assets
     {
     }
 
+    public class Cursed : IComponent
+    {
+    }
+
     public class DynamicComponent : IComponent
     {
     }

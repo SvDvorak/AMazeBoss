@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using UnityEngine;
 
@@ -24,11 +25,13 @@ namespace Assets
         private MovementCalculator _movementCalculator;
         private Group _bossGroup;
         private Group _heroGroup;
+        private Pool _pool;
 
         public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {
+            _pool = pool;
             _movementCalculator = new MovementCalculator(new WalkableValidator(pool));
             _bossGroup = pool.GetGroup(Matcher.Boss);
             _heroGroup = pool.GetGroup(Matcher.Hero);
@@ -36,7 +39,7 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var boss in _bossGroup.GetEntities())
+            foreach (var boss in _bossGroup.GetEntities().Where(x => !x.isCursed))
             {
                 MoveBoss(boss);
             }
@@ -51,6 +54,10 @@ namespace Assets
             if (currentMovePlan.HasStepsLeft)
             {
                 boss.ReplacePosition(currentMovePlan.NextStep());
+            }
+            else
+            {
+                _pool.SwitchCurse();
             }
         }
 

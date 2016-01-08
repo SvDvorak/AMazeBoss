@@ -4,31 +4,32 @@ public static class ComponentIds {
     public const int Animator = 2;
     public const int Boss = 3;
     public const int Child = 4;
-    public const int Destroyed = 5;
-    public const int Dynamic = 6;
-    public const int Health = 7;
-    public const int Hero = 8;
-    public const int Item = 9;
-    public const int Input = 10;
-    public const int Paused = 11;
-    public const int PlaceableSelected = 12;
-    public const int Preview = 13;
-    public const int Maintype = 14;
-    public const int Parent = 15;
-    public const int Position = 16;
-    public const int QueuedPosition = 17;
-    public const int Resource = 18;
-    public const int Rotation = 19;
-    public const int SpikesCarried = 20;
-    public const int Spikes = 21;
-    public const int SpikeTrap = 22;
-    public const int Subtype = 23;
-    public const int Tile = 24;
-    public const int TileTemplates = 25;
-    public const int View = 26;
-    public const int Walkable = 27;
+    public const int Cursed = 5;
+    public const int Destroyed = 6;
+    public const int Dynamic = 7;
+    public const int Health = 8;
+    public const int Hero = 9;
+    public const int Item = 10;
+    public const int Input = 11;
+    public const int Paused = 12;
+    public const int PlaceableSelected = 13;
+    public const int Preview = 14;
+    public const int Maintype = 15;
+    public const int Parent = 16;
+    public const int Position = 17;
+    public const int QueuedPosition = 18;
+    public const int Resource = 19;
+    public const int Rotation = 20;
+    public const int SpikesCarried = 21;
+    public const int Spikes = 22;
+    public const int SpikeTrap = 23;
+    public const int Subtype = 24;
+    public const int Tile = 25;
+    public const int TileTemplates = 26;
+    public const int View = 27;
+    public const int Walkable = 28;
 
-    public const int TotalComponents = 28;
+    public const int TotalComponents = 29;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -36,6 +37,7 @@ public static class ComponentIds {
         "Animator",
         "Boss",
         "Child",
+        "Cursed",
         "Destroyed",
         "Dynamic",
         "Health",
@@ -67,6 +69,7 @@ public static class ComponentIds {
         typeof(Assets.AnimatorComponent),
         typeof(Assets.BossComponent),
         typeof(Assets.ChildComponent),
+        typeof(Assets.Cursed),
         typeof(Assets.DestroyedComponent),
         typeof(Assets.DynamicComponent),
         typeof(Assets.HealthComponent),

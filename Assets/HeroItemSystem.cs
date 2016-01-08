@@ -18,6 +18,11 @@ namespace Assets
         {
             var hero = _heroGroup.GetSingleEntity();
 
+            if (hero.isCursed)
+            {
+                return;
+            }
+
             if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
             {
                 var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, Matcher.Spikes);
@@ -32,6 +37,10 @@ namespace Assets
                     spikeTrapBelow.ReplaceSpikeTrap(true);
                     hero.IsSpikesCarried(false);
                 }
+            }
+            else if (UnityEngine.Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                _pool.SwitchCurse();
             }
         }
     }

@@ -6,6 +6,22 @@ namespace Assets
 {
     public static class PoolExtensions
     {
+        public static void SwitchCurse(this Pool pool)
+        {
+            var heroes = pool.GetEntities(Matcher.Hero);
+            var bosses = pool.GetEntities(Matcher.Boss);
+
+            foreach (var hero in heroes)
+            {
+                hero.isCursed = !hero.isCursed;
+            }
+
+            foreach (var boss in bosses)
+            {
+                boss.isCursed = !boss.isCursed;
+            }
+        }
+
         public static Entity GetTileAt(this Pool pool, TilePos position)
         {
             return pool.GetEntityAt(position, Matcher.Tile);

@@ -33,6 +33,7 @@ namespace Assets.FileOperations
                 new DescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
                 new DescriptorSet("HERO", e => e.isHero, e => e.IsHero(true)),
                 new DescriptorSet("BOSS", e => e.isBoss, e => e.IsBoss(true)),
+                new DescriptorSet("CURSED", e => e.isCursed, e => e.IsCursed(true)),
                 new DescriptorSet("HEALTH", e => e.hasHealth, e => e.AddHealth(3)),
             };
 

@@ -34,7 +34,7 @@ namespace Assets
 
             var hasMoved = inputMoveDirection.Length() > 0;
             var newPosition = inputMoveDirection + hero.position.Value;
-            var canMove = _pool.CanMoveTo(newPosition);
+            var canMove = _pool.CanMoveTo(newPosition) && !hero.isCursed;
             if (hasMoved && canMove)
             {
                 if (_positionGroup.GetEntities().Count(x => x.IsMoving()) > 0)
