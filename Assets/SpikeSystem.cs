@@ -9,7 +9,7 @@ namespace Assets
     public class SpikeSystem : IReactiveSystem, ISetPool
     {
         private Group _bossGroup;
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Spike, Matcher.ActiveTurn).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.ActiveTurn).OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {

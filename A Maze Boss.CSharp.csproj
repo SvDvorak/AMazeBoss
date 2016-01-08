@@ -95,6 +95,7 @@
     <Compile Include="Assets\Generated\Assets.HealthComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.HeroPickupSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.MouseInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputComponentGeneratedExtension.cs" />
@@ -122,8 +123,9 @@
     <Compile Include="Assets\Generated\Assets.Render.RenderPositionsSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ResourceComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RotationComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.SpikeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.SpikeTrapComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.SpikesComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SubtypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SubtypeSelectorSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TemplateLoaderSystemGeneratedExtension.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Assets\Generated\Pools.cs" />
     <Compile Include="Assets\HeroBehaviorConfigurer.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
+    <Compile Include="Assets\HeroPickupSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
     <Compile Include="Assets\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />

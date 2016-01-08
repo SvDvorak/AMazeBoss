@@ -21,7 +21,7 @@ namespace Assets
             return pool.GetEntityAt(position, Matcher.Walkable) != null;
         }
 
-        private static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher)
+        public static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher)
         {
             var entities = pool.GetEntities(Matcher.AllOf(Matcher.Position, entityMatcher));
             return entities.SingleOrDefault(x => x.position.Value == position && !x.isDestroyed);

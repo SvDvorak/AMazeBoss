@@ -29,11 +29,12 @@ namespace Assets.LevelEditor
         Normal,
         Pillar,
         Wall,
-        Spike,
+        SpikeTrap,
     }
 
     public enum ItemType
     {
+        Spikes,
         Hero,
         Boss
     }

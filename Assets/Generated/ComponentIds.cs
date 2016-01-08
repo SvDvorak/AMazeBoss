@@ -19,14 +19,15 @@ public static class ComponentIds {
     public const int QueuedPosition = 17;
     public const int Resource = 18;
     public const int Rotation = 19;
-    public const int Spike = 20;
-    public const int Subtype = 21;
-    public const int Tile = 22;
-    public const int TileTemplates = 23;
-    public const int View = 24;
-    public const int Walkable = 25;
+    public const int Spikes = 20;
+    public const int SpikeTrap = 21;
+    public const int Subtype = 22;
+    public const int Tile = 23;
+    public const int TileTemplates = 24;
+    public const int View = 25;
+    public const int Walkable = 26;
 
-    public const int TotalComponents = 26;
+    public const int TotalComponents = 27;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -49,7 +50,8 @@ public static class ComponentIds {
         "QueuedPosition",
         "Resource",
         "Rotation",
-        "Spike",
+        "Spikes",
+        "SpikeTrap",
         "Subtype",
         "Tile",
         "TileTemplates",
@@ -78,7 +80,8 @@ public static class ComponentIds {
         typeof(Assets.QueuedPositionComponent),
         typeof(Assets.ResourceComponent),
         typeof(Assets.RotationComponent),
-        typeof(Assets.SpikeComponent),
+        typeof(Assets.SpikesComponent),
+        typeof(Assets.SpikeTrapComponent),
         typeof(Assets.SubtypeComponent),
         typeof(Assets.TileComponent),
         typeof(Assets.TileTemplates),

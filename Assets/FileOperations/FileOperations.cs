@@ -27,12 +27,13 @@ namespace Assets.FileOperations
             {
                 new DescriptorSet("TILE", e => e.isTile, e => e.IsTile(true)),
                 new DescriptorSet("WALKABLE", e => e.isWalkable, e => e.IsWalkable(true)),
-                new DescriptorSet("SPIKE", e => e.isSpike, e => e.IsSpike(true)),
+                new DescriptorSet("SPIKETRAP", e => e.isSpikeTrap, e => e.IsSpikeTrap(true)),
                 new DescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
                 new DescriptorSet("ITEM", e => e.isItem, e => e.IsItem(true)),
+                new DescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
                 new DescriptorSet("HERO", e => e.isHero, e => e.IsHero(true)),
                 new DescriptorSet("BOSS", e => e.isBoss, e => e.IsBoss(true)),
-                new DescriptorSet("HEALTH", e => e.hasHealth, e => e.AddHealth(3))
+                new DescriptorSet("HEALTH", e => e.hasHealth, e => e.AddHealth(3)),
             };
 
         public IEnumerable<string> ToDescriptors(Entity entity)

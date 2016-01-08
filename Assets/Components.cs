@@ -53,11 +53,15 @@ namespace Assets
     {
     }
 
-    public class SpikeComponent : IComponent
+    public class SpikeTrapComponent : IComponent
     {
     }
 
     public class ItemComponent : IComponent
+    {
+    }
+
+    public class SpikesComponent : IComponent
     {
     }
 
