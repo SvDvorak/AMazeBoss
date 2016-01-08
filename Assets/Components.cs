@@ -55,6 +55,7 @@ namespace Assets
 
     public class SpikeTrapComponent : IComponent
     {
+        public bool IsLoaded;
     }
 
     public class ItemComponent : IComponent
@@ -70,6 +71,10 @@ namespace Assets
     }
 
     public class HeroComponent : IComponent
+    {
+    }
+
+    public class SpikesCarried : IComponent
     {
     }
 

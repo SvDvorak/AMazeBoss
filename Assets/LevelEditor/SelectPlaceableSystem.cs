@@ -12,7 +12,7 @@ namespace Assets.LevelEditor
                     { 1, new Tile(MainTileType.Normal.ToString(), e => e.IsWalkable(true)) },
                     { 2, new Tile(MainTileType.Pillar.ToString()) },
                     { 3, new Tile(MainTileType.Wall.ToString()) },
-                    { 4, new Tile(MainTileType.SpikeTrap.ToString(), e => e.IsWalkable(true).IsDynamic(true).IsSpikeTrap(true)) },
+                    { 4, new Tile(MainTileType.SpikeTrap.ToString(), e => e.IsWalkable(true).IsDynamic(true).AddSpikeTrap(false)) },
                     { 5, new Item(ItemType.Hero.ToString(), e => e.IsDynamic(true).IsHero(true)) },
                     { 6, new Item(ItemType.Boss.ToString(), e => e.IsDynamic(true).IsBoss(true).AddHealth(3)) },
                     { 7, new Item(ItemType.Spikes.ToString(), e => e.IsSpikes(true)) },

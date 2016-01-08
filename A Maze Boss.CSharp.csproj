@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -94,8 +96,8 @@
     <Compile Include="Assets\Generated\Assets.DynamicComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.HeroItemSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.HeroPickupSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.MouseInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputComponentGeneratedExtension.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Assets\Generated\Assets.RotationComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeTrapComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.SpikesCarriedGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikesComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SubtypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SubtypeSelectorSystemGeneratedExtension.cs" />
@@ -137,8 +140,8 @@
     <Compile Include="Assets\Generated\ComponentIds.cs" />
     <Compile Include="Assets\Generated\Pools.cs" />
     <Compile Include="Assets\HeroBehaviorConfigurer.cs" />
+    <Compile Include="Assets\HeroItemSystem.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
-    <Compile Include="Assets\HeroPickupSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
     <Compile Include="Assets\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
@@ -194,6 +197,8 @@
     <Compile Include="Assets\MoveSystem.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
+    <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />
+    <Compile Include="Assets\PickUpItem\Spin.cs" />
     <Compile Include="Assets\PlaySetup.cs" />
     <Compile Include="Assets\PoolExtensions.cs" />
     <Compile Include="Assets\QueuePositionSystem.cs" />
@@ -203,7 +208,7 @@
     <Compile Include="Assets\Render\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\Render\RenderComponent.cs" />
     <Compile Include="Assets\Render\RenderPositionsSystem.cs" />
-    <Compile Include="Assets\SpikeSystem.cs" />
+    <Compile Include="Assets\SpikeTrapSystem.cs" />
     <Compile Include="Assets\SubtypeSelectorSystem.cs" />
     <Compile Include="Assets\TemplateLoaderSystem.cs" />
     <Compile Include="Assets\TemplateSelectorSystem.cs" />

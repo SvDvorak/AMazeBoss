@@ -43,9 +43,9 @@ namespace Assets
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
-                .Add(pool.CreateHeroPickupSystem())
+                .Add(pool.CreateHeroItemSystem())
                 .Add(pool.CreateQueuePositionSystem())
-                .Add(pool.CreateSpikeSystem())
+                .Add(pool.CreateSpikeTrapSystem())
 
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 

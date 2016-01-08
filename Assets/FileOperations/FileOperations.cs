@@ -27,7 +27,7 @@ namespace Assets.FileOperations
             {
                 new DescriptorSet("TILE", e => e.isTile, e => e.IsTile(true)),
                 new DescriptorSet("WALKABLE", e => e.isWalkable, e => e.IsWalkable(true)),
-                new DescriptorSet("SPIKETRAP", e => e.isSpikeTrap, e => e.IsSpikeTrap(true)),
+                new DescriptorSet("SPIKETRAP", e => e.hasSpikeTrap, e => e.AddSpikeTrap(false)),
                 new DescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
                 new DescriptorSet("ITEM", e => e.isItem, e => e.IsItem(true)),
                 new DescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),

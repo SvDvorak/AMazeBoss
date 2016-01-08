@@ -1,22 +1,38 @@
+using System.Collections.Generic;
+
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.SpikeTrapComponent spikeTrapComponent = new Assets.SpikeTrapComponent();
+        public Assets.SpikeTrapComponent spikeTrap { get { return (Assets.SpikeTrapComponent)GetComponent(ComponentIds.SpikeTrap); } }
 
-        public bool isSpikeTrap {
-            get { return HasComponent(ComponentIds.SpikeTrap); }
-            set {
-                if (value != isSpikeTrap) {
-                    if (value) {
-                        AddComponent(ComponentIds.SpikeTrap, spikeTrapComponent);
-                    } else {
-                        RemoveComponent(ComponentIds.SpikeTrap);
-                    }
-                }
-            }
+        public bool hasSpikeTrap { get { return HasComponent(ComponentIds.SpikeTrap); } }
+
+        static readonly Stack<Assets.SpikeTrapComponent> _spikeTrapComponentPool = new Stack<Assets.SpikeTrapComponent>();
+
+        public static void ClearSpikeTrapComponentPool() {
+            _spikeTrapComponentPool.Clear();
         }
 
-        public Entity IsSpikeTrap(bool value) {
-            isSpikeTrap = value;
+        public Entity AddSpikeTrap(bool newIsLoaded) {
+            var component = _spikeTrapComponentPool.Count > 0 ? _spikeTrapComponentPool.Pop() : new Assets.SpikeTrapComponent();
+            component.IsLoaded = newIsLoaded;
+            return AddComponent(ComponentIds.SpikeTrap, component);
+        }
+
+        public Entity ReplaceSpikeTrap(bool newIsLoaded) {
+            var previousComponent = hasSpikeTrap ? spikeTrap : null;
+            var component = _spikeTrapComponentPool.Count > 0 ? _spikeTrapComponentPool.Pop() : new Assets.SpikeTrapComponent();
+            component.IsLoaded = newIsLoaded;
+            ReplaceComponent(ComponentIds.SpikeTrap, component);
+            if (previousComponent != null) {
+                _spikeTrapComponentPool.Push(previousComponent);
+            }
+            return this;
+        }
+
+        public Entity RemoveSpikeTrap() {
+            var component = spikeTrap;
+            RemoveComponent(ComponentIds.SpikeTrap);
+            _spikeTrapComponentPool.Push(component);
             return this;
         }
     }

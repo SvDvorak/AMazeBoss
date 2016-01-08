@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Entitas;
 
 namespace Assets
 {
-    public class SpikeSystem : IReactiveSystem, ISetPool
+    public class SpikeTrapSystem : IReactiveSystem, ISetPool
     {
         private Group _bossGroup;
         public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.ActiveTurn).OnEntityAdded(); } }
@@ -28,7 +25,7 @@ namespace Assets
 
         private void DamageIfOnSamePosition(Entity boss, Entity trap)
         {
-            if (boss.position.Value == trap.position.Value)
+            if (boss.position.Value == trap.position.Value && trap.spikeTrap.IsLoaded)
             {
                 boss.ReplaceHealth(boss.health.Value - 1);
                 trap.ReplaceActingTime(2);
