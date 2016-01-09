@@ -207,6 +207,7 @@
     <Compile Include="Assets\Render\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\Render\RenderComponent.cs" />
     <Compile Include="Assets\Render\RenderPositionsSystem.cs" />
+    <Compile Include="Assets\ShowSpikesLoaded.cs" />
     <Compile Include="Assets\SpikeTrapSystem.cs" />
     <Compile Include="Assets\SubtypeSelectorSystem.cs" />
     <Compile Include="Assets\TemplateLoaderSystem.cs" />

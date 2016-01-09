@@ -27,21 +27,48 @@ namespace Assets
             {
                 var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, Matcher.Spikes);
                 var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, Matcher.SpikeTrap);
-                if (!hero.isSpikesCarried && spikesOnFloor != null)
+
+                if (hero.isSpikesCarried)
                 {
-                    spikesOnFloor.IsDestroyed(true);
-                    hero.IsSpikesCarried(true);
+                    if (spikeTrapBelow != null && !spikeTrapBelow.spikeTrap.IsLoaded)
+                    {
+                        PutSpikesInTrap(spikeTrapBelow, hero);
+                    }
                 }
-                else if (hero.isSpikesCarried && spikeTrapBelow != null)
+                else
                 {
-                    spikeTrapBelow.ReplaceSpikeTrap(true);
-                    hero.IsSpikesCarried(false);
+                    if (spikesOnFloor != null)
+                    {
+                        TakeSpikesFromFloor(spikesOnFloor, hero);
+                    }
+                    else if (spikeTrapBelow != null && spikeTrapBelow.spikeTrap.IsLoaded)
+                    {
+                        TakeSpikesFromTrap(spikeTrapBelow, hero);
+                    }
                 }
             }
             else if (UnityEngine.Input.GetKeyDown(KeyCode.LeftControl))
             {
                 _pool.SwitchCurse();
             }
+        }
+
+        private static void PutSpikesInTrap(Entity spikeTrapBelow, Entity hero)
+        {
+            spikeTrapBelow.ReplaceSpikeTrap(true);
+            hero.IsSpikesCarried(false);
+        }
+
+        private static void TakeSpikesFromFloor(Entity spikesOnFloor, Entity hero)
+        {
+            spikesOnFloor.IsDestroyed(true);
+            hero.IsSpikesCarried(true);
+        }
+
+        private static void TakeSpikesFromTrap(Entity spikeTrapBelow, Entity hero)
+        {
+            spikeTrapBelow.ReplaceSpikeTrap(false);
+            hero.IsSpikesCarried(true);
         }
     }
 }
