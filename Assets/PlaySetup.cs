@@ -54,7 +54,7 @@ namespace Assets
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateMoveSystem())
-                .Add(pool.CreateMoveAnimationSystem())
+                .Add(pool.CreateAnimationSystem())
 
             // Destroy
                 .Add(pool.CreateDestroySystem());

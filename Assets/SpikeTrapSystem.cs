@@ -28,7 +28,7 @@ namespace Assets
             if (boss.position.Value == trap.position.Value && trap.spikeTrap.IsLoaded)
             {
                 boss.ReplaceHealth(boss.health.Value - 1);
-                trap.ReplaceActingTime(2);
+                trap.IsTrapActivated(true);
             }
         }
     }

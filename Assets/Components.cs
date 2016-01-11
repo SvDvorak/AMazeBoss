@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using System;
+using Entitas;
 using Entitas.CodeGenerator;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -58,6 +59,10 @@ namespace Assets
         public bool IsLoaded;
     }
 
+    public class TrapActivatedComponent : IComponent
+    {
+    }
+
     public class ItemComponent : IComponent
     {
     }
@@ -98,6 +103,7 @@ namespace Assets
     public class ActingTimeComponent : IComponent
     {
         public float TimeLeft;
+        public Action OnFinished;
     }
 
     public class AnimatorComponent : IComponent

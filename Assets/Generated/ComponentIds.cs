@@ -26,10 +26,11 @@ public static class ComponentIds {
     public const int Subtype = 24;
     public const int Tile = 25;
     public const int TileTemplates = 26;
-    public const int View = 27;
-    public const int Walkable = 28;
+    public const int TrapActivated = 27;
+    public const int View = 28;
+    public const int Walkable = 29;
 
-    public const int TotalComponents = 29;
+    public const int TotalComponents = 30;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -59,6 +60,7 @@ public static class ComponentIds {
         "Subtype",
         "Tile",
         "TileTemplates",
+        "TrapActivated",
         "View",
         "Walkable"
     };
@@ -91,6 +93,7 @@ public static class ComponentIds {
         typeof(Assets.SubtypeComponent),
         typeof(Assets.TileComponent),
         typeof(Assets.TileTemplates),
+        typeof(Assets.TrapActivatedComponent),
         typeof(Assets.ViewComponent),
         typeof(Assets.WalkableComponent)
     };

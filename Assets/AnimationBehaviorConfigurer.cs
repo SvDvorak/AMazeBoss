@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets
 {
-    public class HeroBehaviorConfigurer : MonoBehaviour, IGameObjectConfigurer
+    public class AnimationBehaviorConfigurer : MonoBehaviour, IGameObjectConfigurer
     {
         public Animator Animator;
 
