@@ -47,23 +47,25 @@ namespace Assets
 
         public void MoveBoss(Entity boss)
         {
-            var targetPosition = GetHeroPosition();
+            var hero = GetHero();
+            var heroPosition = hero.position.Value;
 
-            var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, targetPosition);
+            var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, heroPosition);
 
-            if (currentMovePlan.HasStepsLeft)
+            if (currentMovePlan.NextStep() != heroPosition)
             {
                 boss.ReplacePosition(currentMovePlan.NextStep());
             }
             else
             {
+                hero.ReplaceHealth(hero.health.Value - 1);
                 _pool.SwitchCurse();
             }
         }
 
-        private TilePos GetHeroPosition()
+        private Entity GetHero()
         {
-            return _heroGroup.GetSingleEntity().position.Value;
+            return _heroGroup.GetSingleEntity();
         }
     }
 }

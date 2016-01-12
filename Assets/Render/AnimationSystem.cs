@@ -29,7 +29,7 @@ namespace Assets.Render
             _trapLoadedGroup.OnEntityAdded += (g, e, i, nc) => TrapLoaded(e);
             _trapLoadedGroup.OnEntityRemoved += (g, e, i, pc) => TrapLoaded(e);
             _trapActivatedGroup.OnEntityAdded += (g, e, i, nc) => TrapActivated(e);
-            _healthGroup.OnEntityUpdated += (g, e, i, nc, pc) => HealthChanged(e);
+            _healthGroup.OnEntityAdded += (g, e, i, nc) => HealthChanged(e);
         }
 
         private void HealthChanged(Entity entity)
