@@ -30,7 +30,8 @@ namespace Assets.LevelEditor
         public void OnDestroy()
         {
             IsInEditor = false;
-            _systems.DeactivateReactiveSystems();
+            Pools.pool.ClearGroups();
+            _systems.ClearReactiveSystems();
             Pools.pool.DestroyAllEntities();
         }
 

@@ -12,48 +12,48 @@ namespace Assets.FileOperations
             string DescriptorText { get; }
             Func<Entity, bool> HasDescriptor { get; }
             string CreateDescriptorText(Entity entity);
-            void SetDescriptorLOL(Entity e, string text);
+            void SetDescriptor(Entity e, string text);
         }
 
         private class FlagDescriptorSet : IDescriptorSet
         {
-            public FlagDescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity> setDescriptor)
+            public FlagDescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity> setFlagDescriptor)
             {
                 DescriptorText = descriptorText;
                 HasDescriptor = hasDescriptor;
-                SetDescriptor = setDescriptor;
+                SetFlagDescriptor = setFlagDescriptor;
             }
 
             public string DescriptorText { get; private set; }
             public Func<Entity, bool> HasDescriptor { get; private set; }
 
-            private Action<Entity> SetDescriptor { get; set; }
+            private Action<Entity> SetFlagDescriptor { get; set; }
 
             public string CreateDescriptorText(Entity entity)
             {
                 return DescriptorText;
             }
 
-            public void SetDescriptorLOL(Entity e, string text)
+            public void SetDescriptor(Entity e, string text)
             {
-                SetDescriptor(e);
+                SetFlagDescriptor(e);
             }
         }
 
         private class ValueDescriptorSet<TValueType> : IDescriptorSet
         {
-            public ValueDescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity, string> setDescriptor, Func<Entity, TValueType> getValue = null)
+            public ValueDescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity, string> setValueDescriptor, Func<Entity, TValueType> getValue = null)
             {
                 DescriptorText = descriptorText;
                 HasDescriptor = hasDescriptor;
-                SetDescriptor = setDescriptor;
+                SetValueDescriptor = setValueDescriptor;
                 GetValue = getValue;
             }
 
             public string DescriptorText { get; private set; }
             public Func<Entity, bool> HasDescriptor { get; private set; }
 
-            private Action<Entity, string> SetDescriptor  { get; set; }
+            private Action<Entity, string> SetValueDescriptor  { get; set; }
             private Func<Entity, TValueType> GetValue  { get; set; }
 
             public string CreateDescriptorText(Entity entity)
@@ -66,7 +66,7 @@ namespace Assets.FileOperations
                 return descriptor;
             }
 
-            public void SetDescriptorLOL(Entity e, string text)
+            public void SetDescriptor(Entity e, string text)
             {
                 string value = null;
                 if (text.Contains("("))
@@ -75,7 +75,7 @@ namespace Assets.FileOperations
                     var endIndex = text.IndexOf(")");
                     value = text.Substring(startIndex, endIndex - startIndex);
                 }
-                SetDescriptor(e, value);
+                SetValueDescriptor(e, value);
             }
         }
 
@@ -107,7 +107,7 @@ namespace Assets.FileOperations
             foreach (var descriptor in descriptors.Split(';'))
             {
                 var correctDescriptorSet = _descriptorSets.Single(ds => descriptor.Contains(ds.DescriptorText));
-                correctDescriptorSet.SetDescriptorLOL(entity, descriptor);
+                correctDescriptorSet.SetDescriptor(entity, descriptor);
             }
         }
     }

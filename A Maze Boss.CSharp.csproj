@@ -124,9 +124,12 @@
     <Compile Include="Assets\Generated\Assets.QueuedPositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RemoveActingOnDoneSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.AddViewSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.Render.AnimationSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.HealthChangedAnimationSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.PositionAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.PreviewMaterialChangeSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.RenderPositionsSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.TrapActivatedAnimationSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.TrapLoadedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ResourceComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RotationComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeTrapComponentGeneratedExtension.cs" />

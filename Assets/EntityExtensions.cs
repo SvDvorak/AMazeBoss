@@ -14,7 +14,10 @@ namespace Assets
 
         public static Entity SetParent(this Entity child, Entity parent)
         {
-            parent.AddId();
+            if(!parent.hasId)
+            {
+                parent.AddId();
+            }
             child.AddChild(parent.id.Value);
             return child;
         }
