@@ -6,6 +6,22 @@ namespace Assets
 {
     public static class PoolExtensions
     {
+        public static void SwitchCurse(this Pool pool)
+        {
+            var heroes = pool.GetEntities(Matcher.Hero);
+            var bosses = pool.GetEntities(Matcher.Boss);
+
+            foreach (var hero in heroes)
+            {
+                hero.isCursed = !hero.isCursed;
+            }
+
+            foreach (var boss in bosses)
+            {
+                boss.isCursed = !boss.isCursed;
+            }
+        }
+
         public static Entity GetTileAt(this Pool pool, TilePos position)
         {
             return pool.GetEntityAt(position, Matcher.Tile);
@@ -21,7 +37,7 @@ namespace Assets
             return pool.GetEntityAt(position, Matcher.Walkable) != null;
         }
 
-        private static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher)
+        public static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher)
         {
             var entities = pool.GetEntities(Matcher.AllOf(Matcher.Position, entityMatcher));
             return entities.SingleOrDefault(x => x.position.Value == position && !x.isDestroyed);
@@ -44,7 +60,7 @@ namespace Assets
         {
             return pool
                 .GetEntities(Matcher.Child)
-                .Where(x => x.child.ParentId == entity.parent.Id)
+                .Where(x => x.child.ParentId == entity.id.Value)
                 .ToList();
         }
     }

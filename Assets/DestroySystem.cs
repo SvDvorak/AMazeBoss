@@ -23,7 +23,7 @@ namespace Assets
                 {
                     GameObject.Destroy(entity.view.Value);
                 }
-                if (entity.hasParent)
+                if (entity.hasId)
                 {
                     Execute(_pool.FindChildrenFor(entity));
                 }

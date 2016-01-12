@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using UnityEngine;
 
@@ -24,11 +25,13 @@ namespace Assets
         private MovementCalculator _movementCalculator;
         private Group _bossGroup;
         private Group _heroGroup;
+        private Pool _pool;
 
         public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {
+            _pool = pool;
             _movementCalculator = new MovementCalculator(new WalkableValidator(pool));
             _bossGroup = pool.GetGroup(Matcher.Boss);
             _heroGroup = pool.GetGroup(Matcher.Hero);
@@ -36,7 +39,7 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var boss in _bossGroup.GetEntities())
+            foreach (var boss in _bossGroup.GetEntities().Where(x => !x.isCursed))
             {
                 MoveBoss(boss);
             }
@@ -44,19 +47,25 @@ namespace Assets
 
         public void MoveBoss(Entity boss)
         {
-            var targetPosition = GetHeroPosition();
+            var hero = GetHero();
+            var heroPosition = hero.position.Value;
 
-            var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, targetPosition);
+            var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, heroPosition);
 
-            if (currentMovePlan.HasStepsLeft)
+            if (currentMovePlan.NextStep() != heroPosition)
             {
                 boss.ReplacePosition(currentMovePlan.NextStep());
             }
+            else
+            {
+                hero.ReplaceHealth(hero.health.Value - 1);
+                _pool.SwitchCurse();
+            }
         }
 
-        private TilePos GetHeroPosition()
+        private Entity GetHero()
         {
-            return _heroGroup.GetSingleEntity().position.Value;
+            return _heroGroup.GetSingleEntity();
         }
     }
 }

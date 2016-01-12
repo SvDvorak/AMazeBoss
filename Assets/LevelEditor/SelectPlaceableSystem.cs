@@ -12,9 +12,10 @@ namespace Assets.LevelEditor
                     { 1, new Tile(MainTileType.Normal.ToString(), e => e.IsWalkable(true)) },
                     { 2, new Tile(MainTileType.Pillar.ToString()) },
                     { 3, new Tile(MainTileType.Wall.ToString()) },
-                    { 4, new Tile(MainTileType.Spike.ToString(), e => e.IsWalkable(true)) },
-                    { 5, new Item(ItemType.Hero.ToString(), e => e.IsDynamic(true).IsHero(true)) },
-                    { 6, new Item(ItemType.Boss.ToString(), e => e.IsDynamic(true).IsBoss(true)) }
+                    { 4, new Tile(MainTileType.SpikeTrap.ToString(), e => e.IsWalkable(true).IsDynamic(true).AddSpikeTrap(false)) },
+                    { 5, new Item(ItemType.Hero.ToString(), e => e.IsDynamic(true).IsHero(true).AddHealth(3)) },
+                    { 6, new Item(ItemType.Boss.ToString(), e => e.AddId().IsDynamic(true).IsBoss(true).IsCursed(true).AddHealth(3)) },
+                    { 7, new Item(ItemType.Spikes.ToString(), e => e.IsSpikes(true)) },
                 };
 
         private Pool _pool;

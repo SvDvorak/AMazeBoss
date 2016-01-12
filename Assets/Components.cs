@@ -1,13 +1,12 @@
-﻿using Entitas;
-using Entitas.CodeGenerator;
-using UnityEditor.Animations;
+﻿using System;
+using Entitas;
 using UnityEngine;
 
 namespace Assets
 {
-    public class ParentComponent : IComponent
+    public class IdComponent : IComponent
     {
-        public int Id;
+        public int Value;
     }
 
     public class ChildComponent : IComponent
@@ -53,7 +52,25 @@ namespace Assets
     {
     }
 
+    public class SpikeTrapComponent : IComponent
+    {
+        public bool IsLoaded;
+    }
+
+    public class SpikedTargetComponent : IComponent
+    {
+        public int BossId;
+    }
+
+    public class TrapActivatedComponent : IComponent
+    {
+    }
+
     public class ItemComponent : IComponent
+    {
+    }
+
+    public class SpikesComponent : IComponent
     {
     }
 
@@ -65,6 +82,14 @@ namespace Assets
     {
     }
 
+    public class SpikesCarried : IComponent
+    {
+    }
+
+    public class Cursed : IComponent
+    {
+    }
+
     public class DynamicComponent : IComponent
     {
     }
@@ -73,9 +98,20 @@ namespace Assets
     {
     }
 
+    public class HealthComponent : IComponent
+    {
+        public int Value;
+    }
+
+    public class HealthVisualComponent : IComponent
+    {
+        public TextMesh Text;
+    }
+
     public class ActingTimeComponent : IComponent
     {
         public float TimeLeft;
+        public Action OnFinished;
     }
 
     public class AnimatorComponent : IComponent

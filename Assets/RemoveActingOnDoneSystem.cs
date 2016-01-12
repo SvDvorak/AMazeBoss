@@ -24,11 +24,12 @@ namespace Assets
 
                 if (newTimeLeft < 0)
                 {
+                    acting.actingTime.OnFinished();
                     acting.RemoveActingTime();
                 }
                 else
                 {
-                    acting.ReplaceActingTime(newTimeLeft);
+                    acting.ReplaceActingTime(newTimeLeft, acting.actingTime.OnFinished);
                 }
             }
         }

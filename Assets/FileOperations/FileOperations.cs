@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Entitas;
@@ -7,58 +5,6 @@ using UnityEngine;
 
 namespace Assets.FileOperations
 {
-    public class DescriptorResolver
-    {
-        public IEnumerable<string> ToDescriptors(Entity entity)
-        {
-            var descriptors = new List<string>();
-            if (entity.isTile)
-            {
-                descriptors.Add("TILE");
-            }
-            if (entity.isWalkable)
-            {
-                descriptors.Add("WALKABLE");
-            }
-            if (entity.isDynamic)
-            {
-                descriptors.Add("DYNAMIC");
-            }
-            if (entity.isItem)
-            {
-                descriptors.Add("ITEM");
-            }
-            if (entity.isHero)
-            {
-                descriptors.Add("HERO");
-            }
-            if (entity.isBoss)
-            {
-                descriptors.Add("BOSS");
-            }
-
-            return descriptors;
-        }
-
-        private readonly Dictionary<string, Action<Entity>> _fromDescriptors = new Dictionary<string, Action<Entity>>()
-            {
-                { "TILE", (entity) => entity.IsTile(true) },
-                { "WALKABLE", (entity) => entity.IsWalkable(true) },
-                { "DYNAMIC", (entity) => entity.IsDynamic(true) },
-                { "ITEM", (entity) => entity.IsItem(true) },
-                { "HERO", (entity) => entity.IsHero(true) },
-                { "BOSS", (entity) => entity.IsBoss(true) }
-            };
-
-        public void FromDescriptors(string descriptors, Entity entity)
-        {
-            foreach (var descriptor in descriptors.Split(';'))
-            {
-                _fromDescriptors[descriptor](entity);
-            }
-        }
-    }
-
     public class FileOperations
     {
         private static readonly DescriptorResolver DescriptorResolver = new DescriptorResolver();

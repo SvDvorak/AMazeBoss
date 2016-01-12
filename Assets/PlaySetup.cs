@@ -24,7 +24,8 @@ namespace Assets
 
         public void OnDestroy()
         {
-            _systems.DeactivateReactiveSystems();
+            Pools.pool.ClearGroups();
+            _systems.ClearReactiveSystems();
             Pools.pool.DestroyAllEntities();
         }
 
@@ -43,7 +44,10 @@ namespace Assets
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
+                .Add(pool.CreateHeroItemSystem())
                 .Add(pool.CreateQueuePositionSystem())
+                .Add(pool.CreateSpikeTrapSystem())
+
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 
             // Render
@@ -51,10 +55,22 @@ namespace Assets
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateMoveSystem())
-                .Add(pool.CreateMoveAnimationSystem())
+                .AddAnimationSystems(pool)
 
             // Destroy
                 .Add(pool.CreateDestroySystem());
+        }
+    }
+
+    public static class PoolAnimationSystemsExtensions
+    {
+        public static Systems AddAnimationSystems(this Systems systems, Pool pool)
+        {
+            systems.Add(pool.CreatePositionAnimationSystem());
+            systems.Add(pool.CreateTrapLoadedAnimationSystem());
+            systems.Add(pool.CreateTrapActivatedAnimationSystem());
+            systems.Add(pool.CreateHealthChangedAnimationSystem());
+            return systems;
         }
     }
 }

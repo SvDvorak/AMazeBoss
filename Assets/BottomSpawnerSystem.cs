@@ -24,19 +24,8 @@ namespace Assets
 
         private void AddOrUpdateBottomFor(Entity entity)
         {
-            Entity child;
-            if (entity.hasParent)
-            {
-                child = _pool.FindChildFor(entity);
-            }
-            else
-            {
-                entity.AddParent();
-                child = _pool.CreateEntity();
-            }
-
-            child
-                .ReplaceChild(entity.parent.Id)
+            _pool.CreateEntity()
+                .SetParent(entity)
                 .ReplacePosition(entity.position.Value)
                 .ReplaceResource("Bottoms/Empty");
         }

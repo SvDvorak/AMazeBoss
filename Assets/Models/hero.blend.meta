@@ -159,8 +159,8 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: ArmatureAction
-      takeName: ArmatureAction
+      name: Walk_blocking
+      takeName: Walk_blocking
       firstFrame: -1
       lastFrame: 35
       wrapMode: 0
@@ -295,17 +295,17 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Default Take
-      takeName: Default Take
+      name: Standing_still
+      takeName: Standing_still
       firstFrame: -1
-      lastFrame: -1
+      lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
