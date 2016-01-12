@@ -8,29 +8,30 @@ public static class ComponentIds {
     public const int Destroyed = 6;
     public const int Dynamic = 7;
     public const int Health = 8;
-    public const int Hero = 9;
-    public const int Item = 10;
-    public const int Input = 11;
-    public const int Paused = 12;
-    public const int PlaceableSelected = 13;
-    public const int Preview = 14;
-    public const int Maintype = 15;
-    public const int Parent = 16;
-    public const int Position = 17;
-    public const int QueuedPosition = 18;
-    public const int Resource = 19;
-    public const int Rotation = 20;
-    public const int SpikesCarried = 21;
-    public const int Spikes = 22;
-    public const int SpikeTrap = 23;
-    public const int Subtype = 24;
-    public const int Tile = 25;
-    public const int TileTemplates = 26;
-    public const int TrapActivated = 27;
-    public const int View = 28;
-    public const int Walkable = 29;
+    public const int HealthVisual = 9;
+    public const int Hero = 10;
+    public const int Item = 11;
+    public const int Input = 12;
+    public const int Paused = 13;
+    public const int PlaceableSelected = 14;
+    public const int Preview = 15;
+    public const int Maintype = 16;
+    public const int Parent = 17;
+    public const int Position = 18;
+    public const int QueuedPosition = 19;
+    public const int Resource = 20;
+    public const int Rotation = 21;
+    public const int SpikesCarried = 22;
+    public const int Spikes = 23;
+    public const int SpikeTrap = 24;
+    public const int Subtype = 25;
+    public const int Tile = 26;
+    public const int TileTemplates = 27;
+    public const int TrapActivated = 28;
+    public const int View = 29;
+    public const int Walkable = 30;
 
-    public const int TotalComponents = 30;
+    public const int TotalComponents = 31;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -42,6 +43,7 @@ public static class ComponentIds {
         "Destroyed",
         "Dynamic",
         "Health",
+        "HealthVisual",
         "Hero",
         "Item",
         "Input",
@@ -75,6 +77,7 @@ public static class ComponentIds {
         typeof(Assets.DestroyedComponent),
         typeof(Assets.DynamicComponent),
         typeof(Assets.HealthComponent),
+        typeof(Assets.HealthVisualComponent),
         typeof(Assets.HeroComponent),
         typeof(Assets.ItemComponent),
         typeof(Assets.LevelEditor.InputComponent),

@@ -73,6 +73,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AnimationBehaviorConfigurer.cs" />
     <Compile Include="Assets\BossMoveSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Components.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\Generated\Assets.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DynamicComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.HealthVisualComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroItemSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
@@ -141,7 +143,6 @@
     <Compile Include="Assets\Generated\Assets.WalkableComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\ComponentIds.cs" />
     <Compile Include="Assets\Generated\Pools.cs" />
-    <Compile Include="Assets\AnimationBehaviorConfigurer.cs" />
     <Compile Include="Assets\HeroItemSystem.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Assets\Render\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\Render\RenderComponent.cs" />
     <Compile Include="Assets\Render\RenderPositionsSystem.cs" />
+    <Compile Include="Assets\HealthBehaviorConfigurer.cs" />
     <Compile Include="Assets\SpikeTrapSystem.cs" />
     <Compile Include="Assets\SubtypeSelectorSystem.cs" />
     <Compile Include="Assets\TemplateLoaderSystem.cs" />

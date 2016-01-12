@@ -100,6 +100,11 @@ namespace Assets
         public int Value;
     }
 
+    public class HealthVisualComponent : IComponent
+    {
+        public TextMesh Text;
+    }
+
     public class ActingTimeComponent : IComponent
     {
         public float TimeLeft;
