@@ -76,6 +76,9 @@
     <Compile Include="Assets\AnimationBehaviorConfigurer.cs" />
     <Compile Include="Assets\BossMoveSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
+    <Compile Include="Assets\Camera\Components.cs" />
+    <Compile Include="Assets\Camera\EditorCameraTransformSystem.cs" />
+    <Compile Include="Assets\CameraBehaviorConfigurer.cs" />
     <Compile Include="Assets\Components.cs" />
     <Compile Include="Assets\DestroySystem.cs" />
     <Compile Include="Assets\EntityExtensions.cs" />
@@ -92,6 +95,9 @@
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Camera.EditorCameraTransformSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.CameraComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.CameraOffsetGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ChildComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CursedGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroySystemGeneratedExtension.cs" />
@@ -152,7 +158,7 @@
     <Compile Include="Assets\HeroItemSystem.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
-    <Compile Include="Assets\Input\MouseInputSystem.cs" />
+    <Compile Include="Assets\LevelEditor\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorSetup.cs" />

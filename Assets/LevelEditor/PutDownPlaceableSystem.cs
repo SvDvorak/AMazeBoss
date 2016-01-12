@@ -1,5 +1,4 @@
-﻿using Assets.Input;
-using Entitas;
+﻿using Entitas;
 
 namespace Assets.LevelEditor
 {

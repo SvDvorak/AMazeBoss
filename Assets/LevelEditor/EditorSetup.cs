@@ -39,10 +39,12 @@ namespace Assets.LevelEditor
         {
             Random.seed = 42;
 
-            _systems = CreateSystems(Pools.pool);
+            var pool = Pools.pool;
+            _systems = CreateSystems(pool);
 
-            Pools.pool.CreateEntity().IsInput(true);
-            Pools.pool.CreateEntity().IsPreview(true);
+            pool.CreateEntity().IsInput(true);
+            pool.CreateEntity().IsPreview(true);
+            pool.CreateEntity().AddResource("Camera").AddCameraOffset(Vector3.zero).AddRotation(0);
 
             _systems.Initialize();
         }
@@ -80,6 +82,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSubtypeSelectorSystem())
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
+                .Add(pool.CreateEditorCameraTransformSystem())
                 .Add(pool.CreateRenderPositionsSystem())
 
             // Destroy

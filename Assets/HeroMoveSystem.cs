@@ -59,6 +59,7 @@ namespace Assets
                     inputMoveDirection = moveDirection.Value;
                 }
             }
+
             return inputMoveDirection;
         }
     }
