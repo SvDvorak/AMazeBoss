@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 
 namespace Assets
@@ -10,7 +11,8 @@ namespace Assets
 
         public void SetPool(Pool pool)
         {
-            _bossGroup = pool.GetGroup(Matcher.Boss);
+            _bossGroup = pool.GetGroup(Matcher.AllOf(Matcher.Boss, Matcher.Position));
+            _bossGroup.OnEntityUpdated += (g, e, i, nc, pc) => RemoveActivationOnBossMove(pool, e);
         }
 
         public void Execute(List<Entity> entities)
@@ -25,10 +27,23 @@ namespace Assets
 
         private void DamageIfOnSamePosition(Entity boss, Entity trap)
         {
-            if (boss.position.Value == trap.position.Value && trap.spikeTrap.IsLoaded)
+            if (!trap.hasSpikedTarget && boss.position.Value == trap.position.Value && trap.spikeTrap.IsLoaded)
             {
                 boss.ReplaceHealth(boss.health.Value - 1);
                 trap.IsTrapActivated(true);
+                trap.AddSpikedTarget(boss.id.Value);
+            }
+        }
+
+        private void RemoveActivationOnBossMove(Pool pool, Entity boss)
+        {
+            var activatedTrap = pool.GetEntities(Matcher.AllOf(Matcher.SpikeTrap, Matcher.SpikedTarget));
+            foreach(var trap in activatedTrap.Where(e => e.spikedTarget.BossId == boss.id.Value))
+            {
+                if (trap.position.Value != boss.position.Value)
+                {
+                    trap.RemoveSpikedTarget();
+                }
             }
         }
     }

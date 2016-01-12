@@ -1,17 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Entitas;
 
 namespace Assets
 {
     public static class EntityExtensions
     {
-        private static int _freeParentId;
-        private static int FreeParentId { get { return _freeParentId++; } }
-
-        public static void AddParent(this Entity entity)
+        public static Entity AddId(this Entity entity)
         {
-            entity.AddParent(FreeParentId);
+            var currentId = Pools.pool.GetEntities(Matcher.Id).Max(x => x.id.Value);
+            entity.AddId(currentId+1);
+            return entity;
+        }
+
+        public static Entity SetParent(this Entity child, Entity parent)
+        {
+            parent.AddId();
+            child.AddChild(parent.id.Value);
+            return child;
         }
 
         public static bool IsMoving(this Entity entity)

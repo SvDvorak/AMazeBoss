@@ -60,7 +60,7 @@ namespace Assets
         {
             return pool
                 .GetEntities(Matcher.Child)
-                .Where(x => x.child.ParentId == entity.parent.Id)
+                .Where(x => x.child.ParentId == entity.id.Value)
                 .ToList();
         }
     }

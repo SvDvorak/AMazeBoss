@@ -1,14 +1,12 @@
 ﻿using System;
 using Entitas;
-using Entitas.CodeGenerator;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Assets
 {
-    public class ParentComponent : IComponent
+    public class IdComponent : IComponent
     {
-        public int Id;
+        public int Value;
     }
 
     public class ChildComponent : IComponent
@@ -57,6 +55,11 @@ namespace Assets
     public class SpikeTrapComponent : IComponent
     {
         public bool IsLoaded;
+    }
+
+    public class SpikedTargetComponent : IComponent
+    {
+        public int BossId;
     }
 
     public class TrapActivatedComponent : IComponent
