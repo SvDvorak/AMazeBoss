@@ -7,7 +7,8 @@ namespace Assets
     {
         public static Entity AddId(this Entity entity)
         {
-            var currentId = Pools.pool.GetEntities(Matcher.Id).Max(x => x.id.Value);
+            var identifiables = Pools.pool.GetEntities(Matcher.Id);
+            var currentId = identifiables.Any() ? identifiables.Max(x => x.id.Value) : 0;
             entity.AddId(currentId+1);
             return entity;
         }

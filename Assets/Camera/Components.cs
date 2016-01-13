@@ -8,7 +8,7 @@ namespace Assets
         public UnityEngine.Camera Value;
     }
 
-    public class CameraOffset : IComponent
+    public class CameraOffsetComponent : IComponent
     {
         public Vector3 Position;
     }

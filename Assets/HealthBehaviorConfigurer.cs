@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Assets;
 using Entitas;
-using UnityEngine.UI;
 
 public class HealthBehaviorConfigurer : MonoBehaviour, IGameObjectConfigurer
 {

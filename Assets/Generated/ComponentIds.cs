@@ -79,7 +79,7 @@ public static class ComponentIds {
         typeof(Assets.AnimatorComponent),
         typeof(Assets.BossComponent),
         typeof(Assets.CameraComponent),
-        typeof(Assets.CameraOffset),
+        typeof(Assets.CameraOffsetComponent),
         typeof(Assets.ChildComponent),
         typeof(Assets.Cursed),
         typeof(Assets.DestroyedComponent),

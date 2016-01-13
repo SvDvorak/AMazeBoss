@@ -1,6 +1,8 @@
-﻿using Entitas;
+﻿using System;
+using Entitas;
 using Entitas.Unity.VisualDebugging;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.LevelEditor
 {
@@ -21,9 +23,13 @@ namespace Assets.LevelEditor
         {
             var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
 
-            if (!string.IsNullOrEmpty(lastUsedPath))
+            try
             {
                 FileOperations.FileOperations.Load(lastUsedPath);
+            }
+            catch (Exception)
+            {
+                Debug.Log("Unable to read last used file at " + lastUsedPath);
             }
         }
 
