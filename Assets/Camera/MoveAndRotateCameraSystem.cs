@@ -16,12 +16,10 @@ namespace Assets.Camera
             var cameraTransform = camera.view.Value.transform;
 
             var currentRotation = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up);
-            var nextRotation = camera.hasRotation ? camera.rotation.Value : 0;
-            var focusPoint = camera.hasFocusPoint ? camera.focusPoint.DeltaPosition : Vector3.zero;
 
             DOTween
-                .To(() => currentRotation, x => currentRotation = x, new Vector3(0, (45 + 90 * nextRotation) % 360, 0), 1)
-                .OnUpdate(() => UpdateTransform(cameraTransform, focusPoint, currentRotation));
+                .To(() => currentRotation, x => currentRotation = x, new Vector3(0, (45 + 90 * camera.rotation.Value) % 360, 0), 1)
+                .OnUpdate(() => UpdateTransform(cameraTransform, camera.focusPoint.DeltaPosition, currentRotation));
         }
 
         private void UpdateTransform(Transform transform, Vector3 focusPoint, Quaternion spin)

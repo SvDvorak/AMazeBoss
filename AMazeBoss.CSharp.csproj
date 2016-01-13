@@ -80,7 +80,7 @@
     <Compile Include="Assets\BossMoveSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Camera\Components.cs" />
-    <Compile Include="Assets\Camera\MoveCameraSystem.cs" />
+    <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
     <Compile Include="Assets\CameraBehaviorConfigurer.cs" />
     <Compile Include="Assets\Components.cs" />
     <Compile Include="Assets\DestroySystem.cs" />

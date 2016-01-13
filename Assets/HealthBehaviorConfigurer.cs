@@ -8,7 +8,7 @@ public class HealthBehaviorConfigurer : MonoBehaviour, IGameObjectConfigurer
 
     public void Update()
     {
-        TextHealth.transform.LookAt(Camera.main.transform.position);
+        TextHealth.transform.LookAt(Pools.pool.GetCamera().transform.position);
     }
 
     public void OnAttachEntity(Entity entity)

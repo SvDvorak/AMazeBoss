@@ -12,7 +12,10 @@ namespace Assets
         {
             Random.seed = 42;
 
-            _systems = CreateSystems(Pools.pool);
+            var pool = Pools.pool;
+            _systems = CreateSystems(pool);
+
+            pool.CreateEntity().AddResource("Camera").AddFocusPoint(Vector3.zero).AddRotation(0);
 
             _systems.Initialize();
         }
@@ -39,6 +42,9 @@ namespace Assets
             // Initialize
                 .Add(pool.CreateTemplateLoaderSystem())
 
+            // Input
+                .Add(pool.CreateRotateCameraInputSystem())
+
             // Update
                 .Add(pool.CreateNextTurnSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
@@ -55,6 +61,7 @@ namespace Assets
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateMoveSystem())
+                .Add(pool.CreateMoveAndRotateCameraSystem())
                 .AddAnimationSystems(pool)
 
             // Destroy
