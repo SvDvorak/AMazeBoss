@@ -8,8 +8,8 @@ namespace Assets
         public UnityEngine.Camera Value;
     }
 
-    public class CameraOffsetComponent : IComponent
+    public class FocusPointComponent : IComponent
     {
-        public Vector3 Position;
+        public Vector3 DeltaPosition;
     }
 }

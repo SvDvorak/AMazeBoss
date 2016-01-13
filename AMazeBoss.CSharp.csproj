@@ -80,7 +80,7 @@
     <Compile Include="Assets\BossMoveSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Camera\Components.cs" />
-    <Compile Include="Assets\Camera\EditorCameraTransformSystem.cs" />
+    <Compile Include="Assets\Camera\MoveCameraSystem.cs" />
     <Compile Include="Assets\CameraBehaviorConfigurer.cs" />
     <Compile Include="Assets\Components.cs" />
     <Compile Include="Assets\DestroySystem.cs" />
@@ -98,14 +98,14 @@
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.Camera.EditorCameraTransformSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Camera.MoveAndRotateCameraSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CameraComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.CameraOffsetComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ChildComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CursedGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroySystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DynamicComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.FocusPointComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthVisualComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroComponentGeneratedExtension.cs" />
@@ -114,6 +114,8 @@
     <Compile Include="Assets\Generated\Assets.IdComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MouseInputSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MoveCameraInputSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.Input.RotateCameraInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PausedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PlaceableSelectedComponentGeneratedExtension.cs" />

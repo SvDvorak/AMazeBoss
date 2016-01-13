@@ -4,11 +4,11 @@ public static class ComponentIds {
     public const int Animator = 2;
     public const int Boss = 3;
     public const int Camera = 4;
-    public const int CameraOffset = 5;
-    public const int Child = 6;
-    public const int Cursed = 7;
-    public const int Destroyed = 8;
-    public const int Dynamic = 9;
+    public const int Child = 5;
+    public const int Cursed = 6;
+    public const int Destroyed = 7;
+    public const int Dynamic = 8;
+    public const int FocusPoint = 9;
     public const int Health = 10;
     public const int HealthVisual = 11;
     public const int Hero = 12;
@@ -42,11 +42,11 @@ public static class ComponentIds {
         "Animator",
         "Boss",
         "Camera",
-        "CameraOffset",
         "Child",
         "Cursed",
         "Destroyed",
         "Dynamic",
+        "FocusPoint",
         "Health",
         "HealthVisual",
         "Hero",
@@ -79,11 +79,11 @@ public static class ComponentIds {
         typeof(Assets.AnimatorComponent),
         typeof(Assets.BossComponent),
         typeof(Assets.CameraComponent),
-        typeof(Assets.CameraOffsetComponent),
         typeof(Assets.ChildComponent),
         typeof(Assets.Cursed),
         typeof(Assets.DestroyedComponent),
         typeof(Assets.DynamicComponent),
+        typeof(Assets.FocusPointComponent),
         typeof(Assets.HealthComponent),
         typeof(Assets.HealthVisualComponent),
         typeof(Assets.HeroComponent),

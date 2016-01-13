@@ -4,6 +4,101 @@ using UnityEngine;
 
 namespace Assets.LevelEditor.Input
 {
+    public class MoveCameraInputSystem : IExecuteSystem, ISetPool
+    {
+        private Pool _pool;
+        private Group _cameraGroup;
+
+        private const float ScrollMultiplier = 10;
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+            _cameraGroup = _pool.GetGroup(Matcher.Camera);
+        }
+
+        public void Execute()
+        {
+            var cameraEntity = _cameraGroup.GetSingleEntity();
+            if (_pool.isPaused || cameraEntity == null)
+            {
+                return;
+            }
+
+            var inputMoveDirection = GetInputMove();
+
+            var deltaOffset = inputMoveDirection * Time.deltaTime * ScrollMultiplier;
+            if (deltaOffset != Vector3.zero)
+            {
+                cameraEntity.ReplaceFocusPoint(cameraEntity.focusPoint.DeltaPosition + deltaOffset);
+            }
+        }
+
+        private readonly Dictionary<KeyCode, Vector3> _moveDirections = new Dictionary<KeyCode, Vector3>
+            {
+                { KeyCode.UpArrow, new Vector3(0, 0, 1) },
+                { KeyCode.DownArrow, new Vector3(0, 0, -1) },
+                { KeyCode.LeftArrow, new Vector3(-1, 0) },
+                { KeyCode.RightArrow, new Vector3(1, 0) }
+            };
+
+        private Vector3 GetInputMove()
+        {
+            var inputMoveDirection = new Vector3();
+
+            foreach (var moveDirection in _moveDirections)
+            {
+                if (UnityEngine.Input.GetKey(moveDirection.Key))
+                {
+                    inputMoveDirection = moveDirection.Value;
+                }
+            }
+            return inputMoveDirection;
+        }
+    }
+
+    public class RotateCameraInputSystem : IExecuteSystem, ISetPool
+    {
+        private Group _cameraGroup;
+        private Pool _pool;
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+            _cameraGroup = pool.GetGroup(Matcher.Camera);
+        }
+
+        public void Execute()
+        {
+            var cameraEntity = _cameraGroup.GetSingleEntity();
+            if (_pool.isPaused || cameraEntity == null)
+            {
+                return;
+            }
+
+            var rotation = GetInputRotation();
+
+            if (rotation != 0)
+            {
+                cameraEntity.ReplaceRotation(cameraEntity.rotation.Value + rotation);
+            }
+        }
+
+        private static int GetInputRotation()
+        {
+            var rotation = 0;
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Q))
+            {
+                rotation = -1;
+            }
+            else if (UnityEngine.Input.GetKeyDown(KeyCode.E))
+            {
+                rotation = 1;
+            }
+            return rotation;
+        }
+    }
+
     public class MouseInputSystem : IExecuteSystem, ISetPool
     {
         private Pool _pool;
@@ -34,22 +129,7 @@ namespace Assets.LevelEditor.Input
             {
                 _pool.inputEntity.ReplacePosition(currentPosition);
             }
-
-            var inputMoveDirection = GetInputMove();
-            var rotation = GetInputRotation();
-
-            var deltaOffset = inputMoveDirection*Time.deltaTime * ScrollMultiplier;
-            if (deltaOffset != Vector3.zero)
-            {
-                cameraEntity.ReplaceCameraOffset(cameraEntity.cameraOffset.Position + deltaOffset);
-            }
-            if (rotation != 0)
-            {
-                cameraEntity.ReplaceRotation(cameraEntity.rotation.Value + rotation);
-            }
         }
-
-        private const float ScrollMultiplier = 6;
 
         private TilePos GetMouseTilePosition(UnityEngine.Camera camera)
         {
@@ -65,42 +145,6 @@ namespace Assets.LevelEditor.Input
             }
 
             return new TilePos(0, 0);
-        }
-
-        private readonly Dictionary<KeyCode, Vector3> _moveDirections = new Dictionary<KeyCode, Vector3>
-            {
-                { KeyCode.UpArrow, new Vector3(0, 0, 1) },
-                { KeyCode.DownArrow, new Vector3(0, 0, -1) },
-                { KeyCode.LeftArrow, new Vector3(-1, 0) },
-                { KeyCode.RightArrow, new Vector3(1, 0) }
-            };
-
-        private Vector3 GetInputMove()
-        {
-            var inputMoveDirection = new Vector3();
-
-            foreach (var moveDirection in _moveDirections)
-            {
-                if (UnityEngine.Input.GetKey(moveDirection.Key))
-                {
-                    inputMoveDirection = moveDirection.Value;
-                }
-            }
-            return inputMoveDirection;
-        }
-
-        private static int GetInputRotation()
-        {
-            var rotation = 0;
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Q))
-            {
-                rotation = -1;
-            }
-            else if (UnityEngine.Input.GetKeyDown(KeyCode.E))
-            {
-                rotation = 1;
-            }
-            return rotation;
         }
     }
 }
