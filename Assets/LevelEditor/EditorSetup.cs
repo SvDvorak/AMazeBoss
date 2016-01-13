@@ -29,7 +29,7 @@ namespace Assets.LevelEditor
             }
             catch (Exception)
             {
-                Debug.Log("Unable to read last used file at " + lastUsedPath);
+                Debug.LogWarning("Unable to read last used file at " + lastUsedPath);
             }
         }
 
@@ -88,7 +88,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSubtypeSelectorSystem())
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
-                .Add(pool.CreateEditorCameraTransformSystem())
+                .Add(pool.EditorCameraTransformSystem())
                 .Add(pool.CreateRenderPositionsSystem())
 
             // Destroy

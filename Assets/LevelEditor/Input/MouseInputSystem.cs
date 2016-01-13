@@ -94,11 +94,11 @@ namespace Assets.LevelEditor.Input
             var rotation = 0;
             if (UnityEngine.Input.GetKeyDown(KeyCode.Q))
             {
-                rotation = -90;
+                rotation = -1;
             }
             else if (UnityEngine.Input.GetKeyDown(KeyCode.E))
             {
-                rotation = 90;
+                rotation = 1;
             }
             return rotation;
         }
