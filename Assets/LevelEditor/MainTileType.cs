@@ -30,6 +30,7 @@ namespace Assets.LevelEditor
         Pillar,
         Wall,
         SpikeTrap,
+        CurseTrigger
     }
 
     public enum ItemType
