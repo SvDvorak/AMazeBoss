@@ -14,7 +14,7 @@ namespace Assets.Render
 
     public class PositionAnimationSystem : IReactiveSystem, IEnsureComponents
     {
-        private const float BossMoveTime = 0.5f;
+        private const float MoveTime = 0.5f;
 
         public TriggerOnEvent trigger { get { return Matcher.Position.OnEntityAddedOrRemoved(); } }
         public IMatcher ensureComponents { get { return Matcher.View; } }
@@ -31,17 +31,17 @@ namespace Assets.Render
         {
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3();
-            transform.DOMove(newPosition, BossMoveTime).SetEase(Ease.Linear);
+            transform.DOMove(newPosition, MoveTime).SetEase(Ease.Linear);
 
             // TODO! Should require animator!
             if (entity.hasAnimator && entity.IsMoving())
             {
                 entity.animator.Value.SetBool("IsMoving", true);
-                entity.ReplaceActingTime(BossMoveTime, () => entity.animator.Value.SetBool("IsMoving", false));
+                entity.ReplaceActingTime(MoveTime, () => entity.animator.Value.SetBool("IsMoving", false));
             }
             else
             {
-                entity.ReplaceActingTime(BossMoveTime, () => { });
+                entity.ReplaceActingTime(MoveTime, () => { });
             }
             if (entity.IsMoving())
             {
@@ -67,7 +67,7 @@ namespace Assets.Render
     {
         private const int TrapActivateTime = 1;
 
-        public TriggerOnEvent trigger { get { return Matcher.TrapActivated.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.TrapActivated).OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -75,6 +75,20 @@ namespace Assets.Render
             {
                 entity.animator.Value.SetTrigger("Activated");
                 entity.ReplaceActingTime(TrapActivateTime, () => entity.IsTrapActivated(false));
+            }
+        }
+    }
+
+    public class CurseSwitchActivatedAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.CurseSwitch, Matcher.TrapActivated).OnEntityAddedOrRemoved(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                entity.animator.Value.SetBool("WeightedDown", entity.isTrapActivated);
+                entity.ReplaceActingTime(1, () => { });
             }
         }
     }

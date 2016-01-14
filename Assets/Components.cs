@@ -90,6 +90,10 @@ namespace Assets
     {
     }
 
+    public class CurseSwitch : IComponent
+    {
+    }
+
     public class DynamicComponent : IComponent
     {
     }

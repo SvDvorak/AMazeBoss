@@ -53,6 +53,7 @@ namespace Assets
                 .Add(pool.CreateHeroItemSystem())
                 .Add(pool.CreateQueuePositionSystem())
                 .Add(pool.CreateSpikeTrapSystem())
+                .Add(pool.CreateCurseSwitchSystem())
 
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 
@@ -73,11 +74,12 @@ namespace Assets
     {
         public static Systems AddAnimationSystems(this Systems systems, Pool pool)
         {
-            systems.Add(pool.CreatePositionAnimationSystem());
-            systems.Add(pool.CreateTrapLoadedAnimationSystem());
-            systems.Add(pool.CreateTrapActivatedAnimationSystem());
-            systems.Add(pool.CreateHealthChangedAnimationSystem());
-            return systems;
+            return systems
+                .Add(pool.CreatePositionAnimationSystem())
+                .Add(pool.CreateTrapLoadedAnimationSystem())
+                .Add(pool.CreateTrapActivatedAnimationSystem())
+                .Add(pool.CreateCurseSwitchActivatedAnimationSystem())
+                .Add(pool.CreateHealthChangedAnimationSystem());
         }
     }
 }
