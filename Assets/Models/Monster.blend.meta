@@ -60,6 +60,49 @@ ModelImporter:
     100104: Upper_thumb_L
     100106: Upper_thumb_R
     100108: Cube
+    100110: Armature_000
+    100112: Bone_001
+    100114: Bone_002
+    100116: Bone_003
+    100118: Bone_004
+    100120: Bone_005
+    100122: Bone_006
+    100124: Bone_007
+    100126: Bone_008
+    100128: Bone_009
+    100130: Point_finger01_L
+    100132: Point_finger01_L_001
+    100134: Point_finger02_L
+    100136: Point_finger02_L_001
+    100138: Point_finger03_L
+    100140: Point_finger03_L_001
+    100142: Smal_finger01_L
+    100144: Smal_finger01_L_001
+    100146: Smal_finger02_L
+    100148: Smal_finger02_L_001
+    100150: Smal_finger03_L
+    100152: Smal_finger03_L_001
+    100154: Tumb01_L
+    100156: Tumb01_L_001
+    100158: Tumb02_L
+    100160: Tumb02_L_001
+    100162: Under_arm_L_001
+    100164: Upper_arm_L_001
+    100166: Bottom_Leg_L
+    100168: Bottom_Leg_R
+    100170: Leg_ik_L
+    100172: Leg_ik_R
+    100174: Monster_Bone
+    100176: Neck
+    100178: Point_finger01_R
+    100180: Point_finger02_R
+    100182: Point_finger03_R
+    100184: Smal_finger01_R
+    100186: Smal_finger02_R
+    100188: Smal_finger03_R
+    100190: Tumb01_R
+    100192: Tumb02_R
+    100194: Monster
     400000: Armature
     400002: Bone
     400004: Bottom
@@ -115,16 +158,63 @@ ModelImporter:
     400104: Upper_thumb_L
     400106: Upper_thumb_R
     400108: Cube
+    400110: Armature_000
+    400112: Bone_001
+    400114: Bone_002
+    400116: Bone_003
+    400118: Bone_004
+    400120: Bone_005
+    400122: Bone_006
+    400124: Bone_007
+    400126: Bone_008
+    400128: Bone_009
+    400130: Point_finger01_L
+    400132: Point_finger01_L_001
+    400134: Point_finger02_L
+    400136: Point_finger02_L_001
+    400138: Point_finger03_L
+    400140: Point_finger03_L_001
+    400142: Smal_finger01_L
+    400144: Smal_finger01_L_001
+    400146: Smal_finger02_L
+    400148: Smal_finger02_L_001
+    400150: Smal_finger03_L
+    400152: Smal_finger03_L_001
+    400154: Tumb01_L
+    400156: Tumb01_L_001
+    400158: Tumb02_L
+    400160: Tumb02_L_001
+    400162: Under_arm_L_001
+    400164: Upper_arm_L_001
+    400166: Bottom_Leg_L
+    400168: Bottom_Leg_R
+    400170: Leg_ik_L
+    400172: Leg_ik_R
+    400174: Monster_Bone
+    400176: Neck
+    400178: Point_finger01_R
+    400180: Point_finger02_R
+    400182: Point_finger03_R
+    400184: Smal_finger01_R
+    400186: Smal_finger02_R
+    400188: Smal_finger03_R
+    400190: Tumb01_R
+    400192: Tumb02_R
+    400194: Monster
     2300000: Cube
     2300002: Hero
     3300000: Cube
     3300002: Hero
     4300000: Hero
     4300002: Cube
+    4300004: Monster
     7400000: Default Take
     7400002: ArmatureAction
+    7400004: Idle
+    7400006: Jump
     9500000: //RootNode
     13700000: Hero
+    13700002: Monster
   materials:
     importMaterials: 1
     materialName: 0
