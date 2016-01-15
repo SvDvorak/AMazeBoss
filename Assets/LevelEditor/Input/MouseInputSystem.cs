@@ -25,7 +25,7 @@ namespace Assets.LevelEditor.Input
                 return;
             }
 
-            var inputMoveDirection = GetInputMove();
+            var inputMoveDirection = GetInputMove(cameraEntity);
 
             var deltaOffset = inputMoveDirection * Time.deltaTime * ScrollMultiplier;
             if (deltaOffset != Vector3.zero)
@@ -42,7 +42,7 @@ namespace Assets.LevelEditor.Input
                 { KeyCode.RightArrow, new Vector3(1, 0) }
             };
 
-        private Vector3 GetInputMove()
+        private Vector3 GetInputMove(Entity camera)
         {
             var inputMoveDirection = new Vector3();
 
@@ -53,6 +53,12 @@ namespace Assets.LevelEditor.Input
                     inputMoveDirection = moveDirection.Value;
                 }
             }
+
+            if (_cameraGroup.count != 0)
+            {
+                inputMoveDirection = Quaternion.AngleAxis(camera.rotation.Value * 90, Vector3.up)*inputMoveDirection;
+            }
+
             return inputMoveDirection;
         }
     }

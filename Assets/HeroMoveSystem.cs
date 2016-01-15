@@ -9,6 +9,7 @@ namespace Assets
     {
         private Pool _pool;
         private Group _positionGroup;
+        private Group _cameraGroup;
 
         private readonly Dictionary<KeyCode, TilePos> _moveDirections = new Dictionary<KeyCode, TilePos>
             {
@@ -25,6 +26,7 @@ namespace Assets
             _pool = pool;
             _heroGroup = pool.GetGroup(Matcher.Hero);
             _positionGroup = pool.GetGroup(Matcher.Position);
+            _cameraGroup = pool.GetGroup(Matcher.AllOf(Matcher.Camera, Matcher.Rotation));
         }
 
         public void Execute()
@@ -54,10 +56,16 @@ namespace Assets
 
             foreach (var moveDirection in _moveDirections)
             {
-                if (UnityEngine.Input.GetKeyDown(moveDirection.Key))
+                if (Input.GetKeyDown(moveDirection.Key))
                 {
                     inputMoveDirection = moveDirection.Value;
                 }
+            }
+
+            if (_cameraGroup.count != 0)
+            {
+                var camera = _cameraGroup.GetSingleEntity();
+                inputMoveDirection = inputMoveDirection.Rotate(camera.rotation.Value);
             }
 
             return inputMoveDirection;

@@ -80,5 +80,11 @@ namespace Assets
         {
             return X + Z;
         }
+
+        public TilePos Rotate(int rotation)
+        {
+            var rotated = Quaternion.AngleAxis(rotation*90, Vector3.up)*ToV3();
+            return new TilePos(rotated);
+        }
     }
 }
