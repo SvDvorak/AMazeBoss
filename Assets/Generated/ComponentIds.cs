@@ -19,23 +19,24 @@ public static class ComponentIds {
     public const int Paused = 17;
     public const int PlaceableSelected = 18;
     public const int Preview = 19;
-    public const int Maintype = 20;
-    public const int Position = 21;
-    public const int QueuedPosition = 22;
-    public const int Resource = 23;
-    public const int Rotation = 24;
-    public const int SpikedTarget = 25;
-    public const int SpikesCarried = 26;
-    public const int Spikes = 27;
-    public const int SpikeTrap = 28;
-    public const int Subtype = 29;
-    public const int Tile = 30;
-    public const int TileTemplates = 31;
-    public const int TrapActivated = 32;
-    public const int View = 33;
-    public const int Walkable = 34;
+    public const int Levels = 20;
+    public const int Maintype = 21;
+    public const int Position = 22;
+    public const int QueuedPosition = 23;
+    public const int Resource = 24;
+    public const int Rotation = 25;
+    public const int SpikedTarget = 26;
+    public const int SpikesCarried = 27;
+    public const int Spikes = 28;
+    public const int SpikeTrap = 29;
+    public const int Subtype = 30;
+    public const int Tile = 31;
+    public const int TileTemplates = 32;
+    public const int TrapActivated = 33;
+    public const int View = 34;
+    public const int Walkable = 35;
 
-    public const int TotalComponents = 35;
+    public const int TotalComponents = 36;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -58,6 +59,7 @@ public static class ComponentIds {
         "Paused",
         "PlaceableSelected",
         "Preview",
+        "Levels",
         "Maintype",
         "Position",
         "QueuedPosition",
@@ -96,6 +98,7 @@ public static class ComponentIds {
         typeof(Assets.LevelEditor.PausedComponent),
         typeof(Assets.LevelEditor.PlaceableSelectedComponent),
         typeof(Assets.LevelEditor.PreviewComponent),
+        typeof(Assets.Levels),
         typeof(Assets.MaintypeComponent),
         typeof(Assets.PositionComponent),
         typeof(Assets.QueuedPositionComponent),

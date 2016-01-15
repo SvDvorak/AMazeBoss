@@ -46,8 +46,7 @@ namespace Assets.LevelEditor
         private void SetLastUsedPath(string path)
         {
             _lastUsedPath = path;
-            LoadLevel.EditorLevelPath = path;
-            PlayerPrefs.SetString("LastEditorLevel", path);
+            FileOperations.FileOperations.SetLastUsedPath(path);
         }
 
         public void Play()
@@ -55,7 +54,12 @@ namespace Assets.LevelEditor
             if(_lastUsedPath != "")
             {
                 SaveAs(_lastUsedPath);
-                SceneManager.LoadScene("PlayScene");
+                PlaySetup.FromEditor = true;
+                SceneManager.LoadScene("Play");
+            }
+            else
+            {
+                Debug.Log("Can only play level if it has been saved to a file");
             }
         }
 

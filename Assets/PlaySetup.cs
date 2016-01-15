@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using System.Collections.Generic;
+using Entitas;
 using Entitas.Unity.VisualDebugging;
 using UnityEngine;
 
@@ -6,7 +7,12 @@ namespace Assets
 {
     public class PlaySetup : MonoBehaviour
     {
-        Systems _systems;
+        public static bool FromEditor;
+        public static string LevelPath;
+
+        public List<string> Levels; 
+
+        private Systems _systems;
 
         public void Start()
         {
@@ -16,6 +22,8 @@ namespace Assets
             _systems = CreateSystems(pool);
 
             pool.CreateEntity().AddResource("Camera").AddFocusPoint(Vector3.zero).AddRotation(0);
+
+            pool.SetLevels(Levels);
 
             _systems.Initialize();
         }
@@ -40,9 +48,11 @@ namespace Assets
         return new Systems()
 #endif
             // Initialize
+                .Add(pool.CreateLevelLoaderSystem())
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Input
+                .Add(pool.CreateReturnToEditorSystem())
                 .Add(pool.CreateRotateCameraInputSystem())
 
             // Update

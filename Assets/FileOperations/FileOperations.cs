@@ -67,9 +67,9 @@ namespace Assets.FileOperations
 
         public static string GetLastUsedPath()
         {
-            if (LoadLevel.EditorLevelPath != "")
+            if (PlaySetup.FromEditor)
             {
-                return LoadLevel.EditorLevelPath;
+                return PlaySetup.LevelPath;
             }
             if (PlayerPrefs.HasKey("LastEditorLevel"))
             {
@@ -77,6 +77,12 @@ namespace Assets.FileOperations
             }
 
             return null;
+        }
+
+        public static void SetLastUsedPath(string path)
+        {
+            PlaySetup.LevelPath = path;
+            PlayerPrefs.SetString("LastEditorLevel", path);
         }
     }
 }

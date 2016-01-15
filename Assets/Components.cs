@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entitas;
+using Entitas.CodeGenerator;
 using UnityEngine;
 
 namespace Assets
@@ -124,4 +126,10 @@ namespace Assets
     }
 
     public class DestroyedComponent : IComponent { }
+
+    [SingleEntity]
+    public class Levels : IComponent
+    {
+        public List<string> Value;
+    }
 }
