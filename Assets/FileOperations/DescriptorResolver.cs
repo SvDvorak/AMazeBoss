@@ -7,6 +7,39 @@ namespace Assets.FileOperations
 {
     public class DescriptorResolver
     {
+        private readonly List<IDescriptorSet> _descriptorSets = new List<IDescriptorSet>()
+            {
+                new ValueDescriptorSet<int>("ID", e => e.hasId, (e, val) => e.AddId(int.Parse(val)), e => e.id.Value),
+                new FlagDescriptorSet("TILE", e => e.isTile, e => e.IsTile(true)),
+                new FlagDescriptorSet("WALKABLE", e => e.isWalkable, e => e.IsWalkable(true)),
+                new ValueDescriptorSet<bool>("SPIKETRAP", e => e.hasSpikeTrap, (e, val) => e.AddSpikeTrap(bool.Parse(val)), e => e.spikeTrap.IsLoaded),
+                new FlagDescriptorSet("CURSESWITCH", e => e.isCurseSwitch, e => e.IsCurseSwitch(true)),
+                new FlagDescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
+                new FlagDescriptorSet("ITEM", e => e.isItem, e => e.IsItem(true)),
+                new FlagDescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
+                new FlagDescriptorSet("HERO", e => e.isHero, e => e.IsHero(true)),
+                new FlagDescriptorSet("BOSS", e => e.isBoss, e => e.IsBoss(true)),
+                new FlagDescriptorSet("CURSED", e => e.isCursed, e => e.IsCursed(true)),
+                new ValueDescriptorSet<int>("HEALTH", e => e.hasHealth, (e, val) => e.AddHealth(int.Parse(val)), e => e.health.Value),
+            };
+
+        public IEnumerable<string> ToDescriptors(Entity entity)
+        {
+            return _descriptorSets
+                .Where(ds => ds.HasDescriptor(entity))
+                .Select(ds => ds.CreateDescriptorText(entity))
+                .ToList();
+        }
+
+        public void FromDescriptors(string descriptors, Entity entity)
+        {
+            foreach (var descriptor in descriptors.Split(';'))
+            {
+                var correctDescriptorSet = _descriptorSets.Single(ds => descriptor.Contains(ds.DescriptorText));
+                correctDescriptorSet.SetDescriptor(entity, descriptor);
+            }
+        }
+
         private interface IDescriptorSet
         {
             string DescriptorText { get; }
@@ -76,39 +109,6 @@ namespace Assets.FileOperations
                     value = text.Substring(startIndex, endIndex - startIndex);
                 }
                 SetValueDescriptor(e, value);
-            }
-        }
-
-        private readonly List<IDescriptorSet> _descriptorSets = new List<IDescriptorSet>()
-            {
-                new ValueDescriptorSet<int>("ID", e => e.hasId, (e, val) => e.AddId(int.Parse(val)), e => e.id.Value),
-                new FlagDescriptorSet("TILE", e => e.isTile, e => e.IsTile(true)),
-                new FlagDescriptorSet("WALKABLE", e => e.isWalkable, e => e.IsWalkable(true)),
-                new FlagDescriptorSet("SPIKETRAP", e => e.hasSpikeTrap, e => e.AddSpikeTrap(false)),
-                new FlagDescriptorSet("CURSESWITCH", e => e.isCurseSwitch, e => e.IsCurseSwitch(true)),
-                new FlagDescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
-                new FlagDescriptorSet("ITEM", e => e.isItem, e => e.IsItem(true)),
-                new FlagDescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
-                new FlagDescriptorSet("HERO", e => e.isHero, e => e.IsHero(true)),
-                new FlagDescriptorSet("BOSS", e => e.isBoss, e => e.IsBoss(true)),
-                new FlagDescriptorSet("CURSED", e => e.isCursed, e => e.IsCursed(true)),
-                new ValueDescriptorSet<int>("HEALTH", e => e.hasHealth, (e, val) => e.AddHealth(int.Parse(val)), e => e.health.Value),
-            };
-
-        public IEnumerable<string> ToDescriptors(Entity entity)
-        {
-            return _descriptorSets
-                .Where(ds => ds.HasDescriptor(entity))
-                .Select(ds => ds.CreateDescriptorText(entity))
-                .ToList();
-        }
-
-        public void FromDescriptors(string descriptors, Entity entity)
-        {
-            foreach (var descriptor in descriptors.Split(';'))
-            {
-                var correctDescriptorSet = _descriptorSets.Single(ds => descriptor.Contains(ds.DescriptorText));
-                correctDescriptorSet.SetDescriptor(entity, descriptor);
             }
         }
     }

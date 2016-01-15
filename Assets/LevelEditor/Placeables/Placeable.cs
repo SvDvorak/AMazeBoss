@@ -4,7 +4,13 @@ using Random = UnityEngine.Random;
 
 namespace Assets.LevelEditor.Placeables
 {
-    public abstract class Placeable
+    public interface IPlaceable
+    {
+        void Place(Pool pool, TilePos position);
+        string Maintype { get; }
+    }
+
+    public abstract class Placeable : IPlaceable
     {
         private readonly Action<Entity> _addComponentsAction;
 
@@ -18,7 +24,7 @@ namespace Assets.LevelEditor.Placeables
             _addComponentsAction = addComponentsAction;
         }
 
-        public Entity Place(Pool pool, TilePos position)
+        public virtual void Place(Pool pool, TilePos position)
         {
             var currentObject = GetExistingEntityAt(pool, position);
             var newRotation = Random.Range(0, 4);
@@ -35,8 +41,6 @@ namespace Assets.LevelEditor.Placeables
                 .AddRotation(newRotation);
 
             _addComponentsAction(newObject);
-
-            return newObject;
         }
     }
 }

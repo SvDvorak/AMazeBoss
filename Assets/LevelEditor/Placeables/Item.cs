@@ -24,4 +24,26 @@ namespace Assets.LevelEditor.Placeables
             return pool.GetItemAt(position);
         }
     }
+
+    public class Spikes : Item
+    {
+        public Spikes() : base(ItemType.Spikes.ToString(), e => e.IsSpikes(true))
+        {
+        }
+
+        public override void Place(Pool pool, TilePos position)
+        {
+            var tileBelow = pool.GetTileAt(position);
+            var tileIsSpikeTrap = tileBelow != null && tileBelow.hasSpikeTrap;
+
+            if (tileIsSpikeTrap && !tileBelow.spikeTrap.IsLoaded)
+            {
+                tileBelow.ReplaceSpikeTrap(true);
+            }
+            else
+            {
+                base.Place(pool, position);
+            }
+        }
+    }
 }

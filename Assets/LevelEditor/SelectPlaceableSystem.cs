@@ -7,7 +7,7 @@ namespace Assets.LevelEditor
 {
     public class SelectPlaceableSystem : IInitializeSystem, IExecuteSystem, ISetPool
     {
-        private readonly Dictionary<int, Placeable> _numberToPlaceable = new Dictionary<int, Placeable>
+        private readonly Dictionary<int, IPlaceable> _numberToPlaceable = new Dictionary<int, IPlaceable>
                 {
                     { 1, new Tile(MainTileType.Normal.ToString(), e => e.IsWalkable(true)) },
                     { 2, new Tile(MainTileType.Pillar.ToString()) },
@@ -16,7 +16,7 @@ namespace Assets.LevelEditor
                     { 5, new Tile(MainTileType.CurseTrigger.ToString(), e => e.IsWalkable(true).IsDynamic(true).IsCurseSwitch(true)) },
                     { 6, new Item(ItemType.Hero.ToString(), e => e.IsDynamic(true).IsHero(true).AddHealth(3)) },
                     { 7, new Item(ItemType.Boss.ToString(), e => e.AddId().IsDynamic(true).IsBoss(true).IsCursed(true).AddHealth(3)) },
-                    { 8, new Item(ItemType.Spikes.ToString(), e => e.IsSpikes(true)) },
+                    { 8, new Spikes() },
                 };
 
         private Pool _pool;
@@ -38,7 +38,7 @@ namespace Assets.LevelEditor
                 return;
             }
 
-            Placeable selected = null;
+            IPlaceable selected = null;
             for (int i = 1; i <= _numberToPlaceable.Keys.Count; i++)
             {
                 if (UnityEngine.Input.GetKeyDown(i.ToString()))
@@ -50,7 +50,7 @@ namespace Assets.LevelEditor
             SetObjectSelected(selected);
         }
 
-        private void SetObjectSelected(Placeable selected)
+        private void SetObjectSelected(IPlaceable selected)
         {
             if (selected != null)
             {

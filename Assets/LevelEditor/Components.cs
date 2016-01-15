@@ -11,7 +11,7 @@ namespace Assets.LevelEditor
 
     public class PlaceableSelectedComponent : IComponent
     {
-        public Placeable Value;
+        public IPlaceable Value;
     }
 
     [SingleEntity]

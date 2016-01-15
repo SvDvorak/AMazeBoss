@@ -12,13 +12,13 @@ namespace Entitas {
             _placeableSelectedComponentPool.Clear();
         }
 
-        public Entity AddPlaceableSelected(Assets.LevelEditor.Placeables.Placeable newValue) {
+        public Entity AddPlaceableSelected(Assets.LevelEditor.Placeables.IPlaceable newValue) {
             var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.LevelEditor.PlaceableSelectedComponent();
             component.Value = newValue;
             return AddComponent(ComponentIds.PlaceableSelected, component);
         }
 
-        public Entity ReplacePlaceableSelected(Assets.LevelEditor.Placeables.Placeable newValue) {
+        public Entity ReplacePlaceableSelected(Assets.LevelEditor.Placeables.IPlaceable newValue) {
             var previousComponent = hasPlaceableSelected ? placeableSelected : null;
             var component = _placeableSelectedComponentPool.Count > 0 ? _placeableSelectedComponentPool.Pop() : new Assets.LevelEditor.PlaceableSelectedComponent();
             component.Value = newValue;

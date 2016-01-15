@@ -92,6 +92,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateMoveAndRotateCameraSystem())
                 .Add(pool.CreateRenderPositionsSystem())
+                .Add(pool.CreateTrapLoadedAnimationSystem())
 
             // Destroy
                 .Add(pool.CreateDestroySystem());
