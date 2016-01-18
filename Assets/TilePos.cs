@@ -68,7 +68,7 @@ namespace Assets
 
         public override string ToString()
         {
-            return string.Format("X: {0}, Y: {1}", X, Z);
+            return string.Format("X: {0}, Z: {1}", X, Z);
         }
 
         public float Length()
@@ -78,7 +78,7 @@ namespace Assets
 
         public int ManhattanDistance()
         {
-            return X + Z;
+            return Mathf.Abs(X) + Mathf.Abs(Z);
         }
 
         public TilePos Rotate(int rotation)

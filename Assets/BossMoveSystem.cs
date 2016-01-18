@@ -50,7 +50,12 @@ namespace Assets
             var hero = GetHero();
             var heroPosition = hero.position.Value;
 
-            var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, heroPosition);
+            var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, boss.rotation.Value, heroPosition);
+
+            if (Debug.isDebugBuild)
+            {
+                DrawBossPath(currentMovePlan);
+            }
 
             if (currentMovePlan.NextStep() != heroPosition)
             {
@@ -60,6 +65,14 @@ namespace Assets
             {
                 hero.ReplaceHealth(hero.health.Value - 1);
                 _pool.SwitchCurse();
+            }
+        }
+
+        private void DrawBossPath(MovementCalculation currentMovePlan)
+        {
+            foreach (var step in currentMovePlan.Path)
+            {
+                Debug.DrawLine(step.ToV3(), step.ToV3() + Vector3.up*5, Color.blue, 2);
             }
         }
 

@@ -66,6 +66,11 @@ namespace Assets.LevelEditor
                 var position = Pools.pool.inputEntity.position.Value;
                 PositionInfo.text = string.Format("X: {0}\nZ: {1}", position.X, position.Z);
             }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Return))
+            {
+                Play();
+            }
         }
     }
 }
