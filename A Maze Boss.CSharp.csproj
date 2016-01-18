@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -77,9 +75,10 @@
     <Compile Include="Assets\BossMoveSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Camera\Components.cs" />
-    <Compile Include="Assets\Camera\EditorCameraTransformSystem.cs" />
+    <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
     <Compile Include="Assets\CameraBehaviorConfigurer.cs" />
     <Compile Include="Assets\Components.cs" />
+    <Compile Include="Assets\CurseSwitchSystem.cs" />
     <Compile Include="Assets\DestroySystem.cs" />
     <Compile Include="Assets\EntityExtensions.cs" />
     <Compile Include="Assets\ExitLevel.cs" />
@@ -95,22 +94,26 @@
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.Camera.EditorCameraTransformSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Camera.MoveAndRotateCameraSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CameraComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.CameraOffsetGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ChildComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.CurseSwitchGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.CurseSwitchSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CursedGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroySystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DynamicComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.FocusPointComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthVisualComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroItemSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.IdComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.Input.MouseInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MouseInputSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MoveCameraInputSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.Input.RotateCameraInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PausedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PlaceableSelectedComponentGeneratedExtension.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Assets\Generated\Assets.QueuedPositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RemoveActingOnDoneSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.AddViewSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.CurseSwitchActivatedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.HealthChangedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.PositionAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.PreviewMaterialChangeSystemGeneratedExtension.cs" />
@@ -158,10 +162,10 @@
     <Compile Include="Assets\HeroItemSystem.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
-    <Compile Include="Assets\LevelEditor\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
+    <Compile Include="Assets\LevelEditor\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />
     <Compile Include="Assets\LevelEditor\Placeables\Item.cs" />

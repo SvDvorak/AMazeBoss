@@ -1,9 +1,7 @@
-using Assets.LevelEditor.Input;
-
 namespace Entitas {
     public partial class Pool {
         public ISystem CreateMouseInputSystem() {
-            return this.CreateSystem<MouseInputSystem>();
+            return this.CreateSystem<Assets.LevelEditor.Input.MouseInputSystem>();
         }
     }
 }

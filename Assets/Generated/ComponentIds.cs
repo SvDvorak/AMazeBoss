@@ -4,37 +4,38 @@ public static class ComponentIds {
     public const int Animator = 2;
     public const int Boss = 3;
     public const int Camera = 4;
-    public const int CameraOffset = 5;
-    public const int Child = 6;
-    public const int Cursed = 7;
+    public const int Child = 5;
+    public const int Cursed = 6;
+    public const int CurseSwitch = 7;
     public const int Destroyed = 8;
     public const int Dynamic = 9;
-    public const int Health = 10;
-    public const int HealthVisual = 11;
-    public const int Hero = 12;
-    public const int Id = 13;
-    public const int Item = 14;
-    public const int Input = 15;
-    public const int Paused = 16;
-    public const int PlaceableSelected = 17;
-    public const int Preview = 18;
-    public const int Maintype = 19;
-    public const int Position = 20;
-    public const int QueuedPosition = 21;
-    public const int Resource = 22;
-    public const int Rotation = 23;
-    public const int SpikedTarget = 24;
-    public const int SpikesCarried = 25;
-    public const int Spikes = 26;
-    public const int SpikeTrap = 27;
-    public const int Subtype = 28;
-    public const int Tile = 29;
-    public const int TileTemplates = 30;
-    public const int TrapActivated = 31;
-    public const int View = 32;
-    public const int Walkable = 33;
+    public const int FocusPoint = 10;
+    public const int Health = 11;
+    public const int HealthVisual = 12;
+    public const int Hero = 13;
+    public const int Id = 14;
+    public const int Item = 15;
+    public const int Input = 16;
+    public const int Paused = 17;
+    public const int PlaceableSelected = 18;
+    public const int Preview = 19;
+    public const int Maintype = 20;
+    public const int Position = 21;
+    public const int QueuedPosition = 22;
+    public const int Resource = 23;
+    public const int Rotation = 24;
+    public const int SpikedTarget = 25;
+    public const int SpikesCarried = 26;
+    public const int Spikes = 27;
+    public const int SpikeTrap = 28;
+    public const int Subtype = 29;
+    public const int Tile = 30;
+    public const int TileTemplates = 31;
+    public const int TrapActivated = 32;
+    public const int View = 33;
+    public const int Walkable = 34;
 
-    public const int TotalComponents = 34;
+    public const int TotalComponents = 35;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -42,11 +43,12 @@ public static class ComponentIds {
         "Animator",
         "Boss",
         "Camera",
-        "CameraOffset",
         "Child",
         "Cursed",
+        "CurseSwitch",
         "Destroyed",
         "Dynamic",
+        "FocusPoint",
         "Health",
         "HealthVisual",
         "Hero",
@@ -79,11 +81,12 @@ public static class ComponentIds {
         typeof(Assets.AnimatorComponent),
         typeof(Assets.BossComponent),
         typeof(Assets.CameraComponent),
-        typeof(Assets.CameraOffset),
         typeof(Assets.ChildComponent),
         typeof(Assets.Cursed),
+        typeof(Assets.CurseSwitch),
         typeof(Assets.DestroyedComponent),
         typeof(Assets.DynamicComponent),
+        typeof(Assets.FocusPointComponent),
         typeof(Assets.HealthComponent),
         typeof(Assets.HealthVisualComponent),
         typeof(Assets.HeroComponent),

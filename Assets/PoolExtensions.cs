@@ -7,6 +7,12 @@ namespace Assets
 {
     public static class PoolExtensions
     {
+        public static UnityEngine.Camera GetCamera(this Pool pool)
+        {
+            var cameras = Pools.pool.GetEntities(Matcher.Camera);
+            return cameras.SingleEntity().camera.Value;
+        }
+
         public static void SwitchCurse(this Pool pool)
         {
             var heroes = pool.GetEntities(Matcher.Hero);

@@ -12,7 +12,10 @@ namespace Assets
         {
             Random.seed = 42;
 
-            _systems = CreateSystems(Pools.pool);
+            var pool = Pools.pool;
+            _systems = CreateSystems(pool);
+
+            pool.CreateEntity().AddResource("Camera").AddFocusPoint(Vector3.zero).AddRotation(0);
 
             _systems.Initialize();
         }
@@ -39,6 +42,9 @@ namespace Assets
             // Initialize
                 .Add(pool.CreateTemplateLoaderSystem())
 
+            // Input
+                .Add(pool.CreateRotateCameraInputSystem())
+
             // Update
                 .Add(pool.CreateNextTurnSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
@@ -47,6 +53,7 @@ namespace Assets
                 .Add(pool.CreateHeroItemSystem())
                 .Add(pool.CreateQueuePositionSystem())
                 .Add(pool.CreateSpikeTrapSystem())
+                .Add(pool.CreateCurseSwitchSystem())
 
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 
@@ -55,6 +62,7 @@ namespace Assets
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
                 .Add(pool.CreateMoveSystem())
+                .Add(pool.CreateMoveAndRotateCameraSystem())
                 .AddAnimationSystems(pool)
 
             // Destroy
@@ -66,11 +74,12 @@ namespace Assets
     {
         public static Systems AddAnimationSystems(this Systems systems, Pool pool)
         {
-            systems.Add(pool.CreatePositionAnimationSystem());
-            systems.Add(pool.CreateTrapLoadedAnimationSystem());
-            systems.Add(pool.CreateTrapActivatedAnimationSystem());
-            systems.Add(pool.CreateHealthChangedAnimationSystem());
-            return systems;
+            return systems
+                .Add(pool.CreatePositionAnimationSystem())
+                .Add(pool.CreateTrapLoadedAnimationSystem())
+                .Add(pool.CreateTrapActivatedAnimationSystem())
+                .Add(pool.CreateCurseSwitchActivatedAnimationSystem())
+                .Add(pool.CreateHealthChangedAnimationSystem());
         }
     }
 }

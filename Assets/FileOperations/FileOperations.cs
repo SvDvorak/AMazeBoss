@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using Entitas;
@@ -35,10 +36,22 @@ namespace Assets.FileOperations
 
             var pool = Pools.pool;
 
-            JsonUtility
-                .FromJson<MapObjects>(json)
-                .Tiles
-                .ForEach(tile => CreateEntity(pool, tile));
+            try
+            {
+                JsonUtility
+                    .FromJson<MapObjects>(json)
+                    .Tiles
+                    .ForEach(tile => CreateEntity(pool, tile));
+            }
+            catch (Exception ex)
+            {
+                throw new LevelParseException(path, ex);
+            }
+        }
+
+        public class LevelParseException : Exception
+        {
+            public LevelParseException(string filePath, Exception inner) : base("Unable to parse " + filePath, inner) { }
         }
 
         private static void CreateEntity(Pool pool, FileObject mapObject)

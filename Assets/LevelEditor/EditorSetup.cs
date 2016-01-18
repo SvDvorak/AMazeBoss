@@ -1,6 +1,8 @@
-﻿using Entitas;
+﻿using System;
+using Entitas;
 using Entitas.Unity.VisualDebugging;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.LevelEditor
 {
@@ -21,9 +23,13 @@ namespace Assets.LevelEditor
         {
             var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
 
-            if (!string.IsNullOrEmpty(lastUsedPath))
+            try
             {
                 FileOperations.FileOperations.Load(lastUsedPath);
+            }
+            catch (Exception)
+            {
+                Debug.LogWarning("Unable to read last used file at " + lastUsedPath);
             }
         }
 
@@ -44,7 +50,7 @@ namespace Assets.LevelEditor
 
             pool.CreateEntity().IsInput(true);
             pool.CreateEntity().IsPreview(true);
-            pool.CreateEntity().AddResource("Camera").AddCameraOffset(Vector3.zero).AddRotation(0);
+            pool.CreateEntity().AddResource("Camera").AddFocusPoint(Vector3.zero).AddRotation(0);
 
             _systems.Initialize();
         }
@@ -66,6 +72,8 @@ namespace Assets.LevelEditor
 
             // Input
                 .Add(pool.CreateMouseInputSystem())
+                .Add(pool.CreateMoveCameraInputSystem())
+                .Add(pool.CreateRotateCameraInputSystem())
 
             // Update
                 .Add(pool.CreateWallAdjustmentSystem())
@@ -82,7 +90,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSubtypeSelectorSystem())
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
-                .Add(pool.CreateEditorCameraTransformSystem())
+                .Add(pool.CreateMoveAndRotateCameraSystem())
                 .Add(pool.CreateRenderPositionsSystem())
 
             // Destroy

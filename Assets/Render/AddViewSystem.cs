@@ -42,11 +42,15 @@ namespace Assets.Render
             var view = GameObject.Instantiate(resourceObject);
             view.transform.SetParent(_viewsContainer);
 
-            var position = entity.hasPosition ? entity.position.Value.ToV3() : Vector3.zero;
-            view.transform.position = position;
+            if (entity.hasPosition)
+            {
+                view.transform.position = entity.position.Value.ToV3();
+            }
 
-            var rotation = entity.hasRotation ? entity.rotation.Value : Random.Range(0, 4);
-            view.transform.rotation = Quaternion.AngleAxis(rotation * 90, Vector3.up);
+            if (entity.hasRotation)
+            {
+                view.transform.rotation = Quaternion.AngleAxis(entity.rotation.Value * 90, Vector3.up);
+            }
 
             entity.AddView(view);
             GameObjectConfigurer.AttachEntity(view, entity);
