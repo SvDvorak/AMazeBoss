@@ -26,27 +26,23 @@ namespace Assets.LevelEditor
 
         public void SaveAs(string path)
         {
-            SetLastUsedPath(path);
+            _lastUsedPath = path;
             FileOperations.FileOperations.Save(path);
         }
 
         public void Load(string path)
         {
             Clear();
-            SetLastUsedPath(path);
+            _lastUsedPath = path;
             FileOperations.FileOperations.Load(path);
         }
 
         public void Clear()
         {
-            SetLastUsedPath("");
+            _lastUsedPath = "";
+            FileOperations.FileOperations.SetLastUsedPath("");
             Pools.pool.Clear(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
-        }
-
-        private void SetLastUsedPath(string path)
-        {
-            _lastUsedPath = path;
-            FileOperations.FileOperations.SetLastUsedPath(path);
+            EditorSetup.Instance.Update();
         }
 
         public void Play()

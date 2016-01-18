@@ -33,10 +33,10 @@ namespace Assets
             _systems.Execute();
         }
 
-        public void OnDestroy()
+        public void OnDisable()
         {
-            Pools.pool.ClearGroups();
             _systems.ClearReactiveSystems();
+            Pools.pool.ClearGroups();
             Pools.pool.DestroyAllEntities();
         }
 

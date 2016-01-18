@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Assets.LevelEditor;
 using Entitas;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ namespace Assets.FileOperations
             var streamWriter = new StreamWriter(path, false);
             streamWriter.Write(json);
             streamWriter.Close();
+
+            SetLastUsedPath(path);
         }
 
         private static FileObject CreateFileObject(Entity entity)
@@ -42,6 +45,8 @@ namespace Assets.FileOperations
                     .FromJson<MapObjects>(json)
                     .Tiles
                     .ForEach(tile => CreateEntity(pool, tile));
+
+                SetLastUsedPath(path);
             }
             catch (Exception ex)
             {
@@ -83,6 +88,7 @@ namespace Assets.FileOperations
         {
             PlaySetup.LevelPath = path;
             PlayerPrefs.SetString("LastEditorLevel", path);
+            Events.instance.Raise(new DefaultPathChanged(path));
         }
     }
 }

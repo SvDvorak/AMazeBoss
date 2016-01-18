@@ -16,10 +16,26 @@ namespace Assets.LevelEditor
         public Text ButtonText;
         public InputField Path;
 
+        public DialogController()
+        {
+            Events.instance.AddListener<DefaultPathChanged>(SetDefaultPath);
+        }
+
         public void Start()
         {
             ButtonText.text = OperationText;
             OperationButton.onClick.AddListener(SaveAndClose);
+        }
+
+        public void OnDestroy()
+        {
+            OperationButton.onClick.RemoveListener(SaveAndClose);
+            Events.instance.RemoveListener<DefaultPathChanged>(SetDefaultPath);
+        }
+
+        private void SetDefaultPath(DefaultPathChanged x)
+        {
+            Path.text = x.Path;
         }
 
         private void SaveAndClose()

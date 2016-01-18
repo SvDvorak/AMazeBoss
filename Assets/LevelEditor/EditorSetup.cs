@@ -10,11 +10,26 @@ namespace Assets.LevelEditor
     {
         private Systems _systems;
 
-        public static bool IsInEditor;
+        private static EditorSetup _setup;
+
+        public static EditorSetup Instance
+        {
+            get
+            {
+                if (_setup == null)
+                {
+                    _setup = GameObject.Find("Setup").GetComponent<EditorSetup>();
+                }
+                return _setup;
+            }
+            set
+            {
+                _setup = value;
+            }
+        }
 
         public void Start()
         {
-            IsInEditor = true;
             SetupEntitas();
             LoadLevel();
         }
@@ -35,9 +50,8 @@ namespace Assets.LevelEditor
 
         public void OnDestroy()
         {
-            IsInEditor = false;
-            Pools.pool.ClearGroups();
             _systems.ClearReactiveSystems();
+            Pools.pool.ClearGroups();
             Pools.pool.DestroyAllEntities();
         }
 
@@ -93,6 +107,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateMoveAndRotateCameraSystem())
                 .Add(pool.CreateRenderPositionsSystem())
                 .Add(pool.CreateTrapLoadedAnimationSystem())
+                .Add(pool.CreateHealthChangedAnimationSystem())
 
             // Destroy
                 .Add(pool.CreateDestroySystem());
