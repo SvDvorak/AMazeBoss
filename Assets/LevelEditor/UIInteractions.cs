@@ -67,7 +67,7 @@ namespace Assets.LevelEditor
                 PositionInfo.text = string.Format("X: {0}\nZ: {1}", position.X, position.Z);
             }
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Return))
+            if (!Pools.pool.isPaused && UnityEngine.Input.GetKeyDown(KeyCode.Return))
             {
                 Play();
             }

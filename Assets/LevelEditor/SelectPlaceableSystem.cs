@@ -15,8 +15,9 @@ namespace Assets.LevelEditor
                     { 4, new Tile(MainTileType.SpikeTrap.ToString(), e => e.IsWalkable(true).IsDynamic(true).AddSpikeTrap(false)) },
                     { 5, new Tile(MainTileType.CurseTrigger.ToString(), e => e.IsWalkable(true).IsDynamic(true).IsCurseSwitch(true)) },
                     { 6, new Item(ItemType.Hero.ToString(), e => e.IsDynamic(true).IsHero(true).AddHealth(3)) },
-                    { 7, new Item(ItemType.Boss.ToString(), e => e.AddId().IsDynamic(true).IsBoss(true).IsCursed(true).AddHealth(3)) },
+                    { 7, new Item(ItemType.Boss.ToString(), e => e.AddId().IsDynamic(true).IsBoss(true).IsCursed(true).AddHealth(3).IsWalkable(true)) },
                     { 8, new Spikes() },
+                    { 9, new Item(ItemType.Box.ToString(), e => e.IsWalkable(false)) },
                 };
 
         private Pool _pool;

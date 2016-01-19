@@ -37,6 +37,7 @@ namespace Assets.LevelEditor
     {
         Spikes,
         Hero,
-        Boss
+        Boss,
+        Box
     }
 }
