@@ -11,7 +11,7 @@ namespace Assets.FileOperations
             {
                 new ValueDescriptorSet<int>("ID", e => e.hasId, (e, val) => e.AddId(int.Parse(val)), e => e.id.Value),
                 new FlagDescriptorSet("TILE", e => e.isTile, e => e.IsTile(true)),
-                new FlagDescriptorSet("WALKABLE", e => e.isWalkable, e => e.IsWalkable(true)),
+                new FlagDescriptorSet("BLOCKINGTILE", e => e.isBlockingTile, e => e.IsBlockingTile(true)),
                 new ValueDescriptorSet<bool>("SPIKETRAP", e => e.hasSpikeTrap, (e, val) => e.AddSpikeTrap(bool.Parse(val)), e => e.spikeTrap.IsLoaded),
                 new FlagDescriptorSet("CURSESWITCH", e => e.isCurseSwitch, e => e.IsCurseSwitch(true)),
                 new FlagDescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
@@ -35,9 +35,26 @@ namespace Assets.FileOperations
         {
             foreach (var descriptor in descriptors.Split(';'))
             {
-                var correctDescriptorSet = _descriptorSets.Single(ds => descriptor.Contains(ds.DescriptorText));
-                correctDescriptorSet.SetDescriptor(entity, descriptor);
+                try
+                {
+                    var correctDescriptorSet = _descriptorSets.Single(ds => IsDescriptor(descriptor, ds));
+                    correctDescriptorSet.SetDescriptor(entity, descriptor);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    throw new MultipleDescriptorsFoundException(descriptor);
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidDescriptorException(descriptor);
+                }
             }
+        }
+
+        private static bool IsDescriptor(string descriptor, IDescriptorSet ds)
+        {
+            var isShorter = descriptor.Length < ds.DescriptorText.Length;
+            return !isShorter && descriptor.Substring(0, ds.DescriptorText.Length) == ds.DescriptorText;
         }
 
         private interface IDescriptorSet
@@ -110,6 +127,20 @@ namespace Assets.FileOperations
                 }
                 SetValueDescriptor(e, value);
             }
+        }
+    }
+
+    public class MultipleDescriptorsFoundException : Exception
+    {
+        public MultipleDescriptorsFoundException(string descriptor) : base("Found multiple descriptors when using tag " + descriptor)
+        {
+        }
+    }
+
+    public class InvalidDescriptorException : Exception
+    {
+        public InvalidDescriptorException(string descriptor) : base("Invalid descriptor found: " + descriptor)
+        {
         }
     }
 }

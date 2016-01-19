@@ -1,13 +1,13 @@
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.WalkableComponent walkableComponent = new Assets.WalkableComponent();
+        static readonly Assets.BlockingTileComponent blockingTileComponent = new Assets.BlockingTileComponent();
 
-        public bool isWalkable {
+        public bool isBlockingTile {
             get { return HasComponent(ComponentIds.Walkable); }
             set {
-                if (value != isWalkable) {
+                if (value != isBlockingTile) {
                     if (value) {
-                        AddComponent(ComponentIds.Walkable, walkableComponent);
+                        AddComponent(ComponentIds.Walkable, blockingTileComponent);
                     } else {
                         RemoveComponent(ComponentIds.Walkable);
                     }
@@ -15,8 +15,8 @@ namespace Entitas {
             }
         }
 
-        public Entity IsWalkable(bool value) {
-            isWalkable = value;
+        public Entity IsBlockingTile(bool value) {
+            isBlockingTile = value;
             return this;
         }
     }

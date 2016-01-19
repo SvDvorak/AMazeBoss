@@ -41,7 +41,11 @@ namespace Assets
 
         public static bool CanMoveTo(this Pool pool, TilePos position)
         {
-            return pool.GetEntityAt(position, Matcher.Walkable) != null;
+            var entities = pool
+                .GetEntities(Matcher.Position)
+                .Where(x => x.position.Value == position && !x.isDestroyed)
+                .ToList();
+            return entities.Any() && !entities.Any(x => x.isBlockingTile);
         }
 
         public static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher)

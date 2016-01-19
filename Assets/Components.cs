@@ -50,7 +50,7 @@ namespace Assets
     {
     }
 
-    public class WalkableComponent : IComponent
+    public class BlockingTileComponent : IComponent
     {
     }
 
