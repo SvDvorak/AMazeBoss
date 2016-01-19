@@ -32,7 +32,7 @@ namespace Assets.LevelEditor
 
             if (item != null && tile != null)
             {
-                if (!tile.isWalkable)
+                if (tile.isBlockingTile)
                 {
                     item.IsDestroyed(true);
                 }

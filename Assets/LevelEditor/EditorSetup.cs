@@ -51,8 +51,7 @@ namespace Assets.LevelEditor
         public void OnDestroy()
         {
             _systems.ClearReactiveSystems();
-            Pools.pool.ClearGroups();
-            Pools.pool.DestroyAllEntities();
+            Pools.pool.Reset();
         }
 
         private void SetupEntitas()

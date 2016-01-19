@@ -65,7 +65,7 @@ namespace Entitas.Unity.VisualDebugging {
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.Space();
-                entityBehaviour.componentToAdd = EditorGUILayout.Popup("Add Component", entityBehaviour.componentToAdd, entityBehaviour.componentNames);
+                entityBehaviour.componentToAdd = EditorGUILayout.Popup("Add Component", entityBehaviour.componentToAdd, entityBehaviour.entity.poolMetaData.componentNames);
                 if (entityBehaviour.componentToAdd >= 0) {
                     var index = entityBehaviour.componentToAdd;
                     entityBehaviour.componentToAdd = -1;
@@ -85,8 +85,13 @@ namespace Entitas.Unity.VisualDebugging {
                 EditorGUILayout.LabelField("Retained by (" + entity.retainCount + ")", EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(GUI.skin.box);
                 {
-                    foreach (var owner in entity.owners) {
+                    foreach (var owner in entity.owners.ToArray()) {
+                        EditorGUILayout.BeginHorizontal();
                         EditorGUILayout.LabelField(owner.ToString());
+                        if (GUILayout.Button("Release", GUILayout.Width(88), GUILayout.Height(14))) {
+                            entity.Release(owner);
+                        }
+                        EditorGUILayout.EndHorizontal();
                     }
                 }
                 EditorGUILayout.EndVertical();
@@ -99,7 +104,7 @@ namespace Entitas.Unity.VisualDebugging {
             EditorGUILayout.BeginHorizontal();
             {
                 var aEntityBehaviour = (EntityBehaviour)targets[0];
-                aEntityBehaviour.componentToAdd = EditorGUILayout.Popup("Add Component", aEntityBehaviour.componentToAdd, aEntityBehaviour.componentNames);
+                aEntityBehaviour.componentToAdd = EditorGUILayout.Popup("Add Component", aEntityBehaviour.componentToAdd, aEntityBehaviour.entity.poolMetaData.componentNames);
                 if (aEntityBehaviour.componentToAdd >= 0) {
                     var index = aEntityBehaviour.componentToAdd;
                     aEntityBehaviour.componentToAdd = -1;

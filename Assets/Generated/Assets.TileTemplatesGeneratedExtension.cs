@@ -46,7 +46,8 @@ namespace Entitas {
 
         public Entity SetTileTemplates(Assets.TemplateNames newValue) {
             if (hasTileTemplates) {
-                throw new SingleEntityException(Matcher.TileTemplates);
+                throw new EntitasException("Could not set tileTemplates!\n" + this + " already has an entity with Assets.TileTemplates!",
+                    "You should check if the pool already has a tileTemplatesEntity before setting it or use pool.ReplaceTileTemplates().");
             }
             var entity = CreateEntity();
             entity.AddTileTemplates(newValue);

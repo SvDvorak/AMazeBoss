@@ -46,7 +46,8 @@ namespace Entitas {
 
         public Entity SetLevels(System.Collections.Generic.List<string> newValue) {
             if (hasLevels) {
-                throw new SingleEntityException(Matcher.Levels);
+                throw new EntitasException("Could not set levels!\n" + this + " already has an entity with Assets.Levels!",
+                    "You should check if the pool already has a levelsEntity before setting it or use pool.ReplaceLevels().");
             }
             var entity = CreateEntity();
             entity.AddLevels(newValue);

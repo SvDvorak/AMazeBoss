@@ -119,11 +119,11 @@
   <ItemGroup>
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenFile.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentExtensionsGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\IndicesLookupGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentLookupGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentsGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\PoolAttributeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\PoolsGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\SystemExtensionsGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\SystemsGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\TypeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\ICodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\IComponentCodeGenerator.cs" />
@@ -163,8 +163,10 @@
     <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Entity\Editor\TypeDrawer\Vector4TypeDrawer.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\PoolObserver\Editor\PoolObserverInspector.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasCheckForUpdates.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasFeedback.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferences.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferencesConfig.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferencesWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Libraries\Demigiant\DOTween\DOTween.XML" />

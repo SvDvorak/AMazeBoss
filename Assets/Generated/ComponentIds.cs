@@ -113,6 +113,6 @@ public static class ComponentIds {
         typeof(Assets.TileTemplates),
         typeof(Assets.TrapActivatedComponent),
         typeof(Assets.ViewComponent),
-        typeof(Assets.WalkableComponent)
+        typeof(Assets.BlockingTileComponent)
     };
 }

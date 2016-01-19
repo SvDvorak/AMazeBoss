@@ -36,8 +36,7 @@ namespace Assets
         public void OnDisable()
         {
             _systems.ClearReactiveSystems();
-            Pools.pool.ClearGroups();
-            Pools.pool.DestroyAllEntities();
+            Pools.pool.Reset();
         }
 
         public Systems CreateSystems(Pool pool)

@@ -31,9 +31,9 @@ public static class Pools {{{0}{1}
     public static Pool {0} {{
         get {{
             if (_{0} == null) {{
-                _{0} = new Pool({1}" + CodeGenerator.DEFAULT_INDICES_LOOKUP_TAG + @".TotalComponents);
+                _{0} = new Pool({1}" + CodeGenerator.DEFAULT_COMPONENT_LOOKUP_TAG + @".TotalComponents, 0, new PoolMetaData(""{2}Pool"", {1}" + CodeGenerator.DEFAULT_COMPONENT_LOOKUP_TAG + @".componentNames));
                 #if (!ENTITAS_DISABLE_VISUAL_DEBUGGING && UNITY_EDITOR)
-                var poolObserver = new Entitas.Unity.VisualDebugging.PoolObserver(_{0}, {1}" + CodeGenerator.DEFAULT_INDICES_LOOKUP_TAG + @".componentNames, {1}" + CodeGenerator.DEFAULT_INDICES_LOOKUP_TAG + @".componentTypes, ""{2}Pool"");
+                var poolObserver = new Entitas.Unity.VisualDebugging.PoolObserver(_{0}, {1}" + CodeGenerator.DEFAULT_COMPONENT_LOOKUP_TAG + @".componentTypes);
                 UnityEngine.Object.DontDestroyOnLoad(poolObserver.entitiesContainer);
                 #endif
             }}
@@ -43,14 +43,14 @@ public static class Pools {{{0}{1}
     }}";
 
         public CodeGenFile[] Generate(string[] poolNames) {
-            const string DEFAULT_POOL_NAME = "pool";
+            const string defaultPoolName = "pool";
 
             var allPools = poolNames == null || poolNames.Length == 0
-                ? string.Format(ALL_POOLS_GETTER, DEFAULT_POOL_NAME)
+                ? string.Format(ALL_POOLS_GETTER, defaultPoolName)
                 : string.Format(ALL_POOLS_GETTER, string.Join(", ", poolNames.Select(poolName => poolName.LowercaseFirst()).ToArray()));
 
             var getters = poolNames == null || poolNames.Length == 0
-                ? string.Format(GETTER, DEFAULT_POOL_NAME, string.Empty, string.Empty)
+                ? string.Format(GETTER, defaultPoolName, string.Empty, string.Empty)
                 : poolNames.Aggregate(string.Empty, (acc, poolName) =>
                     acc + string.Format(GETTER, poolName.LowercaseFirst(), poolName, poolName + " "));
 
