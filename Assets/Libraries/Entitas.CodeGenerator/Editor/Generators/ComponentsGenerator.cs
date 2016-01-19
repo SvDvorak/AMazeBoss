@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 
 namespace Entitas.CodeGenerator {
-    public class ComponentExtensionsGenerator : IComponentCodeGenerator {
+    public class ComponentsGenerator : IComponentCodeGenerator {
 
         const string CLASS_SUFFIX = "GeneratedExtension";
 
@@ -104,10 +104,10 @@ namespace Entitas.CodeGenerator {
 
         static string addHasMethods(Type type) {
             var hasMethod = isSingletonComponent(type) ? @"
-        public bool is$Name {
+        public bool $prefix$Name {
             get { return HasComponent($Ids.$Name); }
             set {
-                if (value != is$Name) {
+                if (value != $prefix$Name) {
                     if (value) {
                         AddComponent($Ids.$Name, $nameComponent);
                     } else {
@@ -117,8 +117,8 @@ namespace Entitas.CodeGenerator {
             }
         }
 
-        public Entity Is$Name(bool value) {
-            is$Name = value;
+        public Entity $Prefix$Name(bool value) {
+            $prefix$Name = value;
             return this;
         }
 " : @"
@@ -206,13 +206,13 @@ $assign
 
         static string addPoolHasMethods(Type type) {
             var hasMethod = isSingletonComponent(type) ? @"
-        public bool is$Name {
+        public bool $prefix$Name {
             get { return $nameEntity != null; }
             set {
                 var entity = $nameEntity;
                 if (value != (entity != null)) {
                     if (value) {
-                        CreateEntity().is$Name = true;
+                        CreateEntity().$prefix$Name = true;
                     } else {
                         DestroyEntity(entity);
                     }
@@ -229,7 +229,8 @@ $assign
             return isSingletonComponent(type) ? string.Empty : buildString(type, @"
         public Entity Set$Name($typedArgs) {
             if (has$Name) {
-                throw new SingleEntityException($TagMatcher.$Name);
+                throw new EntitasException(""Could not set $name!\n"" + this + "" already has an entity with $Type!"",
+                    ""You should check if the pool already has a $nameEntity before setting it or use pool.Replace$Name()."");
             }
             var entity = CreateEntity();
             entity.Add$Name($args);
@@ -268,7 +269,7 @@ $assign
         */
 
         static string addMatcher(Type type) {
-            const string MATCHER_FORMAT = @"
+            const string matcherFormat = @"
     public partial class $TagMatcher {
         static IMatcher _matcher$Name;
 
@@ -287,11 +288,11 @@ $assign
 ";
             var poolNames = type.PoolNames();
             if (poolNames.Length == 0) {
-                return buildString(type, MATCHER_FORMAT);
+                return buildString(type, matcherFormat);
             }
 
             var matchers = poolNames.Aggregate(string.Empty, (acc, poolName) => {
-                return acc + buildString(type, MATCHER_FORMAT.Replace("$Tag", poolName));
+                return acc + buildString(type, matcherFormat.Replace("$Tag", poolName));
             });
 
             return buildString(type, matchers);
@@ -320,15 +321,19 @@ $assign
             var a2_lowercaseName = a1_name.LowercaseFirst();
             var poolNames = type.PoolNames();
             var a3_tag = poolNames.Length == 0 ? string.Empty : poolNames[0];
-            var lookupTags = type.IndicesLookupTags();
+            var lookupTags = type.ComponentLookupTags();
             var a4_ids = lookupTags.Length == 0 ? string.Empty : lookupTags[0];
             var memberNameInfos = getFieldInfos(type);
             var a5_fieldNamesWithType = fieldNamesWithType(memberNameInfos);
             var a6_fieldAssigns = fieldAssignments(memberNameInfos);
             var a7_fieldNames = fieldNames(memberNameInfos);
+            var prefix = type.CustomPrefix();
+            var a8_prefix = prefix.UppercaseFirst();
+            var a9_lowercasePrefix = prefix.LowercaseFirst();
 
             return string.Format(format, a0_type, a1_name, a2_lowercaseName,
-                a3_tag, a4_ids, a5_fieldNamesWithType, a6_fieldAssigns, a7_fieldNames);
+                a3_tag, a4_ids, a5_fieldNamesWithType, a6_fieldAssigns, a7_fieldNames,
+                a8_prefix, a9_lowercasePrefix);
         }
 
         static MemberTypeNameInfo[] getFieldInfos(Type type) {
@@ -347,7 +352,9 @@ $assign
                         .Replace("$Ids", "{4}")
                         .Replace("$typedArgs", "{5}")
                         .Replace("$assign", "{6}")
-                        .Replace("$args", "{7}");
+                        .Replace("$args", "{7}")
+                        .Replace("$Prefix", "{8}")
+                        .Replace("$prefix", "{9}");
         }
 
         static string fieldNamesWithType(MemberTypeNameInfo[] infos) {
@@ -361,10 +368,10 @@ $assign
         }
 
         static string fieldAssignments(MemberTypeNameInfo[] infos) {
-            const string FORMAT = "            component.{0} = {1};";
+            const string format = "            component.{0} = {1};";
             var assignments = infos.Select(info => {
                 var newArg = "new" + info.name.UppercaseFirst();
-                return string.Format(FORMAT, info.name, newArg);
+                return string.Format(format, info.name, newArg);
             }).ToArray();
 
             return string.Join("\n", assignments);
