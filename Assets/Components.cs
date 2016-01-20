@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Entitas;
 using Entitas.CodeGenerator;
 using UnityEngine;
@@ -19,6 +20,17 @@ namespace Assets
     public class PositionComponent : IComponent
     {
         public TilePos Value;
+    }
+
+    public class MoveHistoryComponent : IComponent
+    {
+        public List<TilePos> Value;
+    }
+
+    public class MoveAnimationInfoComponent : IComponent
+    {
+        public Ease Ease;
+        public float Time;
     }
 
     public class ViewOffsetComponent : IComponent
@@ -86,6 +98,10 @@ namespace Assets
     }
 
     public class BossComponent : IComponent
+    {
+    }
+
+    public class BossSprintingComponent : IComponent
     {
     }
 

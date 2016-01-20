@@ -42,7 +42,7 @@ namespace Assets.Render
             var view = GameObject.Instantiate(resourceObject);
             view.transform.SetParent(_viewsContainer);
 
-            entity.AddViewOffset(view.transform.position);
+            entity.ReplaceViewOffset(view.transform.position);
 
             if (entity.hasPosition)
             {

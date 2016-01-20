@@ -43,10 +43,10 @@ namespace Assets.Render
             {
                 entity.UpdateActingTime(MoveTime, () => { });
             }
-            if (entity.IsMoving())
-            {
-                transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
-            }
+            //if (entity.IsMoving())
+            //{
+            //    transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
+            //}
         }
     }
 
@@ -129,14 +129,12 @@ namespace Assets.Render
             var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
             var transform = entity.view.Value.transform;
 
-            var time = 0.5f;
+            const float time = 0.5f;
             DOTween.Sequence()
                 .Append(transform.DORotate(-rotationDirection*90, time, RotateMode.WorldAxisAdd)
                     .OnUpdate(() => UpdateVerticalMove(transform)))
-                //.Join(transform.DOMove(moveDirection, time))
-                .SetRelative(true)
-                .SetEase(Ease.Linear);
-            entity.UpdateActingTime(3, () => { });
+                .SetEase(Ease.InCirc);
+            entity.UpdateActingTime(time, () => { });
         }
 
         private void UpdateVerticalMove(Transform transform)

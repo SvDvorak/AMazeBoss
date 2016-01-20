@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Assets\AnimationBehaviorConfigurer.cs" />
     <Compile Include="Assets\BossMoveSystem.cs" />
+    <Compile Include="Assets\BossSprintSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Camera\Components.cs" />
     <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
@@ -93,6 +94,8 @@
     <Compile Include="Assets\Generated\Assets.BlockingTileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.BossSprintSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.BossSprintingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BoxComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Camera.MoveAndRotateCameraSystemGeneratedExtension.cs" />
@@ -130,7 +133,9 @@
     <Compile Include="Assets\Generated\Assets.LevelLoaderSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.MoveSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MoveAnimationInfoComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MoveHistoryComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MoveHistorySystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.NextTurnSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueuePositionSystemGeneratedExtension.cs" />
@@ -224,8 +229,7 @@
     <Compile Include="Assets\Libraries\Entitas\Pool.cs" />
     <Compile Include="Assets\Libraries\Entitas\ReactiveSystem.cs" />
     <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
-    <Compile Include="Assets\Models\BoxRotationTest.cs" />
-    <Compile Include="Assets\MoveSystem.cs" />
+    <Compile Include="Assets\MoveStyleBehaviorConfigurer.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
     <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />
