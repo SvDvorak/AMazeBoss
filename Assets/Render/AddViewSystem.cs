@@ -42,9 +42,11 @@ namespace Assets.Render
             var view = GameObject.Instantiate(resourceObject);
             view.transform.SetParent(_viewsContainer);
 
+            entity.AddViewOffset(view.transform.position);
+
             if (entity.hasPosition)
             {
-                view.transform.position = entity.position.Value.ToV3();
+                view.transform.position = entity.position.Value.ToV3() + entity.viewOffset.Value;
             }
 
             if (entity.hasRotation)

@@ -63,6 +63,7 @@ namespace Assets
                 .Add(pool.CreateQueuePositionSystem())
                 .Add(pool.CreateSpikeTrapSystem())
                 .Add(pool.CreateCurseSwitchSystem())
+                .Add(pool.CreateKnockBoxSystem())
 
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 
@@ -88,7 +89,8 @@ namespace Assets
                 .Add(pool.CreateTrapLoadedAnimationSystem())
                 .Add(pool.CreateTrapActivatedAnimationSystem())
                 .Add(pool.CreateCurseSwitchActivatedAnimationSystem())
-                .Add(pool.CreateHealthChangedAnimationSystem());
+                .Add(pool.CreateHealthChangedAnimationSystem())
+                .Add(pool.CreateBoxRotateAnimationSystem());
         }
     }
 }

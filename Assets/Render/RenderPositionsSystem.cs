@@ -11,7 +11,7 @@ namespace Assets.Render
         {
             foreach (var entity in entities)
             {
-                entity.view.Value.transform.position = entity.position.Value.ToV3();
+                entity.view.Value.transform.position = entity.position.Value.ToV3() + entity.viewOffset.Value;
             }
         }
     }

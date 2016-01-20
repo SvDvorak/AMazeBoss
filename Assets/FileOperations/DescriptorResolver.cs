@@ -17,6 +17,7 @@ namespace Assets.FileOperations
                 new FlagDescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
                 new FlagDescriptorSet("ITEM", e => e.isItem, e => e.IsItem(true)),
                 new FlagDescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
+                new FlagDescriptorSet("BOX", e => e.isBox, e => e.IsBox(true)),
                 new FlagDescriptorSet("HERO", e => e.isHero, e => e.IsHero(true)),
                 new FlagDescriptorSet("BOSS", e => e.isBoss, e => e.IsBoss(true)),
                 new FlagDescriptorSet("CURSED", e => e.isCursed, e => e.IsCursed(true)),
@@ -40,11 +41,11 @@ namespace Assets.FileOperations
                     var correctDescriptorSet = _descriptorSets.Single(ds => IsDescriptor(descriptor, ds));
                     correctDescriptorSet.SetDescriptor(entity, descriptor);
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidOperationException)
                 {
                     throw new MultipleDescriptorsFoundException(descriptor);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw new InvalidDescriptorException(descriptor);
                 }

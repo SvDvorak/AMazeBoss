@@ -52,13 +52,18 @@ namespace Assets
 
             var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, boss.rotation.Value, heroPosition);
 
-            if (Debug.isDebugBuild)
+            if (!currentMovePlan.HasStepsLeft)
             {
-                DrawBossPath(currentMovePlan);
+                return;
             }
 
             if (currentMovePlan.NextStep() != heroPosition)
             {
+                if (Debug.isDebugBuild)
+                {
+                    DrawBossPath(currentMovePlan);
+                }
+
                 boss.ReplacePosition(currentMovePlan.NextStep());
             }
             else
