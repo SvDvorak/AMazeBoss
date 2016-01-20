@@ -29,7 +29,11 @@ namespace Assets
                 .Select(e => new { entity = e, posDelta = e.position.Value - boss.position.Value })
                 .Where(x => x.posDelta.ManhattanDistance() == 1 && _pool.CanMoveTo(x.entity.position.Value + x.posDelta))
                 .ToList()
-                .ForEach(x => KnockBox(x.entity, x.posDelta));
+                .ForEach(x =>
+                    {
+                        KnockBox(x.entity, x.posDelta);
+                        boss.IsBossSprinting(false);
+                    });
 
         }
 

@@ -12,18 +12,20 @@ namespace Assets
         {
             foreach (var boss in entities)
             {
-                var movesMade = boss.moveHistory.Value.Count;
+                var moveHistory = boss.moveHistory.Value;
+                var movesMade = moveHistory.Count;
                 if (movesMade <= 2)
                 {
+                    boss.ReplaceMovesInARow(0);
                     continue;
                 }
 
-                const int movesToSprint = 3;
-                var lastMoves = boss.moveHistory.Value.GetRange(movesMade - movesToSprint, movesToSprint);
+                var currentMovesInARow = boss.movesInARow.Moves;
+                var lastMoves = moveHistory.GetRange(movesMade - currentMovesInARow - 2, currentMovesInARow + 1);
                 var moveDirection = new TilePos(lastMoves.Sum(pos => pos.X), lastMoves.Sum(pos => pos.Z));
                 var currentPosition = boss.position.Value;
-                var isSprinting = moveDirection.X == currentPosition.X*movesToSprint || moveDirection.Z == currentPosition.Z*movesToSprint;
-                boss.IsBossSprinting(isSprinting);
+                var isMovingInARow = moveDirection.X == currentPosition.X * currentMovesInARow || moveDirection.Z == currentPosition.Z * currentMovesInARow;
+                boss.ReplaceMovesInARow(currentMovesInARow + 1);
             }
         }
     }

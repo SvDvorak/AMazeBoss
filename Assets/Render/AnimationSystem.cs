@@ -43,10 +43,10 @@ namespace Assets.Render
             {
                 entity.UpdateActingTime(MoveTime, () => { });
             }
-            //if (entity.IsMoving())
-            //{
-            //    transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
-            //}
+            if (entity.IsMoving() && entity.hasRotation)
+            {
+                transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
+            }
         }
     }
 

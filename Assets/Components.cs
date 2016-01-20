@@ -27,6 +27,11 @@ namespace Assets
         public List<TilePos> Value;
     }
 
+    public class MovesInARow : IComponent
+    {
+        public int Moves;
+    }
+
     public class MoveAnimationInfoComponent : IComponent
     {
         public Ease Ease;
