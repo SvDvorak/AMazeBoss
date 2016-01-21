@@ -12,18 +12,16 @@ namespace Entitas {
             _actingTimeComponentPool.Clear();
         }
 
-        public Entity AddActingTime(float newTimeLeft, System.Action newOnFinished) {
+        public Entity AddActingTime(float newTimeLeft) {
             var component = _actingTimeComponentPool.Count > 0 ? _actingTimeComponentPool.Pop() : new Assets.ActingTimeComponent();
             component.TimeLeft = newTimeLeft;
-            component.OnFinished = newOnFinished;
             return AddComponent(ComponentIds.ActingTime, component);
         }
 
-        public Entity ReplaceActingTime(float newTimeLeft, System.Action newOnFinished) {
+        public Entity ReplaceActingTime(float newTimeLeft) {
             var previousComponent = hasActingTime ? actingTime : null;
             var component = _actingTimeComponentPool.Count > 0 ? _actingTimeComponentPool.Pop() : new Assets.ActingTimeComponent();
             component.TimeLeft = newTimeLeft;
-            component.OnFinished = newOnFinished;
             ReplaceComponent(ComponentIds.ActingTime, component);
             if (previousComponent != null) {
                 _actingTimeComponentPool.Push(previousComponent);

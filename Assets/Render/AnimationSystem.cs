@@ -16,8 +16,8 @@ namespace Assets.Render
     {
         private const float MoveTime = 0.5f;
 
-        public TriggerOnEvent trigger { get { return Matcher.Position.OnEntityAddedOrRemoved(); } }
-        public IMatcher ensureComponents { get { return Matcher.View; } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.View, Matcher.Position).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return Matcher.AnyOf(Matcher.Hero, Matcher.Boss); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -31,19 +31,18 @@ namespace Assets.Render
         {
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
-            transform.DOMove(newPosition, MoveTime).SetEase(Ease.Linear);
+            var tweener = transform.DOMove(newPosition, MoveTime).SetEase(Ease.Linear);
 
             // TODO! Should require animator!
             if (entity.hasAnimator && entity.IsMoving())
             {
-                entity.animator.Value.SetBool("IsMoving", true);
-                entity.UpdateActingTime(MoveTime, () => entity.animator.Value.SetBool("IsMoving", false));
+                tweener.OnStart(() => entity.animator.Value.SetBool("IsMoving", true));
+                tweener.OnComplete(() => entity.animator.Value.SetBool("IsMoving", false));
             }
-            else
-            {
-                entity.UpdateActingTime(MoveTime, () => { });
-            }
-            if (entity.IsMoving() && (entity.isBoss || entity.isHero))
+
+            entity.ReplaceActingTime(MoveTime);
+
+            if (entity.IsMoving())
             {
                 transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
             }
@@ -73,8 +72,11 @@ namespace Assets.Render
         {
             foreach (var entity in entities)
             {
-                entity.animator.Value.SetTrigger("Activated");
-                entity.UpdateActingTime(TrapActivateTime, () => entity.IsTrapActivated(false));
+                DOTween.Sequence()
+                    .AppendInterval(TrapActivateTime)
+                    .OnStart(() => entity.animator.Value.SetTrigger("Activated"))
+                    .OnComplete(() => entity.IsTrapActivated(false));
+                entity.ReplaceActingTime(TrapActivateTime);
             }
         }
     }
@@ -88,7 +90,7 @@ namespace Assets.Render
             foreach (var entity in entities)
             {
                 entity.animator.Value.SetBool("WeightedDown", entity.isTrapActivated);
-                entity.UpdateActingTime(1, () => { });
+                entity.ReplaceActingTime(1);
             }
         }
     }
@@ -126,15 +128,20 @@ namespace Assets.Render
         private void DoRotationAnimation(Entity entity, PositionComponent oldPosition, PositionComponent newPosition)
         {
             var moveDirection = (newPosition.Value - oldPosition.Value).ToV3();
-            var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
             var transform = entity.view.Value.transform;
 
             const float time = 0.5f;
+            entity.AddQueueActing(time, () => StartAnimation(transform, moveDirection, time));
+        }
+
+        private void StartAnimation(Transform transform, Vector3 moveDirection, float time)
+        {
+            var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
             DOTween.Sequence()
-                .Append(transform.DORotate(-rotationDirection*90, time, RotateMode.WorldAxisAdd)
-                    .OnUpdate(() => UpdateVerticalMove(transform)))
-                .SetEase(Ease.InCirc);
-            entity.UpdateActingTime(time, () => { });
+                .Append(transform.DORotate(-rotationDirection*90, time, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(moveDirection, time)
+                    .SetRelative(true))
+                .OnUpdate(() => UpdateVerticalMove(transform));
         }
 
         private void UpdateVerticalMove(Transform transform)

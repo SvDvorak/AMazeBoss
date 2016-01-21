@@ -152,7 +152,12 @@ namespace Assets
     public class ActingTimeComponent : IComponent
     {
         public float TimeLeft;
-        public Action OnFinished;
+    }
+
+    public class QueueActingComponent : IComponent
+    {
+        public float Time;
+        public Action Action;
     }
 
     public class AnimatorComponent : IComponent
@@ -168,25 +173,5 @@ namespace Assets
     public class Levels : IComponent
     {
         public List<string> Value;
-    }
-
-    public static class ComponentExtensions
-    {
-        public static Entity UpdateActingTime(this Entity actor, float time, Action onFinished)
-        {
-            if (!actor.hasActingTime)
-            {
-                return actor.ReplaceActingTime(time, onFinished);
-            }
-
-            var oldOnFinish = actor.actingTime.OnFinished;
-            return actor.ReplaceActingTime(
-                time + actor.actingTime.TimeLeft,
-                () =>
-                    {
-                        oldOnFinish();
-                        onFinished();
-                    });
-        }
     }
 }

@@ -16,7 +16,7 @@
     <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
-    <UnityVersion>5.3.0f4</UnityVersion>
+    <UnityVersion>5.3.1f1</UnityVersion>
     <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -26,7 +26,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_0;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_1;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;CROSS_PLATFORM_INPUT</DefineConstants>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -36,7 +36,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>TRACE;UNITY_5_3_0;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>TRACE;UNITY_5_3_1;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;CROSS_PLATFORM_INPUT</DefineConstants>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
@@ -57,6 +57,12 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -73,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Assets\AnimationBehaviorConfigurer.cs" />
     <Compile Include="Assets\BossMoveSystem.cs" />
+    <Compile Include="Assets\BossSprintSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Camera\Components.cs" />
     <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
@@ -90,9 +97,13 @@
     <Compile Include="Assets\Generated\Assets.ActingTimeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ActiveTurnComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.AnimatorComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.BlockingTileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.BossSprintSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.BossSprintingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.BoxComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Camera.MoveAndRotateCameraSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CameraComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ChildComponentGeneratedExtension.cs" />
@@ -110,6 +121,8 @@
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.IdComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.KnockBoxSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.KnockedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MouseInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MoveCameraInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.RotateCameraInputSystemGeneratedExtension.cs" />
@@ -127,13 +140,18 @@
     <Compile Include="Assets\Generated\Assets.LevelLoaderSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.MoveSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MoveAnimationInfoComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MoveHistoryComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MoveHistorySystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.NextTurnSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.QueueActingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueuePositionSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueuedPositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RemoveActingOnDoneSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.AddViewSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.BoxRotateAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.CurseSwitchActivatedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.HealthChangedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.PositionAnimationSystemGeneratedExtension.cs" />
@@ -157,13 +175,14 @@
     <Compile Include="Assets\Generated\Assets.TileTemplatesGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TrapActivatedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ViewComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.WalkableComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.ViewOffsetComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\ComponentIds.cs" />
     <Compile Include="Assets\Generated\Pools.cs" />
     <Compile Include="Assets\HealthBehaviorConfigurer.cs" />
     <Compile Include="Assets\HeroItemSystem.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
+    <Compile Include="Assets\KnockBoxSystem.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
@@ -219,8 +238,7 @@
     <Compile Include="Assets\Libraries\Entitas\Pool.cs" />
     <Compile Include="Assets\Libraries\Entitas\ReactiveSystem.cs" />
     <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
-    <Compile Include="Assets\Models\BoxRotationTest.cs" />
-    <Compile Include="Assets\MoveSystem.cs" />
+    <Compile Include="Assets\MoveStyleBehaviorConfigurer.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
     <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />

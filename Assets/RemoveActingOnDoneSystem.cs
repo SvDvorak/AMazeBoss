@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Entitas;
+﻿using Entitas;
 using UnityEngine;
 
 namespace Assets
@@ -22,14 +18,13 @@ namespace Assets
             {
                 var newTimeLeft = acting.actingTime.TimeLeft - Time.deltaTime;
 
-                if (newTimeLeft < 0)
+                if (newTimeLeft > 0)
                 {
-                    acting.actingTime.OnFinished();
-                    acting.RemoveActingTime();
+                    acting.ReplaceActingTime(newTimeLeft);
                 }
                 else
                 {
-                    acting.ReplaceActingTime(newTimeLeft, acting.actingTime.OnFinished);
+                    acting.RemoveActingTime();
                 }
             }
         }

@@ -29,21 +29,22 @@ public static class ComponentIds {
     public const int MoveHistory = 27;
     public const int MovesInARow = 28;
     public const int Position = 29;
-    public const int QueuedPosition = 30;
-    public const int Resource = 31;
-    public const int Rotation = 32;
-    public const int SpikedTarget = 33;
-    public const int SpikesCarried = 34;
-    public const int Spikes = 35;
-    public const int SpikeTrap = 36;
-    public const int Subtype = 37;
-    public const int Tile = 38;
-    public const int TileTemplates = 39;
-    public const int TrapActivated = 40;
-    public const int View = 41;
-    public const int ViewOffset = 42;
+    public const int QueueActing = 30;
+    public const int QueuedPosition = 31;
+    public const int Resource = 32;
+    public const int Rotation = 33;
+    public const int SpikedTarget = 34;
+    public const int SpikesCarried = 35;
+    public const int Spikes = 36;
+    public const int SpikeTrap = 37;
+    public const int Subtype = 38;
+    public const int Tile = 39;
+    public const int TileTemplates = 40;
+    public const int TrapActivated = 41;
+    public const int View = 42;
+    public const int ViewOffset = 43;
 
-    public const int TotalComponents = 43;
+    public const int TotalComponents = 44;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -76,6 +77,7 @@ public static class ComponentIds {
         "MoveHistory",
         "MovesInARow",
         "Position",
+        "QueueActing",
         "QueuedPosition",
         "Resource",
         "Rotation",
@@ -122,6 +124,7 @@ public static class ComponentIds {
         typeof(Assets.MoveHistoryComponent),
         typeof(Assets.MovesInARow),
         typeof(Assets.PositionComponent),
+        typeof(Assets.QueueActingComponent),
         typeof(Assets.QueuedPositionComponent),
         typeof(Assets.ResourceComponent),
         typeof(Assets.RotationComponent),
