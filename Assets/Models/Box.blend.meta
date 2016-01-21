@@ -23,10 +23,12 @@ ModelImporter:
     2300002: Cube_001
     2300004: Sides
     2300006: Top
+    2300008: //RootNode
     3300000: Cube
     3300002: Cube_001
     3300004: Sides
     3300006: Top
+    3300008: //RootNode
     4300000: Cube_001
     4300002: Cube
     4300004: Top

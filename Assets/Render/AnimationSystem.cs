@@ -30,20 +30,20 @@ namespace Assets.Render
         private void PositionChanged(Entity entity)
         {
             var transform = entity.view.Value.transform;
-            var newPosition = entity.position.Value.ToV3();
+            var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
             transform.DOMove(newPosition, MoveTime).SetEase(Ease.Linear);
 
             // TODO! Should require animator!
             if (entity.hasAnimator && entity.IsMoving())
             {
                 entity.animator.Value.SetBool("IsMoving", true);
-                entity.ReplaceActingTime(MoveTime, () => entity.animator.Value.SetBool("IsMoving", false));
+                entity.UpdateActingTime(MoveTime, () => entity.animator.Value.SetBool("IsMoving", false));
             }
             else
             {
-                entity.ReplaceActingTime(MoveTime, () => { });
+                entity.UpdateActingTime(MoveTime, () => { });
             }
-            if (entity.IsMoving())
+            if (entity.IsMoving() && (entity.isBoss || entity.isHero))
             {
                 transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
             }
@@ -74,7 +74,7 @@ namespace Assets.Render
             foreach (var entity in entities)
             {
                 entity.animator.Value.SetTrigger("Activated");
-                entity.ReplaceActingTime(TrapActivateTime, () => entity.IsTrapActivated(false));
+                entity.UpdateActingTime(TrapActivateTime, () => entity.IsTrapActivated(false));
             }
         }
     }
@@ -88,7 +88,7 @@ namespace Assets.Render
             foreach (var entity in entities)
             {
                 entity.animator.Value.SetBool("WeightedDown", entity.isTrapActivated);
-                entity.ReplaceActingTime(1, () => { });
+                entity.UpdateActingTime(1, () => { });
             }
         }
     }
@@ -103,6 +103,45 @@ namespace Assets.Render
             {
                 entity.healthVisual.Text.text = entity.health.Value.ToString();
             }
+        }
+    }
+
+    public class BoxRotateAnimationSystem : IInitializeSystem, ISetPool
+    {
+        private readonly float _startHeight = 1 - Mathf.Sin(45*Mathf.Deg2Rad);
+        private Group _boxGroup;
+
+        public void SetPool(Pool pool)
+        {
+            _boxGroup = pool.GetGroup(Matcher.AllOf(Matcher.Box, Matcher.View, Matcher.Position));
+        }
+
+        public void Initialize()
+        {
+            _boxGroup.OnEntityUpdated +=
+                (group, entity, index, oldComponent, newComponent) =>
+                    DoRotationAnimation(entity, oldComponent as PositionComponent, newComponent as PositionComponent);
+        }
+
+        private void DoRotationAnimation(Entity entity, PositionComponent oldPosition, PositionComponent newPosition)
+        {
+            var moveDirection = (newPosition.Value - oldPosition.Value).ToV3();
+            var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
+            var transform = entity.view.Value.transform;
+
+            const float time = 0.5f;
+            DOTween.Sequence()
+                .Append(transform.DORotate(-rotationDirection*90, time, RotateMode.WorldAxisAdd)
+                    .OnUpdate(() => UpdateVerticalMove(transform)))
+                .SetEase(Ease.InCirc);
+            entity.UpdateActingTime(time, () => { });
+        }
+
+        private void UpdateVerticalMove(Transform transform)
+        {
+            var angles = transform.rotation.eulerAngles;
+            var position = transform.position;
+            transform.position = new Vector3(position.x, Mathf.Sin((angles.x % 90 + 45) * Mathf.Deg2Rad) + _startHeight, position.z);
         }
     }
 }

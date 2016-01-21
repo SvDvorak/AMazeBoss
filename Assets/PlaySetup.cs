@@ -59,10 +59,13 @@ namespace Assets
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
+                .Add(pool.CreateMoveHistorySystem())
+                .Add(pool.CreateBossSprintSystem())
                 .Add(pool.CreateHeroItemSystem())
                 .Add(pool.CreateQueuePositionSystem())
                 .Add(pool.CreateSpikeTrapSystem())
                 .Add(pool.CreateCurseSwitchSystem())
+                .Add(pool.CreateKnockBoxSystem())
 
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 
@@ -70,7 +73,6 @@ namespace Assets
                 .Add(pool.CreateSubtypeSelectorSystem())
                 .Add(pool.CreateTemplateSelectorSystem())
                 .Add(pool.CreateAddViewSystem())
-                .Add(pool.CreateMoveSystem())
                 .Add(pool.CreateMoveAndRotateCameraSystem())
                 .AddAnimationSystems(pool)
 
@@ -88,7 +90,8 @@ namespace Assets
                 .Add(pool.CreateTrapLoadedAnimationSystem())
                 .Add(pool.CreateTrapActivatedAnimationSystem())
                 .Add(pool.CreateCurseSwitchActivatedAnimationSystem())
-                .Add(pool.CreateHealthChangedAnimationSystem());
+                .Add(pool.CreateHealthChangedAnimationSystem())
+                .Add(pool.CreateBoxRotateAnimationSystem());
         }
     }
 }

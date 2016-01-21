@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Entitas;
 using Entitas.CodeGenerator;
 using UnityEngine;
@@ -19,6 +20,27 @@ namespace Assets
     public class PositionComponent : IComponent
     {
         public TilePos Value;
+    }
+
+    public class MoveHistoryComponent : IComponent
+    {
+        public List<TilePos> Value;
+    }
+
+    public class MovesInARow : IComponent
+    {
+        public int Moves;
+    }
+
+    public class MoveAnimationInfoComponent : IComponent
+    {
+        public Ease Ease;
+        public float Time;
+    }
+
+    public class ViewOffsetComponent : IComponent
+    {
+        public Vector3 Value;
     }
 
     public class QueuedPositionComponent : IComponent
@@ -76,7 +98,20 @@ namespace Assets
     {
     }
 
+    public class BoxComponent : IComponent
+    {
+    }
+
+    public class KnockedComponent : IComponent
+    {
+        public TilePos FromDirection;
+    }
+
     public class BossComponent : IComponent
+    {
+    }
+
+    public class BossSprintingComponent : IComponent
     {
     }
 
@@ -125,11 +160,33 @@ namespace Assets
         public Animator Value;
     }
 
-    public class DestroyedComponent : IComponent { }
+    public class DestroyedComponent : IComponent
+    {
+    }
 
     [SingleEntity]
     public class Levels : IComponent
     {
         public List<string> Value;
+    }
+
+    public static class ComponentExtensions
+    {
+        public static Entity UpdateActingTime(this Entity actor, float time, Action onFinished)
+        {
+            if (!actor.hasActingTime)
+            {
+                return actor.ReplaceActingTime(time, onFinished);
+            }
+
+            var oldOnFinish = actor.actingTime.OnFinished;
+            return actor.ReplaceActingTime(
+                time + actor.actingTime.TimeLeft,
+                () =>
+                    {
+                        oldOnFinish();
+                        onFinished();
+                    });
+        }
     }
 }

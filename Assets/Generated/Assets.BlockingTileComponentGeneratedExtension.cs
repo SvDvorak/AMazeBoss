@@ -3,13 +3,13 @@ namespace Entitas {
         static readonly Assets.BlockingTileComponent blockingTileComponent = new Assets.BlockingTileComponent();
 
         public bool isBlockingTile {
-            get { return HasComponent(ComponentIds.Walkable); }
+            get { return HasComponent(ComponentIds.BlockingTile); }
             set {
                 if (value != isBlockingTile) {
                     if (value) {
-                        AddComponent(ComponentIds.Walkable, blockingTileComponent);
+                        AddComponent(ComponentIds.BlockingTile, blockingTileComponent);
                     } else {
-                        RemoveComponent(ComponentIds.Walkable);
+                        RemoveComponent(ComponentIds.BlockingTile);
                     }
                 }
             }
@@ -22,17 +22,17 @@ namespace Entitas {
     }
 
     public partial class Matcher {
-        static IMatcher _matcherWalkable;
+        static IMatcher _matcherBlockingTile;
 
-        public static IMatcher Walkable {
+        public static IMatcher BlockingTile {
             get {
-                if (_matcherWalkable == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Walkable);
+                if (_matcherBlockingTile == null) {
+                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.BlockingTile);
                     matcher.componentNames = ComponentIds.componentNames;
-                    _matcherWalkable = matcher;
+                    _matcherBlockingTile = matcher;
                 }
 
-                return _matcherWalkable;
+                return _matcherBlockingTile;
             }
         }
     }
