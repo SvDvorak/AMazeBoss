@@ -64,7 +64,7 @@ namespace Assets.Render
 
     public class TrapActivatedAnimationSystem : AnimationSystem, IReactiveSystem
     {
-        private const int TrapActivateTime = 1;
+        private const float TrapActivateTime = 0.7f;
 
         public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.TrapActivated).OnEntityAdded(); } }
 
@@ -108,13 +108,15 @@ namespace Assets.Render
         }
     }
 
-    public class BoxRotateAnimationSystem : IInitializeSystem, ISetPool
+    public class BoxKnockAnimationSystem : IInitializeSystem, ISetPool
     {
         private readonly float _startHeight = 1 - Mathf.Sin(45*Mathf.Deg2Rad);
         private Group _boxGroup;
+        private Group _cameraGroup;
 
         public void SetPool(Pool pool)
         {
+            _cameraGroup = pool.GetGroup(Matcher.Camera);
             _boxGroup = pool.GetGroup(Matcher.AllOf(Matcher.Box, Matcher.View, Matcher.Position));
         }
 
@@ -122,16 +124,21 @@ namespace Assets.Render
         {
             _boxGroup.OnEntityUpdated +=
                 (group, entity, index, oldComponent, newComponent) =>
-                    DoRotationAnimation(entity, oldComponent as PositionComponent, newComponent as PositionComponent);
+                    DoKnockAnimation(entity, oldComponent as PositionComponent, newComponent as PositionComponent);
         }
 
-        private void DoRotationAnimation(Entity entity, PositionComponent oldPosition, PositionComponent newPosition)
+        private void DoKnockAnimation(Entity entity, PositionComponent oldPosition, PositionComponent newPosition)
         {
             var moveDirection = (newPosition.Value - oldPosition.Value).ToV3();
             var transform = entity.view.Value.transform;
 
             const float time = 0.5f;
-            entity.AddQueueActing(time, () => StartAnimation(transform, moveDirection, time));
+            var cameraView = _cameraGroup.GetSingleEntity().view.Value;
+            entity.AddQueueActing(time, () =>
+                {
+                    StartAnimation(transform, moveDirection, time);
+                    cameraView.transform.DOShakeRotation(0.3f, 3, 20, 3);
+                });
         }
 
         private void StartAnimation(Transform transform, Vector3 moveDirection, float time)
