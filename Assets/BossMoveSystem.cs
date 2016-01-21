@@ -77,7 +77,7 @@ namespace Assets
         {
             foreach (var step in currentMovePlan.Path)
             {
-                Debug.DrawLine(step.ToV3(), step.ToV3() + Vector3.up*5, Color.blue, 2);
+                Debug.DrawLine(step.ToV3(), step.ToV3() + Vector3.up*5, Color.blue);
             }
         }
 

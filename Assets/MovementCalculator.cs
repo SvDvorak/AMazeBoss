@@ -136,7 +136,7 @@ namespace Assets
         {
             if (_walkValidator.CanMoveTo(move) && !_visited.Contains(move))
             {
-                var cost = (_targetPosition - move).ManhattanDistance() + rotationDifference;
+                var cost = path.Item1 + (_targetPosition - move).ManhattanDistance() + rotationDifference;
                 var newPath = path.Item2.Concat(move).ToList();
                 AddPathToContinue(cost, newPath);
             }
