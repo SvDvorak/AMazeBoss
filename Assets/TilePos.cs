@@ -29,6 +29,11 @@ namespace Assets
             return new TilePos(pos1.X - pos2.X, pos1.Z - pos2.Z);
         }
 
+        public static TilePos operator /(TilePos pos, int divider)
+        {
+            return new TilePos(pos.X/divider, pos.Z/divider);
+        }
+
         public static bool operator ==(TilePos pos1, TilePos pos2)
         {
             return pos1.Equals(pos2);

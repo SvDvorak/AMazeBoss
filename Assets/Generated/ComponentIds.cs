@@ -18,31 +18,32 @@ public static class ComponentIds {
     public const int Hero = 16;
     public const int Id = 17;
     public const int Item = 18;
-    public const int Input = 19;
-    public const int Paused = 20;
-    public const int PlaceableSelected = 21;
-    public const int Preview = 22;
-    public const int Levels = 23;
-    public const int Maintype = 24;
-    public const int MoveAnimationInfo = 25;
-    public const int MoveHistory = 26;
-    public const int MovesInARow = 27;
-    public const int Position = 28;
-    public const int QueuedPosition = 29;
-    public const int Resource = 30;
-    public const int Rotation = 31;
-    public const int SpikedTarget = 32;
-    public const int SpikesCarried = 33;
-    public const int Spikes = 34;
-    public const int SpikeTrap = 35;
-    public const int Subtype = 36;
-    public const int Tile = 37;
-    public const int TileTemplates = 38;
-    public const int TrapActivated = 39;
-    public const int View = 40;
-    public const int ViewOffset = 41;
+    public const int Knocked = 19;
+    public const int Input = 20;
+    public const int Paused = 21;
+    public const int PlaceableSelected = 22;
+    public const int Preview = 23;
+    public const int Levels = 24;
+    public const int Maintype = 25;
+    public const int MoveAnimationInfo = 26;
+    public const int MoveHistory = 27;
+    public const int MovesInARow = 28;
+    public const int Position = 29;
+    public const int QueuedPosition = 30;
+    public const int Resource = 31;
+    public const int Rotation = 32;
+    public const int SpikedTarget = 33;
+    public const int SpikesCarried = 34;
+    public const int Spikes = 35;
+    public const int SpikeTrap = 36;
+    public const int Subtype = 37;
+    public const int Tile = 38;
+    public const int TileTemplates = 39;
+    public const int TrapActivated = 40;
+    public const int View = 41;
+    public const int ViewOffset = 42;
 
-    public const int TotalComponents = 42;
+    public const int TotalComponents = 43;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -64,6 +65,7 @@ public static class ComponentIds {
         "Hero",
         "Id",
         "Item",
+        "Knocked",
         "Input",
         "Paused",
         "PlaceableSelected",
@@ -109,6 +111,7 @@ public static class ComponentIds {
         typeof(Assets.HeroComponent),
         typeof(Assets.IdComponent),
         typeof(Assets.ItemComponent),
+        typeof(Assets.KnockedComponent),
         typeof(Assets.LevelEditor.InputComponent),
         typeof(Assets.LevelEditor.PausedComponent),
         typeof(Assets.LevelEditor.PlaceableSelectedComponent),

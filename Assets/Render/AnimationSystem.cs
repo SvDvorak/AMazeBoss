@@ -43,7 +43,7 @@ namespace Assets.Render
             {
                 entity.UpdateActingTime(MoveTime, () => { });
             }
-            if (entity.IsMoving() && entity.hasRotation)
+            if (entity.IsMoving() && (entity.isBoss || entity.isHero))
             {
                 transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
             }

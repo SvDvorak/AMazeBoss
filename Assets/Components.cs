@@ -102,6 +102,11 @@ namespace Assets
     {
     }
 
+    public class KnockedComponent : IComponent
+    {
+        public TilePos FromDirection;
+    }
+
     public class BossComponent : IComponent
     {
     }
