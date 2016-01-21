@@ -7,6 +7,8 @@ namespace Assets.Camera
 {
     public class MoveAndRotateCameraSystem : IReactiveSystem, IEnsureComponents
     {
+        private int _cameraRotationOffset = 35;
+
         public TriggerOnEvent trigger { get { return Matcher.AnyOf(Matcher.Rotation, Matcher.FocusPoint).OnEntityAdded(); } }
         public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.View, Matcher.Camera); } }
 
@@ -18,7 +20,7 @@ namespace Assets.Camera
             var currentRotation = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up);
 
             DOTween
-                .To(() => currentRotation, x => currentRotation = x, new Vector3(0, (45 + 90 * camera.rotation.Value) % 360, 0), 1)
+                .To(() => currentRotation, x => currentRotation = x, new Vector3(0, (_cameraRotationOffset + 90 * camera.rotation.Value) % 360, 0), 1)
                 .OnUpdate(() => UpdateTransform(cameraTransform, camera.focusPoint.DeltaPosition, currentRotation));
         }
 

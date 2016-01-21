@@ -24,12 +24,12 @@ namespace Assets.LevelEditor
         public void Start()
         {
             ButtonText.text = OperationText;
-            OperationButton.onClick.AddListener(SaveAndClose);
+            OperationButton.onClick.AddListener(DoOperationAndClose);
         }
 
         public void OnDestroy()
         {
-            OperationButton.onClick.RemoveListener(SaveAndClose);
+            OperationButton.onClick.RemoveListener(DoOperationAndClose);
             Events.instance.RemoveListener<DefaultPathChanged>(SetDefaultPath);
         }
 
@@ -38,7 +38,15 @@ namespace Assets.LevelEditor
             Path.text = x.Path;
         }
 
-        private void SaveAndClose()
+        public void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Return))
+            {
+                DoOperationAndClose();
+            }
+        }
+
+        private void DoOperationAndClose()
         {
             Operation.Invoke(Path.text);
             Close();
