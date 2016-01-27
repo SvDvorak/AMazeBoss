@@ -134,7 +134,6 @@ public static class ComponentIds {
         typeof(Assets.ResourceComponent),
         typeof(Assets.RotationComponent),
         typeof(Assets.SavedFocusPointComponent),
-        typeof(Assets.SpikedTargetComponent),
         typeof(Assets.SpikesCarried),
         typeof(Assets.SpikesComponent),
         typeof(Assets.SpikeTrapComponent),

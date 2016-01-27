@@ -9,7 +9,7 @@ namespace Assets.Render
 {
     public abstract class AnimationSystem : IEnsureComponents
     {
-        public IMatcher ensureComponents { get { return Matcher.Animator; } }
+        public virtual IMatcher ensureComponents { get { return Matcher.Animator; } }
     }
 
     public class PositionAnimationSystem : IReactiveSystem, IEnsureComponents
@@ -66,7 +66,8 @@ namespace Assets.Render
     {
         private const float TrapActivateTime = 0.7f;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.TrapActivated).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.TrapActivated.OnEntityAdded(); } }
+        public override IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.SpikeTrap, base.ensureComponents); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -74,8 +75,7 @@ namespace Assets.Render
             {
                 DOTween.Sequence()
                     .AppendInterval(TrapActivateTime)
-                    .OnStart(() => entity.animator.Value.SetTrigger("Activated"))
-                    .OnComplete(() => entity.IsTrapActivated(false));
+                    .OnStart(() => entity.animator.Value.SetTrigger("Activated"));
                 entity.ReplaceActingTime(TrapActivateTime);
             }
         }
@@ -110,7 +110,7 @@ namespace Assets.Render
 
     public class BoxKnockAnimationSystem : IInitializeSystem, ISetPool
     {
-        private readonly float _startHeight = 1 - Mathf.Sin(45*Mathf.Deg2Rad);
+        private readonly float _startHeight = 1 - Mathf.Sin(45 * Mathf.Deg2Rad);
         private Group _boxGroup;
         private Group _cameraGroup;
 
@@ -145,7 +145,7 @@ namespace Assets.Render
         {
             var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
             DOTween.Sequence()
-                .Append(transform.DORotate(-rotationDirection*90, time, RotateMode.WorldAxisAdd))
+                .Append(transform.DORotate(-rotationDirection * 90, time, RotateMode.WorldAxisAdd))
                 .Join(transform.DOMove(moveDirection, time)
                     .SetRelative(true))
                 .OnUpdate(() => UpdateVerticalMove(transform));

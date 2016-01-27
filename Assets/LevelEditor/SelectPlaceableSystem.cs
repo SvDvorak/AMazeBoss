@@ -14,8 +14,8 @@ namespace Assets.LevelEditor
                     { 3, new Tile(MainTileType.Wall.ToString(), e => e.IsBlockingTile(true)) },
                     { 4, new Tile(MainTileType.SpikeTrap.ToString(), e => e.IsDynamic(true).AddSpikeTrap(false)) },
                     { 5, new Tile(MainTileType.CurseTrigger.ToString(), e => e.IsDynamic(true).IsCurseSwitch(true)) },
-                    { 6, new Item(ItemType.Hero.ToString(), e => e.AddId().IsDynamic(true).IsHero(true).AddHealth(3)) },
-                    { 7, new Item(ItemType.Boss.ToString(), e => e.AddId().IsDynamic(true).IsBlockingTile(true).IsBoss(true).IsCursed(true).AddHealth(3)) },
+                    { 6, new Item(ItemType.Hero.ToString(), e => e.IsDynamic(true).IsHero(true).AddHealth(3)) },
+                    { 7, new Item(ItemType.Boss.ToString(), e => e.IsDynamic(true).IsBlockingTile(true).IsBoss(true).IsCursed(true).AddHealth(3)) },
                     { 8, new Spikes() },
                     { 9, new Item(ItemType.Box.ToString(), e => e.IsBlockingTile(true).IsDynamic(true).IsBox(true)) },
                 };

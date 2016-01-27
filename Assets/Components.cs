@@ -81,11 +81,6 @@ namespace Assets
         public bool IsLoaded;
     }
 
-    public class SpikedTargetComponent : IComponent
-    {
-        public int TargetId;
-    }
-
     public class TrapActivatedComponent : IComponent
     {
     }
