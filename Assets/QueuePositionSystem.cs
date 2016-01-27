@@ -12,7 +12,7 @@ namespace Assets
 
         public void SetPool(Pool pool)
         {
-            _queuedGroup = pool.GetGroup(Matcher.AllOf(Matcher.QueuedPosition));
+            _queuedGroup = pool.GetGroup(Matcher.AllOf(Matcher.QueuedPosition, Matcher.ActiveTurn));
         }
 
         public void Execute()

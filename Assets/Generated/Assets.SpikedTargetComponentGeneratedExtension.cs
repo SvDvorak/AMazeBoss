@@ -12,16 +12,16 @@ namespace Entitas {
             _spikedTargetComponentPool.Clear();
         }
 
-        public Entity AddSpikedTarget(int newBossId) {
+        public Entity AddSpikedTarget(int newTargetId) {
             var component = _spikedTargetComponentPool.Count > 0 ? _spikedTargetComponentPool.Pop() : new Assets.SpikedTargetComponent();
-            component.BossId = newBossId;
+            component.TargetId = newTargetId;
             return AddComponent(ComponentIds.SpikedTarget, component);
         }
 
-        public Entity ReplaceSpikedTarget(int newBossId) {
+        public Entity ReplaceSpikedTarget(int newTargetId) {
             var previousComponent = hasSpikedTarget ? spikedTarget : null;
             var component = _spikedTargetComponentPool.Count > 0 ? _spikedTargetComponentPool.Pop() : new Assets.SpikedTargetComponent();
-            component.BossId = newBossId;
+            component.TargetId = newTargetId;
             ReplaceComponent(ComponentIds.SpikedTarget, component);
             if (previousComponent != null) {
                 _spikedTargetComponentPool.Push(previousComponent);

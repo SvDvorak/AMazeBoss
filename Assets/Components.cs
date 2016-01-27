@@ -83,7 +83,7 @@ namespace Assets
 
     public class SpikedTargetComponent : IComponent
     {
-        public int BossId;
+        public int TargetId;
     }
 
     public class TrapActivatedComponent : IComponent
@@ -105,6 +105,10 @@ namespace Assets
     public class KnockedComponent : IComponent
     {
         public TilePos FromDirection;
+    }
+
+    public class CharacterComponent : IComponent
+    {
     }
 
     public class BossComponent : IComponent

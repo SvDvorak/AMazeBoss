@@ -23,7 +23,7 @@ namespace Assets
                 return;
             }
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, Matcher.Spikes);
                 var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, Matcher.SpikeTrap);

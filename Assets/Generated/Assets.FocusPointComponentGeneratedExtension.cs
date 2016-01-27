@@ -12,16 +12,16 @@ namespace Entitas {
             _focusPointComponentPool.Clear();
         }
 
-        public Entity AddFocusPoint(UnityEngine.Vector3 newDeltaPosition) {
+        public Entity AddFocusPoint(UnityEngine.Vector3 newPosition) {
             var component = _focusPointComponentPool.Count > 0 ? _focusPointComponentPool.Pop() : new Assets.FocusPointComponent();
-            component.Position = newDeltaPosition;
+            component.Position = newPosition;
             return AddComponent(ComponentIds.FocusPoint, component);
         }
 
-        public Entity ReplaceFocusPoint(UnityEngine.Vector3 newDeltaPosition) {
+        public Entity ReplaceFocusPoint(UnityEngine.Vector3 newPosition) {
             var previousComponent = hasFocusPoint ? focusPoint : null;
             var component = _focusPointComponentPool.Count > 0 ? _focusPointComponentPool.Pop() : new Assets.FocusPointComponent();
-            component.Position = newDeltaPosition;
+            component.Position = newPosition;
             ReplaceComponent(ComponentIds.FocusPoint, component);
             if (previousComponent != null) {
                 _focusPointComponentPool.Push(previousComponent);

@@ -6,41 +6,42 @@ namespace Assets
 {
     public class SpikeTrapSystem : IReactiveSystem, ISetPool
     {
-        private Group _bossGroup;
+        private Group _characters;
         public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.ActiveTurn).OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {
-            _bossGroup = pool.GetGroup(Matcher.AllOf(Matcher.Boss, Matcher.Position));
-            _bossGroup.OnEntityUpdated += (g, e, i, nc, pc) => RemoveActivationOnBossMove(pool, e);
+            _characters = pool.GetGroup(Matcher.AllOf(Matcher.Position, Matcher.Character));
+            _characters.OnEntityUpdated += (g, e, i, nc, pc) => RemoveActivationOnCharacterMove(pool, e);
         }
 
         public void Execute(List<Entity> entities)
         {
-            var boss = _bossGroup.GetSingleEntity();
-
             foreach (var trap in entities)
             {
-                DamageIfOnSamePosition(boss, trap);
+                DamageIfOnSamePosition(_characters.GetEntities(), trap);
             }
         }
 
-        private void DamageIfOnSamePosition(Entity boss, Entity trap)
+        private void DamageIfOnSamePosition(Entity[] characters, Entity trap)
         {
-            if (!trap.hasSpikedTarget && boss.position.Value == trap.position.Value && trap.spikeTrap.IsLoaded)
+            foreach (var character in characters)
             {
-                boss.ReplaceHealth(boss.health.Value - 1);
-                trap.IsTrapActivated(true);
-                trap.AddSpikedTarget(boss.id.Value);
+                if (!trap.hasSpikedTarget && character.position.Value == trap.position.Value && trap.spikeTrap.IsLoaded)
+                {
+                    character.ReplaceHealth(character.health.Value - 1);
+                    trap.IsTrapActivated(true);
+                    trap.AddSpikedTarget(character.id.Value);
+                }
             }
         }
 
-        private void RemoveActivationOnBossMove(Pool pool, Entity boss)
+        private void RemoveActivationOnCharacterMove(Pool pool, Entity character)
         {
             var activatedTrap = pool.GetEntities(Matcher.AllOf(Matcher.SpikeTrap, Matcher.SpikedTarget));
-            foreach(var trap in activatedTrap.Where(e => e.spikedTarget.BossId == boss.id.Value))
+            foreach(var trap in activatedTrap.Where(e => e.spikedTarget.TargetId == character.id.Value))
             {
-                if (trap.position.Value != boss.position.Value)
+                if (trap.position.Value != character.position.Value)
                 {
                     trap.RemoveSpikedTarget();
                 }
