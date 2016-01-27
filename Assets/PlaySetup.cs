@@ -21,8 +21,6 @@ namespace Assets
             var pool = Pools.pool;
             _systems = CreateSystems(pool);
 
-            pool.CreateEntity().AddResource("Camera").AddFocusPoint(Vector3.zero).AddRotation(0);
-
             pool.SetLevels(Levels);
 
             _systems.Initialize();

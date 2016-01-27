@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,12 +59,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -89,9 +85,8 @@
     <Compile Include="Assets\DestroySystem.cs" />
     <Compile Include="Assets\EntityExtensions.cs" />
     <Compile Include="Assets\FileOperations\DescriptorResolver.cs" />
-    <Compile Include="Assets\FileOperations\FileObject.cs" />
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
-    <Compile Include="Assets\FileOperations\MapObjects.cs" />
+    <Compile Include="Assets\FileOperations\FileMap.cs" />
     <Compile Include="Assets\GameObjectConfigurer.cs" />
     <Compile Include="Assets\GameObjectExtensions.cs" />
     <Compile Include="Assets\Generated\Assets.ActingTimeComponentGeneratedExtension.cs" />
@@ -136,6 +131,7 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.RemoveImpossiblyPlacedItemsSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.RemovePlaceableSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SelectPlaceableSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.SetFocusPointSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.WallAdjustmentSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelLoaderSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
@@ -151,7 +147,7 @@
     <Compile Include="Assets\Generated\Assets.QueuedPositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RemoveActingOnDoneSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.AddViewSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.Render.BoxRotateAnimationSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.BoxKnockAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.CurseSwitchActivatedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.HealthChangedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.PositionAnimationSystemGeneratedExtension.cs" />
@@ -162,6 +158,7 @@
     <Compile Include="Assets\Generated\Assets.ResourceComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ReturnToEditorSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RotationComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.SavedFocusPointComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeTrapComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeTrapSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikedTargetComponentGeneratedExtension.cs" />
@@ -200,6 +197,7 @@
     <Compile Include="Assets\LevelEditor\RemoveImpossiblyPlacedItemsSystem.cs" />
     <Compile Include="Assets\LevelEditor\RemovePlaceableSystem.cs" />
     <Compile Include="Assets\LevelEditor\SelectPlaceableSystem.cs" />
+    <Compile Include="Assets\LevelEditor\SetFocusPointSystem.cs" />
     <Compile Include="Assets\LevelEditor\ShowFileDialogs.cs" />
     <Compile Include="Assets\LevelEditor\UIInteractions.cs" />
     <Compile Include="Assets\LevelEditor\WallAdjustmentSystem.cs" />

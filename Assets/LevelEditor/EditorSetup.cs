@@ -63,7 +63,6 @@ namespace Assets.LevelEditor
 
             pool.CreateEntity().IsInput(true);
             pool.CreateEntity().IsPreview(true);
-            pool.CreateEntity().AddResource("Camera").AddFocusPoint(Vector3.zero).AddRotation(0);
 
             _systems.Initialize();
         }
@@ -93,6 +92,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSelectPlaceableSystem())
                 .Add(pool.CreatePutDownPlaceableSystem())
                 .Add(pool.CreateRemovePlaceableSystem())
+                .Add(pool.CreateSetFocusPointSystem())
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateRemoveImpossiblyPlacedItemsSystem())
                 .Add(pool.CreatePreviewTilePositionChangedSystem())

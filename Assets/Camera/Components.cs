@@ -10,6 +10,11 @@ namespace Assets
 
     public class FocusPointComponent : IComponent
     {
-        public Vector3 DeltaPosition;
+        public Vector3 Position;
+    }
+
+    public class SavedFocusPointComponent : IComponent
+    {
+        public Vector3 Position;
     }
 }

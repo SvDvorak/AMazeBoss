@@ -21,7 +21,7 @@ namespace Assets.Camera
 
             DOTween
                 .To(() => currentRotation, x => currentRotation = x, new Vector3(0, (_cameraRotationOffset + 90 * camera.rotation.Value) % 360, 0), 1)
-                .OnUpdate(() => UpdateTransform(cameraTransform, camera.focusPoint.DeltaPosition, currentRotation));
+                .OnUpdate(() => UpdateTransform(cameraTransform, camera.focusPoint.Position, currentRotation));
         }
 
         private void UpdateTransform(Transform transform, Vector3 focusPoint, Quaternion spin)

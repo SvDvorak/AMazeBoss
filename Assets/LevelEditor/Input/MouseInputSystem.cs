@@ -30,7 +30,7 @@ namespace Assets.LevelEditor.Input
             var deltaOffset = inputMoveDirection * Time.deltaTime * ScrollMultiplier;
             if (deltaOffset != Vector3.zero)
             {
-                cameraEntity.ReplaceFocusPoint(cameraEntity.focusPoint.DeltaPosition + deltaOffset);
+                cameraEntity.ReplaceFocusPoint(cameraEntity.focusPoint.Position + deltaOffset);
             }
         }
 

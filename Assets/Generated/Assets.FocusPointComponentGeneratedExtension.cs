@@ -14,14 +14,14 @@ namespace Entitas {
 
         public Entity AddFocusPoint(UnityEngine.Vector3 newDeltaPosition) {
             var component = _focusPointComponentPool.Count > 0 ? _focusPointComponentPool.Pop() : new Assets.FocusPointComponent();
-            component.DeltaPosition = newDeltaPosition;
+            component.Position = newDeltaPosition;
             return AddComponent(ComponentIds.FocusPoint, component);
         }
 
         public Entity ReplaceFocusPoint(UnityEngine.Vector3 newDeltaPosition) {
             var previousComponent = hasFocusPoint ? focusPoint : null;
             var component = _focusPointComponentPool.Count > 0 ? _focusPointComponentPool.Pop() : new Assets.FocusPointComponent();
-            component.DeltaPosition = newDeltaPosition;
+            component.Position = newDeltaPosition;
             ReplaceComponent(ComponentIds.FocusPoint, component);
             if (previousComponent != null) {
                 _focusPointComponentPool.Push(previousComponent);

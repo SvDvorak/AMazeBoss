@@ -13,11 +13,14 @@ namespace Assets.FileOperations
 
         public static void Save(string path)
         {
-            var editorObjects = Pools.pool.GetEntities(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
-            var fileObjects = new MapObjects(editorObjects
-                .Select(x => CreateFileObject(x))
-                .ToList());
-            var json = JsonUtility.ToJson(fileObjects);
+            var pool = Pools.pool;
+            var mapObjects = pool.GetEntities(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
+            var fileMap = new FileMap(
+                CreateFileCamera(pool),
+                mapObjects
+                    .Select(x => CreateFileMapObject(x))
+                    .ToList());
+            var json = JsonUtility.ToJson(fileMap);
             var streamWriter = new StreamWriter(path, false);
             streamWriter.Write(json);
             streamWriter.Close();
@@ -25,10 +28,16 @@ namespace Assets.FileOperations
             SetLastUsedPath(path);
         }
 
-        private static FileObject CreateFileObject(Entity entity)
+        private static FileCamera CreateFileCamera(Pool pool)
+        {
+            var cameraFocus = pool.GetEntities(Matcher.Camera).SingleEntity().savedFocusPoint;
+            return new FileCamera(cameraFocus.Position.x, cameraFocus.Position.z);
+        }
+
+        private static FileMapObject CreateFileMapObject(Entity entity)
         {
             var pos = entity.position.Value;
-            return new FileObject(entity.maintype.Value, entity.subtype.Value, pos.X, pos.Z, entity.rotation.Value, DescriptorResolver.ToDescriptors(entity));
+            return new FileMapObject(entity.maintype.Value, entity.subtype.Value, pos.X, pos.Z, entity.rotation.Value, DescriptorResolver.ToDescriptors(entity));
         }
 
         public static void Load(string path)
@@ -41,8 +50,10 @@ namespace Assets.FileOperations
 
             try
             {
-                JsonUtility
-                    .FromJson<MapObjects>(json)
+                var fileLevelObjects = JsonUtility
+                    .FromJson<FileMap>(json);
+                CreateEntity(pool, fileLevelObjects.Camera);
+                fileLevelObjects
                     .Tiles
                     .ForEach(tile => CreateEntity(pool, tile));
 
@@ -56,18 +67,30 @@ namespace Assets.FileOperations
 
         public class LevelParseException : Exception
         {
-            public LevelParseException(string filePath, Exception inner) : base("Unable to parse " + filePath, inner) { }
+            public LevelParseException(string filePath, Exception inner) : base("Unable to parse " + filePath, inner)
+            {
+            }
         }
 
-        private static void CreateEntity(Pool pool, FileObject mapObject)
+        private static void CreateEntity(Pool pool, FileCamera camera)
         {
-            var entity = pool.CreateEntity()
-                .AddMaintype(mapObject.MainType)
-                .AddSubtype(mapObject.Subtype)
-                .AddPosition(new TilePos(mapObject.X, mapObject.Z))
-                .AddRotation(mapObject.Rotation);
+            pool.CreateEntity()
+                .AddResource("Camera")
+                .AddFocusPoint(new Vector3(camera.FocusX, 0, camera.FocusZ))
+                .AddSavedFocusPoint(new Vector3(camera.FocusX, 0, camera.FocusZ))
+                .AddRotation(0);
+        }
 
-            DescriptorResolver.FromDescriptors(mapObject.Descriptors, entity);
+        private static void CreateEntity(Pool pool, FileMapObject mapGameObject)
+        {
+            var entity = pool
+                .CreateEntity()
+                .AddMaintype(mapGameObject.MainType)
+                .AddSubtype(mapGameObject.Subtype)
+                .AddPosition(new TilePos(mapGameObject.X, mapGameObject.Z))
+                .AddRotation(mapGameObject.Rotation);
+
+            DescriptorResolver.FromDescriptors(mapGameObject.Descriptors, entity);
         }
 
         public static string GetLastUsedPath()
