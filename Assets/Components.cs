@@ -78,7 +78,12 @@ namespace Assets
 
     public class SpikeTrapComponent : IComponent
     {
-        public bool IsLoaded;
+    }
+
+    [CustomPrefix("is")]
+    public class LoadedComponent : IComponent
+    {
+        public bool LoadedThisTurn;
     }
 
     public class TrapActivatedComponent : IComponent

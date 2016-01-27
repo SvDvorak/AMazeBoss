@@ -8,16 +8,17 @@ namespace Assets
     {
         private Group _characters;
         public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.SpikeTrap; } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.Loaded); } }
 
         public void SetPool(Pool pool)
         {
             _characters = pool.GetGroup(Matcher.AllOf(Matcher.Position, Matcher.Character));
+            _characters.OnEntityUpdated += (g, e, i, nc, pc) => RemoveLoadedThisTurnOnCharacterMove(pool);
         }
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var trap in entities)
+            foreach (var trap in entities.Where(trap => !trap.loaded.LoadedThisTurn))
             {
                 DamageIfOnSamePosition(_characters.GetEntities(), trap);
             }
@@ -27,12 +28,18 @@ namespace Assets
         {
             foreach (var character in characters)
             {
-                if (!trap.isTrapActivated && character.position.Value == trap.position.Value && trap.spikeTrap.IsLoaded)
+                if (!trap.isTrapActivated && character.position.Value == trap.position.Value && trap.hasLoaded)
                 {
                     character.ReplaceHealth(character.health.Value - 1);
                     trap.IsTrapActivated(true);
                 }
             }
+        }
+
+        private void RemoveLoadedThisTurnOnCharacterMove(Pool pool)
+        {
+            var loadedTraps = pool.GetEntities(Matcher.AllOf(Matcher.SpikeTrap, Matcher.Loaded)).ToList();
+            loadedTraps.ForEach(e => e.ReplaceLoaded(false));
         }
     }
 }

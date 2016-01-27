@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -139,6 +137,7 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.WallAdjustmentSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelLoaderSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LoadedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MoveAnimationInfoComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MoveHistoryComponentGeneratedExtension.cs" />

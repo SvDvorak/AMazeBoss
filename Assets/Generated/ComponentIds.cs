@@ -25,17 +25,17 @@ public static class ComponentIds {
     public const int PlaceableSelected = 23;
     public const int Preview = 24;
     public const int Levels = 25;
-    public const int Maintype = 26;
-    public const int MoveAnimationInfo = 27;
-    public const int MoveHistory = 28;
-    public const int MovesInARow = 29;
-    public const int Position = 30;
-    public const int QueueActing = 31;
-    public const int QueuedPosition = 32;
-    public const int Resource = 33;
-    public const int Rotation = 34;
-    public const int SavedFocusPoint = 35;
-    public const int SpikedTarget = 36;
+    public const int Loaded = 26;
+    public const int Maintype = 27;
+    public const int MoveAnimationInfo = 28;
+    public const int MoveHistory = 29;
+    public const int MovesInARow = 30;
+    public const int Position = 31;
+    public const int QueueActing = 32;
+    public const int QueuedPosition = 33;
+    public const int Resource = 34;
+    public const int Rotation = 35;
+    public const int SavedFocusPoint = 36;
     public const int SpikesCarried = 37;
     public const int Spikes = 38;
     public const int SpikeTrap = 39;
@@ -75,6 +75,7 @@ public static class ComponentIds {
         "PlaceableSelected",
         "Preview",
         "Levels",
+        "Loaded",
         "Maintype",
         "MoveAnimationInfo",
         "MoveHistory",
@@ -85,7 +86,6 @@ public static class ComponentIds {
         "Resource",
         "Rotation",
         "SavedFocusPoint",
-        "SpikedTarget",
         "SpikesCarried",
         "Spikes",
         "SpikeTrap",
@@ -124,6 +124,7 @@ public static class ComponentIds {
         typeof(Assets.LevelEditor.PlaceableSelectedComponent),
         typeof(Assets.LevelEditor.PreviewComponent),
         typeof(Assets.Levels),
+        typeof(Assets.LoadedComponent),
         typeof(Assets.MaintypeComponent),
         typeof(Assets.MoveAnimationInfoComponent),
         typeof(Assets.MoveHistoryComponent),

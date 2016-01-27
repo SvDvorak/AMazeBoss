@@ -27,47 +27,32 @@ namespace Assets
             {
                 var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, Matcher.Spikes);
                 var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, Matcher.SpikeTrap);
+                var isTrapEmpty = spikeTrapBelow != null && !spikeTrapBelow.hasLoaded;
 
-                if (hero.isSpikesCarried)
+                if (hero.isSpikesCarried && isTrapEmpty)
                 {
-                    if (spikeTrapBelow != null && !spikeTrapBelow.spikeTrap.IsLoaded)
-                    {
-                        PutSpikesInTrap(spikeTrapBelow, hero);
-                    }
+                    PutSpikesInTrap(spikeTrapBelow, hero);
                 }
-                else
+                else if (!hero.isSpikesCarried && spikesOnFloor != null)
                 {
-                    if (spikesOnFloor != null)
-                    {
-                        TakeSpikesFromFloor(spikesOnFloor, hero);
-                    }
-                    else if (spikeTrapBelow != null && spikeTrapBelow.spikeTrap.IsLoaded)
-                    {
-                        TakeSpikesFromTrap(spikeTrapBelow, hero);
-                    }
+                    TakeSpikesFromFloor(spikesOnFloor, hero);
                 }
             }
-            else if (UnityEngine.Input.GetKeyDown(KeyCode.LeftControl))
+            else if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 _pool.SwitchCurse();
             }
         }
 
-        private static void PutSpikesInTrap(Entity spikeTrapBelow, Entity hero)
+        private static void PutSpikesInTrap(Entity spikeTrap, Entity hero)
         {
-            spikeTrapBelow.ReplaceSpikeTrap(true);
+            spikeTrap.AddLoaded(true);
             hero.IsSpikesCarried(false);
         }
 
         private static void TakeSpikesFromFloor(Entity spikesOnFloor, Entity hero)
         {
             spikesOnFloor.IsDestroyed(true);
-            hero.IsSpikesCarried(true);
-        }
-
-        private static void TakeSpikesFromTrap(Entity spikeTrapBelow, Entity hero)
-        {
-            spikeTrapBelow.ReplaceSpikeTrap(false);
             hero.IsSpikesCarried(true);
         }
     }
