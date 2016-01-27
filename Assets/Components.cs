@@ -22,11 +22,6 @@ namespace Assets
         public TilePos Value;
     }
 
-    public class MoveHistoryComponent : IComponent
-    {
-        public List<TilePos> Value;
-    }
-
     public class MovesInARow : IComponent
     {
         public int Moves;

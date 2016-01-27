@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -76,7 +78,6 @@
   <ItemGroup>
     <Compile Include="Assets\AnimationBehaviorConfigurer.cs" />
     <Compile Include="Assets\BossMoveSystem.cs" />
-    <Compile Include="Assets\BossSprintSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Camera\Components.cs" />
     <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="Assets\Generated\Assets.BlockingTileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.BossSprintSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossSprintingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BoxComponentGeneratedExtension.cs" />
@@ -140,8 +140,6 @@
     <Compile Include="Assets\Generated\Assets.LoadedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MoveAnimationInfoComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.MoveHistoryComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.MoveHistorySystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.NextTurnSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />

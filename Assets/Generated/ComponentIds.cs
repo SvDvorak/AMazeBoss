@@ -127,7 +127,6 @@ public static class ComponentIds {
         typeof(Assets.LoadedComponent),
         typeof(Assets.MaintypeComponent),
         typeof(Assets.MoveAnimationInfoComponent),
-        typeof(Assets.MoveHistoryComponent),
         typeof(Assets.MovesInARow),
         typeof(Assets.PositionComponent),
         typeof(Assets.QueueActingComponent),

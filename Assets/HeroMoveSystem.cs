@@ -48,6 +48,10 @@ namespace Assets
                     hero.ReplacePosition(newPosition);
                 }
             }
+            else if(hasMoved)
+            {
+                _pool.KnockObjectsInFront(hero.position.Value, inputMoveDirection);
+            }
         }
 
         private TilePos GetInputMoveDirection()
