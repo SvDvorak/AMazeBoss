@@ -82,7 +82,7 @@ namespace Assets
         public static Systems AddAnimationSystems(this Systems systems, Pool pool)
         {
             return systems
-                .Add(pool.CreatePositionAnimationSystem())
+                .Add(pool.CreateMoveAnimationSystem())
                 .Add(pool.CreateTrapLoadedAnimationSystem())
                 .Add(pool.CreateTrapActivatedAnimationSystem())
                 .Add(pool.CreateCurseSwitchActivatedAnimationSystem())

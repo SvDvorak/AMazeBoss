@@ -25,8 +25,8 @@ namespace Assets
 
         public static bool IsMoving(this Entity entity)
         {
-            var target = entity.position.Value;
-            var current = new TilePos(entity.view.Value.transform.position);
+            var target = entity.position.Value.ToV3();
+            var current = entity.view.Value.transform.position;
             return entity.hasPosition && entity.hasView && target != current;
         }
     }

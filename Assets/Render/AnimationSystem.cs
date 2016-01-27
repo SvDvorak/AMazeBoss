@@ -12,7 +12,7 @@ namespace Assets.Render
         public virtual IMatcher ensureComponents { get { return Matcher.Animator; } }
     }
 
-    public class PositionAnimationSystem : IReactiveSystem, IEnsureComponents
+    public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
         private const float MoveTime = 0.5f;
 
@@ -36,8 +36,9 @@ namespace Assets.Render
             // TODO! Should require animator!
             if (entity.hasAnimator && entity.IsMoving())
             {
-                tweener.OnStart(() => entity.animator.Value.SetBool("IsMoving", true));
-                tweener.OnComplete(() => entity.animator.Value.SetBool("IsMoving", false));
+                var animator = entity.animator.Value;
+                tweener.OnStart(() => animator.SetBool("IsMoving", true));
+                tweener.OnComplete(() => animator.SetBool("IsMoving", false));
             }
 
             entity.ReplaceActingTime(MoveTime);
@@ -73,9 +74,10 @@ namespace Assets.Render
         {
             foreach (var entity in entities)
             {
+                var animator = entity.animator.Value;
                 DOTween.Sequence()
                     .AppendInterval(TrapActivateTime)
-                    .OnStart(() => entity.animator.Value.SetTrigger("Activated"));
+                    .OnStart(() => animator.SetTrigger("Activated"));
                 entity.ReplaceActingTime(TrapActivateTime);
             }
         }

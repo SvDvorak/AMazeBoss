@@ -39,7 +39,7 @@ namespace Assets
             var canMove = _pool.CanMoveTo(newPosition) && !hero.isCursed;
             if (hasMoved && canMove)
             {
-                if (_positionGroup.GetEntities().Count(x => x.IsMoving()) > 0)
+                if (hero.IsMoving())
                 {
                     hero.ReplaceQueuedPosition(newPosition);
                 }
