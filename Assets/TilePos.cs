@@ -6,7 +6,7 @@ namespace Assets
     {
         private const int TileLength = 2;
 
-        public TilePos(Vector3 pos) : this((int)(pos.x/TileLength), (int)(pos.z/TileLength))
+        public TilePos(Vector3 pos) : this(Mathf.RoundToInt(pos.x/TileLength), Mathf.RoundToInt(pos.z/TileLength))
         {
         }
 
