@@ -100,6 +100,7 @@ namespace Assets
     public class KnockedComponent : IComponent
     {
         public TilePos FromDirection;
+        public bool Immediate;
     }
 
     public class CharacterComponent : IComponent

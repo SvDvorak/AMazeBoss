@@ -136,11 +136,20 @@ namespace Assets.Render
 
             const float time = 0.5f;
             var cameraView = _cameraGroup.GetSingleEntity().view.Value;
-            entity.AddQueueActing(time, () =>
+            Action animationAction = () =>
                 {
                     StartAnimation(transform, moveDirection, time);
                     cameraView.transform.DOShakeRotation(0.3f, 3, 20, 3);
-                });
+                };
+
+            if (entity.knocked.Immediate)
+            {
+                animationAction();
+            }
+            else
+            {
+                entity.AddQueueActing(time, animationAction);
+            }
         }
 
         private void StartAnimation(Transform transform, Vector3 moveDirection, float time)
