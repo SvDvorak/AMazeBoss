@@ -103,6 +103,9 @@ ModelImporter:
     100190: Tumb01_R
     100192: Tumb02_R
     100194: Monster
+    100196: Cube_001
+    100198: Cube_002
+    100200: Midel_leg_L
     400000: Armature
     400002: Bone
     400004: Bottom
@@ -201,13 +204,22 @@ ModelImporter:
     400190: Tumb01_R
     400192: Tumb02_R
     400194: Monster
+    400196: Cube_001
+    400198: Cube_002
+    400200: Midel_leg_L
     2300000: Cube
     2300002: Hero
+    2300004: Cube_001
+    2300006: Cube_002
     3300000: Cube
     3300002: Hero
+    3300004: Cube_001
+    3300006: Cube_002
     4300000: Hero
     4300002: Cube
     4300004: Monster
+    4300006: Cube_002
+    4300008: Cube_001
     7400000: Default Take
     7400002: ArmatureAction
     7400004: Idle
