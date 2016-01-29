@@ -50,25 +50,27 @@ namespace Assets
             var hero = GetHero();
             var heroPosition = hero.position.Value;
 
-            var currentMovePlan = _movementCalculator.CalculateMoveToTarget(boss.position.Value, boss.rotation.Value, heroPosition);
+            var pathToHero = _movementCalculator.CalculateMoveToTarget(
+                boss.position.Value,
+                DirectionRotationConverter.ToDirection(boss.rotation.Value),
+                heroPosition);
 
-            if (!currentMovePlan.HasStepsLeft)
+            if (!pathToHero.HasStepsLeft)
             {
                 return;
             }
 
-            var nextStep = currentMovePlan.NextStep();
-            if (nextStep != heroPosition)
+            var nextStep = pathToHero.NextStep();
+            if (nextStep.Position != heroPosition)
             {
                 if (Debug.isDebugBuild)
                 {
-                    DrawBossPath(currentMovePlan);
+                    DrawBossPath(pathToHero);
                 }
 
-                var moveDirection = nextStep - boss.position.Value;
-                boss.ReplacePosition(nextStep);
+                boss.ReplacePosition(nextStep.Position);
 
-                _pool.KnockObjectsInFront(nextStep, moveDirection);
+                _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction);
             }
             else
             {
@@ -77,11 +79,11 @@ namespace Assets
             }
         }
 
-        private void DrawBossPath(MovementCalculation currentMovePlan)
+        private void DrawBossPath(Path path)
         {
-            foreach (var step in currentMovePlan.Path)
+            foreach (var step in path.Steps)
             {
-                Debug.DrawLine(step.ToV3(), step.ToV3() + Vector3.up*5, Color.blue);
+                Debug.DrawLine(step.Position.ToV3(), step.Position.ToV3() + Vector3.up*5, Color.blue);
             }
         }
 
