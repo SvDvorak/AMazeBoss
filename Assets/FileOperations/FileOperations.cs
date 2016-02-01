@@ -52,10 +52,15 @@ namespace Assets.FileOperations
             {
                 var fileLevelObjects = JsonUtility
                     .FromJson<FileMap>(json);
-                CreateEntity(pool, fileLevelObjects.Camera);
                 fileLevelObjects
                     .Tiles
                     .ForEach(tile => CreateEntity(pool, tile));
+
+                var alreadyHasCamera = pool.GetEntities(Matcher.Camera).Any();
+                if (!alreadyHasCamera)
+                {
+                    CreateEntity(pool, fileLevelObjects.Camera);
+                }
 
                 SetLastUsedPath(path);
             }
@@ -107,7 +112,7 @@ namespace Assets.FileOperations
             return null;
         }
 
-        public static void SetLastUsedPath(string path)
+        private static void SetLastUsedPath(string path)
         {
             PlaySetup.LevelPath = path;
             PlayerPrefs.SetString("LastEditorLevel", path);

@@ -10,15 +10,20 @@ namespace Assets.LevelEditor
         public Text PositionInfo;
 
         private string _lastUsedPath = "";
+        private bool _hasSetPath;
 
         public void Start()
         {
             _lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
+            if (_lastUsedPath != "")
+            {
+                _hasSetPath = true;
+            }
         }
 
         public void Save()
         {
-            if (_lastUsedPath != "")
+            if (_hasSetPath)
             {
                 SaveAs(_lastUsedPath);
             }
@@ -27,6 +32,7 @@ namespace Assets.LevelEditor
         public void SaveAs(string path)
         {
             _lastUsedPath = path;
+            _hasSetPath = true;
             FileOperations.FileOperations.Save(path);
         }
 
@@ -34,20 +40,20 @@ namespace Assets.LevelEditor
         {
             Clear();
             _lastUsedPath = path;
+            _hasSetPath = true;
             FileOperations.FileOperations.Load(path);
         }
 
         public void Clear()
         {
-            _lastUsedPath = "";
-            FileOperations.FileOperations.SetLastUsedPath("");
+            _hasSetPath = false;
             Pools.pool.Clear(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
             EditorSetup.Instance.Update();
         }
 
         public void Play()
         {
-            if(_lastUsedPath != "")
+            if(_hasSetPath)
             {
                 SaveAs(_lastUsedPath);
                 PlaySetup.FromEditor = true;
