@@ -28,25 +28,24 @@ public static class ComponentIds {
     public const int Loaded = 26;
     public const int Maintype = 27;
     public const int MoveAnimationInfo = 28;
-    public const int MoveHistory = 29;
-    public const int MovesInARow = 30;
-    public const int Position = 31;
-    public const int QueueActing = 32;
-    public const int QueuedPosition = 33;
-    public const int Resource = 34;
-    public const int Rotation = 35;
-    public const int SavedFocusPoint = 36;
-    public const int SpikesCarried = 37;
-    public const int Spikes = 38;
-    public const int SpikeTrap = 39;
-    public const int Subtype = 40;
-    public const int Tile = 41;
-    public const int TileTemplates = 42;
-    public const int TrapActivated = 43;
-    public const int View = 44;
-    public const int ViewOffset = 45;
+    public const int MovesInARow = 29;
+    public const int Position = 30;
+    public const int QueueActing = 31;
+    public const int QueuedPosition = 32;
+    public const int Resource = 33;
+    public const int Rotation = 34;
+    public const int SavedFocusPoint = 35;
+    public const int SpikesCarried = 36;
+    public const int Spikes = 37;
+    public const int SpikeTrap = 38;
+    public const int Subtype = 39;
+    public const int Tile = 40;
+    public const int TileTemplates = 41;
+    public const int TrapActivated = 42;
+    public const int View = 43;
+    public const int ViewOffset = 44;
 
-    public const int TotalComponents = 46;
+    public const int TotalComponents = 45;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -78,7 +77,6 @@ public static class ComponentIds {
         "Loaded",
         "Maintype",
         "MoveAnimationInfo",
-        "MoveHistory",
         "MovesInARow",
         "Position",
         "QueueActing",

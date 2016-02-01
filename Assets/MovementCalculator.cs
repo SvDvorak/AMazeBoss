@@ -4,75 +4,120 @@ using UnityEngine;
 
 namespace Assets
 {
-    public class MovementCalculation
-    {
-        public readonly List<TilePos> Path;
-
-        public MovementCalculation(List<TilePos> path)
-        {
-            Path = path;
-
-            RemoveCurrentPositionIfSuccesful(path);
-        }
-
-        private void RemoveCurrentPositionIfSuccesful(List<TilePos> path)
-        {
-            if (HasStepsLeft)
-            {
-                path.RemoveAt(0);
-            }
-        }
-
-        public bool HasStepsLeft { get { return Path != null && Path.Count > 0; } }
-
-        public TilePos NextStep()
-        {
-            return Path.First();
-        }
-    }
-
     public interface IWalkableValidator
     {
         bool CanMoveTo(TilePos position);
     }
 
-    public class MovementCalculator
+    public class Step
     {
-        private readonly List<TilePos> _moveDirections = new List<TilePos>
+        public TilePos Position { get; private set; }
+        public TilePos Direction { get; private set; }
+
+        public Step(TilePos position, TilePos direction)
+        {
+            Position = position;
+            Direction = direction;
+        }
+    }
+
+    public class Path
+    {
+        public float Cost { get; private set; }
+        public List<Step> Steps { get; private set; }
+
+        public Path(TilePos initialPosition, TilePos initialDirection)
+        {
+            Cost = 0;
+            Steps = new List<Step> { new Step(initialPosition, initialDirection) };
+        }
+
+        protected Path(Path path, float cost, TilePos position, TilePos direction)
+        {
+            Cost = path.Cost + cost;
+            Steps = path.Steps.Concat(new[] { new Step(position, direction) }).ToList();
+        }
+
+        public Path Branch(float cost, TilePos position, TilePos direction)
+        {
+            return new Path(this, cost, position, direction);
+        }
+
+        public bool HasStepsLeft { get { return Steps.Count > 0; } }
+
+        public Step NextStep()
+        {
+            return Steps.First();
+        }
+
+        public TilePos GetLastPosition()
+        {
+            return Steps[Steps.Count - 1].Position;
+        }
+
+        private int GetLastRotation()
+        {
+            return DirectionRotationConverter.ToRotation(Steps[Steps.Count - 1].Direction);
+        }
+
+        public int GetRotationDifference(TilePos direction)
+        {
+            return Mathf.Abs(DirectionRotationConverter.ToRotation(direction) - GetLastRotation());
+        }
+    }
+
+    public static class DirectionRotationConverter
+    {
+        private static readonly List<Tuple<TilePos, int>> DirectionRotation = new List<Tuple<TilePos, int>>()
             {
-                new TilePos(0, 1),
-                new TilePos(1, 0),
-                new TilePos(0, -1),
-                new TilePos(-1, 0)
+                new Tuple<TilePos, int>(new TilePos(0, 1), 0),
+                new Tuple<TilePos, int>(new TilePos(1, 0), 1),
+                new Tuple<TilePos, int>(new TilePos(0, -1), 2),
+                new Tuple<TilePos, int>(new TilePos(-1, 0), 3)
             };
 
+        public static int ToRotation(TilePos direction)
+        {
+            return DirectionRotation.Single(x => x.Item1 == direction).Item2;
+        }
+
+        public static TilePos ToDirection(int rotation)
+        {
+            return DirectionRotation.Single(x => x.Item2 == rotation).Item1;
+        }
+
+        public static List<TilePos> GetSurroundingDirections()
+        {
+            return DirectionRotation.Select(x => x.Item1).ToList();
+        } 
+    }
+
+    public class MovementCalculator
+    {
         private readonly IWalkableValidator _walkValidator;
 
-        private List<Tuple<float, List<TilePos>>> _pathsToContinue;
+        private List<Path> _pathsToContinue;
         private HashSet<TilePos> _visited;
         private TilePos _targetPosition;
-        private int _startRotation;
 
         public MovementCalculator(IWalkableValidator walkValidator)
         {
             _walkValidator = walkValidator;
         }
 
-        public MovementCalculation CalculateMoveToTarget(
-            TilePos currentPosition,
-            int startRotation,
+        public Path CalculateMoveToTarget(
+            TilePos initialPosition,
+            TilePos initialDirection,
             TilePos targetPosition)
         {
             _targetPosition = targetPosition;
-            _startRotation = startRotation;
-            var victoryPath = new Tuple<float, List<TilePos>>();
+            var victoryPath = new Path(initialPosition, initialDirection);
 
-            SetInitialState(currentPosition);
+            SetInitialState(initialPosition, initialDirection);
             while (_pathsToContinue.Count > 0)
             {
                 var path = PopPathToContinue();
-                var pos = GetLastPositionInPath(path.Item2);
-                var rotation = GetCurrentRotation(path.Item2);
+                var pos = path.GetLastPosition();
 
                 if (pos == _targetPosition)
                 {
@@ -80,76 +125,47 @@ namespace Assets
                     break;
                 }
 
-                foreach (var moveDirection in _moveDirections)
+                foreach (var moveDirection in DirectionRotationConverter.GetSurroundingDirections())
                 {
-                    var move = pos + moveDirection;
-                    var rotationDifference = Mathf.Abs(_directionToRotation[moveDirection] - rotation);
-                    AddNewPathToContinueIfNotBlockedOrVisited(move, rotationDifference, path);
+                    var newPos = pos + moveDirection;
+                    if (_walkValidator.CanMoveTo(newPos) && !_visited.Contains(newPos))
+                    {
+                        AddNewPathToContinue(newPos, moveDirection, path);
+                    }
                 }
 
                 _visited.Add(pos);
                 OrderByCost();
             }
 
-            return new MovementCalculation(victoryPath.Item2);
+            victoryPath.Steps.RemoveAt(0);
+            return victoryPath;
         }
 
-        private int GetCurrentRotation(List<TilePos> path)
-        {
-            var pathCount = path.Count;
-            if (pathCount < 2)
-            {
-                return _startRotation;
-            }
-
-            return _directionToRotation[path[pathCount - 1] - path[pathCount - 2]];
-        }
-
-        private readonly Dictionary<TilePos, int> _directionToRotation = new Dictionary<TilePos, int>
-            {
-                { new TilePos(0, 1), 0 },
-                { new TilePos(1, 0), 1 },
-                { new TilePos(0, -1), 2 },
-                { new TilePos(-1, 0), 3 }
-            };
-
-        private void SetInitialState(TilePos currentPosition)
+        private void SetInitialState(TilePos initialPosition, TilePos initialDirection)
         {
             _visited = new HashSet<TilePos>();
-            _pathsToContinue = new List<Tuple<float, List<TilePos>>>();
-            AddPathToContinue(0, new List<TilePos> { currentPosition });
+            _pathsToContinue = new List<Path>();
+            _pathsToContinue.Add(new Path(initialPosition, initialDirection));
         }
 
-        private Tuple<float, List<TilePos>> PopPathToContinue()
+        private Path PopPathToContinue()
         {
             var path = _pathsToContinue[0];
             _pathsToContinue.RemoveAt(0);
             return path;
         }
 
-        private static TilePos GetLastPositionInPath(List<TilePos> path)
+        private void AddNewPathToContinue(TilePos pos, TilePos moveDirection, Path path)
         {
-            return path[path.Count - 1];
-        }
-
-        private void AddNewPathToContinueIfNotBlockedOrVisited(TilePos move, int rotationDifference, Tuple<float, List<TilePos>> path)
-        {
-            if (_walkValidator.CanMoveTo(move) && !_visited.Contains(move))
-            {
-                var cost = path.Item1 + (_targetPosition - move).ManhattanDistance() + rotationDifference;
-                var newPath = path.Item2.Concat(move).ToList();
-                AddPathToContinue(cost, newPath);
-            }
-        }
-
-        private void AddPathToContinue(float cost, List<TilePos> newPath)
-        {
-            _pathsToContinue.Add(new Tuple<float, List<TilePos>>(cost, newPath));
+            var rotationDifference = path.GetRotationDifference(moveDirection);
+            var stepCost = (_targetPosition - pos).ManhattanDistance() + rotationDifference;
+            _pathsToContinue.Add(path.Branch(stepCost, pos, moveDirection));
         }
 
         private void OrderByCost()
         {
-            _pathsToContinue = _pathsToContinue.OrderBy(x => x.Item1).ToList();
+            _pathsToContinue = _pathsToContinue.OrderBy(x => x.Cost).ToList();
         }
     }
 }

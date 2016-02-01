@@ -44,13 +44,25 @@ namespace Assets
             pool.GetEntitiesAt(position + forwardDirection, Matcher.Item)
                 .Where(x => x.isBlockingTile)
                 .ToList()
-                .ForEach(x => x.ReplaceKnocked(forwardDirection));
+                .ForEach(x => x.ReplaceKnocked(forwardDirection, false));
         }
 
         public static bool CanMoveTo(this Pool pool, TilePos position)
         {
             var entitiesAtPosition = pool.GetEntitiesAt(position).ToList();
             return entitiesAtPosition.Count > 0 && entitiesAtPosition.All(x => !x.isBlockingTile);
+        }
+
+        public static IEnumerable<Entity> GetSurroundingEntities(
+            this Pool pool,
+            TilePos centerPosition,
+            IMatcher entityMatcher)
+        {
+            return pool
+                .GetEntities(entityMatcher)
+                .Where(x =>
+                    !x.isDestroyed &&
+                    (x.position.Value - centerPosition).ManhattanDistance() == 1);
         }
 
         public static IEnumerable<Entity> GetEntitiesAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)

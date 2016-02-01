@@ -12,16 +12,18 @@ namespace Entitas {
             _knockedComponentPool.Clear();
         }
 
-        public Entity AddKnocked(Assets.TilePos newFromDirection) {
+        public Entity AddKnocked(Assets.TilePos newFromDirection, bool newImmediate) {
             var component = _knockedComponentPool.Count > 0 ? _knockedComponentPool.Pop() : new Assets.KnockedComponent();
             component.FromDirection = newFromDirection;
+            component.Immediate = newImmediate;
             return AddComponent(ComponentIds.Knocked, component);
         }
 
-        public Entity ReplaceKnocked(Assets.TilePos newFromDirection) {
+        public Entity ReplaceKnocked(Assets.TilePos newFromDirection, bool newImmediate) {
             var previousComponent = hasKnocked ? knocked : null;
             var component = _knockedComponentPool.Count > 0 ? _knockedComponentPool.Pop() : new Assets.KnockedComponent();
             component.FromDirection = newFromDirection;
+            component.Immediate = newImmediate;
             ReplaceComponent(ComponentIds.Knocked, component);
             if (previousComponent != null) {
                 _knockedComponentPool.Push(previousComponent);

@@ -8,7 +8,6 @@ namespace Assets
     public class HeroMoveSystem : IExecuteSystem, ISetPool
     {
         private Pool _pool;
-        private Group _positionGroup;
         private Group _cameraGroup;
 
         private readonly Dictionary<KeyCode, TilePos> _moveDirections = new Dictionary<KeyCode, TilePos>
@@ -25,7 +24,6 @@ namespace Assets
         {
             _pool = pool;
             _heroGroup = pool.GetGroup(Matcher.Hero);
-            _positionGroup = pool.GetGroup(Matcher.Position);
             _cameraGroup = pool.GetGroup(Matcher.AllOf(Matcher.Camera, Matcher.Rotation));
         }
 
