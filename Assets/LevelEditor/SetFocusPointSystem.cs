@@ -18,6 +18,7 @@ namespace Assets.LevelEditor
             {
                 var camera = _cameraGroup.GetSingleEntity();
                 camera.ReplaceSavedFocusPoint(camera.focusPoint.Position);
+                Debug.Log("Set focus point at " + camera.focusPoint.Position);
             }
         }
     }
