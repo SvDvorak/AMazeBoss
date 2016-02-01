@@ -59,18 +59,6 @@ namespace Assets
             return entitiesAtPosition.Count > 0;
         }
 
-        public static IEnumerable<Entity> GetSurroundingEntities(
-            this Pool pool,
-            TilePos centerPosition,
-            IMatcher entityMatcher)
-        {
-            return pool
-                .GetEntities(entityMatcher)
-                .Where(x =>
-                    !x.isDestroyed &&
-                    (x.position.Value - centerPosition).ManhattanDistance() == 1);
-        }
-
         public static IEnumerable<Entity> GetEntitiesAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)
         {
             var completeMatcher = entityMatcher != null
