@@ -33,19 +33,19 @@ namespace Assets.Render
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
             var tweener = DOTween.Sequence();
 
-            var animator = entity.animator.Value;
-            tweener.OnStart(() => animator.SetBool("IsMoving", true));
-            tweener.AppendInterval(MoveTime);
-            tweener.OnComplete(() =>
-                {
-                    transform.position = newPosition;
-                    animator.SetBool("IsMoving", false);
-                });
-
-            entity.ReplaceActingTime(MoveTime);
-
             if (entity.IsMoving())
             {
+                var animator = entity.animator.Value;
+                tweener.OnStart(() => animator.SetBool("IsMoving", true));
+                tweener.AppendInterval(MoveTime);
+                tweener.OnComplete(() =>
+                    {
+                        transform.position = newPosition;
+                        animator.SetBool("IsMoving", false);
+                    });
+
+                entity.ReplaceActingTime(MoveTime);
+
                 transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
             }
         }

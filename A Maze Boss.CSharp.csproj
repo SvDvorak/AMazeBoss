@@ -79,8 +79,8 @@
     <Compile Include="Assets\Camera\Components.cs" />
     <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
     <Compile Include="Assets\CameraBehaviorConfigurer.cs" />
-    <Compile Include="Assets\CleanupSystem.cs" />
     <Compile Include="Assets\ChangeParent.cs" />
+    <Compile Include="Assets\CleanupSystem.cs" />
     <Compile Include="Assets\Components.cs" />
     <Compile Include="Assets\CurseSwitchSystem.cs" />
     <Compile Include="Assets\DestroySystem.cs" />
