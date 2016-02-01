@@ -22,11 +22,6 @@ namespace Assets
         public TilePos Value;
     }
 
-    public class MoveHistoryComponent : IComponent
-    {
-        public List<TilePos> Value;
-    }
-
     public class MovesInARow : IComponent
     {
         public int Moves;
@@ -78,12 +73,12 @@ namespace Assets
 
     public class SpikeTrapComponent : IComponent
     {
-        public bool IsLoaded;
     }
 
-    public class SpikedTargetComponent : IComponent
+    [CustomPrefix("is")]
+    public class LoadedComponent : IComponent
     {
-        public int BossId;
+        public bool LoadedThisTurn;
     }
 
     public class TrapActivatedComponent : IComponent
@@ -105,6 +100,10 @@ namespace Assets
     public class KnockedComponent : IComponent
     {
         public TilePos FromDirection;
+    }
+
+    public class CharacterComponent : IComponent
+    {
     }
 
     public class BossComponent : IComponent

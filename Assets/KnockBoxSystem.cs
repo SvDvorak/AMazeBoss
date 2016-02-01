@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 
 namespace Assets
@@ -19,7 +20,8 @@ namespace Assets
             foreach (var box in entities)
             {
                 var pushedToPosition = box.position.Value + box.knocked.FromDirection;
-                var blockingAtNewPosition = _pool.GetEntityAt(pushedToPosition, Matcher.BlockingTile) != null;
+                var entitiesInFront = _pool.GetEntitiesAt(pushedToPosition).ToList();
+                var blockingAtNewPosition = !entitiesInFront.Any() || entitiesInFront.Any(x => x.isBlockingTile);
                 if (!blockingAtNewPosition)
                 {
                     box.ReplacePosition(pushedToPosition);

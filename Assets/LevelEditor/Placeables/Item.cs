@@ -34,11 +34,11 @@ namespace Assets.LevelEditor.Placeables
         public override void Place(Pool pool, TilePos position)
         {
             var tileBelow = pool.GetTileAt(position);
-            var tileIsSpikeTrap = tileBelow != null && tileBelow.hasSpikeTrap;
+            var tileIsSpikeTrap = tileBelow != null && tileBelow.isSpikeTrap;
 
-            if (tileIsSpikeTrap && !tileBelow.spikeTrap.IsLoaded)
+            if (tileIsSpikeTrap && !tileBelow.hasLoaded)
             {
-                tileBelow.ReplaceSpikeTrap(true);
+                tileBelow.AddLoaded(true);
             }
             else
             {

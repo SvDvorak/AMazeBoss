@@ -57,14 +57,18 @@ namespace Assets
                 return;
             }
 
-            if (currentMovePlan.NextStep() != heroPosition)
+            var nextStep = currentMovePlan.NextStep();
+            if (nextStep != heroPosition)
             {
                 if (Debug.isDebugBuild)
                 {
                     DrawBossPath(currentMovePlan);
                 }
 
-                boss.ReplacePosition(currentMovePlan.NextStep());
+                var moveDirection = nextStep - boss.position.Value;
+                boss.ReplacePosition(nextStep);
+
+                _pool.KnockObjectsInFront(nextStep, moveDirection);
             }
             else
             {

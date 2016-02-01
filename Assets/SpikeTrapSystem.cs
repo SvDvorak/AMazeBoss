@@ -4,47 +4,42 @@ using Entitas;
 
 namespace Assets
 {
-    public class SpikeTrapSystem : IReactiveSystem, ISetPool
+    public class SpikeTrapSystem : IReactiveSystem, ISetPool, IEnsureComponents
     {
-        private Group _bossGroup;
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.ActiveTurn).OnEntityAdded(); } }
+        private Group _characters;
+        public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.Loaded); } }
 
         public void SetPool(Pool pool)
         {
-            _bossGroup = pool.GetGroup(Matcher.AllOf(Matcher.Boss, Matcher.Position));
-            _bossGroup.OnEntityUpdated += (g, e, i, nc, pc) => RemoveActivationOnBossMove(pool, e);
+            _characters = pool.GetGroup(Matcher.AllOf(Matcher.Position, Matcher.Character));
+            _characters.OnEntityUpdated += (g, e, i, nc, pc) => RemoveLoadedThisTurnOnCharacterMove(pool);
         }
 
         public void Execute(List<Entity> entities)
         {
-            var boss = _bossGroup.GetSingleEntity();
-
-            foreach (var trap in entities)
+            foreach (var trap in entities.Where(trap => !trap.loaded.LoadedThisTurn))
             {
-                DamageIfOnSamePosition(boss, trap);
+                DamageIfOnSamePosition(_characters.GetEntities(), trap);
             }
         }
 
-        private void DamageIfOnSamePosition(Entity boss, Entity trap)
+        private void DamageIfOnSamePosition(Entity[] characters, Entity trap)
         {
-            if (!trap.hasSpikedTarget && boss.position.Value == trap.position.Value && trap.spikeTrap.IsLoaded)
+            foreach (var character in characters)
             {
-                boss.ReplaceHealth(boss.health.Value - 1);
-                trap.IsTrapActivated(true);
-                trap.AddSpikedTarget(boss.id.Value);
-            }
-        }
-
-        private void RemoveActivationOnBossMove(Pool pool, Entity boss)
-        {
-            var activatedTrap = pool.GetEntities(Matcher.AllOf(Matcher.SpikeTrap, Matcher.SpikedTarget));
-            foreach(var trap in activatedTrap.Where(e => e.spikedTarget.BossId == boss.id.Value))
-            {
-                if (trap.position.Value != boss.position.Value)
+                if (!trap.isTrapActivated && character.position.Value == trap.position.Value && trap.hasLoaded)
                 {
-                    trap.RemoveSpikedTarget();
+                    character.ReplaceHealth(character.health.Value - 1);
+                    trap.IsTrapActivated(true);
                 }
             }
+        }
+
+        private void RemoveLoadedThisTurnOnCharacterMove(Pool pool)
+        {
+            var loadedTraps = pool.GetEntities(Matcher.AllOf(Matcher.SpikeTrap, Matcher.Loaded)).ToList();
+            loadedTraps.ForEach(e => e.ReplaceLoaded(false));
         }
     }
 }

@@ -1,7 +1,7 @@
 namespace Entitas {
     public partial class Pool {
-        public ISystem CreatePositionAnimationSystem() {
-            return this.CreateSystem<Assets.Render.PositionAnimationSystem>();
+        public ISystem CreateMoveAnimationSystem() {
+            return this.CreateSystem<Assets.Render.MoveAnimationSystem>();
         }
     }
 }

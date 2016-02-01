@@ -29,29 +29,41 @@ namespace Assets
             }
         }
 
-        public static Entity GetTileAt(this Pool pool, TilePos position)
-        {
-            return pool.GetEntityAt(position, Matcher.Tile);
-        }
-
         public static Entity GetItemAt(this Pool pool, TilePos position)
         {
             return pool.GetEntityAt(position, Matcher.Item);
         }
 
-        public static bool CanMoveTo(this Pool pool, TilePos position)
+        public static Entity GetTileAt(this Pool pool, TilePos position)
         {
-            var entities = pool
-                .GetEntities(Matcher.Position)
-                .Where(x => x.position.Value == position && !x.isDestroyed)
-                .ToList();
-            return entities.Any() && !entities.Any(x => x.isBlockingTile);
+            return pool.GetEntityAt(position, Matcher.Tile);
         }
 
-        public static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher)
+        public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection)
         {
-            var entities = pool.GetEntities(Matcher.AllOf(Matcher.Position, entityMatcher));
-            return entities.SingleOrDefault(x => x.position.Value == position && !x.isDestroyed);
+            pool.GetEntitiesAt(position + forwardDirection, Matcher.Item)
+                .Where(x => x.isBlockingTile)
+                .ToList()
+                .ForEach(x => x.ReplaceKnocked(forwardDirection));
+        }
+
+        public static bool CanMoveTo(this Pool pool, TilePos position)
+        {
+            var entitiesAtPosition = pool.GetEntitiesAt(position).ToList();
+            return entitiesAtPosition.Count > 0 && entitiesAtPosition.All(x => !x.isBlockingTile);
+        }
+
+        public static IEnumerable<Entity> GetEntitiesAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)
+        {
+            var completeMatcher = entityMatcher != null
+                ? Matcher.AllOf(Matcher.Position, entityMatcher)
+                : Matcher.Position;
+            return pool.GetEntities(completeMatcher).Where(x => x.position.Value == position && !x.isDestroyed);
+        }
+
+        public static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)
+        {
+            return pool.GetEntitiesAt(position, entityMatcher).SingleOrDefault();
         }
 
         public static void Clear(this Pool pool, IMatcher matcher)

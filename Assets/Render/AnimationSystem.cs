@@ -9,10 +9,10 @@ namespace Assets.Render
 {
     public abstract class AnimationSystem : IEnsureComponents
     {
-        public IMatcher ensureComponents { get { return Matcher.Animator; } }
+        public virtual IMatcher ensureComponents { get { return Matcher.Animator; } }
     }
 
-    public class PositionAnimationSystem : IReactiveSystem, IEnsureComponents
+    public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
         private const float MoveTime = 0.5f;
 
@@ -36,8 +36,9 @@ namespace Assets.Render
             // TODO! Should require animator!
             if (entity.hasAnimator && entity.IsMoving())
             {
-                tweener.OnStart(() => entity.animator.Value.SetBool("IsMoving", true));
-                tweener.OnComplete(() => entity.animator.Value.SetBool("IsMoving", false));
+                var animator = entity.animator.Value;
+                tweener.OnStart(() => animator.SetBool("IsMoving", true));
+                tweener.OnComplete(() => animator.SetBool("IsMoving", false));
             }
 
             entity.ReplaceActingTime(MoveTime);
@@ -51,13 +52,13 @@ namespace Assets.Render
 
     public class TrapLoadedAnimationSystem : AnimationSystem, IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.SpikeTrap.OnEntityAddedOrRemoved(); } }
+        public TriggerOnEvent trigger { get { return Matcher.Loaded.OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {
             foreach (var entity in entities)
             {
-                entity.animator.Value.SetBool("Loaded", entity.spikeTrap.IsLoaded);
+                entity.animator.Value.SetBool("Loaded", entity.hasLoaded);
             }
         }
     }
@@ -66,16 +67,17 @@ namespace Assets.Render
     {
         private const float TrapActivateTime = 0.7f;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.TrapActivated).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.TrapActivated.OnEntityAdded(); } }
+        public override IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.Loaded, base.ensureComponents); } }
 
         public void Execute(List<Entity> entities)
         {
             foreach (var entity in entities)
             {
+                var animator = entity.animator.Value;
                 DOTween.Sequence()
                     .AppendInterval(TrapActivateTime)
-                    .OnStart(() => entity.animator.Value.SetTrigger("Activated"))
-                    .OnComplete(() => entity.IsTrapActivated(false));
+                    .OnStart(() => animator.SetTrigger("Activated"));
                 entity.ReplaceActingTime(TrapActivateTime);
             }
         }
@@ -110,7 +112,7 @@ namespace Assets.Render
 
     public class BoxKnockAnimationSystem : IInitializeSystem, ISetPool
     {
-        private readonly float _startHeight = 1 - Mathf.Sin(45*Mathf.Deg2Rad);
+        private readonly float _startHeight = 1 - Mathf.Sin(45 * Mathf.Deg2Rad);
         private Group _boxGroup;
         private Group _cameraGroup;
 
@@ -145,7 +147,7 @@ namespace Assets.Render
         {
             var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
             DOTween.Sequence()
-                .Append(transform.DORotate(-rotationDirection*90, time, RotateMode.WorldAxisAdd))
+                .Append(transform.DORotate(-rotationDirection * 90, time, RotateMode.WorldAxisAdd))
                 .Join(transform.DOMove(moveDirection, time)
                     .SetRelative(true))
                 .OnUpdate(() => UpdateVerticalMove(transform));

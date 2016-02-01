@@ -71,7 +71,6 @@
   <ItemGroup>
     <Compile Include="Assets\AnimationBehaviorConfigurer.cs" />
     <Compile Include="Assets\BossMoveSystem.cs" />
-    <Compile Include="Assets\BossSprintSystem.cs" />
     <Compile Include="Assets\BottomSpawnerSystem.cs" />
     <Compile Include="Assets\Camera\Components.cs" />
     <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
@@ -91,12 +90,12 @@
     <Compile Include="Assets\Generated\Assets.BlockingTileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossMoveSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.BossSprintSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossSprintingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BottomSpawnerSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BoxComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Camera.MoveAndRotateCameraSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CameraComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.CharacterComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ChildComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CurseSwitchGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CurseSwitchSystemGeneratedExtension.cs" />
@@ -131,10 +130,9 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.WallAdjustmentSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelLoaderSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LoadedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MoveAnimationInfoComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.MoveHistoryComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.MoveHistorySystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.NextTurnSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
@@ -157,7 +155,6 @@
     <Compile Include="Assets\Generated\Assets.SavedFocusPointComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeTrapComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeTrapSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.SpikedTargetComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikesCarriedGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikesComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SubtypeComponentGeneratedExtension.cs" />

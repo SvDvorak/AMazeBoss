@@ -57,8 +57,6 @@ namespace Assets
                 .Add(pool.CreateBottomSpawnerSystem())
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
-                .Add(pool.CreateMoveHistorySystem())
-                .Add(pool.CreateBossSprintSystem())
                 .Add(pool.CreateHeroItemSystem())
                 .Add(pool.CreateQueuePositionSystem())
                 .Add(pool.CreateSpikeTrapSystem())
@@ -84,7 +82,7 @@ namespace Assets
         public static Systems AddAnimationSystems(this Systems systems, Pool pool)
         {
             return systems
-                .Add(pool.CreatePositionAnimationSystem())
+                .Add(pool.CreateMoveAnimationSystem())
                 .Add(pool.CreateTrapLoadedAnimationSystem())
                 .Add(pool.CreateTrapActivatedAnimationSystem())
                 .Add(pool.CreateCurseSwitchActivatedAnimationSystem())
