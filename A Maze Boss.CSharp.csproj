@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -77,6 +79,7 @@
     <Compile Include="Assets\Camera\Components.cs" />
     <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
     <Compile Include="Assets\CameraBehaviorConfigurer.cs" />
+    <Compile Include="Assets\CleanupSystem.cs" />
     <Compile Include="Assets\Components.cs" />
     <Compile Include="Assets\CurseSwitchSystem.cs" />
     <Compile Include="Assets\DestroySystem.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Assets\Generated\Assets.CameraComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CharacterComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ChildComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.CleanupSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CurseSwitchGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CurseSwitchSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CursedGeneratedExtension.cs" />
@@ -109,9 +113,16 @@
     <Compile Include="Assets\Generated\Assets.HealthComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthVisualComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.HeroCurseSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroItemSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.IdComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Input.HeroInputSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Input.InputCurseSwitchComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Input.InputItemInteractComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Input.InputMoveComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Input.InputQueueComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Input.PerformInputQueueSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.KnockBoxSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.KnockedComponentGeneratedExtension.cs" />
@@ -139,7 +150,6 @@
     <Compile Include="Assets\Generated\Assets.NextTurnSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueueActingComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.QueuePositionSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueuedPositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RemoveActingOnDoneSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.AddViewSystemGeneratedExtension.cs" />
@@ -171,9 +181,13 @@
     <Compile Include="Assets\Generated\ComponentIds.cs" />
     <Compile Include="Assets\Generated\Pools.cs" />
     <Compile Include="Assets\HealthBehaviorConfigurer.cs" />
+    <Compile Include="Assets\HeroCurseSystem.cs" />
     <Compile Include="Assets\HeroItemSystem.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
+    <Compile Include="Assets\Input\Components.cs" />
+    <Compile Include="Assets\Input\HeroInputSystem.cs" />
+    <Compile Include="Assets\Input\PerformInputQueueSystem.cs" />
     <Compile Include="Assets\KnockBoxSystem.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
@@ -238,7 +252,6 @@
     <Compile Include="Assets\PickUpItem\Spin.cs" />
     <Compile Include="Assets\PlaySetup.cs" />
     <Compile Include="Assets\PoolExtensions.cs" />
-    <Compile Include="Assets\QueuePositionSystem.cs" />
     <Compile Include="Assets\RemoveActingOnDoneSystem.cs" />
     <Compile Include="Assets\Render\AddViewSystem.cs" />
     <Compile Include="Assets\Render\AnimationSystem.cs" />

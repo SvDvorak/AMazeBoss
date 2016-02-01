@@ -16,7 +16,7 @@ namespace Assets
 
         public bool CanMoveTo(TilePos position)
         {
-            return _pool.CanMoveTo(position);
+            return _pool.OpenTileAt(position);
         }
     }
 
@@ -70,7 +70,7 @@ namespace Assets
 
                 boss.ReplacePosition(nextStep.Position);
 
-                _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction);
+                _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction, false);
             }
             else
             {

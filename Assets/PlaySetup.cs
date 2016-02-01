@@ -51,6 +51,8 @@ namespace Assets
             // Input
                 .Add(pool.CreateReturnToEditorSystem())
                 .Add(pool.CreateRotateCameraInputSystem())
+                .Add(pool.CreateHeroInputSystem())
+                .Add(pool.CreatePerformInputQueueSystem())
 
             // Update
                 .Add(pool.CreateNextTurnSystem())
@@ -58,7 +60,7 @@ namespace Assets
                 .Add(pool.CreateBossMoveSystem())
                 .Add(pool.CreateHeroMoveSystem())
                 .Add(pool.CreateHeroItemSystem())
-                .Add(pool.CreateQueuePositionSystem())
+                .Add(pool.CreateHeroCurseSystem())
                 .Add(pool.CreateSpikeTrapSystem())
                 .Add(pool.CreateCurseSwitchSystem())
                 .Add(pool.CreateKnockBoxSystem())
@@ -73,6 +75,7 @@ namespace Assets
                 .AddAnimationSystems(pool)
 
             // Destroy
+                .Add(pool.CreateCleanupSystem())
                 .Add(pool.CreateDestroySystem());
         }
     }

@@ -11,7 +11,7 @@ namespace Assets
     {
         public void Execute()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && PlaySetup.FromEditor)
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape) && PlaySetup.FromEditor)
             {
                 SceneManager.LoadScene("Editor");
             }

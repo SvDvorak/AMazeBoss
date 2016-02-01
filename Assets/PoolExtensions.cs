@@ -39,18 +39,24 @@ namespace Assets
             return pool.GetEntityAt(position, Matcher.Tile);
         }
 
-        public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection)
+        public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection, bool immediate)
         {
             pool.GetEntitiesAt(position + forwardDirection, Matcher.Item)
                 .Where(x => x.isBlockingTile)
                 .ToList()
-                .ForEach(x => x.ReplaceKnocked(forwardDirection, false));
+                .ForEach(x => x.ReplaceKnocked(forwardDirection, immediate));
         }
 
-        public static bool CanMoveTo(this Pool pool, TilePos position)
+        public static bool OpenTileAt(this Pool pool, TilePos position)
         {
             var entitiesAtPosition = pool.GetEntitiesAt(position).ToList();
             return entitiesAtPosition.Count > 0 && entitiesAtPosition.All(x => !x.isBlockingTile);
+        }
+
+        public static bool PushableItemAt(this Pool pool, TilePos position)
+        {
+            var entitiesAtPosition = pool.GetEntitiesAt(position, Matcher.Box).ToList();
+            return entitiesAtPosition.Count > 0;
         }
 
         public static IEnumerable<Entity> GetSurroundingEntities(
