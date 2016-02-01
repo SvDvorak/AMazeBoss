@@ -21,35 +21,36 @@ public static class ComponentIds {
     public const int InputCurseSwitch = 19;
     public const int InputItemInteract = 20;
     public const int InputMove = 21;
-    public const int InputQueue = 22;
-    public const int Item = 23;
-    public const int Knocked = 24;
-    public const int Input = 25;
-    public const int Paused = 26;
-    public const int PlaceableSelected = 27;
-    public const int Preview = 28;
-    public const int Levels = 29;
-    public const int Loaded = 30;
-    public const int Maintype = 31;
-    public const int MoveAnimationInfo = 32;
-    public const int MovesInARow = 33;
-    public const int Position = 34;
-    public const int QueueActing = 35;
-    public const int QueuedPosition = 36;
-    public const int Resource = 37;
-    public const int Rotation = 38;
-    public const int SavedFocusPoint = 39;
-    public const int SpikesCarried = 40;
-    public const int Spikes = 41;
-    public const int SpikeTrap = 42;
-    public const int Subtype = 43;
-    public const int Tile = 44;
-    public const int TileTemplates = 45;
-    public const int TrapActivated = 46;
-    public const int View = 47;
-    public const int ViewOffset = 48;
+    public const int InputPullItem = 22;
+    public const int InputQueue = 23;
+    public const int Item = 24;
+    public const int Knocked = 25;
+    public const int Input = 26;
+    public const int Paused = 27;
+    public const int PlaceableSelected = 28;
+    public const int Preview = 29;
+    public const int Levels = 30;
+    public const int Loaded = 31;
+    public const int Maintype = 32;
+    public const int MoveAnimationInfo = 33;
+    public const int MovesInARow = 34;
+    public const int Position = 35;
+    public const int QueueActing = 36;
+    public const int QueuedPosition = 37;
+    public const int Resource = 38;
+    public const int Rotation = 39;
+    public const int SavedFocusPoint = 40;
+    public const int SpikesCarried = 41;
+    public const int Spikes = 42;
+    public const int SpikeTrap = 43;
+    public const int Subtype = 44;
+    public const int Tile = 45;
+    public const int TileTemplates = 46;
+    public const int TrapActivated = 47;
+    public const int View = 48;
+    public const int ViewOffset = 49;
 
-    public const int TotalComponents = 49;
+    public const int TotalComponents = 50;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -74,6 +75,7 @@ public static class ComponentIds {
         "InputCurseSwitch",
         "InputItemInteract",
         "InputMove",
+        "InputPullItem",
         "InputQueue",
         "Item",
         "Knocked",
@@ -126,6 +128,7 @@ public static class ComponentIds {
         typeof(Assets.Input.InputCurseSwitchComponent),
         typeof(Assets.Input.InputItemInteractComponent),
         typeof(Assets.Input.InputMoveComponent),
+        typeof(Assets.Input.InputPullItemComponent),
         typeof(Assets.Input.InputQueueComponent),
         typeof(Assets.ItemComponent),
         typeof(Assets.KnockedComponent),

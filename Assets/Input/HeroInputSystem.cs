@@ -33,18 +33,25 @@ namespace Assets.Input
                 return;
             }
 
-            var inputMoveDirection = GetInputMoveDirection();
+            var inputMoveDirection = GetArrowDirection();
             var hasMoved = inputMoveDirection.Length() > 0;
             Action inputAction = null;
             if (hasMoved)
             {
-                inputAction = () => hero.ReplaceInputMove(inputMoveDirection);
+                if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+                {
+                    inputAction = () => hero.ReplaceInputPullItem(inputMoveDirection);
+                }
+                else
+                {
+                    inputAction = () => hero.ReplaceInputMove(inputMoveDirection);
+                }
             }
-            else if(UnityEngine.Input.GetKeyDown(KeyCode.Space))
+            if(UnityEngine.Input.GetKeyDown(KeyCode.Space))
             {
                 inputAction = () => hero.IsInputItemInteract(true);
             }
-            else if (UnityEngine.Input.GetKeyDown(KeyCode.LeftControl))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftControl))
             {
                 inputAction = () => hero.IsInputCurseSwitch(true);
             }
@@ -62,7 +69,7 @@ namespace Assets.Input
             }
         }
 
-        private TilePos GetInputMoveDirection()
+        private TilePos GetArrowDirection()
         {
             var inputMoveDirection = new TilePos(0, 0);
 

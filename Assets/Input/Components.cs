@@ -8,6 +8,11 @@ namespace Assets.Input
         public TilePos Direction;
     }
 
+    public class InputPullItemComponent : IComponent
+    {
+        public TilePos Direction;
+    }
+
     public class InputItemInteractComponent : IComponent
     {
     }

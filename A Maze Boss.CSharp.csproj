@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -118,11 +116,13 @@
     <Compile Include="Assets\Generated\Assets.HeroCurseSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroItemSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HeroMoveSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.HeroPullBoxSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.IdComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.HeroInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.InputCurseSwitchComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.InputItemInteractComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.InputMoveComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Input.InputPullItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.InputQueueComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Input.PerformInputQueueSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
@@ -186,6 +186,7 @@
     <Compile Include="Assets\HeroCurseSystem.cs" />
     <Compile Include="Assets\HeroItemSystem.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
+    <Compile Include="Assets\HeroPullBoxSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
     <Compile Include="Assets\Input\Components.cs" />
     <Compile Include="Assets\Input\HeroInputSystem.cs" />
