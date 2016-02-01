@@ -31,15 +31,16 @@ namespace Assets.Render
         {
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
-            var tweener = transform.DOMove(newPosition, MoveTime).SetEase(Ease.Linear);
+            var tweener = DOTween.Sequence();
 
-            // TODO! Should require animator!
-            if (entity.hasAnimator && entity.IsMoving())
-            {
-                var animator = entity.animator.Value;
-                tweener.OnStart(() => animator.SetBool("IsMoving", true));
-                tweener.OnComplete(() => animator.SetBool("IsMoving", false));
-            }
+            var animator = entity.animator.Value;
+            tweener.OnStart(() => animator.SetBool("IsMoving", true));
+            tweener.AppendInterval(MoveTime);
+            tweener.OnComplete(() =>
+                {
+                    transform.position = newPosition;
+                    animator.SetBool("IsMoving", false);
+                });
 
             entity.ReplaceActingTime(MoveTime);
 

@@ -80,10 +80,12 @@
     <Compile Include="Assets\Camera\MoveAndRotateCameraSystem.cs" />
     <Compile Include="Assets\CameraBehaviorConfigurer.cs" />
     <Compile Include="Assets\CleanupSystem.cs" />
+    <Compile Include="Assets\ChangeParent.cs" />
     <Compile Include="Assets\Components.cs" />
     <Compile Include="Assets\CurseSwitchSystem.cs" />
     <Compile Include="Assets\DestroySystem.cs" />
     <Compile Include="Assets\EntityExtensions.cs" />
+    <Compile Include="Assets\FieldReferenceException.cs" />
     <Compile Include="Assets\FileOperations\DescriptorResolver.cs" />
     <Compile Include="Assets\FileOperations\FileMap.cs" />
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
