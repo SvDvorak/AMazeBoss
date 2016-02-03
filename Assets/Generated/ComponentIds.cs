@@ -29,30 +29,31 @@ public static class ComponentIds {
     public const int InputPlace = 27;
     public const int InputRemove = 28;
     public const int Paused = 29;
-    public const int PlaceableSelected = 30;
-    public const int Preview = 31;
-    public const int Levels = 32;
-    public const int Loaded = 33;
-    public const int Maintype = 34;
-    public const int MoveAnimationInfo = 35;
-    public const int MovesInARow = 36;
-    public const int Position = 37;
-    public const int QueueActing = 38;
-    public const int QueuedPosition = 39;
-    public const int Resource = 40;
-    public const int Rotation = 41;
-    public const int SavedFocusPoint = 42;
-    public const int SpikesCarried = 43;
-    public const int Spikes = 44;
-    public const int SpikeTrap = 45;
-    public const int Subtype = 46;
-    public const int Tile = 47;
-    public const int TileTemplates = 48;
-    public const int TrapActivated = 49;
-    public const int View = 50;
-    public const int ViewOffset = 51;
+    public const int Preview = 30;
+    public const int SelectedPlaceable = 31;
+    public const int SelectedPlaceablesGroup = 32;
+    public const int Levels = 33;
+    public const int Loaded = 34;
+    public const int Maintype = 35;
+    public const int MoveAnimationInfo = 36;
+    public const int MovesInARow = 37;
+    public const int Position = 38;
+    public const int QueueActing = 39;
+    public const int QueuedPosition = 40;
+    public const int Resource = 41;
+    public const int Rotation = 42;
+    public const int SavedFocusPoint = 43;
+    public const int SpikesCarried = 44;
+    public const int Spikes = 45;
+    public const int SpikeTrap = 46;
+    public const int Subtype = 47;
+    public const int Tile = 48;
+    public const int TileTemplates = 49;
+    public const int TrapActivated = 50;
+    public const int View = 51;
+    public const int ViewOffset = 52;
 
-    public const int TotalComponents = 52;
+    public const int TotalComponents = 53;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -85,8 +86,9 @@ public static class ComponentIds {
         "InputPlace",
         "InputRemove",
         "Paused",
-        "PlaceableSelected",
         "Preview",
+        "SelectedPlaceable",
+        "SelectedPlaceablesGroup",
         "Levels",
         "Loaded",
         "Maintype",
@@ -140,8 +142,9 @@ public static class ComponentIds {
         typeof(Assets.LevelEditor.InputPlaceComponent),
         typeof(Assets.LevelEditor.InputRemoveComponent),
         typeof(Assets.LevelEditor.PausedComponent),
-        typeof(Assets.LevelEditor.PlaceableSelectedComponent),
         typeof(Assets.LevelEditor.PreviewComponent),
+        typeof(Assets.LevelEditor.SelectedPlaceableComponent),
+        typeof(Assets.LevelEditor.SelectedPlaceablesGroupComponent),
         typeof(Assets.Levels),
         typeof(Assets.LoadedComponent),
         typeof(Assets.MaintypeComponent),

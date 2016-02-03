@@ -12,7 +12,7 @@ namespace Assets.LevelEditor
         {
             var input = entities.SingleEntity();
 
-            var selectedPlaceable = input.placeableSelected.Value;
+            var selectedPlaceable = input.selectedPlaceable.Value;
             var tilePosition = input.position.Value;
 
             selectedPlaceable.Place(Pools.pool, tilePosition);

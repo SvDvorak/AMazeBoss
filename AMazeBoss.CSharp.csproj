@@ -140,7 +140,6 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputPlaceComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputRemoveComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PausedComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.LevelEditor.PlaceableSelectedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Preview.PreviewTilePositionChangedSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Preview.PreviewTileTypeChangedSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PreviewComponentGeneratedExtension.cs" />
@@ -148,6 +147,8 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.RemoveImpossiblyPlacedItemsSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.RemovePlaceableSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SelectPlaceableSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.SelectedPlaceableComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.SelectedPlaceablesGroupComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SetFocusPointSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.WallAdjustmentSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelLoaderSystemGeneratedExtension.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
     <Compile Include="Assets\LevelEditor\Events.cs" />
+    <Compile Include="Assets\LevelEditor\AllPlaceables.cs" />
     <Compile Include="Assets\LevelEditor\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Input\MoveCameraInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Input\RotateCameraInputSystem.cs" />
