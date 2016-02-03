@@ -26,31 +26,33 @@ public static class ComponentIds {
     public const int Item = 24;
     public const int Knocked = 25;
     public const int Input = 26;
-    public const int Paused = 27;
-    public const int PlaceableSelected = 28;
-    public const int Preview = 29;
-    public const int Levels = 30;
-    public const int Loaded = 31;
-    public const int Maintype = 32;
-    public const int MoveAnimationInfo = 33;
-    public const int MovesInARow = 34;
-    public const int Position = 35;
-    public const int QueueActing = 36;
-    public const int QueuedPosition = 37;
-    public const int Resource = 38;
-    public const int Rotation = 39;
-    public const int SavedFocusPoint = 40;
-    public const int SpikesCarried = 41;
-    public const int Spikes = 42;
-    public const int SpikeTrap = 43;
-    public const int Subtype = 44;
-    public const int Tile = 45;
-    public const int TileTemplates = 46;
-    public const int TrapActivated = 47;
-    public const int View = 48;
-    public const int ViewOffset = 49;
+    public const int InputPlace = 27;
+    public const int InputRemove = 28;
+    public const int Paused = 29;
+    public const int PlaceableSelected = 30;
+    public const int Preview = 31;
+    public const int Levels = 32;
+    public const int Loaded = 33;
+    public const int Maintype = 34;
+    public const int MoveAnimationInfo = 35;
+    public const int MovesInARow = 36;
+    public const int Position = 37;
+    public const int QueueActing = 38;
+    public const int QueuedPosition = 39;
+    public const int Resource = 40;
+    public const int Rotation = 41;
+    public const int SavedFocusPoint = 42;
+    public const int SpikesCarried = 43;
+    public const int Spikes = 44;
+    public const int SpikeTrap = 45;
+    public const int Subtype = 46;
+    public const int Tile = 47;
+    public const int TileTemplates = 48;
+    public const int TrapActivated = 49;
+    public const int View = 50;
+    public const int ViewOffset = 51;
 
-    public const int TotalComponents = 50;
+    public const int TotalComponents = 52;
 
     public static readonly string[] componentNames = {
         "ActingTime",
@@ -80,6 +82,8 @@ public static class ComponentIds {
         "Item",
         "Knocked",
         "Input",
+        "InputPlace",
+        "InputRemove",
         "Paused",
         "PlaceableSelected",
         "Preview",
@@ -133,6 +137,8 @@ public static class ComponentIds {
         typeof(Assets.ItemComponent),
         typeof(Assets.KnockedComponent),
         typeof(Assets.LevelEditor.InputComponent),
+        typeof(Assets.LevelEditor.InputPlaceComponent),
+        typeof(Assets.LevelEditor.InputRemoveComponent),
         typeof(Assets.LevelEditor.PausedComponent),
         typeof(Assets.LevelEditor.PlaceableSelectedComponent),
         typeof(Assets.LevelEditor.PreviewComponent),

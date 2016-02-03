@@ -1,35 +1,26 @@
-﻿using Entitas;
+﻿using System.Collections.Generic;
+using Entitas;
 
 namespace Assets.LevelEditor
 {
-    public class RemovePlaceableSystem : IExecuteSystem, ISetPool
+    public class RemovePlaceableSystem : IReactiveSystem, ISetPool, IEnsureComponents
     {
         private Pool _pool;
+
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.InputRemove, Matcher.Position).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return Matcher.Input; } }
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
         }
 
-        public void Execute()
+        public void Execute(List<Entity> entities)
         {
-            if (_pool.isPaused)
-            {
-                return;
-            }
-
-            var input = _pool.inputEntity;
-            if (!input.hasPosition)
-            {
-                return;
-            }
-
+            var input = entities.SingleEntity();
             var tilePosition = input.position.Value;
 
-            if (UnityEngine.Input.GetMouseButtonDown(1))
-            {
-                RemoveTile(tilePosition);
-            }
+            RemoveTile(tilePosition);
         }
 
         private void RemoveTile(TilePos tilePos)

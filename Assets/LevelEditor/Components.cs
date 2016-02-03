@@ -23,4 +23,14 @@ namespace Assets.LevelEditor
     public class PreviewComponent : IComponent
     {
     }
+
+    [SingleEntity]
+    public class InputPlaceComponent : IComponent
+    {
+    }
+
+    [SingleEntity]
+    public class InputRemoveComponent : IComponent
+    {
+    }
 }

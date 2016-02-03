@@ -1,36 +1,21 @@
-﻿using Entitas;
+﻿using System.Collections.Generic;
+using Entitas;
 
 namespace Assets.LevelEditor
 {
-    public class PutDownPlaceableSystem : IExecuteSystem, ISetPool
+    public class PutDownPlaceableSystem : IReactiveSystem, IEnsureComponents
     {
-        private Pool _pool;
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.InputPlace, Matcher.Position).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return Matcher.Input; } }
 
-        public void SetPool(Pool pool)
+        public void Execute(List<Entity> entities)
         {
-            _pool = pool;
-        }
-
-        public void Execute()
-        {
-            if (_pool.isPaused)
-            {
-                return;
-            }
-
-            var input = _pool.inputEntity;
-            if (!input.hasPlaceableSelected || !input.hasPosition)
-            {
-                return;
-            }
+            var input = entities.SingleEntity();
 
             var selectedPlaceable = input.placeableSelected.Value;
             var tilePosition = input.position.Value;
 
-            if (UnityEngine.Input.GetMouseButtonDown(0))
-            {
-                selectedPlaceable.Place(Pools.pool, tilePosition);
-            }
+            selectedPlaceable.Place(Pools.pool, tilePosition);
         }
     }
 }
