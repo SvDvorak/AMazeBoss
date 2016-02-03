@@ -21,7 +21,7 @@ namespace Assets
             {
                 var pushedToPosition = box.position.Value + box.knocked.FromDirection;
                 var entitiesInFront = _pool.GetEntitiesAt(pushedToPosition).ToList();
-                var blockingAtNewPosition = !entitiesInFront.Any() || entitiesInFront.Any(x => x.isBlockingTile);
+                var blockingAtNewPosition = !entitiesInFront.Any() || entitiesInFront.Any(x => x.isBlockingTile || x.isHero);
                 if (!blockingAtNewPosition)
                 {
                     box.ReplacePosition(pushedToPosition);
