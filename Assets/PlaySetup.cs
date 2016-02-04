@@ -75,6 +75,9 @@ namespace Assets
                 .Add(pool.CreateMoveAndRotateCameraSystem())
                 .AddAnimationSystems(pool)
 
+            // Level-handling
+                .Add(pool.CreateLevelClearedSystem())
+
             // Destroy
                 .Add(pool.CreateCleanupSystem())
                 .Add(pool.CreateDestroySystem());

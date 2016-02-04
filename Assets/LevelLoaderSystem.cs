@@ -18,35 +18,22 @@ namespace Assets
         }
     }
 
-    public class LevelLoaderSystem : IInitializeSystem, IReactiveSystem, ISetPool
+    public class LevelClearedSystem : IReactiveSystem, ISetPool
     {
-        private Pool _pool;
-
         public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Boss, Matcher.Health).OnEntityAdded(); } }
+
+        private Pool _pool;
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
         }
 
-        public void Initialize()
-        {
-            var levelPath = PlaySetup.LevelPath;
-
-            if (string.IsNullOrEmpty(levelPath))
-            {
-                levelPath = _pool.levels.Value.First();
-                PlaySetup.LevelPath = levelPath;
-            }
-
-            FileOperations.FileOperations.Load(levelPath);
-        }
-
         public void Execute(List<Entity> entities)
         {
             var boss = entities.SingleEntity();
 
-            if (boss.health.Value <= 0 && !PlaySetup.FromEditor)
+            if (boss.health.Value <= 0)
             {
                 PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
                 SceneManager.LoadScene("Play");
@@ -64,6 +51,29 @@ namespace Assets
             {
                 throw new Exception("Unable to find level after " + path);
             }
+        }
+    }
+
+    public class LevelLoaderSystem : IInitializeSystem, ISetPool
+    {
+        private Pool _pool;
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
+
+        public void Initialize()
+        {
+            var levelPath = PlaySetup.LevelPath;
+
+            if (string.IsNullOrEmpty(levelPath))
+            {
+                levelPath = _pool.levels.Value.First();
+                PlaySetup.LevelPath = levelPath;
+            }
+
+            FileOperations.FileOperations.Load(levelPath);
         }
     }
 }

@@ -130,6 +130,7 @@
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.KnockBoxSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.KnockedComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelClearedSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MouseInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MoveCameraInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.RotateCameraInputSystemGeneratedExtension.cs" />
