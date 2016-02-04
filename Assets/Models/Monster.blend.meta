@@ -106,6 +106,7 @@ ModelImporter:
     100196: Cube_001
     100198: Cube_002
     100200: Midel_leg_L
+    100202: Icosphere
     400000: Armature
     400002: Bone
     400004: Bottom
@@ -207,19 +208,23 @@ ModelImporter:
     400196: Cube_001
     400198: Cube_002
     400200: Midel_leg_L
+    400202: Icosphere
     2300000: Cube
     2300002: Hero
     2300004: Cube_001
     2300006: Cube_002
+    2300008: Icosphere
     3300000: Cube
     3300002: Hero
     3300004: Cube_001
     3300006: Cube_002
+    3300008: Icosphere
     4300000: Hero
     4300002: Cube
     4300004: Monster
     4300006: Cube_002
     4300008: Cube_001
+    4300010: Icosphere
     7400000: Default Take
     7400002: ArmatureAction
     7400004: Idle
@@ -257,7 +262,7 @@ ModelImporter:
       name: Standing_still
       takeName: Standing_still
       firstFrame: -1
-      lastFrame: 33
+      lastFrame: 43
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
