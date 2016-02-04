@@ -33,7 +33,6 @@ namespace Assets
         public void Execute(List<Entity> entities)
         {
             var boss = entities.SingleEntity();
-
             if (boss.health.Value <= 0)
             {
                 PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
@@ -55,14 +54,30 @@ namespace Assets
         }
     }
 
-    public class LevelRestartSystem : IExecuteSystem
+    public class LevelRestartSystem : IExecuteSystem, IReactiveSystem
     {
         public void Execute()
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.R))
             {
-                SceneManager.LoadScene("Play");
+                Restart();
             }
+        }
+
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Hero, Matcher.Health).OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            var hero = entities.SingleEntity();
+            if (hero.health.Value <= 0)
+            {
+                Restart();
+            }
+        }
+
+        private static void Restart()
+        {
+            SceneManager.LoadScene("Play");
         }
     }
 
