@@ -49,6 +49,7 @@ namespace Assets
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Input
+                .Add(pool.CreateLevelRestartSystem())
                 .Add(pool.CreateReturnToEditorSystem())
                 .Add(pool.CreateRotateCameraInputSystem())
                 .Add(pool.CreateHeroInputSystem())

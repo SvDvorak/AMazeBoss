@@ -54,6 +54,17 @@ namespace Assets
         }
     }
 
+    public class LevelRestartSystem : IExecuteSystem
+    {
+        public void Execute()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene("Play");
+            }
+        }
+    }
+
     public class LevelLoaderSystem : IInitializeSystem, ISetPool
     {
         private Pool _pool;
