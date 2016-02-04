@@ -36,6 +36,7 @@ namespace Assets.LevelEditor
     public enum ItemType
     {
         Spikes,
+        PillarTrap,
         Hero,
         Boss,
         Box

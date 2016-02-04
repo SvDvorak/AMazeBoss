@@ -27,12 +27,6 @@ namespace Assets
         public int Moves;
     }
 
-    public class MoveAnimationInfoComponent : IComponent
-    {
-        public Ease Ease;
-        public float Time;
-    }
-
     public class ViewOffsetComponent : IComponent
     {
         public Vector3 Value;

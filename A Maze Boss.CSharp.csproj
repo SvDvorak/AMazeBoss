@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -132,14 +134,17 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MoveCameraInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.RotateCameraInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.InputComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.InputPlaceComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.InputRemoveComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PausedComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.LevelEditor.PlaceableSelectedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Preview.PreviewTilePositionChangedSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Preview.PreviewTileTypeChangedSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PreviewComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.PutDownPlaceableSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.RemoveImpossiblyPlacedItemsSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.RemovePlaceableSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.SelectedPlaceableComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelEditor.SelectedPlaceablesGroupComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SelectPlaceableSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SetFocusPointSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.WallAdjustmentSystemGeneratedExtension.cs" />
@@ -147,7 +152,6 @@
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LoadedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.MoveAnimationInfoComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.NextTurnSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
@@ -192,11 +196,14 @@
     <Compile Include="Assets\Input\HeroInputSystem.cs" />
     <Compile Include="Assets\Input\PerformInputQueueSystem.cs" />
     <Compile Include="Assets\KnockBoxSystem.cs" />
+    <Compile Include="Assets\LevelEditor\AllPlaceables.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
     <Compile Include="Assets\LevelEditor\Events.cs" />
     <Compile Include="Assets\LevelEditor\Input\MouseInputSystem.cs" />
+    <Compile Include="Assets\LevelEditor\Input\MoveCameraInputSystem.cs" />
+    <Compile Include="Assets\LevelEditor\Input\RotateCameraInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />
     <Compile Include="Assets\LevelEditor\Placeables\Item.cs" />
@@ -248,7 +255,6 @@
     <Compile Include="Assets\Libraries\Entitas\Pool.cs" />
     <Compile Include="Assets\Libraries\Entitas\ReactiveSystem.cs" />
     <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
-    <Compile Include="Assets\MoveStyleBehaviorConfigurer.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
     <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />
