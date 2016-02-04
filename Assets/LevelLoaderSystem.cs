@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.FileOperations;
 using Entitas;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -76,15 +77,16 @@ namespace Assets
 
         public void Initialize()
         {
-            var levelPath = PlaySetup.LevelPath;
+            var levelName = PlaySetup.LevelPath;
 
-            if (string.IsNullOrEmpty(levelPath))
+            if (string.IsNullOrEmpty(levelName))
             {
-                levelPath = _pool.levels.Value.First();
-                PlaySetup.LevelPath = levelPath;
+                levelName = _pool.levels.Value.First();
+                PlaySetup.LevelPath = levelName;
             }
 
-            FileOperations.FileOperations.Load(levelPath);
+            var level = Resources.Load("Levels/" + levelName) as TextAsset;
+            LevelParser.ReadLevelData(level.text);
         }
     }
 }
