@@ -85,6 +85,7 @@
     <Compile Include="Assets\FileOperations\DescriptorResolver.cs" />
     <Compile Include="Assets\FileOperations\FileMap.cs" />
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
+    <Compile Include="Assets\FileOperations\LevelParser.cs" />
     <Compile Include="Assets\GameObjectConfigurer.cs" />
     <Compile Include="Assets\GameObjectExtensions.cs" />
     <Compile Include="Assets\Generated\Assets.ActingTimeComponentGeneratedExtension.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Assets\Generated\Assets.ItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.KnockBoxSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.KnockedComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelClearedSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MouseInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.MoveCameraInputSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.Input.RotateCameraInputSystemGeneratedExtension.cs" />
@@ -145,10 +147,10 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.SetFocusPointSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.WallAdjustmentSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelLoaderSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelRestartSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LoadedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.MoveAnimationInfoComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.NextTurnSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PlayerRestartSystemGeneratedExtension.cs" />
@@ -254,7 +256,6 @@
     <Compile Include="Assets\Libraries\Entitas\Pool.cs" />
     <Compile Include="Assets\Libraries\Entitas\ReactiveSystem.cs" />
     <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
-    <Compile Include="Assets\MoveStyleBehaviorConfigurer.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
     <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />
