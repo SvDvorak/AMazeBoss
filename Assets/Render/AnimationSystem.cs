@@ -14,7 +14,7 @@ namespace Assets.Render
 
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
-        private const float MoveTime = 0.5f;
+        private const float MoveTime = 0.4f;
 
         public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.View, Matcher.Position).OnEntityAdded(); } }
         public IMatcher ensureComponents { get { return Matcher.AnyOf(Matcher.Hero, Matcher.Boss); } }
