@@ -19,11 +19,12 @@ namespace Assets
         }
     }
 
-    public class LevelClearedSystem : IReactiveSystem, ISetPool
+    public class LevelClearedSystem : IReactiveSystem, ISetPool, IEnsureComponents
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Boss, Matcher.Health).OnEntityAdded(); } }
-
         private Pool _pool;
+
+        public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Boss, Matcher.Health); } }
 
         public void SetPool(Pool pool)
         {
@@ -54,7 +55,7 @@ namespace Assets
         }
     }
 
-    public class LevelRestartSystem : IExecuteSystem, IReactiveSystem
+    public class LevelRestartSystem : IExecuteSystem, IReactiveSystem, IEnsureComponents
     {
         public void Execute()
         {
@@ -64,12 +65,13 @@ namespace Assets
             }
         }
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Hero, Matcher.Health).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Hero, Matcher.Health); } }
 
         public void Execute(List<Entity> entities)
         {
             var hero = entities.SingleEntity();
-            if (hero.health.Value <= 0)
+            if (hero.health.Value <= 0 && !hero.IsActing())
             {
                 Restart();
             }

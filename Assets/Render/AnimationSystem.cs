@@ -170,4 +170,20 @@ namespace Assets.Render
             transform.position = new Vector3(position.x, Mathf.Sin((angles.x % 90 + 45) * Mathf.Deg2Rad) + _startHeight, position.z);
         }
     }
+
+    public class DeathAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        private const float DeathTime = 4;
+
+        public TriggerOnEvent trigger { get { return Matcher.Health.OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var killable in entities.Where(x => x.health.Value == 0))
+            {
+                var animator = killable.animator.Value;
+                killable.AddQueueActing(DeathTime, () => animator.SetTrigger("Killed"));
+            }
+        }
+    }
 }

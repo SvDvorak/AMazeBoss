@@ -158,6 +158,7 @@
     <Compile Include="Assets\Generated\Assets.Render.AddViewSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.BoxKnockAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.CurseSwitchActivatedAnimationSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.DeathAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.HealthChangedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.MoveAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.PreviewMaterialChangeSystemGeneratedExtension.cs" />

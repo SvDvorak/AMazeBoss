@@ -154,6 +154,14 @@ namespace Assets
         public Action Action;
     }
 
+    public static class ActingEntityExtensions
+    {
+        public static bool IsActing(this Entity entity)
+        {
+            return entity.hasActingTime || entity.hasQueueActing;
+        }
+    }
+
     public class AnimatorComponent : IComponent
     {
         public Animator Value;

@@ -95,7 +95,8 @@ namespace Assets
                 .Add(pool.CreateTrapActivatedAnimationSystem())
                 .Add(pool.CreateCurseSwitchActivatedAnimationSystem())
                 .Add(pool.CreateHealthChangedAnimationSystem())
-                .Add(pool.CreateBoxKnockAnimationSystem());
+                .Add(pool.CreateBoxKnockAnimationSystem())
+                .Add(pool.CreateDeathAnimationSystem());
         }
     }
 }
