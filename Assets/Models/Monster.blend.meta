@@ -227,7 +227,7 @@ ModelImporter:
     4300006: Cube_002
     4300008: Cube_001
     4300010: Icosphere
-    7400000: Default Take
+    7400000: Death
     7400002: ArmatureAction
     7400004: Idle
     7400006: Jump
@@ -236,7 +236,6 @@ ModelImporter:
     7400012: Standing_still
     7400014: Pushing
     7400016: Jumping__Faster
-    7400018: Uncursed_Animation
     9500000: //RootNode
     13700000: Hero
     13700002: Monster
@@ -705,10 +704,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Uncursed_Animation
-      takeName: Uncursed_Animation
+      name: Death
+      takeName: Death
       firstFrame: -1
-      lastFrame: 18
+      lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -732,12 +731,6 @@ ModelImporter:
       - path: 
         weight: 1
       - path: Armature
-        weight: 1
-      - path: Armature_001
-        weight: 1
-      - path: Armature_001/Bone
-        weight: 1
-      - path: Icosphere
         weight: 1
       - path: Monster
         weight: 1

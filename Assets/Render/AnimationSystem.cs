@@ -173,7 +173,7 @@ namespace Assets.Render
 
     public class DeathAnimationSystem : AnimationSystem, IReactiveSystem
     {
-        private const float DeathTime = 4;
+        private const float DeathTime = 3;
 
         public TriggerOnEvent trigger { get { return Matcher.Health.OnEntityAdded(); } }
 
