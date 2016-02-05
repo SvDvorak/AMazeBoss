@@ -182,7 +182,32 @@ namespace Assets.Render
             foreach (var killable in entities.Where(x => x.health.Value == 0))
             {
                 var animator = killable.animator.Value;
-                killable.AddQueueActing(DeathTime, () => animator.SetTrigger("Killed"));
+                animator.SetTrigger("Killed");
+                killable.ReplaceActingTime(DeathTime);
+            }
+        }
+    }
+
+    public class CurseAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        private const float CurseAnimationTime = 2;
+        private bool _initialCallDone = false;
+
+        public TriggerOnEvent trigger { get { return Matcher.Cursed.OnEntityAddedOrRemoved(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            if (!_initialCallDone)
+            {
+                _initialCallDone = true;
+                return;
+            }
+
+            foreach (var cursed in entities.Where(x => x.health.Value > 0))
+            {
+                var animator = cursed.animator.Value;
+                animator.SetBool("IsCursed", cursed.isCursed);
+                cursed.AddActingTime(CurseAnimationTime);
             }
         }
     }
