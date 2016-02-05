@@ -14,7 +14,7 @@ namespace Assets.Render
 
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
-        private const float MoveTime = 0.4f;
+        private const float MoveTime = 0.45f;
 
         public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.View, Matcher.Position).OnEntityAdded(); } }
         public IMatcher ensureComponents { get { return Matcher.AnyOf(Matcher.Hero, Matcher.Boss); } }
@@ -190,8 +190,8 @@ namespace Assets.Render
 
     public class CurseAnimationSystem : AnimationSystem, IReactiveSystem
     {
-        private const float CurseAnimationTime = 2;
-        private bool _initialCallDone = false;
+        private const float CurseAnimationTime = 1.1f;
+        private bool _initialCallDone;
 
         public TriggerOnEvent trigger { get { return Matcher.Cursed.OnEntityAddedOrRemoved(); } }
 
