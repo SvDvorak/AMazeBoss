@@ -23,7 +23,7 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
         public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Boss, Matcher.Health); } }
 
         public void SetPool(Pool pool)
@@ -34,7 +34,7 @@ namespace Assets
         public void Execute(List<Entity> entities)
         {
             var boss = entities.SingleEntity();
-            if (boss.health.Value <= 0)
+            if (boss.health.Value <= 0 && !boss.IsActing())
             {
                 PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
                 SceneManager.LoadScene("Play");
