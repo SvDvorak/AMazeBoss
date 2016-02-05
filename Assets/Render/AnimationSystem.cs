@@ -77,8 +77,8 @@ namespace Assets.Render
             {
                 var animator = entity.animator.Value;
                 DOTween.Sequence()
-                    .AppendInterval(TrapActivateTime)
-                    .OnStart(() => animator.SetTrigger("Activated"));
+                    .AppendInterval(TrapActivateTime/2)
+                    .OnComplete(() => animator.SetTrigger("Activated"));
                 entity.ReplaceActingTime(TrapActivateTime);
             }
         }
