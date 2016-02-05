@@ -55,16 +55,19 @@ namespace Assets
         }
     }
 
-    public class LevelRestartSystem : IExecuteSystem, IReactiveSystem, IEnsureComponents
+    public class PlayerRestartSystem : IExecuteSystem
     {
         public void Execute()
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.R))
             {
-                Restart();
+                SceneManager.LoadScene("Play");
             }
         }
+    }
 
+    public class LevelRestartSystem : IReactiveSystem, IEnsureComponents
+    {
         public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
         public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Hero, Matcher.Health); } }
 
@@ -73,13 +76,8 @@ namespace Assets
             var hero = entities.SingleEntity();
             if (hero.health.Value <= 0 && !hero.IsActing())
             {
-                Restart();
+                SceneManager.LoadScene("Play");
             }
-        }
-
-        private static void Restart()
-        {
-            SceneManager.LoadScene("Play");
         }
     }
 
