@@ -259,6 +259,7 @@
     <Compile Include="Assets\Libraries\Entitas\Pool.cs" />
     <Compile Include="Assets\Libraries\Entitas\ReactiveSystem.cs" />
     <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
+    <Compile Include="Assets\LoadSceneAfterDelay.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
     <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />

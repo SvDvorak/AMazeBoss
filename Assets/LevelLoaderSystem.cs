@@ -36,8 +36,15 @@ namespace Assets
             var boss = entities.SingleEntity();
             if (boss.health.Value <= 0 && !boss.IsActing())
             {
-                PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
-                SceneManager.LoadScene("Play");
+                try
+                {
+                    PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
+                    SceneManager.LoadScene("Play");
+                }
+                catch (Exception)
+                {
+                    SceneManager.LoadScene("gameover");
+                }
             }
         }
 
