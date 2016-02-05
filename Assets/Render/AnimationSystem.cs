@@ -14,7 +14,7 @@ namespace Assets.Render
 
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
-        private const float MoveTime = 0.5f;
+        private const float MoveTime = 0.4f;
 
         public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.View, Matcher.Position).OnEntityAdded(); } }
         public IMatcher ensureComponents { get { return Matcher.AnyOf(Matcher.Hero, Matcher.Boss); } }
@@ -140,7 +140,7 @@ namespace Assets.Render
             Action animationAction = () =>
                 {
                     StartAnimation(transform, moveDirection, time);
-                    cameraView.transform.DOShakeRotation(0.3f, 3, 20, 3);
+                    cameraView.transform.DOShakeRotation(0.3f, 1, 20, 3);
                 };
 
             if (entity.knocked.Immediate)
@@ -168,6 +168,22 @@ namespace Assets.Render
             var angles = transform.rotation.eulerAngles;
             var position = transform.position;
             transform.position = new Vector3(position.x, Mathf.Sin((angles.x % 90 + 45) * Mathf.Deg2Rad) + _startHeight, position.z);
+        }
+    }
+
+    public class DeathAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        private const float DeathTime = 4;
+
+        public TriggerOnEvent trigger { get { return Matcher.Health.OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var killable in entities.Where(x => x.health.Value == 0))
+            {
+                var animator = killable.animator.Value;
+                killable.AddQueueActing(DeathTime, () => animator.SetTrigger("Killed"));
+            }
         }
     }
 }

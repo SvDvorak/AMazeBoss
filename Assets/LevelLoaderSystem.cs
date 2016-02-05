@@ -19,11 +19,12 @@ namespace Assets
         }
     }
 
-    public class LevelClearedSystem : IReactiveSystem, ISetPool
+    public class LevelClearedSystem : IReactiveSystem, ISetPool, IEnsureComponents
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Boss, Matcher.Health).OnEntityAdded(); } }
-
         private Pool _pool;
+
+        public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Boss, Matcher.Health); } }
 
         public void SetPool(Pool pool)
         {
@@ -33,7 +34,7 @@ namespace Assets
         public void Execute(List<Entity> entities)
         {
             var boss = entities.SingleEntity();
-            if (boss.health.Value <= 0)
+            if (boss.health.Value <= 0 && !boss.IsActing())
             {
                 PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
                 SceneManager.LoadScene("Play");
@@ -54,30 +55,29 @@ namespace Assets
         }
     }
 
-    public class LevelRestartSystem : IExecuteSystem, IReactiveSystem
+    public class PlayerRestartSystem : IExecuteSystem
     {
         public void Execute()
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.R))
             {
-                Restart();
+                SceneManager.LoadScene("Play");
             }
         }
+    }
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Hero, Matcher.Health).OnEntityAdded(); } }
+    public class LevelRestartSystem : IReactiveSystem, IEnsureComponents
+    {
+        public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Hero, Matcher.Health); } }
 
         public void Execute(List<Entity> entities)
         {
             var hero = entities.SingleEntity();
-            if (hero.health.Value <= 0)
+            if (hero.health.Value <= 0 && !hero.IsActing())
             {
-                Restart();
+                SceneManager.LoadScene("Play");
             }
-        }
-
-        private static void Restart()
-        {
-            SceneManager.LoadScene("Play");
         }
     }
 

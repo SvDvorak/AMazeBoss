@@ -49,7 +49,7 @@ namespace Assets
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Input
-                .Add(pool.CreateLevelRestartSystem())
+                .Add(pool.CreatePlayerRestartSystem())
                 .Add(pool.CreateReturnToEditorSystem())
                 .Add(pool.CreateRotateCameraInputSystem())
                 .Add(pool.CreateHeroInputSystem())
@@ -78,6 +78,7 @@ namespace Assets
 
             // Level-handling
                 .Add(pool.CreateLevelClearedSystem())
+                .Add(pool.CreateLevelRestartSystem())
 
             // Destroy
                 .Add(pool.CreateCleanupSystem())
@@ -95,7 +96,8 @@ namespace Assets
                 .Add(pool.CreateTrapActivatedAnimationSystem())
                 .Add(pool.CreateCurseSwitchActivatedAnimationSystem())
                 .Add(pool.CreateHealthChangedAnimationSystem())
-                .Add(pool.CreateBoxKnockAnimationSystem());
+                .Add(pool.CreateBoxKnockAnimationSystem())
+                .Add(pool.CreateDeathAnimationSystem());
         }
     }
 }
