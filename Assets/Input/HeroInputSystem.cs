@@ -38,7 +38,7 @@ namespace Assets.Input
             Action inputAction = null;
             if (hasMoved)
             {
-                if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+                if (UnityEngine.Input.GetKey(KeyCode.LeftControl))
                 {
                     inputAction = () => hero.ReplaceInputPullItem(inputMoveDirection);
                 }
@@ -47,11 +47,11 @@ namespace Assets.Input
                     inputAction = () => hero.ReplaceInputMove(inputMoveDirection);
                 }
             }
-            if(UnityEngine.Input.GetKeyDown(KeyCode.Space))
+            if(UnityEngine.Input.GetKeyDown(KeyCode.LeftShift))
             {
                 inputAction = () => hero.IsInputItemInteract(true);
             }
-            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftControl))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
             {
                 inputAction = () => hero.IsInputCurseSwitch(true);
             }

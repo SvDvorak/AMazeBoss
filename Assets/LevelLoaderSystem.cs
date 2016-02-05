@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.FileOperations;
 using Entitas;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,35 +19,21 @@ namespace Assets
         }
     }
 
-    public class LevelLoaderSystem : IInitializeSystem, IReactiveSystem, ISetPool
+    public class LevelClearedSystem : IReactiveSystem, ISetPool
     {
-        private Pool _pool;
-
         public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Boss, Matcher.Health).OnEntityAdded(); } }
+
+        private Pool _pool;
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
         }
 
-        public void Initialize()
-        {
-            var levelPath = PlaySetup.LevelPath;
-
-            if (string.IsNullOrEmpty(levelPath))
-            {
-                levelPath = _pool.levels.Value.First();
-                PlaySetup.LevelPath = levelPath;
-            }
-
-            FileOperations.FileOperations.Load(levelPath);
-        }
-
         public void Execute(List<Entity> entities)
         {
             var boss = entities.SingleEntity();
-
-            if (boss.health.Value <= 0 && !PlaySetup.FromEditor)
+            if (boss.health.Value <= 0)
             {
                 PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
                 SceneManager.LoadScene("Play");
@@ -64,6 +51,57 @@ namespace Assets
             {
                 throw new Exception("Unable to find level after " + path);
             }
+        }
+    }
+
+    public class LevelRestartSystem : IExecuteSystem, IReactiveSystem
+    {
+        public void Execute()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.R))
+            {
+                Restart();
+            }
+        }
+
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Hero, Matcher.Health).OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            var hero = entities.SingleEntity();
+            if (hero.health.Value <= 0)
+            {
+                Restart();
+            }
+        }
+
+        private static void Restart()
+        {
+            SceneManager.LoadScene("Play");
+        }
+    }
+
+    public class LevelLoaderSystem : IInitializeSystem, ISetPool
+    {
+        private Pool _pool;
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
+
+        public void Initialize()
+        {
+            var levelName = PlaySetup.LevelPath;
+
+            if (string.IsNullOrEmpty(levelName))
+            {
+                levelName = _pool.levels.Value.First();
+                PlaySetup.LevelPath = levelName;
+            }
+
+            var level = Resources.Load("Levels/" + levelName) as TextAsset;
+            LevelParser.ReadLevelData(level.text);
         }
     }
 }
