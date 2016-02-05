@@ -56,11 +56,17 @@ namespace Assets.LevelEditor
 
         public WallAdjustmentSystem()
         {
-            _connections.Add("1010", new ConnectionSet("straight", 0));
-            _connections.Add("0010", new ConnectionSet("end", 0));
-            _connections.Add("1100", new ConnectionSet("curved", 0));
-            _connections.Add("1110", new ConnectionSet("t", 0));
+            AddUniqueConnection("1010", "straight");
+            AddUniqueConnection("0010", "end");
+            AddUniqueConnection("1100", "curved");
+            AddUniqueConnection("1110", "t");
+            AddUniqueConnection("1111", "x");
             _connections.ExpandUniqueConnections();
+        }
+
+        private void AddUniqueConnection(string connections, string subtypeName)
+        {
+            _connections.Add(connections, new ConnectionSet(subtypeName, 0));
         }
 
         public void SetPool(Pool pool)
