@@ -140,7 +140,7 @@ namespace Assets.Render
             Action animationAction = () =>
                 {
                     StartAnimation(transform, moveDirection, time);
-                    cameraView.transform.DOShakeRotation(0.3f, 3, 20, 3);
+                    cameraView.transform.DOShakeRotation(0.3f, 1, 20, 3);
                 };
 
             if (entity.knocked.Immediate)
