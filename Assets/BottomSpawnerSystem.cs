@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 
 namespace Assets
 {
@@ -27,6 +28,7 @@ namespace Assets
             _pool.CreateEntity()
                 .SetParent(entity)
                 .ReplacePosition(entity.position.Value)
+                .ReplaceRotation(Random.Range(0, 4))
                 .ReplaceResource("Bottoms/Empty");
         }
     }
