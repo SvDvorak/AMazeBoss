@@ -64,6 +64,9 @@ ModelImporter:
     100112: Cube_001
     100114: Sides_001
     100116: Sides_002
+    100118: Armature_001
+    100120: Bone_0
+    100122: Icosphere
     400000: //RootNode
     400002: Armature
     400004: Bottom
@@ -123,6 +126,9 @@ ModelImporter:
     400112: Cube_001
     400114: Sides_001
     400116: Sides_002
+    400118: Armature_001
+    400120: Bone_0
+    400122: Icosphere
     2300000: //RootNode
     2300002: Hero
     2300004: Cube
@@ -140,6 +146,7 @@ ModelImporter:
     4300004: Cube_001
     4300006: Sides_002
     4300008: Sides_001
+    4300010: Icosphere
     7400000: Default Take
     7400002: ArmatureAction
     7400004: Jumping
@@ -151,6 +158,7 @@ ModelImporter:
     7400016: Draging
     9500000: //RootNode
     13700000: Hero
+    13700002: Icosphere
   materials:
     importMaterials: 1
     materialName: 0

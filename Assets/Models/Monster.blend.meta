@@ -107,6 +107,7 @@ ModelImporter:
     100198: Cube_002
     100200: Midel_leg_L
     100202: Icosphere
+    100204: Armature_001
     400000: Armature
     400002: Bone
     400004: Bottom
@@ -209,6 +210,7 @@ ModelImporter:
     400198: Cube_002
     400200: Midel_leg_L
     400202: Icosphere
+    400204: Armature_001
     2300000: Cube
     2300002: Hero
     2300004: Cube_001
@@ -237,6 +239,7 @@ ModelImporter:
     9500000: //RootNode
     13700000: Hero
     13700002: Monster
+    13700004: Icosphere
   materials:
     importMaterials: 1
     materialName: 0
