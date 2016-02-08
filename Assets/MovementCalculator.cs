@@ -23,7 +23,7 @@ namespace Assets
 
     public class Path
     {
-        public float Cost { get; private set; }
+        public int Cost { get; private set; }
         public List<Step> Steps { get; private set; }
 
         public Path(TilePos initialPosition, TilePos initialDirection)
@@ -32,13 +32,13 @@ namespace Assets
             Steps = new List<Step> { new Step(initialPosition, initialDirection) };
         }
 
-        protected Path(Path path, float cost, TilePos position, TilePos direction)
+        protected Path(Path path, int cost, TilePos position, TilePos direction)
         {
-            Cost = path.Cost + cost;
+            Cost = cost;
             Steps = path.Steps.Concat(new[] { new Step(position, direction) }).ToList();
         }
 
-        public Path Branch(float cost, TilePos position, TilePos direction)
+        public Path Branch(int cost, TilePos position, TilePos direction)
         {
             return new Path(this, cost, position, direction);
         }
@@ -155,7 +155,7 @@ namespace Assets
         private void AddNewPathToContinue(TilePos pos, TilePos moveDirection, Path path)
         {
             var rotationDifference = path.GetRotationDifference(moveDirection);
-            var stepCost = (_targetPosition - pos).ManhattanDistance() + rotationDifference;
+            var stepCost = path.Steps.Count + 1 + rotationDifference;
             _pathsToContinue.Add(path.Branch(stepCost, pos, moveDirection));
         }
 
