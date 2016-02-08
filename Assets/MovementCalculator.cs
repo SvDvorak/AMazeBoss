@@ -55,14 +55,10 @@ namespace Assets
             return Steps[Steps.Count - 1].Position;
         }
 
-        private int GetLastRotation()
-        {
-            return DirectionRotationConverter.ToRotation(Steps[Steps.Count - 1].Direction);
-        }
-
         public int GetRotationDifference(TilePos direction)
         {
-            return Mathf.Abs(DirectionRotationConverter.ToRotation(direction) - GetLastRotation());
+            var lastDirection = Steps[Steps.Count - 1].Direction;
+            return lastDirection.RotationDifference(direction);
         }
     }
 
