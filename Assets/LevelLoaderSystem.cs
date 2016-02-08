@@ -111,4 +111,12 @@ namespace Assets
             LevelParser.ReadLevelData(level.text);
         }
     }
+
+    public class EditorTestLevelLoaderSystem : IInitializeSystem
+    {
+        public void Initialize()
+        {
+            FileOperations.FileOperations.Load(PlaySetup.LevelPath);
+        }
+    }
 }

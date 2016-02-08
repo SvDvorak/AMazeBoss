@@ -110,6 +110,7 @@
     <Compile Include="Assets\Generated\Assets.DestroySystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DynamicComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.EditorTestLevelLoaderSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.FocusPointComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthVisualComponentGeneratedExtension.cs" />

@@ -45,7 +45,7 @@ namespace Assets
         return new Systems()
 #endif
             // Initialize
-                .Add(pool.CreateLevelLoaderSystem())
+                .Add(FromEditor ? pool.CreateEditorTestLevelLoaderSystem() : pool.CreateLevelLoaderSystem())
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Input
