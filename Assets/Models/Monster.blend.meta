@@ -238,6 +238,9 @@ ModelImporter:
     7400016: Jumping__Faster
     7400018: Ice_Curse_Aktiv_animation
     7400020: Ice_Curse_Deaktivate_Animation
+    7400022: Uncurse_Animation
+    7400024: Cursed_Animation
+    7400026: Objekt_block_Animation
     9500000: //RootNode
     13700000: Hero
     13700002: Monster
@@ -274,7 +277,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -290,87 +293,83 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Bone
-        weight: 1
-      - path: Cube
-        weight: 1
       - path: Monster
         weight: 1
       - path: Monster_Bone
         weight: 1
-      - path: Monster_Bone/Bottom
+      - path: Monster_Bone/Bone
         weight: 1
-      - path: Monster_Bone/Bottom/Chest
+      - path: Monster_Bone/Bone_001
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck
+      - path: Monster_Bone/Bone_001/Bottom
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck/Head
+      - path: Monster_Bone/Bone_001/Bottom/Chest
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck/Head
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
         weight: 1
-      - path: Monster_Bone/Leg_control_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L/Midel_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L/Feet_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_R
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Leg_ik_L
+      - path: Monster_Bone/Bone_001/Leg_control_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L/Feet_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R/Feet_R
+      - path: Monster_Bone/Bone_001/Leg_control_R
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Leg_ik_R
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R/Feet_R
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -378,230 +377,6 @@ ModelImporter:
     - serializedVersion: 16
       name: Jumping
       takeName: Jumping
-      firstFrame: -1
-      lastFrame: 11
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Bone
-        weight: 1
-      - path: Cube
-        weight: 1
-      - path: Monster
-        weight: 1
-      - path: Monster_Bone
-        weight: 1
-      - path: Monster_Bone/Bottom
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck/Head
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_R
-        weight: 1
-      - path: Monster_Bone/Leg_control_L
-        weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L
-        weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L/Feet_L
-        weight: 1
-      - path: Monster_Bone/Leg_control_L/Leg_ik_L
-        weight: 1
-      - path: Monster_Bone/Leg_control_R
-        weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R
-        weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R/Feet_R
-        weight: 1
-      - path: Monster_Bone/Leg_control_R/Leg_ik_R
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Jumping__Faster
-      takeName: Jumping__Faster
-      firstFrame: -1
-      lastFrame: 12
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Bone
-        weight: 1
-      - path: Cube
-        weight: 1
-      - path: Monster
-        weight: 1
-      - path: Monster_Bone
-        weight: 1
-      - path: Monster_Bone/Bottom
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck/Head
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
-        weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L
-        weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_R
-        weight: 1
-      - path: Monster_Bone/Leg_control_L
-        weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L
-        weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L/Feet_L
-        weight: 1
-      - path: Monster_Bone/Leg_control_L/Leg_ik_L
-        weight: 1
-      - path: Monster_Bone/Leg_control_R
-        weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R
-        weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R/Feet_R
-        weight: 1
-      - path: Monster_Bone/Leg_control_R/Leg_ik_R
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Pushing
-      takeName: Pushing
       firstFrame: -1
       lastFrame: 12
       wrapMode: 0
@@ -626,81 +401,83 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Armature
-        weight: 1
       - path: Monster
         weight: 1
       - path: Monster_Bone
         weight: 1
-      - path: Monster_Bone/Bottom
+      - path: Monster_Bone/Bone
         weight: 1
-      - path: Monster_Bone/Bottom/Chest
+      - path: Monster_Bone/Bone_001
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck
+      - path: Monster_Bone/Bone_001/Bottom
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck/Head
+      - path: Monster_Bone/Bone_001/Bottom/Chest
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck/Head
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L/Midel_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_R
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L/Midel_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_R
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L/Feet_L
+      - path: Monster_Bone/Bone_001/Leg_control_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L/Feet_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R/Feet_R
+      - path: Monster_Bone/Bone_001/Leg_control_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R/Feet_R
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -732,88 +509,90 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Armature
-        weight: 1
       - path: Monster
         weight: 1
       - path: Monster_Bone
         weight: 1
-      - path: Monster_Bone/Bottom
+      - path: Monster_Bone/Bone
         weight: 1
-      - path: Monster_Bone/Bottom/Chest
+      - path: Monster_Bone/Bone_001
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck
+      - path: Monster_Bone/Bone_001/Bottom
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck/Head
+      - path: Monster_Bone/Bone_001/Bottom/Chest
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck/Head
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L/Midel_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_R
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L/Midel_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_R
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L/Feet_L
+      - path: Monster_Bone/Bone_001/Leg_control_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L/Feet_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R/Feet_R
+      - path: Monster_Bone/Bone_001/Leg_control_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R/Feet_R
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Ice_Curse_Aktiv_animation
-      takeName: Ice_Curse_Aktiv_animation
+      name: Cursed_Animation
+      takeName: Cursed_Animation
       firstFrame: -1
       lastFrame: 19
       wrapMode: 0
@@ -838,96 +617,92 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature_001
-        weight: 1
-      - path: Armature_001/Bone
-        weight: 1
-      - path: Icosphere
-        weight: 1
       - path: Monster
         weight: 1
       - path: Monster_Bone
         weight: 1
-      - path: Monster_Bone/Bottom
+      - path: Monster_Bone/Bone
         weight: 1
-      - path: Monster_Bone/Bottom/Chest
+      - path: Monster_Bone/Bone_001
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck
+      - path: Monster_Bone/Bone_001/Bottom
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck/Head
+      - path: Monster_Bone/Bone_001/Bottom/Chest
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck/Head
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L/Midel_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_R
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L/Midel_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_R
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L/Feet_L
+      - path: Monster_Bone/Bone_001/Leg_control_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L/Feet_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R/Feet_R
+      - path: Monster_Bone/Bone_001/Leg_control_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R/Feet_R
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Ice_Curse_Deaktivate_Animation
-      takeName: Ice_Curse_Deaktivate_Animation
+      name: Uncurse_Animation
+      takeName: Uncurse_Animation
       firstFrame: -1
-      lastFrame: 19
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -950,87 +725,191 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Armature
+      - path: Monster
         weight: 1
-      - path: Armature_001
+      - path: Monster_Bone
         weight: 1
-      - path: Armature_001/Bone
+      - path: Monster_Bone/Bone
         weight: 1
-      - path: Icosphere
+      - path: Monster_Bone/Bone_001
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck/Head
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L/Midel_leg_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L/Feet_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R/Feet_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Objekt_block_Animation
+      takeName: Objekt_block_Animation
+      firstFrame: -1
+      lastFrame: 13
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
         weight: 1
       - path: Monster
         weight: 1
       - path: Monster_Bone
         weight: 1
-      - path: Monster_Bone/Bottom
+      - path: Monster_Bone/Bone
         weight: 1
-      - path: Monster_Bone/Bottom/Chest
+      - path: Monster_Bone/Bone_001
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck
+      - path: Monster_Bone/Bone_001/Bottom
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Neck/Head
+      - path: Monster_Bone/Bone_001/Bottom/Chest
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck/Head
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_L/Midel_leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
         weight: 1
-      - path: Monster_Bone/Bottom/Upper_leg_R
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L/Midel_leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_R
         weight: 1
-      - path: Monster_Bone/Leg_control_L/Bottom_Leg_L/Feet_L
+      - path: Monster_Bone/Bone_001/Leg_control_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L/Feet_L
         weight: 1
-      - path: Monster_Bone/Leg_control_R/Bottom_Leg_R/Feet_R
+      - path: Monster_Bone/Bone_001/Leg_control_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R/Feet_R
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
