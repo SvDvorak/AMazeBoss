@@ -68,6 +68,7 @@ namespace Assets
                 .Add(pool.CreateSpikeTrapSystem())
                 .Add(pool.CreateCurseSwitchSystem())
                 .Add(pool.CreateKnockBoxSystem())
+                .Add(pool.CreateDeathSystem())
 
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 

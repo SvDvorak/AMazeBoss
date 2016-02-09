@@ -28,7 +28,7 @@ namespace Assets.Input
         {
             var hero = _heroGroup.GetSingleEntity();
 
-            if (hero.isCursed)
+            if (hero.isCursed || hero.isDead)
             {
                 return;
             }

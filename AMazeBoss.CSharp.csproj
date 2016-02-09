@@ -81,6 +81,7 @@
     <Compile Include="Assets\CleanupSystem.cs" />
     <Compile Include="Assets\Components.cs" />
     <Compile Include="Assets\CurseSwitchSystem.cs" />
+    <Compile Include="Assets\DeathSystem.cs" />
     <Compile Include="Assets\DestroySystem.cs" />
     <Compile Include="Assets\EntityExtensions.cs" />
     <Compile Include="Assets\FieldReferenceException.cs" />
@@ -107,6 +108,8 @@
     <Compile Include="Assets\Generated\Assets.CurseSwitchGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CurseSwitchSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CursedGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.DeadComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.DeathSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroySystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DynamicComponentGeneratedExtension.cs" />
