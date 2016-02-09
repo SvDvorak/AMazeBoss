@@ -13,11 +13,13 @@ namespace Assets
     {
         public TilePos Position { get; private set; }
         public TilePos Direction { get; private set; }
+        public bool Turned { get; private set; }
 
-        public Step(TilePos position, TilePos direction)
+        public Step(TilePos position, TilePos direction, bool turned)
         {
             Position = position;
             Direction = direction;
+            Turned = turned;
         }
     }
 
@@ -29,13 +31,13 @@ namespace Assets
         public Path(TilePos initialPosition, TilePos initialDirection)
         {
             Cost = 0;
-            Steps = new List<Step> { new Step(initialPosition, initialDirection) };
+            Steps = new List<Step> { new Step(initialPosition, initialDirection, false) };
         }
 
         protected Path(Path path, int cost, TilePos position, TilePos direction)
         {
-            Cost = cost;
-            Steps = path.Steps.Concat(new[] { new Step(position, direction) }).ToList();
+            Cost = path.Cost + cost;
+            Steps = path.Steps.Concat(new[] { new Step(position, direction, path.GetRotationDifference(direction) > 0) }).ToList();
         }
 
         public Path Branch(int cost, TilePos position, TilePos direction)
@@ -117,7 +119,7 @@ namespace Assets
 
                 if (pos == _targetPosition)
                 {
-                    victoryPath = path;
+                    victoryPath = SelectLateTurnPathWithSameCost(path);
                     break;
                 }
 
@@ -138,6 +140,28 @@ namespace Assets
             return victoryPath;
         }
 
+        private Path SelectLateTurnPathWithSameCost(Path path)
+        {
+            return _pathsToContinue
+                .Where(x => x.Cost == path.Cost && x.GetLastPosition() == path.GetLastPosition())
+                .Concat(path)
+                .OrderBy(x => GetTurnCosts(x))
+                .First();
+        }
+
+        private int GetTurnCosts(Path path)
+        {
+            var cost = 0;
+            for (int i = 0; i < path.Steps.Count; i++)
+            {
+                if (path.Steps[i].Turned)
+                {
+                    cost += 1/i;
+                }
+            }
+            return cost;
+        }
+
         private void SetInitialState(TilePos initialPosition, TilePos initialDirection)
         {
             _visited = new HashSet<TilePos>();
@@ -155,7 +179,7 @@ namespace Assets
         private void AddNewPathToContinue(TilePos pos, TilePos moveDirection, Path path)
         {
             var rotationDifference = path.GetRotationDifference(moveDirection);
-            var stepCost = path.Steps.Count + 1 + rotationDifference;
+            var stepCost = 1 + rotationDifference;
             _pathsToContinue.Add(path.Branch(stepCost, pos, moveDirection));
         }
 
