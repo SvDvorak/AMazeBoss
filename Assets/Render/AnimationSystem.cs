@@ -175,15 +175,15 @@ namespace Assets.Render
     {
         private const float DeathTime = 3;
 
-        public TriggerOnEvent trigger { get { return Matcher.Health.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.Dead.OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var killable in entities.Where(x => x.health.Value == 0))
+            foreach (var dead in entities)
             {
-                var animator = killable.animator.Value;
+                var animator = dead.animator.Value;
                 animator.SetTrigger("Killed");
-                killable.ReplaceActingTime(DeathTime);
+                dead.ReplaceActingTime(DeathTime);
             }
         }
     }

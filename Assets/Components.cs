@@ -138,6 +138,10 @@ namespace Assets
         public int Value;
     }
 
+    public class DeadComponent : IComponent
+    {
+    }
+
     public class HealthVisualComponent : IComponent
     {
         public TextMesh Text;

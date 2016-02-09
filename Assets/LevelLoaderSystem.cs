@@ -24,7 +24,7 @@ namespace Assets
         private Pool _pool;
 
         public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
-        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Boss, Matcher.Health); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Boss, Matcher.Dead); } }
 
         public void SetPool(Pool pool)
         {
@@ -34,7 +34,7 @@ namespace Assets
         public void Execute(List<Entity> entities)
         {
             var boss = entities.SingleEntity();
-            if (boss.health.Value <= 0 && !boss.IsActing())
+            if (!boss.IsActing())
             {
                 try
                 {
@@ -76,12 +76,12 @@ namespace Assets
     public class LevelRestartSystem : IReactiveSystem, IEnsureComponents
     {
         public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
-        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Hero, Matcher.Health); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Hero, Matcher.Dead); } }
 
         public void Execute(List<Entity> entities)
         {
             var hero = entities.SingleEntity();
-            if (hero.health.Value <= 0 && !hero.IsActing())
+            if (!hero.IsActing())
             {
                 SceneManager.LoadScene("Play");
             }
@@ -109,6 +109,14 @@ namespace Assets
 
             var level = Resources.Load("Levels/" + levelName) as TextAsset;
             LevelParser.ReadLevelData(level.text);
+        }
+    }
+
+    public class EditorTestLevelLoaderSystem : IInitializeSystem
+    {
+        public void Initialize()
+        {
+            FileOperations.FileOperations.Load(PlaySetup.LevelPath);
         }
     }
 }

@@ -20,26 +20,25 @@ namespace Assets
         }
     }
 
-    public class BossMoveSystem : IReactiveSystem, ISetPool
+    public class BossMoveSystem : IReactiveSystem, ISetPool, IExcludeComponents
     {
         private MovementCalculator _movementCalculator;
-        private Group _bossGroup;
         private Group _heroGroup;
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Boss, Matcher.ActiveTurn).OnEntityAdded(); } }
+        public IMatcher excludeComponents { get { return Matcher.AnyOf(Matcher.Cursed, Matcher.Dead); } }
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
             _movementCalculator = new MovementCalculator(new WalkableValidator(pool));
-            _bossGroup = pool.GetGroup(Matcher.Boss);
             _heroGroup = pool.GetGroup(Matcher.Hero);
         }
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var boss in _bossGroup.GetEntities().Where(x => !x.isCursed))
+            foreach (var boss in entities)
             {
                 MoveBoss(boss);
             }
@@ -69,6 +68,7 @@ namespace Assets
                 }
 
                 boss.ReplacePosition(nextStep.Position);
+                boss.ReplaceRotation(DirectionRotationConverter.ToRotation(nextStep.Direction));
 
                 _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction, false);
             }

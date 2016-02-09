@@ -101,5 +101,10 @@ namespace Assets
             var rotated = Quaternion.AngleAxis(rotation*90, Vector3.up)*ToV3();
             return new TilePos(rotated);
         }
+
+        public int RotationDifference(TilePos otherDirection)
+        {
+            return Mathf.Max(Mathf.Abs(X - otherDirection.X), Mathf.Abs(Z - otherDirection.Z));
+        }
     }
 }

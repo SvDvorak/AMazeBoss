@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entitas;
 using Entitas.Unity.VisualDebugging;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets
 {
@@ -45,12 +47,12 @@ namespace Assets
         return new Systems()
 #endif
             // Initialize
-                .Add(pool.CreateLevelLoaderSystem())
+                .AddLevelLoaderSystem(pool)
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Input
                 .Add(pool.CreatePlayerRestartSystem())
-                .Add(pool.CreateReturnToEditorSystem())
+                .AddReturnToEditorIfFromEditor(pool)
                 .Add(pool.CreateRotateCameraInputSystem())
                 .Add(pool.CreateHeroInputSystem())
                 .Add(pool.CreatePerformInputQueueSystem())
@@ -66,6 +68,7 @@ namespace Assets
                 .Add(pool.CreateSpikeTrapSystem())
                 .Add(pool.CreateCurseSwitchSystem())
                 .Add(pool.CreateKnockBoxSystem())
+                .Add(pool.CreateDeathSystem())
 
                 .Add(pool.CreateRemoveActingOnDoneSystem())
 
@@ -77,12 +80,50 @@ namespace Assets
                 .AddAnimationSystems(pool)
 
             // Level-handling
-                .Add(pool.CreateLevelClearedSystem())
+                .AddLevelClearedSystemIfNotFromEditor(pool)
                 .Add(pool.CreateLevelRestartSystem())
 
             // Destroy
                 .Add(pool.CreateCleanupSystem())
                 .Add(pool.CreateDestroySystem());
+        }
+    }
+
+    public static class EditorPlaySystemsExtensions
+    {
+        public static Systems AddReturnToEditorIfFromEditor(this Systems systems, Pool pool)
+        {
+            PlayOrEditorPlayAction(null, () => systems.Add(pool.CreateReturnToEditorSystem()));
+            return systems;
+        }
+
+        public static Systems AddLevelLoaderSystem(this Systems systems, Pool pool)
+        {
+            PlayOrEditorPlayAction(
+                () => systems.Add(pool.CreateLevelLoaderSystem()),
+                () => systems.Add(pool.CreateEditorTestLevelLoaderSystem()));
+            return systems;
+        }
+
+        public static Systems AddLevelClearedSystemIfNotFromEditor(this Systems systems, Pool pool)
+        {
+            PlayOrEditorPlayAction(() => systems.Add(pool.CreateLevelClearedSystem()), null);
+            return systems;
+        }
+
+        private static void PlayOrEditorPlayAction(Action playAction, Action editorPlayAction)
+        {
+            if (PlaySetup.FromEditor)
+            {
+                if (editorPlayAction != null)
+                {
+                    editorPlayAction();
+                }
+            }
+            else if (playAction != null)
+            {
+                playAction();
+            }
         }
     }
 
