@@ -15,7 +15,7 @@ namespace Assets
         public GameObject Value;
     }
 
-    [Game, Menu]
+    [Game]
     public class ViewOffsetComponent : IComponent
     {
         public Vector3 Value;

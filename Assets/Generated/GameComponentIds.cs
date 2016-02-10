@@ -1,64 +1,63 @@
 public static class GameComponentIds {
-    public const int Position = 0;
+    public const int Id = 0;
     public const int Resource = 1;
     public const int View = 2;
-    public const int ViewOffset = 3;
-    public const int ActingTime = 4;
-    public const int ActiveTurn = 5;
-    public const int Animator = 6;
-    public const int BlockingTile = 7;
-    public const int Boss = 8;
-    public const int Box = 9;
-    public const int Camera = 10;
-    public const int Character = 11;
-    public const int Child = 12;
-    public const int Cursed = 13;
-    public const int CurseSwitch = 14;
-    public const int Dead = 15;
-    public const int Destroyed = 16;
-    public const int Dynamic = 17;
-    public const int FocusPoint = 18;
-    public const int Health = 19;
-    public const int HealthVisual = 20;
-    public const int Hero = 21;
-    public const int Id = 22;
-    public const int InputCurseSwitch = 23;
-    public const int InputItemInteract = 24;
-    public const int InputMove = 25;
-    public const int InputPullItem = 26;
-    public const int InputQueue = 27;
-    public const int Item = 28;
-    public const int Knocked = 29;
-    public const int Input = 30;
-    public const int InputPlace = 31;
-    public const int InputRemove = 32;
-    public const int Paused = 33;
-    public const int Preview = 34;
-    public const int SelectedPlaceable = 35;
-    public const int SelectedPlaceablesGroup = 36;
-    public const int Levels = 37;
-    public const int Loaded = 38;
-    public const int Maintype = 39;
-    public const int MovesInARow = 40;
-    public const int QueueActing = 41;
-    public const int QueuedPosition = 42;
-    public const int Rotation = 43;
-    public const int SavedFocusPoint = 44;
-    public const int SpikesCarried = 45;
-    public const int Spikes = 46;
-    public const int SpikeTrap = 47;
-    public const int Subtype = 48;
-    public const int Tile = 49;
-    public const int TileTemplates = 50;
-    public const int TrapActivated = 51;
+    public const int ActingTime = 3;
+    public const int ActiveTurn = 4;
+    public const int Animator = 5;
+    public const int BlockingTile = 6;
+    public const int Boss = 7;
+    public const int Box = 8;
+    public const int Camera = 9;
+    public const int Character = 10;
+    public const int Child = 11;
+    public const int Cursed = 12;
+    public const int CurseSwitch = 13;
+    public const int Dead = 14;
+    public const int Destroyed = 15;
+    public const int Dynamic = 16;
+    public const int FocusPoint = 17;
+    public const int Health = 18;
+    public const int HealthVisual = 19;
+    public const int Hero = 20;
+    public const int InputCurseSwitch = 21;
+    public const int InputItemInteract = 22;
+    public const int InputMove = 23;
+    public const int InputPullItem = 24;
+    public const int InputQueue = 25;
+    public const int Item = 26;
+    public const int Knocked = 27;
+    public const int Input = 28;
+    public const int InputPlace = 29;
+    public const int InputRemove = 30;
+    public const int Paused = 31;
+    public const int Preview = 32;
+    public const int SelectedPlaceable = 33;
+    public const int SelectedPlaceablesGroup = 34;
+    public const int Levels = 35;
+    public const int Loaded = 36;
+    public const int Maintype = 37;
+    public const int MovesInARow = 38;
+    public const int Position = 39;
+    public const int QueueActing = 40;
+    public const int QueuedPosition = 41;
+    public const int Rotation = 42;
+    public const int SavedFocusPoint = 43;
+    public const int SpikesCarried = 44;
+    public const int Spikes = 45;
+    public const int SpikeTrap = 46;
+    public const int Subtype = 47;
+    public const int Tile = 48;
+    public const int TileTemplates = 49;
+    public const int TrapActivated = 50;
+    public const int ViewOffset = 51;
 
     public const int TotalComponents = 52;
 
     public static readonly string[] componentNames = {
-        "Position",
+        "Id",
         "Resource",
         "View",
-        "ViewOffset",
         "ActingTime",
         "ActiveTurn",
         "Animator",
@@ -77,7 +76,6 @@ public static class GameComponentIds {
         "Health",
         "HealthVisual",
         "Hero",
-        "Id",
         "InputCurseSwitch",
         "InputItemInteract",
         "InputMove",
@@ -96,6 +94,7 @@ public static class GameComponentIds {
         "Loaded",
         "Maintype",
         "MovesInARow",
+        "Position",
         "QueueActing",
         "QueuedPosition",
         "Rotation",
@@ -106,14 +105,14 @@ public static class GameComponentIds {
         "Subtype",
         "Tile",
         "TileTemplates",
-        "TrapActivated"
+        "TrapActivated",
+        "ViewOffset"
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(Assets.PositionComponent),
+        typeof(Assets.IdComponent),
         typeof(Assets.ResourceComponent),
         typeof(Assets.ViewComponent),
-        typeof(Assets.ViewOffsetComponent),
         typeof(Assets.ActingTimeComponent),
         typeof(Assets.ActiveTurnComponent),
         typeof(Assets.AnimatorComponent),
@@ -132,7 +131,6 @@ public static class GameComponentIds {
         typeof(Assets.HealthComponent),
         typeof(Assets.HealthVisualComponent),
         typeof(Assets.HeroComponent),
-        typeof(Assets.IdComponent),
         typeof(Assets.Input.InputCurseSwitchComponent),
         typeof(Assets.Input.InputItemInteractComponent),
         typeof(Assets.Input.InputMoveComponent),
@@ -151,6 +149,7 @@ public static class GameComponentIds {
         typeof(Assets.LoadedComponent),
         typeof(Assets.MaintypeComponent),
         typeof(Assets.MovesInARow),
+        typeof(Assets.PositionComponent),
         typeof(Assets.QueueActingComponent),
         typeof(Assets.QueuedPositionComponent),
         typeof(Assets.RotationComponent),
@@ -161,6 +160,7 @@ public static class GameComponentIds {
         typeof(Assets.SubtypeComponent),
         typeof(Assets.TileComponent),
         typeof(Assets.TileTemplates),
-        typeof(Assets.TrapActivatedComponent)
+        typeof(Assets.TrapActivatedComponent),
+        typeof(Assets.ViewOffsetComponent)
     };
 }

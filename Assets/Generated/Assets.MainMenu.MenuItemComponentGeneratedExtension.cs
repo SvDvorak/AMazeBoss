@@ -4,18 +4,18 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.MainMenu.MenuItem menuItem { get { return (Assets.MainMenu.MenuItem)GetComponent(MenuComponentIds.MenuItem); } }
+        public Assets.MainMenu.MenuItemComponent menuItem { get { return (Assets.MainMenu.MenuItemComponent)GetComponent(MenuComponentIds.MenuItem); } }
 
         public bool hasMenuItem { get { return HasComponent(MenuComponentIds.MenuItem); } }
 
-        static readonly Stack<Assets.MainMenu.MenuItem> _menuItemComponentPool = new Stack<Assets.MainMenu.MenuItem>();
+        static readonly Stack<Assets.MainMenu.MenuItemComponent> _menuItemComponentPool = new Stack<Assets.MainMenu.MenuItemComponent>();
 
         public static void ClearMenuItemComponentPool() {
             _menuItemComponentPool.Clear();
         }
 
         public Entity AddMenuItem(string newText, UnityEngine.GameObject newParent) {
-            var component = _menuItemComponentPool.Count > 0 ? _menuItemComponentPool.Pop() : new Assets.MainMenu.MenuItem();
+            var component = _menuItemComponentPool.Count > 0 ? _menuItemComponentPool.Pop() : new Assets.MainMenu.MenuItemComponent();
             component.Text = newText;
             component.Parent = newParent;
             return AddComponent(MenuComponentIds.MenuItem, component);
@@ -23,7 +23,7 @@ namespace Entitas {
 
         public Entity ReplaceMenuItem(string newText, UnityEngine.GameObject newParent) {
             var previousComponent = hasMenuItem ? menuItem : null;
-            var component = _menuItemComponentPool.Count > 0 ? _menuItemComponentPool.Pop() : new Assets.MainMenu.MenuItem();
+            var component = _menuItemComponentPool.Count > 0 ? _menuItemComponentPool.Pop() : new Assets.MainMenu.MenuItemComponent();
             component.Text = newText;
             component.Parent = newParent;
             ReplaceComponent(MenuComponentIds.MenuItem, component);

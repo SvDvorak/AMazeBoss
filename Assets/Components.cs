@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using DG.Tweening;
 using Entitas;
 using Entitas.CodeGenerator;
 using UnityEngine;
 
 namespace Assets
 {
-    [Game]
+    [Game, Menu]
     public class IdComponent : IComponent
     {
         public int Value;
@@ -19,7 +18,7 @@ namespace Assets
         public int ParentId;
     }
 
-    [Game, Menu]
+    [Game]
     public class PositionComponent : IComponent
     {
         public TilePos Value;
