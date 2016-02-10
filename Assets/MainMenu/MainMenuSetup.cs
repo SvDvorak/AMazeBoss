@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using Entitas;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.MainMenu
 {
@@ -16,9 +17,12 @@ namespace Assets.MainMenu
 
             _systems = SceneSetup.CreateSystem()
                 .Add(menuPool.CreateAddRemoveViewSystem())
-                .Add(menuPool.CreateConnectMenuItemToParentSystem());
+                .Add(menuPool.CreateConnectMenuItemToParentSystem())
+                .Add(menuPool.CreateCursorClickMenuItemSystem());
 
-            menuPool.CreateMenuItems(canvas, "New Game", "Editor");
+            menuPool.CreateMenuItems(canvas,
+                new Tuple<string, Action>("New Game", () => SceneManager.LoadScene("Play")),
+                new Tuple<string, Action>("Editor", () => SceneManager.LoadScene("Editor")));
 
             _systems.Initialize();
         }
@@ -31,13 +35,15 @@ namespace Assets.MainMenu
 
     public static class MenuItemPoolExtensions
     {
-        public static void CreateMenuItems(this Pool pool, GameObject parent, params string[] names)
+        public static void CreateMenuItems(this Pool pool, GameObject parent, params Tuple<string, Action>[] items)
         {
-            for (var orderNumber = 0; orderNumber < names.Count(); orderNumber++)
+            for (var orderNumber = 0; orderNumber < items.Count(); orderNumber++)
             {
+                var itemSettings = items[orderNumber];
                 pool.CreateEntity()
                     .AddResource("MenuItem")
-                    .AddMenuItem(names[orderNumber], parent)
+                    .AddMenuItem(itemSettings.Item1, parent)
+                    .AddActivateAction(itemSettings.Item2)
                     .AddId(orderNumber);
             }
         }
