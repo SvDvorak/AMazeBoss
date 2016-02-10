@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entitas;
-using Entitas.Unity.VisualDebugging;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -42,11 +41,8 @@ namespace Assets
 
         public Systems CreateSystems(Pool pool)
         {
-#if (UNITY_EDITOR)
-            return new DebugSystems()
-#else
-        return new Systems()
-#endif
+            return SceneSetup.CreateSystem()
+
             // Initialize
                 .AddLevelLoaderSystem(pool)
                 .Add(pool.CreateTemplateLoaderSystem())
@@ -76,7 +72,8 @@ namespace Assets
             // Render
                 .Add(pool.CreateSubtypeSelectorSystem())
                 .Add(pool.CreateTemplateSelectorSystem())
-                .Add(pool.CreateAddViewSystem())
+                .Add(pool.CreateAddRemoveViewSystem())
+                .Add(pool.CreateSetInitialTransformSystem())
                 .Add(pool.CreateMoveAndRotateCameraSystem())
                 .AddAnimationSystems(pool)
 

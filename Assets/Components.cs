@@ -19,7 +19,7 @@ namespace Assets
         public int ParentId;
     }
 
-    [Game]
+    [Game, Menu]
     public class PositionComponent : IComponent
     {
         public TilePos Value;
@@ -29,12 +29,6 @@ namespace Assets
     public class MovesInARow : IComponent
     {
         public int Moves;
-    }
-
-    [Game]
-    public class ViewOffsetComponent : IComponent
-    {
-        public Vector3 Value;
     }
 
     [Game]

@@ -75,11 +75,8 @@ namespace Assets.LevelEditor
 
         public Systems CreateSystems(Pool pool)
         {
-#if (UNITY_EDITOR)
-            return new DebugSystems()
-#else
-        return new Systems()
-#endif
+            return SceneSetup.CreateSystem()
+
             // Initialize
                 .Add(pool.CreateTemplateLoaderSystem())
 
@@ -103,7 +100,8 @@ namespace Assets.LevelEditor
             // Render
                 .Add(pool.CreateSubtypeSelectorSystem())
                 .Add(pool.CreateTemplateSelectorSystem())
-                .Add(pool.CreateAddViewSystem())
+                .Add(pool.CreateAddRemoveViewSystem())
+                .Add(pool.CreateSetInitialTransformSystem())
                 .Add(pool.CreateMoveAndRotateCameraSystem())
                 .Add(pool.CreateRenderPositionsSystem())
                 .Add(pool.CreateTrapLoadedAnimationSystem())

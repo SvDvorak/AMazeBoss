@@ -1,60 +1,64 @@
 public static class GameComponentIds {
-    public const int ActingTime = 0;
-    public const int ActiveTurn = 1;
-    public const int Animator = 2;
-    public const int BlockingTile = 3;
-    public const int Boss = 4;
-    public const int Box = 5;
-    public const int Camera = 6;
-    public const int Character = 7;
-    public const int Child = 8;
-    public const int Cursed = 9;
-    public const int CurseSwitch = 10;
-    public const int Dead = 11;
-    public const int Destroyed = 12;
-    public const int Dynamic = 13;
-    public const int FocusPoint = 14;
-    public const int Health = 15;
-    public const int HealthVisual = 16;
-    public const int Hero = 17;
-    public const int Id = 18;
-    public const int InputCurseSwitch = 19;
-    public const int InputItemInteract = 20;
-    public const int InputMove = 21;
-    public const int InputPullItem = 22;
-    public const int InputQueue = 23;
-    public const int Item = 24;
-    public const int Knocked = 25;
-    public const int Input = 26;
-    public const int InputPlace = 27;
-    public const int InputRemove = 28;
-    public const int Paused = 29;
-    public const int Preview = 30;
-    public const int SelectedPlaceable = 31;
-    public const int SelectedPlaceablesGroup = 32;
-    public const int Levels = 33;
-    public const int Loaded = 34;
-    public const int Maintype = 35;
-    public const int MovesInARow = 36;
-    public const int Position = 37;
-    public const int QueueActing = 38;
-    public const int QueuedPosition = 39;
-    public const int Resource = 40;
-    public const int Rotation = 41;
-    public const int SavedFocusPoint = 42;
-    public const int SpikesCarried = 43;
-    public const int Spikes = 44;
-    public const int SpikeTrap = 45;
-    public const int Subtype = 46;
-    public const int Tile = 47;
-    public const int TileTemplates = 48;
-    public const int TrapActivated = 49;
-    public const int View = 50;
-    public const int ViewOffset = 51;
+    public const int Position = 0;
+    public const int Resource = 1;
+    public const int View = 2;
+    public const int ViewOffset = 3;
+    public const int ActingTime = 4;
+    public const int ActiveTurn = 5;
+    public const int Animator = 6;
+    public const int BlockingTile = 7;
+    public const int Boss = 8;
+    public const int Box = 9;
+    public const int Camera = 10;
+    public const int Character = 11;
+    public const int Child = 12;
+    public const int Cursed = 13;
+    public const int CurseSwitch = 14;
+    public const int Dead = 15;
+    public const int Destroyed = 16;
+    public const int Dynamic = 17;
+    public const int FocusPoint = 18;
+    public const int Health = 19;
+    public const int HealthVisual = 20;
+    public const int Hero = 21;
+    public const int Id = 22;
+    public const int InputCurseSwitch = 23;
+    public const int InputItemInteract = 24;
+    public const int InputMove = 25;
+    public const int InputPullItem = 26;
+    public const int InputQueue = 27;
+    public const int Item = 28;
+    public const int Knocked = 29;
+    public const int Input = 30;
+    public const int InputPlace = 31;
+    public const int InputRemove = 32;
+    public const int Paused = 33;
+    public const int Preview = 34;
+    public const int SelectedPlaceable = 35;
+    public const int SelectedPlaceablesGroup = 36;
+    public const int Levels = 37;
+    public const int Loaded = 38;
+    public const int Maintype = 39;
+    public const int MovesInARow = 40;
+    public const int QueueActing = 41;
+    public const int QueuedPosition = 42;
+    public const int Rotation = 43;
+    public const int SavedFocusPoint = 44;
+    public const int SpikesCarried = 45;
+    public const int Spikes = 46;
+    public const int SpikeTrap = 47;
+    public const int Subtype = 48;
+    public const int Tile = 49;
+    public const int TileTemplates = 50;
+    public const int TrapActivated = 51;
 
     public const int TotalComponents = 52;
 
     public static readonly string[] componentNames = {
+        "Position",
+        "Resource",
+        "View",
+        "ViewOffset",
         "ActingTime",
         "ActiveTurn",
         "Animator",
@@ -92,10 +96,8 @@ public static class GameComponentIds {
         "Loaded",
         "Maintype",
         "MovesInARow",
-        "Position",
         "QueueActing",
         "QueuedPosition",
-        "Resource",
         "Rotation",
         "SavedFocusPoint",
         "SpikesCarried",
@@ -104,12 +106,14 @@ public static class GameComponentIds {
         "Subtype",
         "Tile",
         "TileTemplates",
-        "TrapActivated",
-        "View",
-        "ViewOffset"
+        "TrapActivated"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(Assets.PositionComponent),
+        typeof(Assets.ResourceComponent),
+        typeof(Assets.ViewComponent),
+        typeof(Assets.ViewOffsetComponent),
         typeof(Assets.ActingTimeComponent),
         typeof(Assets.ActiveTurnComponent),
         typeof(Assets.AnimatorComponent),
@@ -147,10 +151,8 @@ public static class GameComponentIds {
         typeof(Assets.LoadedComponent),
         typeof(Assets.MaintypeComponent),
         typeof(Assets.MovesInARow),
-        typeof(Assets.PositionComponent),
         typeof(Assets.QueueActingComponent),
         typeof(Assets.QueuedPositionComponent),
-        typeof(Assets.ResourceComponent),
         typeof(Assets.RotationComponent),
         typeof(Assets.SavedFocusPointComponent),
         typeof(Assets.SpikesCarried),
@@ -159,8 +161,6 @@ public static class GameComponentIds {
         typeof(Assets.SubtypeComponent),
         typeof(Assets.TileComponent),
         typeof(Assets.TileTemplates),
-        typeof(Assets.TrapActivatedComponent),
-        typeof(Assets.ViewComponent),
-        typeof(Assets.ViewOffsetComponent)
+        typeof(Assets.TrapActivatedComponent)
     };
 }

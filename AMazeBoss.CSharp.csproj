@@ -155,6 +155,7 @@
     <Compile Include="Assets\Generated\Assets.LevelRestartSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LoadedComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MainMenu.MenuItemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.NextTurnSystemGeneratedExtension.cs" />
@@ -163,7 +164,7 @@
     <Compile Include="Assets\Generated\Assets.QueueActingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueuedPositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RemoveActingOnDoneSystemGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.Render.AddViewSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.AddRemoveViewSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.BoxKnockAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.CurseAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.CurseSwitchActivatedAnimationSystemGeneratedExtension.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Assets\Generated\Assets.Render.MoveAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.PreviewMaterialChangeSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.RenderPositionsSystemGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.Render.SetInitialTransformSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.TrapActivatedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.Render.TrapLoadedAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ResourceComponentGeneratedExtension.cs" />
@@ -267,6 +269,8 @@
     <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
     <Compile Include="Assets\LoadSceneAfterDelay.cs" />
     <Compile Include="Assets\MainMenu\LoadLevel.cs" />
+    <Compile Include="Assets\MainMenu\MainMenuSetup.cs" />
+    <Compile Include="Assets\MainMenu\MenuComponents.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
     <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />
@@ -274,11 +278,13 @@
     <Compile Include="Assets\PlaySetup.cs" />
     <Compile Include="Assets\PoolExtensions.cs" />
     <Compile Include="Assets\RemoveActingOnDoneSystem.cs" />
-    <Compile Include="Assets\Render\AddViewSystem.cs" />
+    <Compile Include="Assets\Render\AddRemoveViewSystem.cs" />
     <Compile Include="Assets\Render\AnimationSystem.cs" />
     <Compile Include="Assets\Render\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\Render\RenderComponent.cs" />
     <Compile Include="Assets\Render\RenderPositionsSystem.cs" />
+    <Compile Include="Assets\Render\SetInitialTransformSystem.cs" />
+    <Compile Include="Assets\SceneSetup.cs" />
     <Compile Include="Assets\SpikeTrapSystem.cs" />
     <Compile Include="Assets\SubtypeSelectorSystem.cs" />
     <Compile Include="Assets\TemplateLoaderSystem.cs" />

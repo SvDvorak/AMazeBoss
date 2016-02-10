@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Render
 {
-    public class AddViewSystem : IReactiveSystem
+    public class AddRemoveViewSystem : IReactiveSystem
     {
         private readonly Transform _viewsContainer = new GameObject("Views").transform;
 
@@ -41,18 +41,6 @@ namespace Assets.Render
 
             var view = GameObject.Instantiate(resourceObject);
             view.transform.SetParent(_viewsContainer);
-
-            entity.ReplaceViewOffset(view.transform.position);
-
-            if (entity.hasPosition)
-            {
-                view.transform.position = entity.position.Value.ToV3() + entity.viewOffset.Value;
-            }
-
-            if (entity.hasRotation)
-            {
-                view.transform.rotation = Quaternion.AngleAxis(entity.rotation.Value * 90, Vector3.up);
-            }
 
             entity.AddView(view);
             GameObjectConfigurer.AttachEntity(view, entity);

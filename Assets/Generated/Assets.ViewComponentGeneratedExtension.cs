@@ -55,3 +55,19 @@ namespace Entitas {
             }
         }
     }
+
+    public partial class MenuMatcher {
+        static IMatcher _matcherView;
+
+        public static IMatcher View {
+            get {
+                if (_matcherView == null) {
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.View);
+                    matcher.componentNames = GameComponentIds.componentNames;
+                    _matcherView = matcher;
+                }
+
+                return _matcherView;
+            }
+        }
+    }
