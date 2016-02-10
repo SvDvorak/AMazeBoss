@@ -7,7 +7,7 @@ namespace Assets.LevelEditor.Preview
         protected Group PreviewGroup;
         protected Pool Pool;
 
-        public IMatcher ensureComponents { get { return Matcher.Input; } }
+        public IMatcher ensureComponents { get { return GameMatcher.Input; } }
 
         public void SetPool(Pool pool)
         {

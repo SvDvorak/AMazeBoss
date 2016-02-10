@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.Input.InputPullItemComponent inputPullItem { get { return (Assets.Input.InputPullItemComponent)GetComponent(ComponentIds.InputPullItem); } }
+        public Assets.Input.InputPullItemComponent inputPullItem { get { return (Assets.Input.InputPullItemComponent)GetComponent(GameComponentIds.InputPullItem); } }
 
-        public bool hasInputPullItem { get { return HasComponent(ComponentIds.InputPullItem); } }
+        public bool hasInputPullItem { get { return HasComponent(GameComponentIds.InputPullItem); } }
 
         static readonly Stack<Assets.Input.InputPullItemComponent> _inputPullItemComponentPool = new Stack<Assets.Input.InputPullItemComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddInputPullItem(Assets.TilePos newDirection) {
             var component = _inputPullItemComponentPool.Count > 0 ? _inputPullItemComponentPool.Pop() : new Assets.Input.InputPullItemComponent();
             component.Direction = newDirection;
-            return AddComponent(ComponentIds.InputPullItem, component);
+            return AddComponent(GameComponentIds.InputPullItem, component);
         }
 
         public Entity ReplaceInputPullItem(Assets.TilePos newDirection) {
             var previousComponent = hasInputPullItem ? inputPullItem : null;
             var component = _inputPullItemComponentPool.Count > 0 ? _inputPullItemComponentPool.Pop() : new Assets.Input.InputPullItemComponent();
             component.Direction = newDirection;
-            ReplaceComponent(ComponentIds.InputPullItem, component);
+            ReplaceComponent(GameComponentIds.InputPullItem, component);
             if (previousComponent != null) {
                 _inputPullItemComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveInputPullItem() {
             var component = inputPullItem;
-            RemoveComponent(ComponentIds.InputPullItem);
+            RemoveComponent(GameComponentIds.InputPullItem);
             _inputPullItemComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherInputPullItem;
 
         public static IMatcher InputPullItem {
             get {
                 if (_matcherInputPullItem == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.InputPullItem);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.InputPullItem);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherInputPullItem = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

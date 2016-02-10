@@ -5,7 +5,7 @@ namespace Assets.Render
 {
     public class RenderPositionsSystem : IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Position, Matcher.View).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Position, GameMatcher.View).OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {

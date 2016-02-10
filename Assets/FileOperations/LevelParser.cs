@@ -8,10 +8,9 @@ namespace Assets.FileOperations
     {
         private static readonly DescriptorResolver DescriptorResolver = new DescriptorResolver();
 
-        public static string CreateLevelData()
+        public static string CreateLevelData(Pool pool)
         {
-            var pool = Pools.pool;
-            var mapObjects = pool.GetEntities(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
+            var mapObjects = pool.GetEntities(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
             var fileMap = new FileMap(
                 CreateFileCamera(pool),
                 mapObjects
@@ -22,7 +21,7 @@ namespace Assets.FileOperations
 
         private static FileCamera CreateFileCamera(Pool pool)
         {
-            var cameraFocus = pool.GetEntities(Matcher.Camera).SingleEntity().savedFocusPoint;
+            var cameraFocus = pool.GetEntities(GameMatcher.Camera).SingleEntity().savedFocusPoint;
             return new FileCamera(cameraFocus.Position.x, cameraFocus.Position.z);
         }
 
@@ -32,17 +31,15 @@ namespace Assets.FileOperations
             return new FileMapObject(entity.maintype.Value, entity.subtype.Value, pos.X, pos.Z, entity.rotation.Value, DescriptorResolver.ToDescriptors(entity));
         }
 
-        public static void ReadLevelData(string json)
+        public static void ReadLevelData(string json, Pool pool)
         {
-            var pool = Pools.pool;
-
             var fileLevelObjects = JsonUtility
                 .FromJson<FileMap>(json);
             fileLevelObjects
                 .Tiles
                 .ForEach(tile => CreateEntity(pool, tile));
 
-            var alreadyHasCamera = pool.GetEntities(Matcher.Camera).Any();
+            var alreadyHasCamera = pool.GetEntities(GameMatcher.Camera).Any();
             if (!alreadyHasCamera)
             {
                 CreateEntity(pool, fileLevelObjects.Camera);

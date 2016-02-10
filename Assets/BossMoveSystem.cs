@@ -26,14 +26,14 @@ namespace Assets
         private Group _heroGroup;
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Boss, Matcher.ActiveTurn).OnEntityAdded(); } }
-        public IMatcher excludeComponents { get { return Matcher.AnyOf(Matcher.Cursed, Matcher.Dead); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.ActiveTurn).OnEntityAdded(); } }
+        public IMatcher excludeComponents { get { return Matcher.AnyOf(GameMatcher.Cursed, GameMatcher.Dead); } }
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
             _movementCalculator = new MovementCalculator(new WalkableValidator(pool));
-            _heroGroup = pool.GetGroup(Matcher.Hero);
+            _heroGroup = pool.GetGroup(GameMatcher.Hero);
         }
 
         public void Execute(List<Entity> entities)

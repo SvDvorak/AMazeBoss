@@ -11,6 +11,7 @@ namespace Assets.LevelEditor
         private Systems _systems;
 
         private static EditorSetup _setup;
+        private Pool _gamePool;
 
         public static EditorSetup Instance
         {
@@ -51,18 +52,18 @@ namespace Assets.LevelEditor
         public void OnDestroy()
         {
             _systems.ClearReactiveSystems();
-            Pools.pool.Reset();
+            _gamePool.Reset();
         }
 
         private void SetupEntitas()
         {
             Random.seed = 42;
 
-            var pool = Pools.pool;
-            _systems = CreateSystems(pool);
+            _gamePool = Pools.game;
+            _systems = CreateSystems(_gamePool);
 
-            pool.CreateEntity().IsInput(true);
-            pool.CreateEntity().IsPreview(true);
+            _gamePool.CreateEntity().IsInput(true);
+            _gamePool.CreateEntity().IsPreview(true);
 
             _systems.Initialize();
         }

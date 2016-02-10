@@ -8,7 +8,7 @@ namespace Assets.Render
     {
         private readonly Transform _viewsContainer = new GameObject("Views").transform;
 
-        public TriggerOnEvent trigger { get { return Matcher.Resource.OnEntityAddedOrRemoved(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Resource.OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {

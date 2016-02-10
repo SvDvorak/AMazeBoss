@@ -9,7 +9,7 @@ namespace Assets.LevelEditor
 
         public void SetPool(Pool pool)
         {
-            _cameraGroup = pool.GetGroup(Matcher.Camera);
+            _cameraGroup = pool.GetGroup(GameMatcher.Camera);
         }
 
         public void Execute()

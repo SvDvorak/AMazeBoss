@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.Input.InputQueueComponent inputQueue { get { return (Assets.Input.InputQueueComponent)GetComponent(ComponentIds.InputQueue); } }
+        public Assets.Input.InputQueueComponent inputQueue { get { return (Assets.Input.InputQueueComponent)GetComponent(GameComponentIds.InputQueue); } }
 
-        public bool hasInputQueue { get { return HasComponent(ComponentIds.InputQueue); } }
+        public bool hasInputQueue { get { return HasComponent(GameComponentIds.InputQueue); } }
 
         static readonly Stack<Assets.Input.InputQueueComponent> _inputQueueComponentPool = new Stack<Assets.Input.InputQueueComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddInputQueue(System.Action newInputAction) {
             var component = _inputQueueComponentPool.Count > 0 ? _inputQueueComponentPool.Pop() : new Assets.Input.InputQueueComponent();
             component.InputAction = newInputAction;
-            return AddComponent(ComponentIds.InputQueue, component);
+            return AddComponent(GameComponentIds.InputQueue, component);
         }
 
         public Entity ReplaceInputQueue(System.Action newInputAction) {
             var previousComponent = hasInputQueue ? inputQueue : null;
             var component = _inputQueueComponentPool.Count > 0 ? _inputQueueComponentPool.Pop() : new Assets.Input.InputQueueComponent();
             component.InputAction = newInputAction;
-            ReplaceComponent(ComponentIds.InputQueue, component);
+            ReplaceComponent(GameComponentIds.InputQueue, component);
             if (previousComponent != null) {
                 _inputQueueComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveInputQueue() {
             var component = inputQueue;
-            RemoveComponent(ComponentIds.InputQueue);
+            RemoveComponent(GameComponentIds.InputQueue);
             _inputQueueComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherInputQueue;
 
         public static IMatcher InputQueue {
             get {
                 if (_matcherInputQueue == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.InputQueue);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.InputQueue);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherInputQueue = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

@@ -7,8 +7,8 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Hero, Matcher.InputPullItem).OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.ActiveTurn; } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Hero, GameMatcher.InputPullItem).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return GameMatcher.ActiveTurn; } }
 
         public void SetPool(Pool pool)
         {
@@ -20,7 +20,7 @@ namespace Assets
             var hero = entities.SingleEntity();
             var pullDirection = hero.inputPullItem.Direction;
             var boxPosition = hero.position.Value - pullDirection;
-            var box = _pool.GetEntityAt(boxPosition, Matcher.Box);
+            var box = _pool.GetEntityAt(boxPosition, GameMatcher.Box);
 
             if (box != null)
             {

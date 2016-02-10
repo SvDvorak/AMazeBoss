@@ -23,8 +23,8 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
-        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Boss, Matcher.Dead); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.ActingTime.OnEntityRemoved(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.Dead); } }
 
         public void SetPool(Pool pool)
         {
@@ -75,8 +75,8 @@ namespace Assets
 
     public class LevelRestartSystem : IReactiveSystem, IEnsureComponents
     {
-        public TriggerOnEvent trigger { get { return Matcher.ActingTime.OnEntityRemoved(); } }
-        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.Hero, Matcher.Dead); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.ActingTime.OnEntityRemoved(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.Hero, GameMatcher.Dead); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -108,7 +108,7 @@ namespace Assets
             }
 
             var level = Resources.Load("Levels/" + levelName) as TextAsset;
-            LevelParser.ReadLevelData(level.text);
+            LevelParser.ReadLevelData(level.text, _pool);
         }
     }
 

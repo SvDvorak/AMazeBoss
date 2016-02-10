@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.LevelEditor.SelectedPlaceablesGroupComponent selectedPlaceablesGroup { get { return (Assets.LevelEditor.SelectedPlaceablesGroupComponent)GetComponent(ComponentIds.SelectedPlaceablesGroup); } }
+        public Assets.LevelEditor.SelectedPlaceablesGroupComponent selectedPlaceablesGroup { get { return (Assets.LevelEditor.SelectedPlaceablesGroupComponent)GetComponent(GameComponentIds.SelectedPlaceablesGroup); } }
 
-        public bool hasSelectedPlaceablesGroup { get { return HasComponent(ComponentIds.SelectedPlaceablesGroup); } }
+        public bool hasSelectedPlaceablesGroup { get { return HasComponent(GameComponentIds.SelectedPlaceablesGroup); } }
 
         static readonly Stack<Assets.LevelEditor.SelectedPlaceablesGroupComponent> _selectedPlaceablesGroupComponentPool = new Stack<Assets.LevelEditor.SelectedPlaceablesGroupComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddSelectedPlaceablesGroup(Assets.LevelEditor.SelectionGroup newGroup) {
             var component = _selectedPlaceablesGroupComponentPool.Count > 0 ? _selectedPlaceablesGroupComponentPool.Pop() : new Assets.LevelEditor.SelectedPlaceablesGroupComponent();
             component.Group = newGroup;
-            return AddComponent(ComponentIds.SelectedPlaceablesGroup, component);
+            return AddComponent(GameComponentIds.SelectedPlaceablesGroup, component);
         }
 
         public Entity ReplaceSelectedPlaceablesGroup(Assets.LevelEditor.SelectionGroup newGroup) {
             var previousComponent = hasSelectedPlaceablesGroup ? selectedPlaceablesGroup : null;
             var component = _selectedPlaceablesGroupComponentPool.Count > 0 ? _selectedPlaceablesGroupComponentPool.Pop() : new Assets.LevelEditor.SelectedPlaceablesGroupComponent();
             component.Group = newGroup;
-            ReplaceComponent(ComponentIds.SelectedPlaceablesGroup, component);
+            ReplaceComponent(GameComponentIds.SelectedPlaceablesGroup, component);
             if (previousComponent != null) {
                 _selectedPlaceablesGroupComponentPool.Push(previousComponent);
             }
@@ -31,14 +33,14 @@ namespace Entitas {
 
         public Entity RemoveSelectedPlaceablesGroup() {
             var component = selectedPlaceablesGroup;
-            RemoveComponent(ComponentIds.SelectedPlaceablesGroup);
+            RemoveComponent(GameComponentIds.SelectedPlaceablesGroup);
             _selectedPlaceablesGroupComponentPool.Push(component);
             return this;
         }
     }
 
     public partial class Pool {
-        public Entity selectedPlaceablesGroupEntity { get { return GetGroup(Matcher.SelectedPlaceablesGroup).GetSingleEntity(); } }
+        public Entity selectedPlaceablesGroupEntity { get { return GetGroup(GameMatcher.SelectedPlaceablesGroup).GetSingleEntity(); } }
 
         public Assets.LevelEditor.SelectedPlaceablesGroupComponent selectedPlaceablesGroup { get { return selectedPlaceablesGroupEntity.selectedPlaceablesGroup; } }
 
@@ -69,15 +71,16 @@ namespace Entitas {
             DestroyEntity(selectedPlaceablesGroupEntity);
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherSelectedPlaceablesGroup;
 
         public static IMatcher SelectedPlaceablesGroup {
             get {
                 if (_matcherSelectedPlaceablesGroup == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.SelectedPlaceablesGroup);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.SelectedPlaceablesGroup);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherSelectedPlaceablesGroup = matcher;
                 }
 
@@ -85,4 +88,3 @@ namespace Entitas {
             }
         }
     }
-}

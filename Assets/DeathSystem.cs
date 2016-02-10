@@ -8,7 +8,7 @@ namespace Assets
 {
     public class DeathSystem : IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.Health.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Health.OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {

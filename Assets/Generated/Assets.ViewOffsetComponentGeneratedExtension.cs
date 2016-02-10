@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.ViewOffsetComponent viewOffset { get { return (Assets.ViewOffsetComponent)GetComponent(ComponentIds.ViewOffset); } }
+        public Assets.ViewOffsetComponent viewOffset { get { return (Assets.ViewOffsetComponent)GetComponent(GameComponentIds.ViewOffset); } }
 
-        public bool hasViewOffset { get { return HasComponent(ComponentIds.ViewOffset); } }
+        public bool hasViewOffset { get { return HasComponent(GameComponentIds.ViewOffset); } }
 
         static readonly Stack<Assets.ViewOffsetComponent> _viewOffsetComponentPool = new Stack<Assets.ViewOffsetComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddViewOffset(UnityEngine.Vector3 newValue) {
             var component = _viewOffsetComponentPool.Count > 0 ? _viewOffsetComponentPool.Pop() : new Assets.ViewOffsetComponent();
             component.Value = newValue;
-            return AddComponent(ComponentIds.ViewOffset, component);
+            return AddComponent(GameComponentIds.ViewOffset, component);
         }
 
         public Entity ReplaceViewOffset(UnityEngine.Vector3 newValue) {
             var previousComponent = hasViewOffset ? viewOffset : null;
             var component = _viewOffsetComponentPool.Count > 0 ? _viewOffsetComponentPool.Pop() : new Assets.ViewOffsetComponent();
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.ViewOffset, component);
+            ReplaceComponent(GameComponentIds.ViewOffset, component);
             if (previousComponent != null) {
                 _viewOffsetComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveViewOffset() {
             var component = viewOffset;
-            RemoveComponent(ComponentIds.ViewOffset);
+            RemoveComponent(GameComponentIds.ViewOffset);
             _viewOffsetComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherViewOffset;
 
         public static IMatcher ViewOffset {
             get {
                 if (_matcherViewOffset == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.ViewOffset);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.ViewOffset);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherViewOffset = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

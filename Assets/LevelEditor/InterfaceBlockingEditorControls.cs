@@ -6,12 +6,12 @@ namespace Assets.LevelEditor
     {
         public void MouseExitedInterface()
         {
-            Pools.pool.isPaused = false;
+            Pools.game.isPaused = false;
         }
 
         public void MouseEnteredInterface()
         {
-            Pools.pool.isPaused = true;
+            Pools.game.isPaused = true;
         }
     }
 }

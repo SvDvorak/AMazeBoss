@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.MaintypeComponent maintype { get { return (Assets.MaintypeComponent)GetComponent(ComponentIds.Maintype); } }
+        public Assets.MaintypeComponent maintype { get { return (Assets.MaintypeComponent)GetComponent(GameComponentIds.Maintype); } }
 
-        public bool hasMaintype { get { return HasComponent(ComponentIds.Maintype); } }
+        public bool hasMaintype { get { return HasComponent(GameComponentIds.Maintype); } }
 
         static readonly Stack<Assets.MaintypeComponent> _maintypeComponentPool = new Stack<Assets.MaintypeComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddMaintype(string newValue) {
             var component = _maintypeComponentPool.Count > 0 ? _maintypeComponentPool.Pop() : new Assets.MaintypeComponent();
             component.Value = newValue;
-            return AddComponent(ComponentIds.Maintype, component);
+            return AddComponent(GameComponentIds.Maintype, component);
         }
 
         public Entity ReplaceMaintype(string newValue) {
             var previousComponent = hasMaintype ? maintype : null;
             var component = _maintypeComponentPool.Count > 0 ? _maintypeComponentPool.Pop() : new Assets.MaintypeComponent();
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.Maintype, component);
+            ReplaceComponent(GameComponentIds.Maintype, component);
             if (previousComponent != null) {
                 _maintypeComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveMaintype() {
             var component = maintype;
-            RemoveComponent(ComponentIds.Maintype);
+            RemoveComponent(GameComponentIds.Maintype);
             _maintypeComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherMaintype;
 
         public static IMatcher Maintype {
             get {
                 if (_matcherMaintype == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Maintype);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Maintype);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherMaintype = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

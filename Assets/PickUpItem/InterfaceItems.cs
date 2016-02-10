@@ -9,7 +9,7 @@ public class InterfaceItems : MonoBehaviour
 
 	void Update ()
 	{
-	    var spikesCarried = Pools.pool.GetEntities(Matcher.SpikesCarried);
+	    var spikesCarried = Pools.game.GetEntities(GameMatcher.SpikesCarried);
 
 	    SpikesVisual.SetActive(spikesCarried.Any());
 	}

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.IdComponent id { get { return (Assets.IdComponent)GetComponent(ComponentIds.Id); } }
+        public Assets.IdComponent id { get { return (Assets.IdComponent)GetComponent(GameComponentIds.Id); } }
 
-        public bool hasId { get { return HasComponent(ComponentIds.Id); } }
+        public bool hasId { get { return HasComponent(GameComponentIds.Id); } }
 
         static readonly Stack<Assets.IdComponent> _idComponentPool = new Stack<Assets.IdComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddId(int newValue) {
             var component = _idComponentPool.Count > 0 ? _idComponentPool.Pop() : new Assets.IdComponent();
             component.Value = newValue;
-            return AddComponent(ComponentIds.Id, component);
+            return AddComponent(GameComponentIds.Id, component);
         }
 
         public Entity ReplaceId(int newValue) {
             var previousComponent = hasId ? id : null;
             var component = _idComponentPool.Count > 0 ? _idComponentPool.Pop() : new Assets.IdComponent();
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.Id, component);
+            ReplaceComponent(GameComponentIds.Id, component);
             if (previousComponent != null) {
                 _idComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveId() {
             var component = id;
-            RemoveComponent(ComponentIds.Id);
+            RemoveComponent(GameComponentIds.Id);
             _idComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherId;
 
         public static IMatcher Id {
             get {
                 if (_matcherId == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Id);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Id);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherId = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

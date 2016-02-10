@@ -6,7 +6,7 @@ namespace Assets.LevelEditor.Preview
 {
     public class PreviewTileTypeChangedSystem : PreviewChangedSystem, IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.SelectedPlaceable.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.SelectedPlaceable.OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {

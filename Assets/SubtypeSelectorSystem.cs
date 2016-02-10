@@ -7,8 +7,8 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.Maintype.OnEntityAdded(); } }
-        public IMatcher excludeComponents { get { return Matcher.Subtype; } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Maintype.OnEntityAdded(); } }
+        public IMatcher excludeComponents { get { return GameMatcher.Subtype; } }
 
         public void SetPool(Pool pool)
         {

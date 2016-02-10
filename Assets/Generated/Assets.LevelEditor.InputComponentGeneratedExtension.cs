@@ -1,15 +1,17 @@
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
         static readonly Assets.LevelEditor.InputComponent inputComponent = new Assets.LevelEditor.InputComponent();
 
         public bool isInput {
-            get { return HasComponent(ComponentIds.Input); }
+            get { return HasComponent(GameComponentIds.Input); }
             set {
                 if (value != isInput) {
                     if (value) {
-                        AddComponent(ComponentIds.Input, inputComponent);
+                        AddComponent(GameComponentIds.Input, inputComponent);
                     } else {
-                        RemoveComponent(ComponentIds.Input);
+                        RemoveComponent(GameComponentIds.Input);
                     }
                 }
             }
@@ -22,7 +24,7 @@ namespace Entitas {
     }
 
     public partial class Pool {
-        public Entity inputEntity { get { return GetGroup(Matcher.Input).GetSingleEntity(); } }
+        public Entity inputEntity { get { return GetGroup(GameMatcher.Input).GetSingleEntity(); } }
 
         public bool isInput {
             get { return inputEntity != null; }
@@ -38,15 +40,16 @@ namespace Entitas {
             }
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherInput;
 
         public static IMatcher Input {
             get {
                 if (_matcherInput == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Input);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Input);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherInput = matcher;
                 }
 
@@ -54,4 +57,3 @@ namespace Entitas {
             }
         }
     }
-}

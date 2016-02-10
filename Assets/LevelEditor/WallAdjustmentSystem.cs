@@ -51,8 +51,8 @@ namespace Assets.LevelEditor
         private Group _tilesGroup;
         private HashSet<TilePos> _wallTiles;
 
-        public TriggerOnEvent trigger { get { return Matcher.Maintype.OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.Position; } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Maintype.OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return GameMatcher.Position; } }
 
         public WallAdjustmentSystem()
         {
@@ -71,7 +71,7 @@ namespace Assets.LevelEditor
 
         public void SetPool(Pool pool)
         {
-            _tilesGroup = pool.GetGroup(Matcher.AllOf(Matcher.Tile, Matcher.Position));
+            _tilesGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Tile, GameMatcher.Position));
         }
 
         public void Execute(List<Entity> entities)

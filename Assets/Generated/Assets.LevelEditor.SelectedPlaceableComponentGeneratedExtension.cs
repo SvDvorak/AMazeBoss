@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.LevelEditor.SelectedPlaceableComponent selectedPlaceable { get { return (Assets.LevelEditor.SelectedPlaceableComponent)GetComponent(ComponentIds.SelectedPlaceable); } }
+        public Assets.LevelEditor.SelectedPlaceableComponent selectedPlaceable { get { return (Assets.LevelEditor.SelectedPlaceableComponent)GetComponent(GameComponentIds.SelectedPlaceable); } }
 
-        public bool hasSelectedPlaceable { get { return HasComponent(ComponentIds.SelectedPlaceable); } }
+        public bool hasSelectedPlaceable { get { return HasComponent(GameComponentIds.SelectedPlaceable); } }
 
         static readonly Stack<Assets.LevelEditor.SelectedPlaceableComponent> _selectedPlaceableComponentPool = new Stack<Assets.LevelEditor.SelectedPlaceableComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddSelectedPlaceable(Assets.LevelEditor.Placeables.IPlaceable newValue) {
             var component = _selectedPlaceableComponentPool.Count > 0 ? _selectedPlaceableComponentPool.Pop() : new Assets.LevelEditor.SelectedPlaceableComponent();
             component.Value = newValue;
-            return AddComponent(ComponentIds.SelectedPlaceable, component);
+            return AddComponent(GameComponentIds.SelectedPlaceable, component);
         }
 
         public Entity ReplaceSelectedPlaceable(Assets.LevelEditor.Placeables.IPlaceable newValue) {
             var previousComponent = hasSelectedPlaceable ? selectedPlaceable : null;
             var component = _selectedPlaceableComponentPool.Count > 0 ? _selectedPlaceableComponentPool.Pop() : new Assets.LevelEditor.SelectedPlaceableComponent();
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.SelectedPlaceable, component);
+            ReplaceComponent(GameComponentIds.SelectedPlaceable, component);
             if (previousComponent != null) {
                 _selectedPlaceableComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveSelectedPlaceable() {
             var component = selectedPlaceable;
-            RemoveComponent(ComponentIds.SelectedPlaceable);
+            RemoveComponent(GameComponentIds.SelectedPlaceable);
             _selectedPlaceableComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherSelectedPlaceable;
 
         public static IMatcher SelectedPlaceable {
             get {
                 if (_matcherSelectedPlaceable == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.SelectedPlaceable);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.SelectedPlaceable);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherSelectedPlaceable = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

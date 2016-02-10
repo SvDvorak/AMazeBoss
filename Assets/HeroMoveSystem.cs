@@ -6,8 +6,8 @@ namespace Assets
     public class HeroMoveSystem : IReactiveSystem, ISetPool, IEnsureComponents
     {
         private Pool _pool;
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Hero, Matcher.InputMove).OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.ActiveTurn; } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Hero, GameMatcher.InputMove).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return GameMatcher.ActiveTurn; } }
 
         public void SetPool(Pool pool)
         {

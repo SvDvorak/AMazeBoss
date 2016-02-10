@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.FocusPointComponent focusPoint { get { return (Assets.FocusPointComponent)GetComponent(ComponentIds.FocusPoint); } }
+        public Assets.FocusPointComponent focusPoint { get { return (Assets.FocusPointComponent)GetComponent(GameComponentIds.FocusPoint); } }
 
-        public bool hasFocusPoint { get { return HasComponent(ComponentIds.FocusPoint); } }
+        public bool hasFocusPoint { get { return HasComponent(GameComponentIds.FocusPoint); } }
 
         static readonly Stack<Assets.FocusPointComponent> _focusPointComponentPool = new Stack<Assets.FocusPointComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddFocusPoint(UnityEngine.Vector3 newPosition) {
             var component = _focusPointComponentPool.Count > 0 ? _focusPointComponentPool.Pop() : new Assets.FocusPointComponent();
             component.Position = newPosition;
-            return AddComponent(ComponentIds.FocusPoint, component);
+            return AddComponent(GameComponentIds.FocusPoint, component);
         }
 
         public Entity ReplaceFocusPoint(UnityEngine.Vector3 newPosition) {
             var previousComponent = hasFocusPoint ? focusPoint : null;
             var component = _focusPointComponentPool.Count > 0 ? _focusPointComponentPool.Pop() : new Assets.FocusPointComponent();
             component.Position = newPosition;
-            ReplaceComponent(ComponentIds.FocusPoint, component);
+            ReplaceComponent(GameComponentIds.FocusPoint, component);
             if (previousComponent != null) {
                 _focusPointComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveFocusPoint() {
             var component = focusPoint;
-            RemoveComponent(ComponentIds.FocusPoint);
+            RemoveComponent(GameComponentIds.FocusPoint);
             _focusPointComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherFocusPoint;
 
         public static IMatcher FocusPoint {
             get {
                 if (_matcherFocusPoint == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.FocusPoint);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.FocusPoint);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherFocusPoint = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

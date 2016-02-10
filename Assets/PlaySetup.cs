@@ -15,15 +15,16 @@ namespace Assets
         public List<string> Levels; 
 
         private Systems _systems;
+        private Pool _gamePool;
 
         public void Start()
         {
             Random.seed = 42;
 
-            var pool = Pools.pool;
-            _systems = CreateSystems(pool);
+            _gamePool = Pools.game;
+            _systems = CreateSystems(_gamePool);
 
-            pool.SetLevels(Levels);
+            _gamePool.SetLevels(Levels);
 
             _systems.Initialize();
         }
@@ -36,7 +37,7 @@ namespace Assets
         public void OnDisable()
         {
             _systems.ClearReactiveSystems();
-            Pools.pool.Reset();
+            _gamePool.Reset();
         }
 
         public Systems CreateSystems(Pool pool)

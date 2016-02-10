@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.SubtypeComponent subtype { get { return (Assets.SubtypeComponent)GetComponent(ComponentIds.Subtype); } }
+        public Assets.SubtypeComponent subtype { get { return (Assets.SubtypeComponent)GetComponent(GameComponentIds.Subtype); } }
 
-        public bool hasSubtype { get { return HasComponent(ComponentIds.Subtype); } }
+        public bool hasSubtype { get { return HasComponent(GameComponentIds.Subtype); } }
 
         static readonly Stack<Assets.SubtypeComponent> _subtypeComponentPool = new Stack<Assets.SubtypeComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddSubtype(string newValue) {
             var component = _subtypeComponentPool.Count > 0 ? _subtypeComponentPool.Pop() : new Assets.SubtypeComponent();
             component.Value = newValue;
-            return AddComponent(ComponentIds.Subtype, component);
+            return AddComponent(GameComponentIds.Subtype, component);
         }
 
         public Entity ReplaceSubtype(string newValue) {
             var previousComponent = hasSubtype ? subtype : null;
             var component = _subtypeComponentPool.Count > 0 ? _subtypeComponentPool.Pop() : new Assets.SubtypeComponent();
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.Subtype, component);
+            ReplaceComponent(GameComponentIds.Subtype, component);
             if (previousComponent != null) {
                 _subtypeComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveSubtype() {
             var component = subtype;
-            RemoveComponent(ComponentIds.Subtype);
+            RemoveComponent(GameComponentIds.Subtype);
             _subtypeComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherSubtype;
 
         public static IMatcher Subtype {
             get {
                 if (_matcherSubtype == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Subtype);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Subtype);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherSubtype = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

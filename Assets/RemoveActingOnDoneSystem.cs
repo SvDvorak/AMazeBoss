@@ -9,7 +9,7 @@ namespace Assets
 
         public void SetPool(Pool pool)
         {
-            _actingGroup = pool.GetGroup(Matcher.ActingTime);
+            _actingGroup = pool.GetGroup(GameMatcher.ActingTime);
         }
 
         public void Execute()

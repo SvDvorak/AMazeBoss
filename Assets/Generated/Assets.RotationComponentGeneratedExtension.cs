@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.RotationComponent rotation { get { return (Assets.RotationComponent)GetComponent(ComponentIds.Rotation); } }
+        public Assets.RotationComponent rotation { get { return (Assets.RotationComponent)GetComponent(GameComponentIds.Rotation); } }
 
-        public bool hasRotation { get { return HasComponent(ComponentIds.Rotation); } }
+        public bool hasRotation { get { return HasComponent(GameComponentIds.Rotation); } }
 
         static readonly Stack<Assets.RotationComponent> _rotationComponentPool = new Stack<Assets.RotationComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddRotation(int newValue) {
             var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new Assets.RotationComponent();
             component.Value = newValue;
-            return AddComponent(ComponentIds.Rotation, component);
+            return AddComponent(GameComponentIds.Rotation, component);
         }
 
         public Entity ReplaceRotation(int newValue) {
             var previousComponent = hasRotation ? rotation : null;
             var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new Assets.RotationComponent();
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.Rotation, component);
+            ReplaceComponent(GameComponentIds.Rotation, component);
             if (previousComponent != null) {
                 _rotationComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveRotation() {
             var component = rotation;
-            RemoveComponent(ComponentIds.Rotation);
+            RemoveComponent(GameComponentIds.Rotation);
             _rotationComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherRotation;
 
         public static IMatcher Rotation {
             get {
                 if (_matcherRotation == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Rotation);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Rotation);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherRotation = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}

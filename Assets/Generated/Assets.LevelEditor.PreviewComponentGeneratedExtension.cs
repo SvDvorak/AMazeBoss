@@ -1,15 +1,17 @@
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
         static readonly Assets.LevelEditor.PreviewComponent previewComponent = new Assets.LevelEditor.PreviewComponent();
 
         public bool isPreview {
-            get { return HasComponent(ComponentIds.Preview); }
+            get { return HasComponent(GameComponentIds.Preview); }
             set {
                 if (value != isPreview) {
                     if (value) {
-                        AddComponent(ComponentIds.Preview, previewComponent);
+                        AddComponent(GameComponentIds.Preview, previewComponent);
                     } else {
-                        RemoveComponent(ComponentIds.Preview);
+                        RemoveComponent(GameComponentIds.Preview);
                     }
                 }
             }
@@ -22,7 +24,7 @@ namespace Entitas {
     }
 
     public partial class Pool {
-        public Entity previewEntity { get { return GetGroup(Matcher.Preview).GetSingleEntity(); } }
+        public Entity previewEntity { get { return GetGroup(GameMatcher.Preview).GetSingleEntity(); } }
 
         public bool isPreview {
             get { return previewEntity != null; }
@@ -38,15 +40,16 @@ namespace Entitas {
             }
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherPreview;
 
         public static IMatcher Preview {
             get {
                 if (_matcherPreview == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Preview);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Preview);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherPreview = matcher;
                 }
 
@@ -54,4 +57,3 @@ namespace Entitas {
             }
         }
     }
-}

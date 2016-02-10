@@ -20,8 +20,8 @@ namespace Assets.Input
 
         public void SetPool(Pool pool)
         {
-            _heroGroup = pool.GetGroup(Matcher.Hero);
-            _cameraGroup = pool.GetGroup(Matcher.AllOf(Matcher.Camera, Matcher.Rotation));
+            _heroGroup = pool.GetGroup(GameMatcher.Hero);
+            _cameraGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Camera, GameMatcher.Rotation));
         }
 
         public void Execute()

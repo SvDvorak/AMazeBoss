@@ -9,7 +9,7 @@ namespace Assets.FileOperations
     {
         public static void Save(string path)
         {
-            var levelData = LevelParser.CreateLevelData();
+            var levelData = LevelParser.CreateLevelData(Pools.game);
             var streamWriter = new StreamWriter(path, false);
             streamWriter.Write(levelData);
             streamWriter.Close();
@@ -25,7 +25,7 @@ namespace Assets.FileOperations
                 var json = streamReader.ReadToEnd();
                 streamReader.Close();
 
-                LevelParser.ReadLevelData(json);
+                LevelParser.ReadLevelData(json, Pools.game);
                 SetLastUsedPath(path);
             }
             catch (Exception ex)

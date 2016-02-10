@@ -6,7 +6,7 @@ namespace Assets.Render
 {
     public class PreviewMaterialChangeSystem : IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Preview, Matcher.View).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Preview, GameMatcher.View).OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {

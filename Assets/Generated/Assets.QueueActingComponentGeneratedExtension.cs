@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.QueueActingComponent queueActing { get { return (Assets.QueueActingComponent)GetComponent(ComponentIds.QueueActing); } }
+        public Assets.QueueActingComponent queueActing { get { return (Assets.QueueActingComponent)GetComponent(GameComponentIds.QueueActing); } }
 
-        public bool hasQueueActing { get { return HasComponent(ComponentIds.QueueActing); } }
+        public bool hasQueueActing { get { return HasComponent(GameComponentIds.QueueActing); } }
 
         static readonly Stack<Assets.QueueActingComponent> _queueActingComponentPool = new Stack<Assets.QueueActingComponent>();
 
@@ -16,7 +18,7 @@ namespace Entitas {
             var component = _queueActingComponentPool.Count > 0 ? _queueActingComponentPool.Pop() : new Assets.QueueActingComponent();
             component.Time = newTime;
             component.Action = newAction;
-            return AddComponent(ComponentIds.QueueActing, component);
+            return AddComponent(GameComponentIds.QueueActing, component);
         }
 
         public Entity ReplaceQueueActing(float newTime, System.Action newAction) {
@@ -24,7 +26,7 @@ namespace Entitas {
             var component = _queueActingComponentPool.Count > 0 ? _queueActingComponentPool.Pop() : new Assets.QueueActingComponent();
             component.Time = newTime;
             component.Action = newAction;
-            ReplaceComponent(ComponentIds.QueueActing, component);
+            ReplaceComponent(GameComponentIds.QueueActing, component);
             if (previousComponent != null) {
                 _queueActingComponentPool.Push(previousComponent);
             }
@@ -33,20 +35,21 @@ namespace Entitas {
 
         public Entity RemoveQueueActing() {
             var component = queueActing;
-            RemoveComponent(ComponentIds.QueueActing);
+            RemoveComponent(GameComponentIds.QueueActing);
             _queueActingComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherQueueActing;
 
         public static IMatcher QueueActing {
             get {
                 if (_matcherQueueActing == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.QueueActing);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.QueueActing);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherQueueActing = matcher;
                 }
 
@@ -54,4 +57,3 @@ namespace Entitas {
             }
         }
     }
-}

@@ -1,15 +1,17 @@
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
         static readonly Assets.LevelEditor.InputPlaceComponent inputPlaceComponent = new Assets.LevelEditor.InputPlaceComponent();
 
         public bool isInputPlace {
-            get { return HasComponent(ComponentIds.InputPlace); }
+            get { return HasComponent(GameComponentIds.InputPlace); }
             set {
                 if (value != isInputPlace) {
                     if (value) {
-                        AddComponent(ComponentIds.InputPlace, inputPlaceComponent);
+                        AddComponent(GameComponentIds.InputPlace, inputPlaceComponent);
                     } else {
-                        RemoveComponent(ComponentIds.InputPlace);
+                        RemoveComponent(GameComponentIds.InputPlace);
                     }
                 }
             }
@@ -22,7 +24,7 @@ namespace Entitas {
     }
 
     public partial class Pool {
-        public Entity inputPlaceEntity { get { return GetGroup(Matcher.InputPlace).GetSingleEntity(); } }
+        public Entity inputPlaceEntity { get { return GetGroup(GameMatcher.InputPlace).GetSingleEntity(); } }
 
         public bool isInputPlace {
             get { return inputPlaceEntity != null; }
@@ -38,15 +40,16 @@ namespace Entitas {
             }
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherInputPlace;
 
         public static IMatcher InputPlace {
             get {
                 if (_matcherInputPlace == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.InputPlace);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.InputPlace);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherInputPlace = matcher;
                 }
 
@@ -54,4 +57,3 @@ namespace Entitas {
             }
         }
     }
-}

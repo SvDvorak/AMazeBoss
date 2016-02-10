@@ -47,7 +47,7 @@ namespace Assets.LevelEditor
         public void Clear()
         {
             _hasSetPath = false;
-            Pools.pool.Clear(Matcher.AnyOf(Matcher.Tile, Matcher.Item));
+            Pools.game.Clear(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
             EditorSetup.Instance.Update();
         }
 
@@ -67,13 +67,13 @@ namespace Assets.LevelEditor
 
         public void Update()
         {
-            if(Pools.pool.inputEntity.hasPosition)
+            if(Pools.game.inputEntity.hasPosition)
             {
-                var position = Pools.pool.inputEntity.position.Value;
+                var position = Pools.game.inputEntity.position.Value;
                 PositionInfo.text = string.Format("X: {0}\nZ: {1}", position.X, position.Z);
             }
 
-            if (!Pools.pool.isPaused && UnityEngine.Input.GetKeyDown(KeyCode.Return))
+            if (!Pools.game.isPaused && UnityEngine.Input.GetKeyDown(KeyCode.Return))
             {
                 Play();
             }

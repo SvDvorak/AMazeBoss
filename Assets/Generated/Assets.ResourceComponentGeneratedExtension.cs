@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
-        public Assets.ResourceComponent resource { get { return (Assets.ResourceComponent)GetComponent(ComponentIds.Resource); } }
+        public Assets.ResourceComponent resource { get { return (Assets.ResourceComponent)GetComponent(GameComponentIds.Resource); } }
 
-        public bool hasResource { get { return HasComponent(ComponentIds.Resource); } }
+        public bool hasResource { get { return HasComponent(GameComponentIds.Resource); } }
 
         static readonly Stack<Assets.ResourceComponent> _resourceComponentPool = new Stack<Assets.ResourceComponent>();
 
@@ -15,14 +17,14 @@ namespace Entitas {
         public Entity AddResource(string newPath) {
             var component = _resourceComponentPool.Count > 0 ? _resourceComponentPool.Pop() : new Assets.ResourceComponent();
             component.Path = newPath;
-            return AddComponent(ComponentIds.Resource, component);
+            return AddComponent(GameComponentIds.Resource, component);
         }
 
         public Entity ReplaceResource(string newPath) {
             var previousComponent = hasResource ? resource : null;
             var component = _resourceComponentPool.Count > 0 ? _resourceComponentPool.Pop() : new Assets.ResourceComponent();
             component.Path = newPath;
-            ReplaceComponent(ComponentIds.Resource, component);
+            ReplaceComponent(GameComponentIds.Resource, component);
             if (previousComponent != null) {
                 _resourceComponentPool.Push(previousComponent);
             }
@@ -31,20 +33,21 @@ namespace Entitas {
 
         public Entity RemoveResource() {
             var component = resource;
-            RemoveComponent(ComponentIds.Resource);
+            RemoveComponent(GameComponentIds.Resource);
             _resourceComponentPool.Push(component);
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherResource;
 
         public static IMatcher Resource {
             get {
                 if (_matcherResource == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Resource);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Resource);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherResource = matcher;
                 }
 
@@ -52,4 +55,3 @@ namespace Entitas {
             }
         }
     }
-}
