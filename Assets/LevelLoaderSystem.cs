@@ -108,7 +108,7 @@ namespace Assets
             }
 
             var level = Resources.Load("Levels/" + levelName) as TextAsset;
-            LevelParser.ReadLevelData(level.text, _pool);
+            JsonLevelParser.ReadLevelData(level.text, _pool);
         }
     }
 

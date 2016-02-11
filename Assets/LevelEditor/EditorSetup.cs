@@ -35,6 +35,20 @@ namespace Assets.LevelEditor
             LoadLevel();
         }
 
+        private void SetupEntitas()
+        {
+            Random.seed = 42;
+
+            _gamePool = Pools.game;
+            _systems = CreateSystems(_gamePool);
+
+            _gamePool.CreateEntity().IsInput(true);
+            _gamePool.CreateEntity().IsPreview(true);
+            _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
+
+            _systems.Initialize();
+        }
+
         private static void LoadLevel()
         {
             var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
@@ -53,19 +67,6 @@ namespace Assets.LevelEditor
         {
             _systems.ClearReactiveSystems();
             _gamePool.Reset();
-        }
-
-        private void SetupEntitas()
-        {
-            Random.seed = 42;
-
-            _gamePool = Pools.game;
-            _systems = CreateSystems(_gamePool);
-
-            _gamePool.CreateEntity().IsInput(true);
-            _gamePool.CreateEntity().IsPreview(true);
-
-            _systems.Initialize();
         }
 
         public void Update()

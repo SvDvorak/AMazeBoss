@@ -5,12 +5,26 @@ using System.Linq;
 namespace Assets.FileOperations
 {
     [Serializable]
-    public class FileMap
+    public class LevelsInfo
     {
-        public FileCamera Camera;
-        public List<FileMapObject> Tiles;
+        public List<string> Levels = new List<string>();
 
-        public FileMap(FileCamera camera, List<FileMapObject> tiles)
+        public void AddOrUpdate(string levelName)
+        {
+            if (!Levels.Contains(levelName))
+            {
+                Levels.Add(levelName);
+            }
+        }
+    }
+
+    [Serializable]
+    public class Level
+    {
+        public LevelCamera Camera;
+        public List<LevelObject> Tiles;
+
+        public Level(LevelCamera camera, List<LevelObject> tiles)
         {
             Camera = camera;
             Tiles = tiles;
@@ -18,12 +32,12 @@ namespace Assets.FileOperations
     }
 
     [Serializable]
-    public class FileCamera
+    public class LevelCamera
     {
         public float FocusX;
         public float FocusZ;
 
-        public FileCamera(float focusX, float focusZ)
+        public LevelCamera(float focusX, float focusZ)
         {
             FocusX = focusX;
             FocusZ = focusZ;
@@ -31,7 +45,7 @@ namespace Assets.FileOperations
     }
 
     [Serializable]
-    public class FileMapObject
+    public class LevelObject
     {
         public string Class;
         public string MainType;
@@ -41,7 +55,7 @@ namespace Assets.FileOperations
         public int Rotation;
         public string Descriptors;
 
-        public FileMapObject(string mainType, string subtype, int x, int z, int rotation, IEnumerable<string> descriptors)
+        public LevelObject(string mainType, string subtype, int x, int z, int rotation, IEnumerable<string> descriptors)
         {
             Rotation = rotation;
             MainType = mainType;

@@ -1,4 +1,7 @@
-﻿using Entitas;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.FileOperations;
+using Entitas;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,13 +12,13 @@ namespace Assets.LevelEditor
     {
         public Text PositionInfo;
 
-        private string _lastUsedPath = "";
+        private string _lastUsedName = "";
         private bool _hasSetPath;
 
         public void Start()
         {
-            _lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
-            if (_lastUsedPath != "")
+            _lastUsedName = FileOperations.FileOperations.GetLastUsedPath();
+            if (_lastUsedName != "")
             {
                 _hasSetPath = true;
             }
@@ -25,23 +28,24 @@ namespace Assets.LevelEditor
         {
             if (_hasSetPath)
             {
-                SaveAs(_lastUsedPath);
+                SaveAs(_lastUsedName);
             }
         }
 
-        public void SaveAs(string path)
+        public void SaveAs(string name)
         {
-            _lastUsedPath = path;
+            _lastUsedName = name;
             _hasSetPath = true;
-            FileOperations.FileOperations.Save(path);
+
+            PlayerPrefsLevelReader.SaveLevel(name, LevelLoader.CreateLevelData(Pools.game));
         }
 
         public void Load(string path)
         {
-            Clear();
-            _lastUsedPath = path;
-            _hasSetPath = true;
-            FileOperations.FileOperations.Load(path);
+            //Clear();
+            //_lastUsedName = path;
+            //_hasSetPath = true;
+            //FileOperations.FileOperations.Load(path);
         }
 
         public void Clear()
@@ -55,7 +59,7 @@ namespace Assets.LevelEditor
         {
             if(_hasSetPath)
             {
-                SaveAs(_lastUsedPath);
+                SaveAs(_lastUsedName);
                 PlaySetup.FromEditor = true;
                 SceneManager.LoadScene("Play");
             }
