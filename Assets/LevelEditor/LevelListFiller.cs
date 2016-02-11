@@ -11,7 +11,7 @@ public class LevelListFiller : MonoBehaviour
         {
             var listItem = Instantiate(ItemTemplate);
             listItem.transform.SetParent(transform);
-            listItem.GetComponent<LevelInfoSetter>().SetData(level);
+            listItem.GetComponent<LevelInfoController>().SetData(level);
         }
     }
 

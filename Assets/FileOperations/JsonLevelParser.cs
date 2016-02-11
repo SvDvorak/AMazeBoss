@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.LevelEditor;
 using Entitas;
 using UnityEngine;
 
@@ -109,6 +110,14 @@ namespace Assets.FileOperations
             var levelsInfo = GetLevelsInfo();
             levelsInfo.AddOrUpdate(savedName);
             PlayerPrefs.SetString("LevelsInfo", JsonUtility.ToJson(levelsInfo));
+        }
+
+        public static void LoadLevel(string levelName)
+        {
+            Pools.game.Clear(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
+            EditorSetup.Instance.Update();
+            var levelData = JsonUtility.FromJson<Level>(PlayerPrefs.GetString(levelName));
+            LevelLoader.ReadLevelData(levelData, Pools.game);
         }
     }
 }

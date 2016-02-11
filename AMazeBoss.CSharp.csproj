@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.3.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -225,7 +227,7 @@
     <Compile Include="Assets\LevelEditor\Input\MoveCameraInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Input\RotateCameraInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
-    <Compile Include="Assets\LevelEditor\LevelInfoSetter.cs" />
+    <Compile Include="Assets\LevelEditor\LevelInfoController.cs" />
     <Compile Include="Assets\LevelEditor\LevelListFiller.cs" />
     <Compile Include="Assets\LevelEditor\LoadLevelController.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />
