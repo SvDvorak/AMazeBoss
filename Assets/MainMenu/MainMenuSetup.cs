@@ -18,7 +18,8 @@ namespace Assets.MainMenu
             _systems = SceneSetup.CreateSystem()
                 .Add(menuPool.CreateAddRemoveViewSystem())
                 .Add(menuPool.CreateConnectMenuItemToParentSystem())
-                .Add(menuPool.CreateCursorClickMenuItemSystem());
+                .Add(menuPool.CreateCursorClickMenuItemSystem())
+                .Add(menuPool.CreateSelectedItemAnimationSystem());
 
             menuPool.CreateMenuItems(canvas,
                 new Tuple<string, Action>("New Game", () => SceneManager.LoadScene("Play")),

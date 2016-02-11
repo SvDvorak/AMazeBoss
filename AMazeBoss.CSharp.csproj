@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.3.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -160,6 +162,7 @@
     <Compile Include="Assets\Generated\Assets.MainMenu.CursorClickMenuItemSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MainMenu.MenuItemComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MainMenu.SelectedComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.MainMenu.SelectedItemAnimationSystemGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MainMenu.TextComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
@@ -280,6 +283,7 @@
     <Compile Include="Assets\MainMenu\MainMenuSetup.cs" />
     <Compile Include="Assets\MainMenu\MenuComponents.cs" />
     <Compile Include="Assets\MainMenu\MenuItemBehaviorConfigurer.cs" />
+    <Compile Include="Assets\MainMenu\SelectedItemAnimationSystem.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
     <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />
