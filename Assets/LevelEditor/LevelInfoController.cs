@@ -19,4 +19,10 @@ public class LevelInfoController : MonoBehaviour
     {
         PlayerPrefsLevelReader.LoadLevel(_levelName);
     }
+
+    public void Delete()
+    {
+        PlayerPrefsLevelReader.Delete(_levelName);
+        Destroy(gameObject);
+    }
 }

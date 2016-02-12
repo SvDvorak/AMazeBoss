@@ -16,6 +16,11 @@ namespace Assets.FileOperations
                 Levels.Add(levelName);
             }
         }
+
+        public void Remove(string levelName)
+        {
+            Levels.Remove(levelName);
+        }
     }
 
     [Serializable]

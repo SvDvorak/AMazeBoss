@@ -87,6 +87,41 @@ namespace Assets.FileOperations
 
     public class PlayerPrefsLevelReader
     {
+        public static void SaveLevel(string levelName, Level levelData)
+        {
+            var levelJson = JsonUtility.ToJson(levelData);
+            PlayerPrefs.SetString(levelName, levelJson);
+            AddOrUpdateLevelName(levelName);
+        }
+
+        public static void LoadLevel(string levelName)
+        {
+            Pools.game.Clear(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
+            EditorSetup.Instance.Update();
+            var levelData = JsonUtility.FromJson<Level>(PlayerPrefs.GetString(levelName));
+            LevelLoader.ReadLevelData(levelData, Pools.game);
+        }
+
+        public static void Delete(string levelName)
+        {
+            PlayerPrefs.DeleteKey(levelName);
+            RemoveLevelName(levelName);
+        }
+
+        private static void AddOrUpdateLevelName(string savedName)
+        {
+            var levelsInfo = GetLevelsInfo();
+            levelsInfo.AddOrUpdate(savedName);
+            PlayerPrefs.SetString("LevelsInfo", JsonUtility.ToJson(levelsInfo));
+        }
+
+        private static void RemoveLevelName(string deletedName)
+        {
+            var levelsInfo = GetLevelsInfo();
+            levelsInfo.Remove(deletedName);
+            PlayerPrefs.SetString("LevelsInfo", JsonUtility.ToJson(levelsInfo));
+        }
+
         public static LevelsInfo GetLevelsInfo()
         {
             var currentLevels = PlayerPrefs.GetString("LevelsInfo");
@@ -96,28 +131,6 @@ namespace Assets.FileOperations
             }
 
             return JsonUtility.FromJson<LevelsInfo>(currentLevels);
-        }
-
-        public static void SaveLevel(string levelName, Level levelData)
-        {
-            var levelJson = JsonUtility.ToJson(levelData);
-            PlayerPrefs.SetString(levelName, levelJson);
-            UpdateLevelNames(levelName);
-        }
-
-        private static void UpdateLevelNames(string savedName)
-        {
-            var levelsInfo = GetLevelsInfo();
-            levelsInfo.AddOrUpdate(savedName);
-            PlayerPrefs.SetString("LevelsInfo", JsonUtility.ToJson(levelsInfo));
-        }
-
-        public static void LoadLevel(string levelName)
-        {
-            Pools.game.Clear(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
-            EditorSetup.Instance.Update();
-            var levelData = JsonUtility.FromJson<Level>(PlayerPrefs.GetString(levelName));
-            LevelLoader.ReadLevelData(levelData, Pools.game);
         }
     }
 }
