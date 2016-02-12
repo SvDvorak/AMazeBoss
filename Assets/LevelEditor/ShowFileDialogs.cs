@@ -7,6 +7,7 @@ namespace Assets.LevelEditor
         public GameObject SaveDialog;
         public GameObject LoadDialog;
         public GameObject ExportDialog;
+        public GameObject ImportDialog;
 
         public void ShowSave()
         {
@@ -25,6 +26,13 @@ namespace Assets.LevelEditor
         public void ShowExport()
         {
             ExportDialog.SetActive(true);
+            ImportDialog.SetActive(false);
+        }
+
+        public void ShowImport()
+        {
+            ExportDialog.SetActive(false);
+            ImportDialog.SetActive(true);
         }
     }
 }

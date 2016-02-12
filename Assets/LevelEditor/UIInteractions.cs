@@ -39,6 +39,16 @@ namespace Assets.LevelEditor
             PlayerPrefsLevelReader.LoadLevel(levelName);
         }
 
+        public void Import(string filePath)
+        {
+            var level = FileOperations.FileOperations.Load(filePath);
+            var fileNameStart = filePath.LastIndexOf("\\") + 1;
+            var fileNameEnd = filePath.LastIndexOf(".");
+            var nameLength = fileNameEnd - fileNameStart;
+            var fileName = filePath.Substring(fileNameStart, nameLength);
+            PlayerPrefsLevelReader.SaveLevel(fileName, level, false);
+        }
+
         public void Export(string filePath)
         {
             FileOperations.FileOperations.Save(filePath);

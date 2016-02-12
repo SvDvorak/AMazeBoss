@@ -1,5 +1,4 @@
 ﻿using Assets.FileOperations;
-using Assets.LevelEditor;
 using UnityEngine;
 
 public class LoadLevelController : MonoBehaviour
@@ -22,7 +21,7 @@ public class LoadLevelController : MonoBehaviour
 
     public void OnDisable()
     {
-        foreach (Transform child in transform)
+        foreach (Transform child in ListRoot.transform)
         {
             Destroy(child.gameObject);
         }

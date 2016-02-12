@@ -1,7 +1,5 @@
 using System;
 using System.IO;
-using Assets.LevelEditor;
-using UnityEngine;
 
 namespace Assets.FileOperations
 {
@@ -15,7 +13,7 @@ namespace Assets.FileOperations
             streamWriter.Close();
         }
 
-        public static void Load(string path)
+        public static Level Load(string path)
         {
             try
             {
@@ -23,7 +21,7 @@ namespace Assets.FileOperations
                 var json = streamReader.ReadToEnd();
                 streamReader.Close();
 
-                JsonLevelParser.ReadLevelData(json, Pools.game);
+                return JsonLevelParser.ReadLevelData(json);
             }
             catch (Exception ex)
             {

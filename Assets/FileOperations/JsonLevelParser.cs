@@ -13,20 +13,22 @@ namespace Assets.FileOperations
             return JsonUtility.ToJson(fileMap);
         }
 
-        public static void ReadLevelData(string json, Pool pool)
+        public static Level ReadLevelData(string json)
         {
-            var fileMap = JsonUtility
+            return JsonUtility
                 .FromJson<Level>(json);
-
-            LevelLoader.ReadLevelData(fileMap, pool);
         }
     }
 
     public class PlayerPrefsLevelReader
     {
-        public static void SaveLevel(string levelName, Level levelData)
+        public static void SaveLevel(string levelName, Level levelData, bool isNowUsed = true)
         {
-            LastUsedLevelName = levelName;
+            if(isNowUsed)
+            {
+                LastUsedLevelName = levelName;
+            }
+
             var levelJson = JsonUtility.ToJson(levelData);
             PlayerPrefs.SetString(levelName, levelJson);
             AddOrUpdateLevelName(levelName);

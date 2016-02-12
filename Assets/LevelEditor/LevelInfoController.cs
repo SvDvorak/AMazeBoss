@@ -25,7 +25,6 @@ public class LevelInfoController : MonoBehaviour
     public void Export()
     {
         _dialogController.ShowExport();
-        //_interactions.Export(_levelName);
     }
 
     public void Delete()
