@@ -10,11 +10,9 @@ namespace Assets.FileOperations
         public static void Save(string path)
         {
             var levelData = JsonLevelParser.CreateLevelData(Pools.game);
-            var streamWriter = new StreamWriter(path, false);
+            var streamWriter = new StreamWriter(path + ".json", false);
             streamWriter.Write(levelData);
             streamWriter.Close();
-
-            SetLastUsedPath(path);
         }
 
         public static void Load(string path)
@@ -26,7 +24,6 @@ namespace Assets.FileOperations
                 streamReader.Close();
 
                 JsonLevelParser.ReadLevelData(json, Pools.game);
-                SetLastUsedPath(path);
             }
             catch (Exception ex)
             {
@@ -39,27 +36,6 @@ namespace Assets.FileOperations
             public LevelParseException(string filePath, Exception inner) : base("Unable to parse " + filePath, inner)
             {
             }
-        }
-
-        public static string GetLastUsedPath()
-        {
-            if (PlaySetup.FromEditor)
-            {
-                return PlaySetup.LevelPath;
-            }
-            if (PlayerPrefs.HasKey("LastEditorLevel"))
-            {
-                return PlayerPrefs.GetString("LastEditorLevel");
-            }
-
-            return null;
-        }
-
-        private static void SetLastUsedPath(string path)
-        {
-            PlaySetup.LevelPath = path;
-            PlayerPrefs.SetString("LastEditorLevel", path);
-            Events.instance.Raise(new DefaultPathChanged(path));
         }
     }
 }

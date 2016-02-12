@@ -6,17 +6,25 @@ namespace Assets.LevelEditor
     {
         public GameObject SaveDialog;
         public GameObject LoadDialog;
+        public GameObject ExportDialog;
 
         public void ShowSave()
         {
-            LoadDialog.SetActive(false);
             SaveDialog.SetActive(true);
+            LoadDialog.SetActive(false);
+            ExportDialog.SetActive(false);
         }
 
         public void ShowLoad()
         {
             SaveDialog.SetActive(false);
             LoadDialog.SetActive(true);
+            ExportDialog.SetActive(false);
+        }
+
+        public void ShowExport()
+        {
+            ExportDialog.SetActive(true);
         }
     }
 }

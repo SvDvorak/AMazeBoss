@@ -10,14 +10,13 @@ public class LoadLevelController : MonoBehaviour
 
     public void OnEnable()
     {
-        var interactions = InteractionsObject.GetComponent<UIInteractions>();
         var levelsInfo = PlayerPrefsLevelReader.GetLevelsInfo();
 
         foreach (var level in levelsInfo.Levels)
         {
             var listItem = Instantiate(ItemTemplate);
             listItem.transform.SetParent(ListRoot.transform);
-            listItem.GetComponent<LevelInfoController>().SetData(level, interactions);
+            listItem.GetComponent<LevelInfoController>().SetData(level, InteractionsObject);
         }
     }
 

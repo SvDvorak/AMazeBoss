@@ -39,6 +39,11 @@ namespace Assets.LevelEditor
             PlayerPrefsLevelReader.LoadLevel(levelName);
         }
 
+        public void Export(string filePath)
+        {
+            FileOperations.FileOperations.Save(filePath);
+        }
+
         public void Delete(string levelName)
         {
             PlayerPrefsLevelReader.Delete(levelName);
