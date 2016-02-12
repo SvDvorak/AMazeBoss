@@ -35,6 +35,7 @@ namespace Assets.LevelEditor
         public void Load(string levelName)
         {
             _lastUsedName = levelName;
+
             PlayerPrefsLevelReader.LoadLevel(levelName);
         }
 

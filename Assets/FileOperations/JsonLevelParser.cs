@@ -34,6 +34,7 @@ namespace Assets.FileOperations
 
         public static void LoadLevel(string levelName)
         {
+            LastUsedLevelName = levelName;
             Pools.game.Clear(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
             EditorSetup.Instance.Update();
             var levelData = GetLevel(levelName);
@@ -79,7 +80,7 @@ namespace Assets.FileOperations
         public static string LastUsedLevelName
         {
             get { return PlayerPrefs.GetString("LastUsedLevel"); }
-            private set { PlayerPrefs.SetString("LastUsedLevel", value);}
+            set { PlayerPrefs.SetString("LastUsedLevel", value);}
         }
     }
 }
