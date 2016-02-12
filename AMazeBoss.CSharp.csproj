@@ -92,6 +92,7 @@
     <Compile Include="Assets\FileOperations\FileOperations.cs" />
     <Compile Include="Assets\FileOperations\JsonLevelParser.cs" />
     <Compile Include="Assets\FileOperations\Level.cs" />
+    <Compile Include="Assets\FileOperations\LevelLoader.cs" />
     <Compile Include="Assets\GameObjectConfigurer.cs" />
     <Compile Include="Assets\GameObjectExtensions.cs" />
     <Compile Include="Assets\Generated\Assets.ActingTimeComponentGeneratedExtension.cs" />

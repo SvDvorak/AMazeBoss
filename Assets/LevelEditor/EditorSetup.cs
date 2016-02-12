@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.FileOperations;
 using Entitas;
 using Entitas.Unity.VisualDebugging;
 using UnityEngine;
@@ -51,15 +52,15 @@ namespace Assets.LevelEditor
 
         private static void LoadLevel()
         {
-            var lastUsedPath = FileOperations.FileOperations.GetLastUsedPath();
+            var lastUsedLevelName = PlayerPrefsLevelReader.LastUsedLevelName;
 
             try
             {
-                FileOperations.FileOperations.Load(lastUsedPath);
+                PlayerPrefsLevelReader.LoadLevel(lastUsedLevelName);
             }
             catch (Exception)
             {
-                Debug.LogWarning("Unable to read last used file at " + lastUsedPath);
+                Debug.LogWarning("Unable to read last used level " + lastUsedLevelName);
             }
         }
 

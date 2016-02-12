@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Assets.FileOperations;
+﻿using Assets.FileOperations;
 using Entitas;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,60 +11,49 @@ namespace Assets.LevelEditor
         public Text PositionInfo;
 
         private string _lastUsedName = "";
-        private bool _hasSetPath;
 
         public void Start()
         {
-            _lastUsedName = FileOperations.FileOperations.GetLastUsedPath();
-            if (_lastUsedName != "")
-            {
-                _hasSetPath = true;
-            }
+            _lastUsedName = PlayerPrefsLevelReader.LastUsedLevelName;
         }
 
         public void Save()
         {
-            if (_hasSetPath)
+            if (!string.IsNullOrEmpty(_lastUsedName))
             {
                 SaveAs(_lastUsedName);
             }
         }
 
-        public void SaveAs(string name)
+        public void SaveAs(string levelName)
         {
-            _lastUsedName = name;
-            _hasSetPath = true;
+            _lastUsedName = levelName;
 
-            PlayerPrefsLevelReader.SaveLevel(name, LevelLoader.CreateLevelData(Pools.game));
+            PlayerPrefsLevelReader.SaveLevel(levelName, LevelLoader.CreateLevelData(Pools.game));
         }
 
-        public void Load(string path)
+        public void Load(string levelName)
         {
-            //Clear();
-            //_lastUsedName = path;
-            //_hasSetPath = true;
-            //FileOperations.FileOperations.Load(path);
+            _lastUsedName = levelName;
+            PlayerPrefsLevelReader.LoadLevel(levelName);
+        }
+
+        public void Delete(string levelName)
+        {
+            PlayerPrefsLevelReader.Delete(levelName);
         }
 
         public void Clear()
         {
-            _hasSetPath = false;
             Pools.game.Clear(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
             EditorSetup.Instance.Update();
         }
 
         public void Play()
         {
-            if(_hasSetPath)
-            {
-                SaveAs(_lastUsedName);
-                PlaySetup.FromEditor = true;
-                SceneManager.LoadScene("Play");
-            }
-            else
-            {
-                Debug.Log("Can only play level if it has been saved to a file");
-            }
+            PlaySetup.FromEditor = true;
+            PlaySetup.EditorLevel = PlayerPrefsLevelReader.GetLevel(_lastUsedName);
+            SceneManager.LoadScene("Play");
         }
 
         public void Update()

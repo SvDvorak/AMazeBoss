@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.FileOperations;
 using Entitas;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,6 +11,7 @@ namespace Assets
     {
         public static bool FromEditor;
         public static string LevelPath;
+        public static Level EditorLevel;
 
         public List<string> Levels; 
 

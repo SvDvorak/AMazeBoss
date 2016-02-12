@@ -1,28 +1,27 @@
-﻿using Assets;
-using Assets.FileOperations;
-using Assets.LevelEditor;
-using Entitas;
+﻿using Assets.LevelEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelInfoController : MonoBehaviour
 {
     private string _levelName;
+    private UIInteractions _interactions;
 
-    public void SetData(string levelName)
+    public void SetData(string levelName, UIInteractions interactions)
     {
         _levelName = levelName;
+        _interactions = interactions;
         GetComponentInChildren<Text>().text = _levelName;
     }
 
     public void Load()
     {
-        PlayerPrefsLevelReader.LoadLevel(_levelName);
+        _interactions.Load(_levelName);
     }
 
     public void Delete()
     {
-        PlayerPrefsLevelReader.Delete(_levelName);
+        _interactions.Delete(_levelName);
         Destroy(gameObject);
     }
 }

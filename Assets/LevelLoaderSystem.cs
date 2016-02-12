@@ -116,7 +116,7 @@ namespace Assets
     {
         public void Initialize()
         {
-            FileOperations.FileOperations.Load(PlaySetup.LevelPath);
+            LevelLoader.ReadLevelData(PlaySetup.EditorLevel, Pools.game);
         }
     }
 }
