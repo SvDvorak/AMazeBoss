@@ -56,7 +56,7 @@ namespace Entitas {
         }
     }
 
-    public partial class MenuMatcher {
+    public partial class UiMatcher {
         static IMatcher _matcherResource;
 
         public static IMatcher Resource {

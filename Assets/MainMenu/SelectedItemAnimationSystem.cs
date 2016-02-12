@@ -6,7 +6,7 @@ namespace Assets.MainMenu
 {
     public class SelectedItemAnimationSystem : IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return MenuMatcher.Selected.OnEntityAddedOrRemoved(); } }
+        public TriggerOnEvent trigger { get { return UiMatcher.Selected.OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {

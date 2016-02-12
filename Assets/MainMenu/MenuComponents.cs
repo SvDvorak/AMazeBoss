@@ -6,26 +6,26 @@ using UnityEngine.UI;
 
 namespace Assets.MainMenu
 {
-    [Menu]
+    [Ui]
     public class MenuItemComponent : IComponent
     {
         public string Text;
         public GameObject Parent;
     }
 
-    [Menu]
+    [Ui]
     public class ActivateActionComponent : IComponent
     {
         public Action Action;
     }
 
-    [Menu]
+    [Ui]
     public class TextComponent : IComponent
     {
         public Text Text;
     }
 
-    [Menu]
+    [Ui]
     public class SelectedComponent : IComponent
     {
     }

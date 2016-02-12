@@ -5,7 +5,7 @@ namespace Assets.MainMenu
 {
     public class ConnectMenuItemToParentSystem : IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(MenuMatcher.MenuItem, MenuMatcher.View).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(UiMatcher.MenuItem, UiMatcher.View).OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {

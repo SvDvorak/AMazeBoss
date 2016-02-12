@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets
 {
-    [Game, Menu]
+    [Game, Ui]
     public class IdComponent : IComponent
     {
         public int Value;

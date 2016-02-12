@@ -205,9 +205,9 @@
     <Compile Include="Assets\Generated\Assets.ViewOffsetComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\GameAttribute.cs" />
     <Compile Include="Assets\Generated\GameComponentIds.cs" />
-    <Compile Include="Assets\Generated\MenuAttribute.cs" />
-    <Compile Include="Assets\Generated\MenuComponentIds.cs" />
     <Compile Include="Assets\Generated\Pools.cs" />
+    <Compile Include="Assets\Generated\UiAttribute.cs" />
+    <Compile Include="Assets\Generated\UiComponentIds.cs" />
     <Compile Include="Assets\HealthBehaviorConfigurer.cs" />
     <Compile Include="Assets\HeroCurseSystem.cs" />
     <Compile Include="Assets\HeroItemSystem.cs" />
@@ -229,7 +229,6 @@
     <Compile Include="Assets\LevelEditor\Input\RotateCameraInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\InterfaceBlockingEditorControls.cs" />
     <Compile Include="Assets\LevelEditor\LevelInfoController.cs" />
-    <Compile Include="Assets\LevelEditor\LevelListFiller.cs" />
     <Compile Include="Assets\LevelEditor\LoadLevelController.cs" />
     <Compile Include="Assets\LevelEditor\MainTileType.cs" />
     <Compile Include="Assets\LevelEditor\Placeables\Item.cs" />

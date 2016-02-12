@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class LoadLevelController : MonoBehaviour
 {
-    private LevelListFiller _levelListFiller;
-
+    public GameObject ItemTemplate;
     public GameObject InteractionsObject;
+    public GameObject ListRoot;
 
     public void OnEnable()
     {
         var interactions = InteractionsObject.GetComponent<UIInteractions>();
         var levelsInfo = PlayerPrefsLevelReader.GetLevelsInfo();
-        _levelListFiller = GetComponentInChildren<LevelListFiller>();
-        _levelListFiller.ShowLevels(levelsInfo, interactions);
+
+        foreach (var level in levelsInfo.Levels)
+        {
+            var listItem = Instantiate(ItemTemplate);
+            listItem.transform.SetParent(ListRoot.transform);
+            listItem.GetComponent<LevelInfoController>().SetData(level, interactions);
+        }
     }
 
     public void OnDisable()
     {
-        _levelListFiller.Clear();
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

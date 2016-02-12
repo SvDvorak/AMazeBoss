@@ -5,13 +5,13 @@ namespace Entitas {
         static readonly Assets.MainMenu.SelectedComponent selectedComponent = new Assets.MainMenu.SelectedComponent();
 
         public bool isSelected {
-            get { return HasComponent(MenuComponentIds.Selected); }
+            get { return HasComponent(UiComponentIds.Selected); }
             set {
                 if (value != isSelected) {
                     if (value) {
-                        AddComponent(MenuComponentIds.Selected, selectedComponent);
+                        AddComponent(UiComponentIds.Selected, selectedComponent);
                     } else {
-                        RemoveComponent(MenuComponentIds.Selected);
+                        RemoveComponent(UiComponentIds.Selected);
                     }
                 }
             }
@@ -24,14 +24,14 @@ namespace Entitas {
     }
 }
 
-    public partial class MenuMatcher {
+    public partial class UiMatcher {
         static IMatcher _matcherSelected;
 
         public static IMatcher Selected {
             get {
                 if (_matcherSelected == null) {
-                    var matcher = (Matcher)Matcher.AllOf(MenuComponentIds.Selected);
-                    matcher.componentNames = MenuComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(UiComponentIds.Selected);
+                    matcher.componentNames = UiComponentIds.componentNames;
                     _matcherSelected = matcher;
                 }
 

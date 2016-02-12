@@ -13,15 +13,15 @@ namespace Assets.MainMenu
         public void Start()
         {
             var canvas = GameObject.Find("Canvas");
-            var menuPool = Pools.menu;
+            var uiPool = Pools.ui;
 
             _systems = SceneSetup.CreateSystem()
-                .Add(menuPool.CreateAddRemoveViewSystem())
-                .Add(menuPool.CreateConnectMenuItemToParentSystem())
-                .Add(menuPool.CreateCursorClickMenuItemSystem())
-                .Add(menuPool.CreateSelectedItemAnimationSystem());
+                .Add(uiPool.CreateAddRemoveViewSystem())
+                .Add(uiPool.CreateConnectMenuItemToParentSystem())
+                .Add(uiPool.CreateCursorClickMenuItemSystem())
+                .Add(uiPool.CreateSelectedItemAnimationSystem());
 
-            menuPool.CreateMenuItems(canvas,
+            uiPool.CreateMenuItems(canvas,
                 new Tuple<string, Action>("New Game", () => SceneManager.LoadScene("Play")),
                 new Tuple<string, Action>("Editor", () => SceneManager.LoadScene("Editor")));
 

@@ -12,7 +12,8 @@ namespace Assets.LevelEditor
         private Systems _systems;
 
         private static EditorSetup _setup;
-        private Pool _gamePool;
+
+        private Pool _pool;
 
         public static EditorSetup Instance
         {
@@ -40,12 +41,12 @@ namespace Assets.LevelEditor
         {
             Random.seed = 42;
 
-            _gamePool = Pools.game;
-            _systems = CreateSystems(_gamePool);
+            _pool = Pools.game;
+            _systems = CreateGameSystems(_pool);
 
-            _gamePool.CreateEntity().IsInput(true);
-            _gamePool.CreateEntity().IsPreview(true);
-            _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
+            _pool.CreateEntity().IsInput(true);
+            _pool.CreateEntity().IsPreview(true);
+            _pool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
 
             _systems.Initialize();
         }
@@ -67,7 +68,7 @@ namespace Assets.LevelEditor
         public void OnDestroy()
         {
             _systems.ClearReactiveSystems();
-            _gamePool.Reset();
+            _pool.Reset();
         }
 
         public void Update()
@@ -75,7 +76,7 @@ namespace Assets.LevelEditor
             _systems.Execute();
         }
 
-        public Systems CreateSystems(Pool pool)
+        public Systems CreateGameSystems(Pool pool)
         {
             return SceneSetup.CreateSystem()
 

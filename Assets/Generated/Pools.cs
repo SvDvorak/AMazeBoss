@@ -7,7 +7,7 @@ public static class Pools {
     public static Pool[] allPools {
         get {
             if (_allPools == null) {
-                _allPools = new [] { game, menu };
+                _allPools = new [] { game, ui };
             }
 
             return _allPools;
@@ -30,19 +30,19 @@ public static class Pools {
         }
     }
 
-    static Pool _menu;
+    static Pool _ui;
 
-    public static Pool menu {
+    public static Pool ui {
         get {
-            if (_menu == null) {
-                _menu = new Pool(MenuComponentIds.TotalComponents, 0, new PoolMetaData("Menu Pool", MenuComponentIds.componentNames));
+            if (_ui == null) {
+                _ui = new Pool(UiComponentIds.TotalComponents, 0, new PoolMetaData("Ui Pool", UiComponentIds.componentNames));
                 #if (!ENTITAS_DISABLE_VISUAL_DEBUGGING && UNITY_EDITOR)
-                var poolObserver = new Entitas.Unity.VisualDebugging.PoolObserver(_menu, MenuComponentIds.componentTypes);
+                var poolObserver = new Entitas.Unity.VisualDebugging.PoolObserver(_ui, UiComponentIds.componentTypes);
                 UnityEngine.Object.DontDestroyOnLoad(poolObserver.entitiesContainer);
                 #endif
             }
 
-            return _menu;
+            return _ui;
         }
     }
 }

@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Assets
 {
-    [Game, Menu]
+    [Game, Ui]
     public class ResourceComponent : IComponent
     {
         public string Path;
     }
 
-    [Game, Menu]
+    [Game, Ui]
     public class ViewComponent : IComponent
     {
         public GameObject Value;

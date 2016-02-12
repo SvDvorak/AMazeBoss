@@ -8,7 +8,7 @@ namespace Assets.MainMenu
 
         public void SetPool(Pool pool)
         {
-            _menuItemGroup = pool.GetGroup(Matcher.AllOf(MenuMatcher.ActivateAction, MenuMatcher.View, MenuMatcher.Selected));
+            _menuItemGroup = pool.GetGroup(Matcher.AllOf(UiMatcher.ActivateAction, UiMatcher.View, UiMatcher.Selected));
         }
 
         public void Execute()

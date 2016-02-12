@@ -4,9 +4,9 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.MainMenu.TextComponent text { get { return (Assets.MainMenu.TextComponent)GetComponent(MenuComponentIds.Text); } }
+        public Assets.MainMenu.TextComponent text { get { return (Assets.MainMenu.TextComponent)GetComponent(UiComponentIds.Text); } }
 
-        public bool hasText { get { return HasComponent(MenuComponentIds.Text); } }
+        public bool hasText { get { return HasComponent(UiComponentIds.Text); } }
 
         static readonly Stack<Assets.MainMenu.TextComponent> _textComponentPool = new Stack<Assets.MainMenu.TextComponent>();
 
@@ -17,14 +17,14 @@ namespace Entitas {
         public Entity AddText(UnityEngine.UI.Text newText) {
             var component = _textComponentPool.Count > 0 ? _textComponentPool.Pop() : new Assets.MainMenu.TextComponent();
             component.Text = newText;
-            return AddComponent(MenuComponentIds.Text, component);
+            return AddComponent(UiComponentIds.Text, component);
         }
 
         public Entity ReplaceText(UnityEngine.UI.Text newText) {
             var previousComponent = hasText ? text : null;
             var component = _textComponentPool.Count > 0 ? _textComponentPool.Pop() : new Assets.MainMenu.TextComponent();
             component.Text = newText;
-            ReplaceComponent(MenuComponentIds.Text, component);
+            ReplaceComponent(UiComponentIds.Text, component);
             if (previousComponent != null) {
                 _textComponentPool.Push(previousComponent);
             }
@@ -33,21 +33,21 @@ namespace Entitas {
 
         public Entity RemoveText() {
             var component = text;
-            RemoveComponent(MenuComponentIds.Text);
+            RemoveComponent(UiComponentIds.Text);
             _textComponentPool.Push(component);
             return this;
         }
     }
 }
 
-    public partial class MenuMatcher {
+    public partial class UiMatcher {
         static IMatcher _matcherText;
 
         public static IMatcher Text {
             get {
                 if (_matcherText == null) {
-                    var matcher = (Matcher)Matcher.AllOf(MenuComponentIds.Text);
-                    matcher.componentNames = MenuComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(UiComponentIds.Text);
+                    matcher.componentNames = UiComponentIds.componentNames;
                     _matcherText = matcher;
                 }
 
