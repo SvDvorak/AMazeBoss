@@ -2,28 +2,30 @@
 using System.Linq;
 using Entitas;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.MainMenu
 {
     public class MainMenuSetup : MonoBehaviour
     {
         private Systems _systems;
+        private Pool _uiPool;
 
         public void Start()
         {
+            SceneSetup.CurrentScene = "MainMenu";
+
             var canvas = GameObject.Find("Canvas");
-            var uiPool = Pools.ui;
+            _uiPool = Pools.ui;
 
             _systems = SceneSetup.CreateSystem()
-                .Add(uiPool.CreateAddRemoveViewSystem())
-                .Add(uiPool.CreateConnectMenuItemToParentSystem())
-                .Add(uiPool.CreateCursorClickMenuItemSystem())
-                .Add(uiPool.CreateSelectedItemAnimationSystem());
+                .Add(_uiPool.CreateAddRemoveViewSystem())
+                .Add(_uiPool.CreateConnectMenuItemToParentSystem())
+                .Add(_uiPool.CreateCursorClickMenuItemSystem())
+                .Add(_uiPool.CreateSelectedItemAnimationSystem());
 
-            uiPool.CreateMenuItems(canvas,
-                new Tuple<string, Action>("New Game", () => SceneManager.LoadScene("Play")),
-                new Tuple<string, Action>("Editor", () => SceneManager.LoadScene("Editor")));
+            _uiPool.CreateMenuItems(canvas,
+                new Tuple<string, Action>("New Game", () => SceneSetup.LoadScene("MainMenu")),
+                new Tuple<string, Action>("Editor", () => SceneSetup.LoadScene("Editor")));
 
             _systems.Initialize();
         }
@@ -31,6 +33,15 @@ namespace Assets.MainMenu
         public void Update()
         {
             _systems.Execute();
+        }
+
+        public void OnDestroy()
+        {
+            _systems.ClearReactiveSystems();
+            foreach (var pool in Pools.allPools)
+            {
+                pool.Reset();
+            }
         }
     }
 

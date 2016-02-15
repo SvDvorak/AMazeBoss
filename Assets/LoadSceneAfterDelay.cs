@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadSceneAfterDelay : MonoBehaviour
@@ -13,6 +14,6 @@ public class LoadSceneAfterDelay : MonoBehaviour
 
     public void LoadScene()
     {
-        SceneManager.LoadScene("Play");
+        SceneSetup.LoadScene("Play");
     }
 }

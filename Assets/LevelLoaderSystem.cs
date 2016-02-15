@@ -8,13 +8,13 @@ using UnityEngine.SceneManagement;
 
 namespace Assets
 {
-    public class ReturnToEditorSystem : IExecuteSystem
+    public class ReturnToPreviousViewSystem : IExecuteSystem
     {
         public void Execute()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape) && PlaySetup.FromEditor)
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene("Editor");
+                SceneSetup.LoadPreviousScene();
             }
         }
     }
@@ -39,7 +39,7 @@ namespace Assets
                 try
                 {
                     PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
-                    SceneManager.LoadScene("Play");
+                    SceneSetup.LoadScene("Play");
                 }
                 catch (Exception)
                 {
@@ -68,7 +68,7 @@ namespace Assets
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.R))
             {
-                SceneManager.LoadScene("Play");
+                SceneSetup.LoadScene("Play");
             }
         }
     }
@@ -83,7 +83,7 @@ namespace Assets
             var hero = entities.SingleEntity();
             if (!hero.IsActing())
             {
-                SceneManager.LoadScene("Play");
+                SceneSetup.LoadScene("Play");
             }
         }
     }

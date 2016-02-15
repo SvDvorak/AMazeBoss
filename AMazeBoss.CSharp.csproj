@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.3.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -283,7 +285,6 @@
     <Compile Include="Assets\MainMenu\ConnectMenuItemToParentSystem.cs" />
     <Compile Include="Assets\MainMenu\CursorClickMenuItemSystem.cs" />
     <Compile Include="Assets\MainMenu\CursorOverController.cs" />
-    <Compile Include="Assets\MainMenu\LoadLevel.cs" />
     <Compile Include="Assets\MainMenu\MainMenuSetup.cs" />
     <Compile Include="Assets\MainMenu\MenuComponents.cs" />
     <Compile Include="Assets\MainMenu\MenuItemBehaviorConfigurer.cs" />

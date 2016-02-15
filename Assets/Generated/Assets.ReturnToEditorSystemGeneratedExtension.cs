@@ -1,7 +1,7 @@
 namespace Entitas {
     public partial class Pool {
-        public ISystem CreateReturnToEditorSystem() {
-            return this.CreateSystem<Assets.ReturnToEditorSystem>();
+        public ISystem CreateReturnToPreviousViewSystem() {
+            return this.CreateSystem<Assets.ReturnToPreviousViewSystem>();
         }
     }
 }

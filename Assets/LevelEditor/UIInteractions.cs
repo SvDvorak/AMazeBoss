@@ -67,9 +67,8 @@ namespace Assets.LevelEditor
 
         public void Play()
         {
-            PlaySetup.FromEditor = true;
             PlaySetup.EditorLevel = PlayerPrefsLevelReader.GetLevel(_lastUsedName);
-            SceneManager.LoadScene("Play");
+            SceneSetup.LoadScene("Play");
         }
 
         public void Update()

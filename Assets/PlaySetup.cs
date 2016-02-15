@@ -35,7 +35,7 @@ namespace Assets
             _systems.Execute();
         }
 
-        public void OnDisable()
+        public void OnDestroy()
         {
             _systems.ClearReactiveSystems();
             _gamePool.Reset();
@@ -51,7 +51,7 @@ namespace Assets
 
             // Input
                 .Add(pool.CreatePlayerRestartSystem())
-                .AddReturnToEditorIfFromEditor(pool)
+                .Add(pool.CreateReturnToPreviousViewSystem())
                 .Add(pool.CreateRotateCameraInputSystem())
                 .Add(pool.CreateHeroInputSystem())
                 .Add(pool.CreatePerformInputQueueSystem())
@@ -91,12 +91,6 @@ namespace Assets
 
     public static class EditorPlaySystemsExtensions
     {
-        public static Systems AddReturnToEditorIfFromEditor(this Systems systems, Pool pool)
-        {
-            PlayOrEditorPlayAction(null, () => systems.Add(pool.CreateReturnToEditorSystem()));
-            return systems;
-        }
-
         public static Systems AddLevelLoaderSystem(this Systems systems, Pool pool)
         {
             PlayOrEditorPlayAction(

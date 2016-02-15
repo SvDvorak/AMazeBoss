@@ -84,6 +84,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateTemplateLoaderSystem())
 
             // Input
+                .Add(pool.CreateReturnToPreviousViewSystem())
                 .Add(pool.CreateMouseInputSystem())
                 .Add(pool.CreateMoveCameraInputSystem())
                 .Add(pool.CreateRotateCameraInputSystem())
