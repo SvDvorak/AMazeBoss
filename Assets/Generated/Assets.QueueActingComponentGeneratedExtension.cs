@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,36 +6,25 @@ namespace Entitas {
 
         public bool hasQueueActing { get { return HasComponent(GameComponentIds.QueueActing); } }
 
-        static readonly Stack<Assets.QueueActingComponent> _queueActingComponentPool = new Stack<Assets.QueueActingComponent>();
-
-        public static void ClearQueueActingComponentPool() {
-            _queueActingComponentPool.Clear();
-        }
-
         public Entity AddQueueActing(float newTime, System.Action newAction) {
-            var component = _queueActingComponentPool.Count > 0 ? _queueActingComponentPool.Pop() : new Assets.QueueActingComponent();
+            var componentPool = GetComponentPool(GameComponentIds.QueueActing);
+            var component = (Assets.QueueActingComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.QueueActingComponent());
             component.Time = newTime;
             component.Action = newAction;
             return AddComponent(GameComponentIds.QueueActing, component);
         }
 
         public Entity ReplaceQueueActing(float newTime, System.Action newAction) {
-            var previousComponent = hasQueueActing ? queueActing : null;
-            var component = _queueActingComponentPool.Count > 0 ? _queueActingComponentPool.Pop() : new Assets.QueueActingComponent();
+            var componentPool = GetComponentPool(GameComponentIds.QueueActing);
+            var component = (Assets.QueueActingComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.QueueActingComponent());
             component.Time = newTime;
             component.Action = newAction;
             ReplaceComponent(GameComponentIds.QueueActing, component);
-            if (previousComponent != null) {
-                _queueActingComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveQueueActing() {
-            var component = queueActing;
-            RemoveComponent(GameComponentIds.QueueActing);
-            _queueActingComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.QueueActing);;
         }
     }
 }

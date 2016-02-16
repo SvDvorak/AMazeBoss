@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasLevels { get { return HasComponent(GameComponentIds.Levels); } }
 
-        static readonly Stack<Assets.Levels> _levelsComponentPool = new Stack<Assets.Levels>();
-
-        public static void ClearLevelsComponentPool() {
-            _levelsComponentPool.Clear();
-        }
-
         public Entity AddLevels(System.Collections.Generic.List<string> newValue) {
-            var component = _levelsComponentPool.Count > 0 ? _levelsComponentPool.Pop() : new Assets.Levels();
+            var componentPool = GetComponentPool(GameComponentIds.Levels);
+            var component = (Assets.Levels)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Levels());
             component.Value = newValue;
             return AddComponent(GameComponentIds.Levels, component);
         }
 
         public Entity ReplaceLevels(System.Collections.Generic.List<string> newValue) {
-            var previousComponent = hasLevels ? levels : null;
-            var component = _levelsComponentPool.Count > 0 ? _levelsComponentPool.Pop() : new Assets.Levels();
+            var componentPool = GetComponentPool(GameComponentIds.Levels);
+            var component = (Assets.Levels)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Levels());
             component.Value = newValue;
             ReplaceComponent(GameComponentIds.Levels, component);
-            if (previousComponent != null) {
-                _levelsComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveLevels() {
-            var component = levels;
-            RemoveComponent(GameComponentIds.Levels);
-            _levelsComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Levels);;
         }
     }
 

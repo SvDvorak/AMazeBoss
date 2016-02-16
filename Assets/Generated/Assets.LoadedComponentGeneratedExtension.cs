@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasLoaded { get { return HasComponent(GameComponentIds.Loaded); } }
 
-        static readonly Stack<Assets.LoadedComponent> _loadedComponentPool = new Stack<Assets.LoadedComponent>();
-
-        public static void ClearLoadedComponentPool() {
-            _loadedComponentPool.Clear();
-        }
-
         public Entity AddLoaded(bool newLoadedThisTurn) {
-            var component = _loadedComponentPool.Count > 0 ? _loadedComponentPool.Pop() : new Assets.LoadedComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Loaded);
+            var component = (Assets.LoadedComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.LoadedComponent());
             component.LoadedThisTurn = newLoadedThisTurn;
             return AddComponent(GameComponentIds.Loaded, component);
         }
 
         public Entity ReplaceLoaded(bool newLoadedThisTurn) {
-            var previousComponent = hasLoaded ? loaded : null;
-            var component = _loadedComponentPool.Count > 0 ? _loadedComponentPool.Pop() : new Assets.LoadedComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Loaded);
+            var component = (Assets.LoadedComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.LoadedComponent());
             component.LoadedThisTurn = newLoadedThisTurn;
             ReplaceComponent(GameComponentIds.Loaded, component);
-            if (previousComponent != null) {
-                _loadedComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveLoaded() {
-            var component = loaded;
-            RemoveComponent(GameComponentIds.Loaded);
-            _loadedComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Loaded);;
         }
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasRotation { get { return HasComponent(GameComponentIds.Rotation); } }
 
-        static readonly Stack<Assets.RotationComponent> _rotationComponentPool = new Stack<Assets.RotationComponent>();
-
-        public static void ClearRotationComponentPool() {
-            _rotationComponentPool.Clear();
-        }
-
         public Entity AddRotation(int newValue) {
-            var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new Assets.RotationComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Rotation);
+            var component = (Assets.RotationComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.RotationComponent());
             component.Value = newValue;
             return AddComponent(GameComponentIds.Rotation, component);
         }
 
         public Entity ReplaceRotation(int newValue) {
-            var previousComponent = hasRotation ? rotation : null;
-            var component = _rotationComponentPool.Count > 0 ? _rotationComponentPool.Pop() : new Assets.RotationComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Rotation);
+            var component = (Assets.RotationComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.RotationComponent());
             component.Value = newValue;
             ReplaceComponent(GameComponentIds.Rotation, component);
-            if (previousComponent != null) {
-                _rotationComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveRotation() {
-            var component = rotation;
-            RemoveComponent(GameComponentIds.Rotation);
-            _rotationComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Rotation);;
         }
     }
 }

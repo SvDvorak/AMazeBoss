@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasInputQueue { get { return HasComponent(GameComponentIds.InputQueue); } }
 
-        static readonly Stack<Assets.Input.InputQueueComponent> _inputQueueComponentPool = new Stack<Assets.Input.InputQueueComponent>();
-
-        public static void ClearInputQueueComponentPool() {
-            _inputQueueComponentPool.Clear();
-        }
-
         public Entity AddInputQueue(System.Action newInputAction) {
-            var component = _inputQueueComponentPool.Count > 0 ? _inputQueueComponentPool.Pop() : new Assets.Input.InputQueueComponent();
+            var componentPool = GetComponentPool(GameComponentIds.InputQueue);
+            var component = (Assets.Input.InputQueueComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Input.InputQueueComponent());
             component.InputAction = newInputAction;
             return AddComponent(GameComponentIds.InputQueue, component);
         }
 
         public Entity ReplaceInputQueue(System.Action newInputAction) {
-            var previousComponent = hasInputQueue ? inputQueue : null;
-            var component = _inputQueueComponentPool.Count > 0 ? _inputQueueComponentPool.Pop() : new Assets.Input.InputQueueComponent();
+            var componentPool = GetComponentPool(GameComponentIds.InputQueue);
+            var component = (Assets.Input.InputQueueComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Input.InputQueueComponent());
             component.InputAction = newInputAction;
             ReplaceComponent(GameComponentIds.InputQueue, component);
-            if (previousComponent != null) {
-                _inputQueueComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveInputQueue() {
-            var component = inputQueue;
-            RemoveComponent(GameComponentIds.InputQueue);
-            _inputQueueComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.InputQueue);;
         }
     }
 }

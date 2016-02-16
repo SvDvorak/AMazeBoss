@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasResource { get { return HasComponent(GameComponentIds.Resource); } }
 
-        static readonly Stack<Assets.ResourceComponent> _resourceComponentPool = new Stack<Assets.ResourceComponent>();
-
-        public static void ClearResourceComponentPool() {
-            _resourceComponentPool.Clear();
-        }
-
         public Entity AddResource(string newPath) {
-            var component = _resourceComponentPool.Count > 0 ? _resourceComponentPool.Pop() : new Assets.ResourceComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Resource);
+            var component = (Assets.ResourceComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ResourceComponent());
             component.Path = newPath;
             return AddComponent(GameComponentIds.Resource, component);
         }
 
         public Entity ReplaceResource(string newPath) {
-            var previousComponent = hasResource ? resource : null;
-            var component = _resourceComponentPool.Count > 0 ? _resourceComponentPool.Pop() : new Assets.ResourceComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Resource);
+            var component = (Assets.ResourceComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ResourceComponent());
             component.Path = newPath;
             ReplaceComponent(GameComponentIds.Resource, component);
-            if (previousComponent != null) {
-                _resourceComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveResource() {
-            var component = resource;
-            RemoveComponent(GameComponentIds.Resource);
-            _resourceComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Resource);;
         }
     }
 }

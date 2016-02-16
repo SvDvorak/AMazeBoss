@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasAnimator { get { return HasComponent(GameComponentIds.Animator); } }
 
-        static readonly Stack<Assets.AnimatorComponent> _animatorComponentPool = new Stack<Assets.AnimatorComponent>();
-
-        public static void ClearAnimatorComponentPool() {
-            _animatorComponentPool.Clear();
-        }
-
         public Entity AddAnimator(UnityEngine.Animator newValue) {
-            var component = _animatorComponentPool.Count > 0 ? _animatorComponentPool.Pop() : new Assets.AnimatorComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Animator);
+            var component = (Assets.AnimatorComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.AnimatorComponent());
             component.Value = newValue;
             return AddComponent(GameComponentIds.Animator, component);
         }
 
         public Entity ReplaceAnimator(UnityEngine.Animator newValue) {
-            var previousComponent = hasAnimator ? animator : null;
-            var component = _animatorComponentPool.Count > 0 ? _animatorComponentPool.Pop() : new Assets.AnimatorComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Animator);
+            var component = (Assets.AnimatorComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.AnimatorComponent());
             component.Value = newValue;
             ReplaceComponent(GameComponentIds.Animator, component);
-            if (previousComponent != null) {
-                _animatorComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveAnimator() {
-            var component = animator;
-            RemoveComponent(GameComponentIds.Animator);
-            _animatorComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Animator);;
         }
     }
 }

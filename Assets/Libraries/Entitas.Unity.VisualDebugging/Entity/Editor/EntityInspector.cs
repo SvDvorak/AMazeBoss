@@ -83,6 +83,9 @@ namespace Entitas.Unity.VisualDebugging {
 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Retained by (" + entity.retainCount + ")", EditorStyles.boldLabel);
+
+                #if !ENTITAS_FAST_AND_UNSAFE
+
                 EditorGUILayout.BeginVertical(GUI.skin.box);
                 {
                     foreach (var owner in entity.owners.ToArray()) {
@@ -95,6 +98,8 @@ namespace Entitas.Unity.VisualDebugging {
                     }
                 }
                 EditorGUILayout.EndVertical();
+
+                #endif
             }
             EditorGUILayout.EndVertical();
         }
@@ -157,9 +162,9 @@ namespace Entitas.Unity.VisualDebugging {
                 EditorGUILayout.BeginHorizontal();
                 {
                     if (fields.Length == 0) {
-                        EditorGUILayout.LabelField(componentType.RemoveComponentSuffix(), EditorStyles.boldLabel);
+                        EditorGUILayout.LabelField(componentType.Name.RemoveComponentSuffix(), EditorStyles.boldLabel);
                     } else {
-                        entityBehaviour.unfoldedComponents[index] = EditorGUILayout.Foldout(entityBehaviour.unfoldedComponents[index], componentType.RemoveComponentSuffix(), _foldoutStyle);
+                        entityBehaviour.unfoldedComponents[index] = EditorGUILayout.Foldout(entityBehaviour.unfoldedComponents[index], componentType.Name.RemoveComponentSuffix(), _foldoutStyle);
                     }
                     if (GUILayout.Button("-", GUILayout.Width(19), GUILayout.Height(14))) {
                         entity.RemoveComponent(index);
@@ -195,9 +200,15 @@ namespace Entitas.Unity.VisualDebugging {
 
         public static object DrawAndGetNewValue(Type type, string fieldName, object value, Entity entity, int index, IComponent component) {
             if (value == null) {
+                var isUnityObject = type == typeof(UnityEngine.Object) || type.IsSubclassOf(typeof(UnityEngine.Object));
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUILayout.LabelField(fieldName, "null");
+                    if (isUnityObject) {
+                        value = EditorGUILayout.ObjectField(fieldName, (UnityEngine.Object)value, type, true);
+                    } else {
+                        EditorGUILayout.LabelField(fieldName, "null");
+                    }
+
                     if (GUILayout.Button("Create", GUILayout.Height(14))) {
                         object defaultValue;
                         if (CreateDefault(type, out defaultValue)) {
@@ -247,7 +258,7 @@ namespace Entitas.Unity.VisualDebugging {
             {
                 EditorGUILayout.LabelField(fieldName, value.ToString());
                 if (GUILayout.Button("Missing ITypeDrawer", GUILayout.Height(14))) {
-                    var typeName = TypeGenerator.Generate(type);
+                    var typeName = type.ToCompilableString();
                     if (EditorUtility.DisplayDialog(
                             "No ITypeDrawer found",
                             "There's no ITypeDrawer implementation to handle the type '" + typeName + "'.\n" +
@@ -276,7 +287,7 @@ namespace Entitas.Unity.VisualDebugging {
                 }
             }
 
-            var typeName = TypeGenerator.Generate(type);
+            var typeName = type.ToCompilableString();
             if (EditorUtility.DisplayDialog(
                     "No IDefaultInstanceCreator found",
                     "There's no IDefaultInstanceCreator implementation to handle the type '" + typeName + "'.\n" +

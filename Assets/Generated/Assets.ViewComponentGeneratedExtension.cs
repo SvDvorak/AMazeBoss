@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasView { get { return HasComponent(GameComponentIds.View); } }
 
-        static readonly Stack<Assets.ViewComponent> _viewComponentPool = new Stack<Assets.ViewComponent>();
-
-        public static void ClearViewComponentPool() {
-            _viewComponentPool.Clear();
-        }
-
         public Entity AddView(UnityEngine.GameObject newValue) {
-            var component = _viewComponentPool.Count > 0 ? _viewComponentPool.Pop() : new Assets.ViewComponent();
+            var componentPool = GetComponentPool(GameComponentIds.View);
+            var component = (Assets.ViewComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ViewComponent());
             component.Value = newValue;
             return AddComponent(GameComponentIds.View, component);
         }
 
         public Entity ReplaceView(UnityEngine.GameObject newValue) {
-            var previousComponent = hasView ? view : null;
-            var component = _viewComponentPool.Count > 0 ? _viewComponentPool.Pop() : new Assets.ViewComponent();
+            var componentPool = GetComponentPool(GameComponentIds.View);
+            var component = (Assets.ViewComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ViewComponent());
             component.Value = newValue;
             ReplaceComponent(GameComponentIds.View, component);
-            if (previousComponent != null) {
-                _viewComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveView() {
-            var component = view;
-            RemoveComponent(GameComponentIds.View);
-            _viewComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.View);;
         }
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasInputMove { get { return HasComponent(GameComponentIds.InputMove); } }
 
-        static readonly Stack<Assets.Input.InputMoveComponent> _inputMoveComponentPool = new Stack<Assets.Input.InputMoveComponent>();
-
-        public static void ClearInputMoveComponentPool() {
-            _inputMoveComponentPool.Clear();
-        }
-
         public Entity AddInputMove(Assets.TilePos newDirection) {
-            var component = _inputMoveComponentPool.Count > 0 ? _inputMoveComponentPool.Pop() : new Assets.Input.InputMoveComponent();
+            var componentPool = GetComponentPool(GameComponentIds.InputMove);
+            var component = (Assets.Input.InputMoveComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Input.InputMoveComponent());
             component.Direction = newDirection;
             return AddComponent(GameComponentIds.InputMove, component);
         }
 
         public Entity ReplaceInputMove(Assets.TilePos newDirection) {
-            var previousComponent = hasInputMove ? inputMove : null;
-            var component = _inputMoveComponentPool.Count > 0 ? _inputMoveComponentPool.Pop() : new Assets.Input.InputMoveComponent();
+            var componentPool = GetComponentPool(GameComponentIds.InputMove);
+            var component = (Assets.Input.InputMoveComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Input.InputMoveComponent());
             component.Direction = newDirection;
             ReplaceComponent(GameComponentIds.InputMove, component);
-            if (previousComponent != null) {
-                _inputMoveComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveInputMove() {
-            var component = inputMove;
-            RemoveComponent(GameComponentIds.InputMove);
-            _inputMoveComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.InputMove);;
         }
     }
 }

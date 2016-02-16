@@ -7,12 +7,26 @@ using UnityEngine;
 namespace Assets
 {
     [Game, Ui]
+    public class SceneComponent : IComponent
+    {
+        public Scene Value;
+
+    }
+
+    public enum Scene
+    {
+        MainMenu,
+        Play,
+        Editor
+    }
+
+    [Game, Ui]
     public class IdComponent : IComponent
     {
         public int Value;
     }
 
-    [Game]
+    [Game, Ui]
     public class ChildComponent : IComponent
     {
         public int ParentId;
@@ -192,7 +206,7 @@ namespace Assets
         public Animator Value;
     }
 
-    [Game]
+    [Game, Ui]
     public class DestroyedComponent : IComponent
     {
     }

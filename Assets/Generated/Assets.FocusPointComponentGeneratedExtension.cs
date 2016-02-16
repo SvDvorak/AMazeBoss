@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasFocusPoint { get { return HasComponent(GameComponentIds.FocusPoint); } }
 
-        static readonly Stack<Assets.FocusPointComponent> _focusPointComponentPool = new Stack<Assets.FocusPointComponent>();
-
-        public static void ClearFocusPointComponentPool() {
-            _focusPointComponentPool.Clear();
-        }
-
         public Entity AddFocusPoint(UnityEngine.Vector3 newPosition) {
-            var component = _focusPointComponentPool.Count > 0 ? _focusPointComponentPool.Pop() : new Assets.FocusPointComponent();
+            var componentPool = GetComponentPool(GameComponentIds.FocusPoint);
+            var component = (Assets.FocusPointComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.FocusPointComponent());
             component.Position = newPosition;
             return AddComponent(GameComponentIds.FocusPoint, component);
         }
 
         public Entity ReplaceFocusPoint(UnityEngine.Vector3 newPosition) {
-            var previousComponent = hasFocusPoint ? focusPoint : null;
-            var component = _focusPointComponentPool.Count > 0 ? _focusPointComponentPool.Pop() : new Assets.FocusPointComponent();
+            var componentPool = GetComponentPool(GameComponentIds.FocusPoint);
+            var component = (Assets.FocusPointComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.FocusPointComponent());
             component.Position = newPosition;
             ReplaceComponent(GameComponentIds.FocusPoint, component);
-            if (previousComponent != null) {
-                _focusPointComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveFocusPoint() {
-            var component = focusPoint;
-            RemoveComponent(GameComponentIds.FocusPoint);
-            _focusPointComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.FocusPoint);;
         }
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,36 +6,25 @@ namespace Entitas {
 
         public bool hasKnocked { get { return HasComponent(GameComponentIds.Knocked); } }
 
-        static readonly Stack<Assets.KnockedComponent> _knockedComponentPool = new Stack<Assets.KnockedComponent>();
-
-        public static void ClearKnockedComponentPool() {
-            _knockedComponentPool.Clear();
-        }
-
         public Entity AddKnocked(Assets.TilePos newFromDirection, bool newImmediate) {
-            var component = _knockedComponentPool.Count > 0 ? _knockedComponentPool.Pop() : new Assets.KnockedComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Knocked);
+            var component = (Assets.KnockedComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.KnockedComponent());
             component.FromDirection = newFromDirection;
             component.Immediate = newImmediate;
             return AddComponent(GameComponentIds.Knocked, component);
         }
 
         public Entity ReplaceKnocked(Assets.TilePos newFromDirection, bool newImmediate) {
-            var previousComponent = hasKnocked ? knocked : null;
-            var component = _knockedComponentPool.Count > 0 ? _knockedComponentPool.Pop() : new Assets.KnockedComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Knocked);
+            var component = (Assets.KnockedComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.KnockedComponent());
             component.FromDirection = newFromDirection;
             component.Immediate = newImmediate;
             ReplaceComponent(GameComponentIds.Knocked, component);
-            if (previousComponent != null) {
-                _knockedComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveKnocked() {
-            var component = knocked;
-            RemoveComponent(GameComponentIds.Knocked);
-            _knockedComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Knocked);;
         }
     }
 }

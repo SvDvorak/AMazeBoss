@@ -1,11 +1,10 @@
 ﻿using Assets;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LoadSceneAfterDelay : MonoBehaviour
 {
     public int Delay;
-    public Scene Scene;
+    public UnityEngine.SceneManagement.Scene Scene;
 
 	public void Start ()
     {

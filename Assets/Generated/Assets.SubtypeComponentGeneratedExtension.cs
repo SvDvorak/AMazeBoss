@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasSubtype { get { return HasComponent(GameComponentIds.Subtype); } }
 
-        static readonly Stack<Assets.SubtypeComponent> _subtypeComponentPool = new Stack<Assets.SubtypeComponent>();
-
-        public static void ClearSubtypeComponentPool() {
-            _subtypeComponentPool.Clear();
-        }
-
         public Entity AddSubtype(string newValue) {
-            var component = _subtypeComponentPool.Count > 0 ? _subtypeComponentPool.Pop() : new Assets.SubtypeComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Subtype);
+            var component = (Assets.SubtypeComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.SubtypeComponent());
             component.Value = newValue;
             return AddComponent(GameComponentIds.Subtype, component);
         }
 
         public Entity ReplaceSubtype(string newValue) {
-            var previousComponent = hasSubtype ? subtype : null;
-            var component = _subtypeComponentPool.Count > 0 ? _subtypeComponentPool.Pop() : new Assets.SubtypeComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Subtype);
+            var component = (Assets.SubtypeComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.SubtypeComponent());
             component.Value = newValue;
             ReplaceComponent(GameComponentIds.Subtype, component);
-            if (previousComponent != null) {
-                _subtypeComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveSubtype() {
-            var component = subtype;
-            RemoveComponent(GameComponentIds.Subtype);
-            _subtypeComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Subtype);;
         }
     }
 }

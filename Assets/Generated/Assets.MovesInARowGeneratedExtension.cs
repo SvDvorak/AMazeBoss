@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasMovesInARow { get { return HasComponent(GameComponentIds.MovesInARow); } }
 
-        static readonly Stack<Assets.MovesInARow> _movesInARowComponentPool = new Stack<Assets.MovesInARow>();
-
-        public static void ClearMovesInARowComponentPool() {
-            _movesInARowComponentPool.Clear();
-        }
-
         public Entity AddMovesInARow(int newMoves) {
-            var component = _movesInARowComponentPool.Count > 0 ? _movesInARowComponentPool.Pop() : new Assets.MovesInARow();
+            var componentPool = GetComponentPool(GameComponentIds.MovesInARow);
+            var component = (Assets.MovesInARow)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.MovesInARow());
             component.Moves = newMoves;
             return AddComponent(GameComponentIds.MovesInARow, component);
         }
 
         public Entity ReplaceMovesInARow(int newMoves) {
-            var previousComponent = hasMovesInARow ? movesInARow : null;
-            var component = _movesInARowComponentPool.Count > 0 ? _movesInARowComponentPool.Pop() : new Assets.MovesInARow();
+            var componentPool = GetComponentPool(GameComponentIds.MovesInARow);
+            var component = (Assets.MovesInARow)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.MovesInARow());
             component.Moves = newMoves;
             ReplaceComponent(GameComponentIds.MovesInARow, component);
-            if (previousComponent != null) {
-                _movesInARowComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveMovesInARow() {
-            var component = movesInARow;
-            RemoveComponent(GameComponentIds.MovesInARow);
-            _movesInARowComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.MovesInARow);;
         }
     }
 }

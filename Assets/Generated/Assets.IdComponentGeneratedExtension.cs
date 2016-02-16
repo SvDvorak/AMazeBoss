@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasId { get { return HasComponent(GameComponentIds.Id); } }
 
-        static readonly Stack<Assets.IdComponent> _idComponentPool = new Stack<Assets.IdComponent>();
-
-        public static void ClearIdComponentPool() {
-            _idComponentPool.Clear();
-        }
-
         public Entity AddId(int newValue) {
-            var component = _idComponentPool.Count > 0 ? _idComponentPool.Pop() : new Assets.IdComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Id);
+            var component = (Assets.IdComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.IdComponent());
             component.Value = newValue;
             return AddComponent(GameComponentIds.Id, component);
         }
 
         public Entity ReplaceId(int newValue) {
-            var previousComponent = hasId ? id : null;
-            var component = _idComponentPool.Count > 0 ? _idComponentPool.Pop() : new Assets.IdComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Id);
+            var component = (Assets.IdComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.IdComponent());
             component.Value = newValue;
             ReplaceComponent(GameComponentIds.Id, component);
-            if (previousComponent != null) {
-                _idComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveId() {
-            var component = id;
-            RemoveComponent(GameComponentIds.Id);
-            _idComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Id);;
         }
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasActivateAction { get { return HasComponent(UiComponentIds.ActivateAction); } }
 
-        static readonly Stack<Assets.MainMenu.ActivateActionComponent> _activateActionComponentPool = new Stack<Assets.MainMenu.ActivateActionComponent>();
-
-        public static void ClearActivateActionComponentPool() {
-            _activateActionComponentPool.Clear();
-        }
-
         public Entity AddActivateAction(System.Action newAction) {
-            var component = _activateActionComponentPool.Count > 0 ? _activateActionComponentPool.Pop() : new Assets.MainMenu.ActivateActionComponent();
+            var componentPool = GetComponentPool(UiComponentIds.ActivateAction);
+            var component = (Assets.MainMenu.ActivateActionComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.MainMenu.ActivateActionComponent());
             component.Action = newAction;
             return AddComponent(UiComponentIds.ActivateAction, component);
         }
 
         public Entity ReplaceActivateAction(System.Action newAction) {
-            var previousComponent = hasActivateAction ? activateAction : null;
-            var component = _activateActionComponentPool.Count > 0 ? _activateActionComponentPool.Pop() : new Assets.MainMenu.ActivateActionComponent();
+            var componentPool = GetComponentPool(UiComponentIds.ActivateAction);
+            var component = (Assets.MainMenu.ActivateActionComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.MainMenu.ActivateActionComponent());
             component.Action = newAction;
             ReplaceComponent(UiComponentIds.ActivateAction, component);
-            if (previousComponent != null) {
-                _activateActionComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveActivateAction() {
-            var component = activateAction;
-            RemoveComponent(UiComponentIds.ActivateAction);
-            _activateActionComponentPool.Push(component);
-            return this;
+            return RemoveComponent(UiComponentIds.ActivateAction);;
         }
     }
 }

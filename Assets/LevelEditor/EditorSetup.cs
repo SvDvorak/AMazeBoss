@@ -1,7 +1,10 @@
 ﻿using System;
+using Assets.Camera;
 using Assets.FileOperations;
+using Assets.LevelEditor.Input;
+using Assets.LevelEditor.Preview;
+using Assets.Render;
 using Entitas;
-using Entitas.Unity.VisualDebugging;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,7 +16,7 @@ namespace Assets.LevelEditor
 
         private static EditorSetup _setup;
 
-        private Pool _pool;
+        private Pool _gamePool;
 
         public static EditorSetup Instance
         {
@@ -40,13 +43,15 @@ namespace Assets.LevelEditor
         private void SetupEntitas()
         {
             Random.seed = 42;
+            SceneSetup.CurrentScene = "Editor";
+            SceneSetup.OnSceneChanging += OnSceneChanging;
 
-            _pool = Pools.game;
-            _systems = CreateGameSystems(_pool);
+            _gamePool = Pools.game;
+            _systems = CreateGameSystems(_gamePool);
 
-            _pool.CreateEntity().IsInput(true);
-            _pool.CreateEntity().IsPreview(true);
-            _pool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
+            _gamePool.CreateEntity().IsInput(true);
+            _gamePool.CreateEntity().IsPreview(true);
+            _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
 
             _systems.Initialize();
         }
@@ -68,7 +73,13 @@ namespace Assets.LevelEditor
         public void OnDestroy()
         {
             _systems.ClearReactiveSystems();
-            _pool.Reset();
+            _gamePool.Reset();
+            SceneSetup.OnSceneChanging -= OnSceneChanging;
+        }
+
+        private void OnSceneChanging()
+        {
+            _gamePool.SafeDeleteAll();
         }
 
         public void Update()
@@ -81,38 +92,38 @@ namespace Assets.LevelEditor
             return SceneSetup.CreateSystem()
 
             // Initialize
-                .Add(pool.CreateTemplateLoaderSystem())
+                .Add(pool.CreateSystem<TemplateLoaderSystem>())
 
             // Input
-                .Add(pool.CreateReturnToPreviousViewSystem())
-                .Add(pool.CreateMouseInputSystem())
-                .Add(pool.CreateMoveCameraInputSystem())
-                .Add(pool.CreateRotateCameraInputSystem())
+                .Add(pool.CreateSystem<ReturnToPreviousViewSystem>())
+                .Add(pool.CreateSystem<MouseInputSystem>())
+                .Add(pool.CreateSystem<MoveCameraInputSystem>())
+                .Add(pool.CreateSystem<RotateCameraInputSystem>())
 
             // Update
-                .Add(pool.CreateWallAdjustmentSystem())
-                .Add(pool.CreateSelectPlaceableSystem())
-                .Add(pool.CreatePutDownPlaceableSystem())
-                .Add(pool.CreateRemovePlaceableSystem())
-                .Add(pool.CreateSetFocusPointSystem())
-                .Add(pool.CreateBottomSpawnerSystem())
-                .Add(pool.CreateRemoveImpossiblyPlacedItemsSystem())
-                .Add(pool.CreatePreviewTilePositionChangedSystem())
-                .Add(pool.CreatePreviewTileTypeChangedSystem())
-                .Add(pool.CreatePreviewMaterialChangeSystem())
+                .Add(pool.CreateSystem<WallAdjustmentSystem>())
+                .Add(pool.CreateSystem<SelectPlaceableSystem>())
+                .Add(pool.CreateSystem<PutDownPlaceableSystem>())
+                .Add(pool.CreateSystem<RemovePlaceableSystem>())
+                .Add(pool.CreateSystem<SetFocusPointSystem>())
+                .Add(pool.CreateSystem<BottomSpawnerSystem>())
+                .Add(pool.CreateSystem<RemoveImpossiblyPlacedItemsSystem>())
+                .Add(pool.CreateSystem<PreviewTilePositionChangedSystem>())
+                .Add(pool.CreateSystem<PreviewTileTypeChangedSystem>())
+                .Add(pool.CreateSystem<PreviewMaterialChangeSystem>())
 
             // Render
-                .Add(pool.CreateSubtypeSelectorSystem())
-                .Add(pool.CreateTemplateSelectorSystem())
-                .Add(pool.CreateAddRemoveViewSystem())
-                .Add(pool.CreateSetInitialTransformSystem())
-                .Add(pool.CreateMoveAndRotateCameraSystem())
-                .Add(pool.CreateRenderPositionsSystem())
-                .Add(pool.CreateTrapLoadedAnimationSystem())
-                .Add(pool.CreateHealthChangedAnimationSystem())
+                .Add(pool.CreateSystem<SubtypeSelectorSystem>())
+                .Add(pool.CreateSystem<TemplateSelectorSystem>())
+                .Add(pool.CreateSystem<AddViewSystem>())
+                .Add(pool.CreateSystem<SetInitialTransformSystem>())
+                .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
+                .Add(pool.CreateSystem<RenderPositionsSystem>())
+                .Add(pool.CreateSystem<TrapLoadedAnimationSystem>())
+                .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
 
             // Destroy
-                .Add(pool.CreateDestroySystem());
+                .Add(pool.CreateSystem<DestroySystem>());
         }
     }
 }

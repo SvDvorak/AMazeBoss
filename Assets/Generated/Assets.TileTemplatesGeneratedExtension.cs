@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasTileTemplates { get { return HasComponent(GameComponentIds.TileTemplates); } }
 
-        static readonly Stack<Assets.TileTemplates> _tileTemplatesComponentPool = new Stack<Assets.TileTemplates>();
-
-        public static void ClearTileTemplatesComponentPool() {
-            _tileTemplatesComponentPool.Clear();
-        }
-
         public Entity AddTileTemplates(Assets.TemplateNames newValue) {
-            var component = _tileTemplatesComponentPool.Count > 0 ? _tileTemplatesComponentPool.Pop() : new Assets.TileTemplates();
+            var componentPool = GetComponentPool(GameComponentIds.TileTemplates);
+            var component = (Assets.TileTemplates)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.TileTemplates());
             component.Value = newValue;
             return AddComponent(GameComponentIds.TileTemplates, component);
         }
 
         public Entity ReplaceTileTemplates(Assets.TemplateNames newValue) {
-            var previousComponent = hasTileTemplates ? tileTemplates : null;
-            var component = _tileTemplatesComponentPool.Count > 0 ? _tileTemplatesComponentPool.Pop() : new Assets.TileTemplates();
+            var componentPool = GetComponentPool(GameComponentIds.TileTemplates);
+            var component = (Assets.TileTemplates)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.TileTemplates());
             component.Value = newValue;
             ReplaceComponent(GameComponentIds.TileTemplates, component);
-            if (previousComponent != null) {
-                _tileTemplatesComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveTileTemplates() {
-            var component = tileTemplates;
-            RemoveComponent(GameComponentIds.TileTemplates);
-            _tileTemplatesComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.TileTemplates);;
         }
     }
 

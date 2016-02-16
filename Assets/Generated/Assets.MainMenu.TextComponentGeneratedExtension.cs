@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasText { get { return HasComponent(UiComponentIds.Text); } }
 
-        static readonly Stack<Assets.MainMenu.TextComponent> _textComponentPool = new Stack<Assets.MainMenu.TextComponent>();
-
-        public static void ClearTextComponentPool() {
-            _textComponentPool.Clear();
-        }
-
         public Entity AddText(UnityEngine.UI.Text newText) {
-            var component = _textComponentPool.Count > 0 ? _textComponentPool.Pop() : new Assets.MainMenu.TextComponent();
+            var componentPool = GetComponentPool(UiComponentIds.Text);
+            var component = (Assets.MainMenu.TextComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.MainMenu.TextComponent());
             component.Text = newText;
             return AddComponent(UiComponentIds.Text, component);
         }
 
         public Entity ReplaceText(UnityEngine.UI.Text newText) {
-            var previousComponent = hasText ? text : null;
-            var component = _textComponentPool.Count > 0 ? _textComponentPool.Pop() : new Assets.MainMenu.TextComponent();
+            var componentPool = GetComponentPool(UiComponentIds.Text);
+            var component = (Assets.MainMenu.TextComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.MainMenu.TextComponent());
             component.Text = newText;
             ReplaceComponent(UiComponentIds.Text, component);
-            if (previousComponent != null) {
-                _textComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveText() {
-            var component = text;
-            RemoveComponent(UiComponentIds.Text);
-            _textComponentPool.Push(component);
-            return this;
+            return RemoveComponent(UiComponentIds.Text);;
         }
     }
 }

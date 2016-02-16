@@ -21,11 +21,6 @@ public class CursorOverController : MonoBehaviour
         _entity.isSelected = false;
     }
 
-    public void OnDestroy()
-    {
-        ReleaseEntity();
-    }
-
     public void ReleaseEntity()
     {
         _entity.Release(this);

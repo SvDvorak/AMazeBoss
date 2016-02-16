@@ -72,12 +72,10 @@ namespace Assets
             return pool.GetEntitiesAt(position, entityMatcher).SingleOrDefault();
         }
 
-        public static void Clear(this Pool pool, IMatcher matcher)
+        public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null)
         {
-            foreach (var entity in pool.GetEntities(matcher))
-            {
-                entity.IsDestroyed(true);
-            }
+            var entities = matcher != null ? pool.GetEntities(matcher) : pool.GetEntities();
+            entities.DoForAll(x => x.IsDestroyed(true));
         }
 
         public static Entity FindChildFor(this Pool pool, Entity entity)

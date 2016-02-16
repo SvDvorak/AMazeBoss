@@ -117,21 +117,31 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenFile.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator.TypeReflection\Editor\TypeReflectionCodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentLookupGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentIndicesGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentsGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\PoolAttributeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\PoolsGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\SystemsGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\TypeGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\ICodeGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\IComponentCodeGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\IPoolCodeGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\ISystemCodeGenerator.cs" />
-    <Compile Include="Assets\Libraries\Entitas.Unity.CodeGenerator\Editor\CodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\TypeToCompilableStringExtension.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Interfaces\ICodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Interfaces\ICodeGeneratorDataProvider.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Interfaces\IComponentCodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Interfaces\IPoolCodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Intermediate\CodeGenFile.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Intermediate\ComponentInfo.cs" />
+    <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Providers\TypeReflectionProvider.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Migration\Editor\IMigration.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Migration\Editor\M0180.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Migration\Editor\M0190.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Migration\Editor\M0220.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Migration\Editor\M0260.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Migration\Editor\MigrationFile.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Migration\Editor\MigrationUtils.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity.CodeGenerator\Editor\CodeGeneratorConfig.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity.CodeGenerator\Editor\CodeGeneratorPreferencesDrawer.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.CodeGenerator\Editor\UnityCodeGenerator.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity.Migration\Editor\EntitasMigrationWindow.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\DebugSystems\Editor\DebugSystemsInspector.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\DebugSystems\Editor\SystemsMonitor.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity.VisualDebugging\Editor\EntitasHierarchyIcon.cs" />
@@ -166,7 +176,9 @@
     <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasFeedback.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferences.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferencesConfig.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferencesDrawer.cs" />
     <Compile Include="Assets\Libraries\Entitas.Unity\Editor\EntitasPreferencesWindow.cs" />
+    <Compile Include="Assets\Libraries\Entitas.Unity\Editor\ScriptingDefineSymbols.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Libraries\Demigiant\DOTween\DOTween.XML" />

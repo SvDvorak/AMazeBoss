@@ -9,30 +9,67 @@ namespace Entitas.Unity {
 
         [MenuItem("Entitas/Preferences...", false, 1)]
         public static void OpenPreferences() {
-            EditorWindow.GetWindow<EntitasPreferencesWindow>("Entitas Prefs").Show();
+            var window = EditorWindow.GetWindow<EntitasPreferencesWindow>(true, "Entitas Preferences");
+            window.minSize = window.maxSize = new Vector2(415f, 520f);
+            window.Show();
         }
 
-        static Vector2 _scrollViewPosition;
+        Texture2D _headerTexture;
+        string _localVersion;
+        EntitasPreferencesConfig _config;
+        IEntitasPreferencesDrawer[] _preferencesDrawers;
+        Vector2 _scrollViewPosition;
 
-        void OnGUI() {
-            var config = EntitasPreferences.LoadConfig();
-            var types = Assembly.GetAssembly(typeof(IEntitasPreferencesDrawer)).GetTypes();
-            var preferencesDrawers = types
+
+        void OnEnable() {
+            var guid = AssetDatabase.FindAssets("l:Entitas-Header")[0];
+            if (guid != null) {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                _headerTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+            }
+
+            _localVersion = EntitasCheckForUpdates.GetLocalVersion();
+
+            _config = EntitasPreferences.LoadConfig();
+            _preferencesDrawers = Assembly.GetAssembly(typeof(IEntitasPreferencesDrawer)).GetTypes()
                 .Where(type => type.GetInterfaces().Contains(typeof(IEntitasPreferencesDrawer)))
-                .OrderBy(type => type.FullName)
                 .Select(type => (IEntitasPreferencesDrawer)Activator.CreateInstance(type))
+                .OrderBy(drawer => drawer.priority)
                 .ToArray();
 
+            foreach (var drawer in _preferencesDrawers) {
+                drawer.Initialize(_config);
+            }
+        }
+
+        void OnGUI() {
             _scrollViewPosition = EditorGUILayout.BeginScrollView(_scrollViewPosition);
-            foreach (var drawer in preferencesDrawers) {
-                drawer.Draw(config);
+            {
+                var offsetY = drawHeaderTexture();
                 EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Version: " + _localVersion);
+                GUILayout.Space(offsetY - 24);
+
+                foreach (var drawer in _preferencesDrawers) {
+                    drawer.Draw(_config);
+                    EditorGUILayout.Space();
+                }
             }
             EditorGUILayout.EndScrollView();
 
             if (GUI.changed) {
-                EntitasPreferences.SaveConfig(config);
+                EntitasPreferences.SaveConfig(_config);
             }
+        }
+
+        float drawHeaderTexture() {
+            const int scollBarWidth = 15;
+            var ratio = _headerTexture.width / _headerTexture.height;
+            var width = position.width - 8 - scollBarWidth;
+            var height = width / ratio;
+            GUI.DrawTexture(new Rect(4, 2, width, height), _headerTexture, ScaleMode.ScaleToFit);
+            
+            return height;
         }
     }
 }

@@ -1,3 +1,80 @@
+# 0.28.2
+
+##### Entitas
+- Added ReactiveSystem destructor to prevent memory leaks
+- Added GroupObserver destructor to prevent memory leaks
+
+##### Entitas.Unity.VisualDebugging
+- EntityInspector now supports dropping Unity.Object into fields that are null
+
+![Entitas.Unity.VisualDebugging-DefaultInstanceCreator](https://cloud.githubusercontent.com/assets/233700/12884636/ea8c468c-ce5f-11e5-91a9-0fdf83de7252.png)
+
+- UI tweaks
+
+
+# 0.28.1
+
+##### Entitas.Unity
+- Added "Script Call Optimization" to Entitas Preferences Window
+- Added priority to IEntitasPreferencesDrawer
+- Tweaked UI
+
+![Entitas.Unity-ScriptCallOptimization](https://cloud.githubusercontent.com/assets/233700/12832387/e893b3ec-cb99-11e5-8ccb-d3478ca0c6dc.png)
+
+##### Entitas.Unity.VisualDebugging
+- Added toggle to Entitas Preferences to enable or disable Visual Debugging
+- Tweaked UI
+
+![Entitas.Unity.VisualDebugging-Toggle](https://cloud.githubusercontent.com/assets/233700/12832391/ec74d2e8-cb99-11e5-87b3-f76e2e9ea58d.png)
+
+
+# 0.28.0
+
+##### Breaking changes
+Please follow the [Entitas upgrade guide](https://github.com/sschmid/Entitas-CSharp/blob/master/EntitasUpgradeGuide.md)
+
+##### Entitas
+- Added documentation (#55)
+- Added an object pool for components (#58)
+- Added pool.ClearComponentPool(index) and pool.ClearComponentPools()
+- Added ENTITAS_FAST_AND_UNSAFE compiler flag. When set it will speed up e.Retain() and e.Release() (#59)
+
+##### Entitas.CodeGenerator
+- Generated component extensions are now reusing components using a component object pool when destroying entities (#58)
+- Added tests for testing the logic of generated files
+- Decoupling code generation logic by adding Code Generator Intermediate Format (#62)
+- Added TypeReflectionProvider
+- Supporting components with namespace
+- Simplified linq expressions
+- Removed generated systems
+- The Code Generator is not depending on Entitas anymore
+
+##### Entitas.CodeGenerator.TypeReflection
+- Added Entitas.CodeGenerator.TypeReflection project
+
+##### Entitas.Unity
+- Added `keys` and `values` getter to Properties
+
+##### Entitas.Unity.VisualDebugging
+- Added system search field to DebugSystemsInspector
+- UI tweaks and performance optimizations
+- Fixed logging wrong system stats
+- Added header image and current version label to Entitas Preferences Window
+
+![Entitas.Unity.Visualdebugging-preferences](https://cloud.githubusercontent.com/assets/233700/12795069/a13e5b6e-cab8-11e5-937d-870790e2bfe1.png)
+
+##### Entitas.Unity.Migration
+- Added Entitas.Unity.Migration which provides an easy way to migrate source files
+- Added header image and current version label to Entitas Migration Window
+
+![Entitas.Unity.Migration](https://cloud.githubusercontent.com/assets/233700/12795026/6acf24b4-cab8-11e5-90e3-98a103676d50.png)
+
+##### Other
+- Removed redundant files and gitignored Entitas in all Unity projects (#63)
+- Removed Unity projects from Entitas.sln
+- Removed warnings
+
+
 # 0.27.0
 
 ##### Note
@@ -5,9 +82,6 @@ If you're using Entitas with Unity, please open the Entitas preferences and make
 
 ##### Entitas
 - Added `pool.Reset()` which clears all groups, destroys all entities and resets creationIndex
-
-##### Entitas.Unity
-- Added "Feedback" menu item to report bugs, request features, join the chat, read the wiki and donate
 
 ##### Entitas.CodeGenerator
 - Renamed some code generators
@@ -23,6 +97,9 @@ entity.isDestroy = true;
 // with CustomPrefixAttribute
 entity.flagDestroy = true;
 ```
+
+##### Entitas.Unity
+- Added "Feedback" menu item to report bugs, request features, join the chat, read the wiki and donate
 
 ##### Entitas.Unity.CodeGenerator
 - Removing invalid code generator names from Entitas.properties

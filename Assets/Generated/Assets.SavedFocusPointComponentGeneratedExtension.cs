@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasSavedFocusPoint { get { return HasComponent(GameComponentIds.SavedFocusPoint); } }
 
-        static readonly Stack<Assets.SavedFocusPointComponent> _savedFocusPointComponentPool = new Stack<Assets.SavedFocusPointComponent>();
-
-        public static void ClearSavedFocusPointComponentPool() {
-            _savedFocusPointComponentPool.Clear();
-        }
-
         public Entity AddSavedFocusPoint(UnityEngine.Vector3 newPosition) {
-            var component = _savedFocusPointComponentPool.Count > 0 ? _savedFocusPointComponentPool.Pop() : new Assets.SavedFocusPointComponent();
+            var componentPool = GetComponentPool(GameComponentIds.SavedFocusPoint);
+            var component = (Assets.SavedFocusPointComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.SavedFocusPointComponent());
             component.Position = newPosition;
             return AddComponent(GameComponentIds.SavedFocusPoint, component);
         }
 
         public Entity ReplaceSavedFocusPoint(UnityEngine.Vector3 newPosition) {
-            var previousComponent = hasSavedFocusPoint ? savedFocusPoint : null;
-            var component = _savedFocusPointComponentPool.Count > 0 ? _savedFocusPointComponentPool.Pop() : new Assets.SavedFocusPointComponent();
+            var componentPool = GetComponentPool(GameComponentIds.SavedFocusPoint);
+            var component = (Assets.SavedFocusPointComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.SavedFocusPointComponent());
             component.Position = newPosition;
             ReplaceComponent(GameComponentIds.SavedFocusPoint, component);
-            if (previousComponent != null) {
-                _savedFocusPointComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveSavedFocusPoint() {
-            var component = savedFocusPoint;
-            RemoveComponent(GameComponentIds.SavedFocusPoint);
-            _savedFocusPointComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.SavedFocusPoint);;
         }
     }
 }

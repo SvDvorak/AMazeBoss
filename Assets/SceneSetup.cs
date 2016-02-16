@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using Entitas.Unity.VisualDebugging;
 using UnityEngine;
@@ -17,10 +19,22 @@ namespace Assets
 #endif
         }
 
+        public delegate void SceneChanging();
+        public static event SceneChanging OnSceneChanging;
+
         public static void LoadScene(string nextScene)
         {
+            CallSceneChanging();
             CurrentScene = nextScene;
             SceneManager.LoadScene(nextScene);
+        }
+
+        private static void CallSceneChanging()
+        {
+            if (OnSceneChanging != null)
+            {
+                OnSceneChanging();
+            }
         }
 
         public static void LoadPreviousScene()
@@ -31,6 +45,7 @@ namespace Assets
                 return;
             }
             
+            CallSceneChanging();
             SceneHistory.Pop();
             SceneManager.LoadScene(CurrentScene);
         }

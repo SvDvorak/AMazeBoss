@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Entitas;
 
 namespace Entitas {
@@ -8,34 +6,23 @@ namespace Entitas {
 
         public bool hasSelectedPlaceablesGroup { get { return HasComponent(GameComponentIds.SelectedPlaceablesGroup); } }
 
-        static readonly Stack<Assets.LevelEditor.SelectedPlaceablesGroupComponent> _selectedPlaceablesGroupComponentPool = new Stack<Assets.LevelEditor.SelectedPlaceablesGroupComponent>();
-
-        public static void ClearSelectedPlaceablesGroupComponentPool() {
-            _selectedPlaceablesGroupComponentPool.Clear();
-        }
-
         public Entity AddSelectedPlaceablesGroup(Assets.LevelEditor.SelectionGroup newGroup) {
-            var component = _selectedPlaceablesGroupComponentPool.Count > 0 ? _selectedPlaceablesGroupComponentPool.Pop() : new Assets.LevelEditor.SelectedPlaceablesGroupComponent();
+            var componentPool = GetComponentPool(GameComponentIds.SelectedPlaceablesGroup);
+            var component = (Assets.LevelEditor.SelectedPlaceablesGroupComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.LevelEditor.SelectedPlaceablesGroupComponent());
             component.Group = newGroup;
             return AddComponent(GameComponentIds.SelectedPlaceablesGroup, component);
         }
 
         public Entity ReplaceSelectedPlaceablesGroup(Assets.LevelEditor.SelectionGroup newGroup) {
-            var previousComponent = hasSelectedPlaceablesGroup ? selectedPlaceablesGroup : null;
-            var component = _selectedPlaceablesGroupComponentPool.Count > 0 ? _selectedPlaceablesGroupComponentPool.Pop() : new Assets.LevelEditor.SelectedPlaceablesGroupComponent();
+            var componentPool = GetComponentPool(GameComponentIds.SelectedPlaceablesGroup);
+            var component = (Assets.LevelEditor.SelectedPlaceablesGroupComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.LevelEditor.SelectedPlaceablesGroupComponent());
             component.Group = newGroup;
             ReplaceComponent(GameComponentIds.SelectedPlaceablesGroup, component);
-            if (previousComponent != null) {
-                _selectedPlaceablesGroupComponentPool.Push(previousComponent);
-            }
             return this;
         }
 
         public Entity RemoveSelectedPlaceablesGroup() {
-            var component = selectedPlaceablesGroup;
-            RemoveComponent(GameComponentIds.SelectedPlaceablesGroup);
-            _selectedPlaceablesGroupComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.SelectedPlaceablesGroup);;
         }
     }
 
