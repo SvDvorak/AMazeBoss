@@ -36,6 +36,7 @@ namespace Assets.LevelEditor
         {
             _lastUsedName = levelName;
 
+            Clear();
             PlayerPrefsLevelReader.LoadLevel(levelName);
         }
 
@@ -43,8 +44,7 @@ namespace Assets.LevelEditor
         {
             var level = FileOperations.FileOperations.Load(filePath);
             var fileNameStart = filePath.LastIndexOf("\\") + 1;
-            var fileNameEnd = filePath.LastIndexOf(".");
-            var nameLength = fileNameEnd - fileNameStart;
+            var nameLength = filePath.Length - fileNameStart;
             var fileName = filePath.Substring(fileNameStart, nameLength);
             PlayerPrefsLevelReader.SaveLevel(fileName, level, false);
         }
@@ -68,6 +68,7 @@ namespace Assets.LevelEditor
         public void Play()
         {
             PlaySetup.EditorLevel = PlayerPrefsLevelReader.GetLevel(_lastUsedName);
+            PlaySetup.FromEditor = true;
             SceneSetup.LoadScene("Play");
         }
 
