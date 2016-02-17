@@ -32,12 +32,18 @@ namespace Assets
             {
                 if (entity.hasView)
                 {
-                    Object.Destroy(entity.view.Value);
-                    GameObjectConfigurer.DetachEntity(entity.view.Value, entity);
+                    DestoryView(entity);
                 }
 
                 _pool.DestroyEntity(entity);
             }
+        }
+
+        public static void DestoryView(Entity entity)
+        {
+            GameObjectConfigurer.DetachEntity(entity.view.Value, entity);
+            Object.Destroy(entity.view.Value);
+            entity.RemoveView();
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Assets
     public class SceneComponent : IComponent
     {
         public Scene Value;
-
     }
 
     public enum Scene

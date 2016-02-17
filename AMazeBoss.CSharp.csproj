@@ -142,6 +142,7 @@
     <Compile Include="Assets\Generated\Assets.ResourceComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RotationComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SavedFocusPointComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.SceneComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikeTrapComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikesCarriedGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.SpikesComponentGeneratedExtension.cs" />
@@ -250,8 +251,8 @@
     <Compile Include="Assets\Render\RenderComponent.cs" />
     <Compile Include="Assets\Render\RenderPositionsSystem.cs" />
     <Compile Include="Assets\Render\SetInitialTransformSystem.cs" />
-    <Compile Include="Assets\SceneSetup.cs" />
     <Compile Include="Assets\SceneLoadSystem.cs" />
+    <Compile Include="Assets\SceneSetup.cs" />
     <Compile Include="Assets\SpikeTrapSystem.cs" />
     <Compile Include="Assets\SubtypeSelectorSystem.cs" />
     <Compile Include="Assets\TemplateLoaderSystem.cs" />

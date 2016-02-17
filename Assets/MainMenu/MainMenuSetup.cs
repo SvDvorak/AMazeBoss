@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using Assets.Render;
 using Entitas;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.MainMenu
 {

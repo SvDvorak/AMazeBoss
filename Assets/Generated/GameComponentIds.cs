@@ -3,62 +3,64 @@ public static class GameComponentIds {
     public const int Destroyed = 1;
     public const int Id = 2;
     public const int Resource = 3;
-    public const int View = 4;
-    public const int ActingTime = 5;
-    public const int ActiveTurn = 6;
-    public const int Animator = 7;
-    public const int BlockingTile = 8;
-    public const int Boss = 9;
-    public const int Box = 10;
-    public const int Camera = 11;
-    public const int Character = 12;
-    public const int Cursed = 13;
-    public const int CurseSwitch = 14;
-    public const int Dead = 15;
-    public const int Dynamic = 16;
-    public const int FocusPoint = 17;
-    public const int Health = 18;
-    public const int HealthVisual = 19;
-    public const int Hero = 20;
-    public const int Input = 21;
-    public const int InputCurseSwitch = 22;
-    public const int InputItemInteract = 23;
-    public const int InputMove = 24;
-    public const int InputPlace = 25;
-    public const int InputPullItem = 26;
-    public const int InputQueue = 27;
-    public const int InputRemove = 28;
-    public const int Item = 29;
-    public const int Knocked = 30;
-    public const int Levels = 31;
-    public const int Loaded = 32;
-    public const int Maintype = 33;
-    public const int MovesInARow = 34;
-    public const int Paused = 35;
-    public const int Position = 36;
-    public const int Preview = 37;
-    public const int QueueActing = 38;
-    public const int QueuedPosition = 39;
-    public const int Rotation = 40;
-    public const int SavedFocusPoint = 41;
-    public const int SelectedPlaceable = 42;
-    public const int SelectedPlaceablesGroup = 43;
-    public const int SpikesCarried = 44;
-    public const int Spikes = 45;
-    public const int SpikeTrap = 46;
-    public const int Subtype = 47;
-    public const int Tile = 48;
-    public const int TileTemplates = 49;
-    public const int TrapActivated = 50;
-    public const int ViewOffset = 51;
+    public const int Scene = 4;
+    public const int View = 5;
+    public const int ActingTime = 6;
+    public const int ActiveTurn = 7;
+    public const int Animator = 8;
+    public const int BlockingTile = 9;
+    public const int Boss = 10;
+    public const int Box = 11;
+    public const int Camera = 12;
+    public const int Character = 13;
+    public const int Cursed = 14;
+    public const int CurseSwitch = 15;
+    public const int Dead = 16;
+    public const int Dynamic = 17;
+    public const int FocusPoint = 18;
+    public const int Health = 19;
+    public const int HealthVisual = 20;
+    public const int Hero = 21;
+    public const int Input = 22;
+    public const int InputCurseSwitch = 23;
+    public const int InputItemInteract = 24;
+    public const int InputMove = 25;
+    public const int InputPlace = 26;
+    public const int InputPullItem = 27;
+    public const int InputQueue = 28;
+    public const int InputRemove = 29;
+    public const int Item = 30;
+    public const int Knocked = 31;
+    public const int Levels = 32;
+    public const int Loaded = 33;
+    public const int Maintype = 34;
+    public const int MovesInARow = 35;
+    public const int Paused = 36;
+    public const int Position = 37;
+    public const int Preview = 38;
+    public const int QueueActing = 39;
+    public const int QueuedPosition = 40;
+    public const int Rotation = 41;
+    public const int SavedFocusPoint = 42;
+    public const int SelectedPlaceable = 43;
+    public const int SelectedPlaceablesGroup = 44;
+    public const int SpikesCarried = 45;
+    public const int Spikes = 46;
+    public const int SpikeTrap = 47;
+    public const int Subtype = 48;
+    public const int Tile = 49;
+    public const int TileTemplates = 50;
+    public const int TrapActivated = 51;
+    public const int ViewOffset = 52;
 
-    public const int TotalComponents = 52;
+    public const int TotalComponents = 53;
 
     public static readonly string[] componentNames = {
         "Child",
         "Destroyed",
         "Id",
         "Resource",
+        "Scene",
         "View",
         "ActingTime",
         "ActiveTurn",
@@ -114,6 +116,7 @@ public static class GameComponentIds {
         typeof(Assets.DestroyedComponent),
         typeof(Assets.IdComponent),
         typeof(Assets.ResourceComponent),
+        typeof(Assets.SceneComponent),
         typeof(Assets.ViewComponent),
         typeof(Assets.ActingTimeComponent),
         typeof(Assets.ActiveTurnComponent),
