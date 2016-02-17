@@ -111,7 +111,7 @@ namespace Assets.Render
                     entity.healthVisual.Text.text = entity.health.Value.ToString();
                 }
 
-                if (entity.hasAnimator && entity.IsActing())
+                if (entity.hasAnimator && entity.IsActing() && !entity.isDead)
                 {
                     entity.ReplaceQueueActing(1f, () => entity.animator.Value.SetTrigger("Damage"));
                 }
@@ -190,8 +190,7 @@ namespace Assets.Render
             foreach (var dead in entities)
             {
                 var animator = dead.animator.Value;
-                animator.SetTrigger("Killed");
-                dead.ReplaceActingTime(DeathTime);
+                dead.AddQueueActing(DeathTime, () => animator.SetTrigger("Killed"));
             }
         }
     }
@@ -215,7 +214,7 @@ namespace Assets.Render
             {
                 var animator = cursed.animator.Value;
                 animator.SetBool("IsCursed", cursed.isCursed);
-                cursed.ReplaceActingTime(CurseAnimationTime);
+                cursed.AddActingTime(CurseAnimationTime);
             }
         }
     }
