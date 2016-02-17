@@ -14,7 +14,7 @@ namespace Assets.Render
 
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
-        private const float MoveTime = 0.45f;
+        public const float MoveTime = 0.5f;
 
         public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.View, GameMatcher.Position).OnEntityAdded(); } }
         public IMatcher ensureComponents { get { return Matcher.AnyOf(GameMatcher.Hero, GameMatcher.Boss); } }
@@ -77,7 +77,7 @@ namespace Assets.Render
             {
                 var animator = entity.animator.Value;
                 DOTween.Sequence()
-                    .AppendInterval(TrapActivateTime/2)
+                    .AppendInterval(MoveAnimationSystem.MoveTime + TrapActivateTime/2)
                     .OnComplete(() => animator.SetTrigger("Activated"));
                 entity.ReplaceActingTime(TrapActivateTime);
             }
@@ -100,13 +100,21 @@ namespace Assets.Render
 
     public class HealthChangedAnimationSystem : IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.HealthVisual, GameMatcher.Health).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Health.OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {
             foreach (var entity in entities)
             {
-                entity.healthVisual.Text.text = entity.health.Value.ToString();
+                if (entity.hasHealthVisual)
+                {
+                    entity.healthVisual.Text.text = entity.health.Value.ToString();
+                }
+
+                if (entity.hasAnimator && entity.IsActing())
+                {
+                    entity.ReplaceQueueActing(1f, () => entity.animator.Value.SetTrigger("Damage"));
+                }
             }
         }
     }
@@ -207,7 +215,7 @@ namespace Assets.Render
             {
                 var animator = cursed.animator.Value;
                 animator.SetBool("IsCursed", cursed.isCursed);
-                cursed.AddActingTime(CurseAnimationTime);
+                cursed.ReplaceActingTime(CurseAnimationTime);
             }
         }
     }
