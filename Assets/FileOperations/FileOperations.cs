@@ -17,7 +17,7 @@ namespace Assets.FileOperations
         {
             try
             {
-                var streamReader = new StreamReader(path);
+                var streamReader = new StreamReader(path + ".json");
                 var json = streamReader.ReadToEnd();
                 streamReader.Close();
 

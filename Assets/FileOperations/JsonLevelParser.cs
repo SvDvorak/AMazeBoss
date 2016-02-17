@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Assets.LevelEditor;
 using Entitas;
 using UnityEngine;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using UnityEngine;
 
@@ -8,11 +9,16 @@ namespace Assets.Render
     {
         private readonly Transform _viewsContainer = new GameObject("Views").transform;
 
-        public TriggerOnEvent trigger { get { return GameMatcher.Resource.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Resource.OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var entity in entities)
+            foreach (var entity in entities.Where(x => x.hasView))
+            {
+                DestroySystem.DestoryView(entity);
+            }
+
+            foreach (var entity in entities.Where(x => x.hasResource))
             {
                 AddView(entity);
             }

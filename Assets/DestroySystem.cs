@@ -9,7 +9,10 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return GameMatcher.Destroyed.OnEntityAdded(); } }
+        public TriggerOnEvent trigger
+        {
+            get { return GameMatcher.Destroyed.OnEntityAdded(); }
+        }
 
         public void SetPool(Pool pool)
         {
@@ -18,26 +21,29 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var entity in entities)
-            {
-                var hasBeenDestroyedAsChild = !entity.isDestroyed;
-                if (hasBeenDestroyedAsChild)
-                {
-                    continue;
-                }
+            var toDeleteWithChildren = entities
+                .Concat(entities
+                    .Where(x => x.hasId)
+                    .SelectMany(x => _pool.FindChildrenFor(x)))
+                .Distinct()
+                .ToList();
 
+            foreach (var entity in toDeleteWithChildren)
+            {
                 if (entity.hasView)
                 {
-                    GameObject.Destroy(entity.view.Value);
-                    GameObjectConfigurer.DetachEntity(entity.view.Value, entity);
-                }
-                if (entity.hasId)
-                {
-                    Execute(_pool.FindChildrenFor(entity));
+                    DestoryView(entity);
                 }
 
                 _pool.DestroyEntity(entity);
             }
+        }
+
+        public static void DestoryView(Entity entity)
+        {
+            GameObjectConfigurer.DetachEntity(entity.view.Value, entity);
+            Object.Destroy(entity.view.Value);
+            entity.RemoveView();
         }
     }
 }
