@@ -1,50 +1,40 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.HealthComponent health { get { return (Assets.HealthComponent)GetComponent(ComponentIds.Health); } }
+        public Assets.HealthComponent health { get { return (Assets.HealthComponent)GetComponent(GameComponentIds.Health); } }
 
-        public bool hasHealth { get { return HasComponent(ComponentIds.Health); } }
-
-        static readonly Stack<Assets.HealthComponent> _healthComponentPool = new Stack<Assets.HealthComponent>();
-
-        public static void ClearHealthComponentPool() {
-            _healthComponentPool.Clear();
-        }
+        public bool hasHealth { get { return HasComponent(GameComponentIds.Health); } }
 
         public Entity AddHealth(int newValue) {
-            var component = _healthComponentPool.Count > 0 ? _healthComponentPool.Pop() : new Assets.HealthComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Health);
+            var component = (Assets.HealthComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.HealthComponent());
             component.Value = newValue;
-            return AddComponent(ComponentIds.Health, component);
+            return AddComponent(GameComponentIds.Health, component);
         }
 
         public Entity ReplaceHealth(int newValue) {
-            var previousComponent = hasHealth ? health : null;
-            var component = _healthComponentPool.Count > 0 ? _healthComponentPool.Pop() : new Assets.HealthComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Health);
+            var component = (Assets.HealthComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.HealthComponent());
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.Health, component);
-            if (previousComponent != null) {
-                _healthComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.Health, component);
             return this;
         }
 
         public Entity RemoveHealth() {
-            var component = health;
-            RemoveComponent(ComponentIds.Health);
-            _healthComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Health);;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherHealth;
 
         public static IMatcher Health {
             get {
                 if (_matcherHealth == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Health);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Health);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherHealth = matcher;
                 }
 
@@ -52,4 +42,3 @@ namespace Entitas {
             }
         }
     }
-}

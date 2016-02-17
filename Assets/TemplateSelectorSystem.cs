@@ -10,7 +10,7 @@ namespace Assets
 
         public TriggerOnEvent trigger
         {
-            get { return Matcher.AllOf(Matcher.Maintype, Matcher.Subtype).OnEntityAdded(); }
+            get { return Matcher.AllOf(GameMatcher.Maintype, GameMatcher.Subtype).OnEntityAdded(); }
         }
 
         public void SetPool(Pool pool)

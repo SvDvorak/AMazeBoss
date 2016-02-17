@@ -8,24 +8,11 @@ namespace Assets.Render
     {
         private readonly Transform _viewsContainer = new GameObject("Views").transform;
 
-        public TriggerOnEvent trigger { get { return Matcher.Resource.OnEntityAddedOrRemoved(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Resource.OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {
             foreach (var entity in entities)
-            {
-                Execute(entity);
-            }
-        }
-
-        private void Execute(Entity entity)
-        {
-            if (entity.hasView)
-            {
-                RemoveView(entity);
-            }
-
-            if (entity.hasResource)
             {
                 AddView(entity);
             }
@@ -42,27 +29,8 @@ namespace Assets.Render
             var view = GameObject.Instantiate(resourceObject);
             view.transform.SetParent(_viewsContainer);
 
-            entity.ReplaceViewOffset(view.transform.position);
-
-            if (entity.hasPosition)
-            {
-                view.transform.position = entity.position.Value.ToV3() + entity.viewOffset.Value;
-            }
-
-            if (entity.hasRotation)
-            {
-                view.transform.rotation = Quaternion.AngleAxis(entity.rotation.Value * 90, Vector3.up);
-            }
-
             entity.AddView(view);
             GameObjectConfigurer.AttachEntity(view, entity);
-        }
-
-        private void RemoveView(Entity entity)
-        {
-            GameObjectConfigurer.DetachEntity(entity.view.Value, entity);
-            GameObject.Destroy(entity.view.Value);
-            entity.RemoveView();
         }
     }
 }

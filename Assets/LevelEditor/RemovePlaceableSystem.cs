@@ -7,8 +7,8 @@ namespace Assets.LevelEditor
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.InputRemove, Matcher.Position).OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.Input; } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.InputRemove, GameMatcher.Position).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return GameMatcher.Input; } }
 
         public void SetPool(Pool pool)
         {

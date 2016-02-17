@@ -3,10 +3,17 @@ using Entitas;
 
 namespace Assets.LevelEditor
 {
-    public class PutDownPlaceableSystem : IReactiveSystem, IEnsureComponents
+    public class PutDownPlaceableSystem : IReactiveSystem, ISetPool, IEnsureComponents
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.InputPlace, Matcher.Position).OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.Input; } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.InputPlace, GameMatcher.Position).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return GameMatcher.Input; } }
+
+        private Pool _pool;
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
 
         public void Execute(List<Entity> entities)
         {
@@ -15,7 +22,7 @@ namespace Assets.LevelEditor
             var selectedPlaceable = input.selectedPlaceable.Value;
             var tilePosition = input.position.Value;
 
-            selectedPlaceable.Place(Pools.pool, tilePosition);
+            selectedPlaceable.Place(_pool, tilePosition);
         }
     }
 }

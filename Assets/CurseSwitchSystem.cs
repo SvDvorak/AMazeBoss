@@ -11,12 +11,12 @@ namespace Assets
         private Pool _pool;
         private Group _curseSwitchGroup;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Boss, Matcher.Position).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.Position).OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
-            _curseSwitchGroup = pool.GetGroup(Matcher.AllOf(Matcher.CurseSwitch, Matcher.Position));
+            _curseSwitchGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.CurseSwitch, GameMatcher.Position));
         }
 
         public void Execute(List<Entity> entities)

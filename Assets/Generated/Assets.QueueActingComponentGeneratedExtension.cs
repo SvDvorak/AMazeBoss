@@ -1,52 +1,42 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.QueueActingComponent queueActing { get { return (Assets.QueueActingComponent)GetComponent(ComponentIds.QueueActing); } }
+        public Assets.QueueActingComponent queueActing { get { return (Assets.QueueActingComponent)GetComponent(GameComponentIds.QueueActing); } }
 
-        public bool hasQueueActing { get { return HasComponent(ComponentIds.QueueActing); } }
-
-        static readonly Stack<Assets.QueueActingComponent> _queueActingComponentPool = new Stack<Assets.QueueActingComponent>();
-
-        public static void ClearQueueActingComponentPool() {
-            _queueActingComponentPool.Clear();
-        }
+        public bool hasQueueActing { get { return HasComponent(GameComponentIds.QueueActing); } }
 
         public Entity AddQueueActing(float newTime, System.Action newAction) {
-            var component = _queueActingComponentPool.Count > 0 ? _queueActingComponentPool.Pop() : new Assets.QueueActingComponent();
+            var componentPool = GetComponentPool(GameComponentIds.QueueActing);
+            var component = (Assets.QueueActingComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.QueueActingComponent());
             component.Time = newTime;
             component.Action = newAction;
-            return AddComponent(ComponentIds.QueueActing, component);
+            return AddComponent(GameComponentIds.QueueActing, component);
         }
 
         public Entity ReplaceQueueActing(float newTime, System.Action newAction) {
-            var previousComponent = hasQueueActing ? queueActing : null;
-            var component = _queueActingComponentPool.Count > 0 ? _queueActingComponentPool.Pop() : new Assets.QueueActingComponent();
+            var componentPool = GetComponentPool(GameComponentIds.QueueActing);
+            var component = (Assets.QueueActingComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.QueueActingComponent());
             component.Time = newTime;
             component.Action = newAction;
-            ReplaceComponent(ComponentIds.QueueActing, component);
-            if (previousComponent != null) {
-                _queueActingComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.QueueActing, component);
             return this;
         }
 
         public Entity RemoveQueueActing() {
-            var component = queueActing;
-            RemoveComponent(ComponentIds.QueueActing);
-            _queueActingComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.QueueActing);;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherQueueActing;
 
         public static IMatcher QueueActing {
             get {
                 if (_matcherQueueActing == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.QueueActing);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.QueueActing);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherQueueActing = matcher;
                 }
 
@@ -54,4 +44,3 @@ namespace Entitas {
             }
         }
     }
-}

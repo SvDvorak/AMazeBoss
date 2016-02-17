@@ -10,7 +10,7 @@ namespace Assets.LevelEditor
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.AnyOf(Matcher.Item, Matcher.Tile).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AnyOf(GameMatcher.Item, GameMatcher.Tile).OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {

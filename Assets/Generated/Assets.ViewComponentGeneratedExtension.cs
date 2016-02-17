@@ -1,50 +1,40 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.ViewComponent view { get { return (Assets.ViewComponent)GetComponent(ComponentIds.View); } }
+        public Assets.ViewComponent view { get { return (Assets.ViewComponent)GetComponent(GameComponentIds.View); } }
 
-        public bool hasView { get { return HasComponent(ComponentIds.View); } }
-
-        static readonly Stack<Assets.ViewComponent> _viewComponentPool = new Stack<Assets.ViewComponent>();
-
-        public static void ClearViewComponentPool() {
-            _viewComponentPool.Clear();
-        }
+        public bool hasView { get { return HasComponent(GameComponentIds.View); } }
 
         public Entity AddView(UnityEngine.GameObject newValue) {
-            var component = _viewComponentPool.Count > 0 ? _viewComponentPool.Pop() : new Assets.ViewComponent();
+            var componentPool = GetComponentPool(GameComponentIds.View);
+            var component = (Assets.ViewComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ViewComponent());
             component.Value = newValue;
-            return AddComponent(ComponentIds.View, component);
+            return AddComponent(GameComponentIds.View, component);
         }
 
         public Entity ReplaceView(UnityEngine.GameObject newValue) {
-            var previousComponent = hasView ? view : null;
-            var component = _viewComponentPool.Count > 0 ? _viewComponentPool.Pop() : new Assets.ViewComponent();
+            var componentPool = GetComponentPool(GameComponentIds.View);
+            var component = (Assets.ViewComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ViewComponent());
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.View, component);
-            if (previousComponent != null) {
-                _viewComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.View, component);
             return this;
         }
 
         public Entity RemoveView() {
-            var component = view;
-            RemoveComponent(ComponentIds.View);
-            _viewComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.View);;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherView;
 
         public static IMatcher View {
             get {
                 if (_matcherView == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.View);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.View);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherView = matcher;
                 }
 
@@ -52,4 +42,19 @@ namespace Entitas {
             }
         }
     }
-}
+
+    public partial class UiMatcher {
+        static IMatcher _matcherView;
+
+        public static IMatcher View {
+            get {
+                if (_matcherView == null) {
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.View);
+                    matcher.componentNames = GameComponentIds.componentNames;
+                    _matcherView = matcher;
+                }
+
+                return _matcherView;
+            }
+        }
+    }

@@ -1,50 +1,40 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.CameraComponent camera { get { return (Assets.CameraComponent)GetComponent(ComponentIds.Camera); } }
+        public Assets.CameraComponent camera { get { return (Assets.CameraComponent)GetComponent(GameComponentIds.Camera); } }
 
-        public bool hasCamera { get { return HasComponent(ComponentIds.Camera); } }
-
-        static readonly Stack<Assets.CameraComponent> _cameraComponentPool = new Stack<Assets.CameraComponent>();
-
-        public static void ClearCameraComponentPool() {
-            _cameraComponentPool.Clear();
-        }
+        public bool hasCamera { get { return HasComponent(GameComponentIds.Camera); } }
 
         public Entity AddCamera(UnityEngine.Camera newValue) {
-            var component = _cameraComponentPool.Count > 0 ? _cameraComponentPool.Pop() : new Assets.CameraComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Camera);
+            var component = (Assets.CameraComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.CameraComponent());
             component.Value = newValue;
-            return AddComponent(ComponentIds.Camera, component);
+            return AddComponent(GameComponentIds.Camera, component);
         }
 
         public Entity ReplaceCamera(UnityEngine.Camera newValue) {
-            var previousComponent = hasCamera ? camera : null;
-            var component = _cameraComponentPool.Count > 0 ? _cameraComponentPool.Pop() : new Assets.CameraComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Camera);
+            var component = (Assets.CameraComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.CameraComponent());
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.Camera, component);
-            if (previousComponent != null) {
-                _cameraComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.Camera, component);
             return this;
         }
 
         public Entity RemoveCamera() {
-            var component = camera;
-            RemoveComponent(ComponentIds.Camera);
-            _cameraComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Camera);;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherCamera;
 
         public static IMatcher Camera {
             get {
                 if (_matcherCamera == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Camera);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Camera);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherCamera = matcher;
                 }
 
@@ -52,4 +42,3 @@ namespace Entitas {
             }
         }
     }
-}

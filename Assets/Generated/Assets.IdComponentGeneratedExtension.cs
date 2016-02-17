@@ -1,50 +1,40 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.IdComponent id { get { return (Assets.IdComponent)GetComponent(ComponentIds.Id); } }
+        public Assets.IdComponent id { get { return (Assets.IdComponent)GetComponent(GameComponentIds.Id); } }
 
-        public bool hasId { get { return HasComponent(ComponentIds.Id); } }
-
-        static readonly Stack<Assets.IdComponent> _idComponentPool = new Stack<Assets.IdComponent>();
-
-        public static void ClearIdComponentPool() {
-            _idComponentPool.Clear();
-        }
+        public bool hasId { get { return HasComponent(GameComponentIds.Id); } }
 
         public Entity AddId(int newValue) {
-            var component = _idComponentPool.Count > 0 ? _idComponentPool.Pop() : new Assets.IdComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Id);
+            var component = (Assets.IdComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.IdComponent());
             component.Value = newValue;
-            return AddComponent(ComponentIds.Id, component);
+            return AddComponent(GameComponentIds.Id, component);
         }
 
         public Entity ReplaceId(int newValue) {
-            var previousComponent = hasId ? id : null;
-            var component = _idComponentPool.Count > 0 ? _idComponentPool.Pop() : new Assets.IdComponent();
+            var componentPool = GetComponentPool(GameComponentIds.Id);
+            var component = (Assets.IdComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.IdComponent());
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.Id, component);
-            if (previousComponent != null) {
-                _idComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.Id, component);
             return this;
         }
 
         public Entity RemoveId() {
-            var component = id;
-            RemoveComponent(ComponentIds.Id);
-            _idComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Id);;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherId;
 
         public static IMatcher Id {
             get {
                 if (_matcherId == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Id);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Id);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherId = matcher;
                 }
 
@@ -52,4 +42,19 @@ namespace Entitas {
             }
         }
     }
-}
+
+    public partial class UiMatcher {
+        static IMatcher _matcherId;
+
+        public static IMatcher Id {
+            get {
+                if (_matcherId == null) {
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Id);
+                    matcher.componentNames = GameComponentIds.componentNames;
+                    _matcherId = matcher;
+                }
+
+                return _matcherId;
+            }
+        }
+    }

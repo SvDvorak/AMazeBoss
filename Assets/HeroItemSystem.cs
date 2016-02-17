@@ -8,8 +8,8 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Hero, Matcher.InputItemInteract).OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.ActiveTurn; } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Hero, GameMatcher.InputItemInteract).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return GameMatcher.ActiveTurn; } }
 
         public void SetPool(Pool pool)
         {
@@ -20,8 +20,8 @@ namespace Assets
         {
             var hero = entities.SingleEntity();
 
-            var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, Matcher.Spikes);
-            var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, Matcher.SpikeTrap);
+            var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, GameMatcher.Spikes);
+            var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, GameMatcher.SpikeTrap);
             var isTrapEmpty = spikeTrapBelow != null && !spikeTrapBelow.hasLoaded;
 
             if (hero.isSpikesCarried && isTrapEmpty)

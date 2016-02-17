@@ -6,38 +6,39 @@ using Entitas.CodeGenerator;
 
 namespace Assets.LevelEditor
 {
-    [SingleEntity]
+    [SingleEntity, Game]
     public class PausedComponent : IComponent
     {
     }
 
+    [Game]
     public class SelectedPlaceableComponent : IComponent
     {
         public IPlaceable Value;
     }
 
-    [SingleEntity]
+    [SingleEntity, Game]
     public class SelectedPlaceablesGroupComponent : IComponent
     {
         public SelectionGroup Group;
     }
 
-    [SingleEntity]
+    [SingleEntity, Game]
     public class InputComponent : IComponent
     {
     }
 
-    [SingleEntity]
+    [SingleEntity, Game]
     public class PreviewComponent : IComponent
     {
     }
 
-    [SingleEntity]
+    [SingleEntity, Game]
     public class InputPlaceComponent : IComponent
     {
     }
 
-    [SingleEntity]
+    [SingleEntity, Game]
     public class InputRemoveComponent : IComponent
     {
     }

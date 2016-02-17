@@ -1,50 +1,40 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.ActingTimeComponent actingTime { get { return (Assets.ActingTimeComponent)GetComponent(ComponentIds.ActingTime); } }
+        public Assets.ActingTimeComponent actingTime { get { return (Assets.ActingTimeComponent)GetComponent(GameComponentIds.ActingTime); } }
 
-        public bool hasActingTime { get { return HasComponent(ComponentIds.ActingTime); } }
-
-        static readonly Stack<Assets.ActingTimeComponent> _actingTimeComponentPool = new Stack<Assets.ActingTimeComponent>();
-
-        public static void ClearActingTimeComponentPool() {
-            _actingTimeComponentPool.Clear();
-        }
+        public bool hasActingTime { get { return HasComponent(GameComponentIds.ActingTime); } }
 
         public Entity AddActingTime(float newTimeLeft) {
-            var component = _actingTimeComponentPool.Count > 0 ? _actingTimeComponentPool.Pop() : new Assets.ActingTimeComponent();
+            var componentPool = GetComponentPool(GameComponentIds.ActingTime);
+            var component = (Assets.ActingTimeComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ActingTimeComponent());
             component.TimeLeft = newTimeLeft;
-            return AddComponent(ComponentIds.ActingTime, component);
+            return AddComponent(GameComponentIds.ActingTime, component);
         }
 
         public Entity ReplaceActingTime(float newTimeLeft) {
-            var previousComponent = hasActingTime ? actingTime : null;
-            var component = _actingTimeComponentPool.Count > 0 ? _actingTimeComponentPool.Pop() : new Assets.ActingTimeComponent();
+            var componentPool = GetComponentPool(GameComponentIds.ActingTime);
+            var component = (Assets.ActingTimeComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ActingTimeComponent());
             component.TimeLeft = newTimeLeft;
-            ReplaceComponent(ComponentIds.ActingTime, component);
-            if (previousComponent != null) {
-                _actingTimeComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.ActingTime, component);
             return this;
         }
 
         public Entity RemoveActingTime() {
-            var component = actingTime;
-            RemoveComponent(ComponentIds.ActingTime);
-            _actingTimeComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.ActingTime);;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherActingTime;
 
         public static IMatcher ActingTime {
             get {
                 if (_matcherActingTime == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.ActingTime);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.ActingTime);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherActingTime = matcher;
                 }
 
@@ -52,4 +42,3 @@ namespace Entitas {
             }
         }
     }
-}

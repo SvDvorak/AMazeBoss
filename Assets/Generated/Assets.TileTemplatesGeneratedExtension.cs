@@ -1,44 +1,33 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.TileTemplates tileTemplates { get { return (Assets.TileTemplates)GetComponent(ComponentIds.TileTemplates); } }
+        public Assets.TileTemplates tileTemplates { get { return (Assets.TileTemplates)GetComponent(GameComponentIds.TileTemplates); } }
 
-        public bool hasTileTemplates { get { return HasComponent(ComponentIds.TileTemplates); } }
-
-        static readonly Stack<Assets.TileTemplates> _tileTemplatesComponentPool = new Stack<Assets.TileTemplates>();
-
-        public static void ClearTileTemplatesComponentPool() {
-            _tileTemplatesComponentPool.Clear();
-        }
+        public bool hasTileTemplates { get { return HasComponent(GameComponentIds.TileTemplates); } }
 
         public Entity AddTileTemplates(Assets.TemplateNames newValue) {
-            var component = _tileTemplatesComponentPool.Count > 0 ? _tileTemplatesComponentPool.Pop() : new Assets.TileTemplates();
+            var componentPool = GetComponentPool(GameComponentIds.TileTemplates);
+            var component = (Assets.TileTemplates)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.TileTemplates());
             component.Value = newValue;
-            return AddComponent(ComponentIds.TileTemplates, component);
+            return AddComponent(GameComponentIds.TileTemplates, component);
         }
 
         public Entity ReplaceTileTemplates(Assets.TemplateNames newValue) {
-            var previousComponent = hasTileTemplates ? tileTemplates : null;
-            var component = _tileTemplatesComponentPool.Count > 0 ? _tileTemplatesComponentPool.Pop() : new Assets.TileTemplates();
+            var componentPool = GetComponentPool(GameComponentIds.TileTemplates);
+            var component = (Assets.TileTemplates)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.TileTemplates());
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.TileTemplates, component);
-            if (previousComponent != null) {
-                _tileTemplatesComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.TileTemplates, component);
             return this;
         }
 
         public Entity RemoveTileTemplates() {
-            var component = tileTemplates;
-            RemoveComponent(ComponentIds.TileTemplates);
-            _tileTemplatesComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.TileTemplates);;
         }
     }
 
     public partial class Pool {
-        public Entity tileTemplatesEntity { get { return GetGroup(Matcher.TileTemplates).GetSingleEntity(); } }
+        public Entity tileTemplatesEntity { get { return GetGroup(GameMatcher.TileTemplates).GetSingleEntity(); } }
 
         public Assets.TileTemplates tileTemplates { get { return tileTemplatesEntity.tileTemplates; } }
 
@@ -69,15 +58,16 @@ namespace Entitas {
             DestroyEntity(tileTemplatesEntity);
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherTileTemplates;
 
         public static IMatcher TileTemplates {
             get {
                 if (_matcherTileTemplates == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.TileTemplates);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.TileTemplates);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherTileTemplates = matcher;
                 }
 
@@ -85,4 +75,3 @@ namespace Entitas {
             }
         }
     }
-}

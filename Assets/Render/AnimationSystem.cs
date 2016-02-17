@@ -9,15 +9,15 @@ namespace Assets.Render
 {
     public abstract class AnimationSystem : IEnsureComponents
     {
-        public virtual IMatcher ensureComponents { get { return Matcher.Animator; } }
+        public virtual IMatcher ensureComponents { get { return GameMatcher.Animator; } }
     }
 
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
         private const float MoveTime = 0.45f;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.View, Matcher.Position).OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.AnyOf(Matcher.Hero, Matcher.Boss); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.View, GameMatcher.Position).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return Matcher.AnyOf(GameMatcher.Hero, GameMatcher.Boss); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -53,7 +53,7 @@ namespace Assets.Render
 
     public class TrapLoadedAnimationSystem : AnimationSystem, IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.Loaded.OnEntityAddedOrRemoved(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Loaded.OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -68,8 +68,8 @@ namespace Assets.Render
     {
         private const float TrapActivateTime = 0.7f;
 
-        public TriggerOnEvent trigger { get { return Matcher.TrapActivated.OnEntityAdded(); } }
-        public override IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.Loaded, base.ensureComponents); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.TrapActivated.OnEntityAdded(); } }
+        public override IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.SpikeTrap, GameMatcher.Loaded, base.ensureComponents); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -86,7 +86,7 @@ namespace Assets.Render
 
     public class CurseSwitchActivatedAnimationSystem : AnimationSystem, IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.CurseSwitch, Matcher.TrapActivated).OnEntityAddedOrRemoved(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.CurseSwitch, GameMatcher.TrapActivated).OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -100,7 +100,7 @@ namespace Assets.Render
 
     public class HealthChangedAnimationSystem : IReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.HealthVisual, Matcher.Health).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.HealthVisual, GameMatcher.Health).OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -119,8 +119,8 @@ namespace Assets.Render
 
         public void SetPool(Pool pool)
         {
-            _cameraGroup = pool.GetGroup(Matcher.Camera);
-            _boxGroup = pool.GetGroup(Matcher.AllOf(Matcher.Box, Matcher.View, Matcher.Position));
+            _cameraGroup = pool.GetGroup(GameMatcher.Camera);
+            _boxGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Box, GameMatcher.View, GameMatcher.Position));
         }
 
         public void Initialize()
@@ -175,7 +175,7 @@ namespace Assets.Render
     {
         private const float DeathTime = 3;
 
-        public TriggerOnEvent trigger { get { return Matcher.Dead.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Dead.OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {
@@ -193,7 +193,7 @@ namespace Assets.Render
         private const float CurseAnimationTime = 1.1f;
         private bool _initialCallDone;
 
-        public TriggerOnEvent trigger { get { return Matcher.Cursed.OnEntityAddedOrRemoved(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Cursed.OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {

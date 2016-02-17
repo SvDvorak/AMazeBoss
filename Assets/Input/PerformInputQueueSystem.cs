@@ -5,7 +5,7 @@ namespace Assets.Input
 {
     public class PerformInputQueueSystem : IReactiveSystem
     {
-        public TriggerOnEvent trigger { get {return Matcher.AllOf(Matcher.InputQueue, Matcher.ActiveTurn).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get {return Matcher.AllOf(GameMatcher.InputQueue, GameMatcher.ActiveTurn).OnEntityAdded(); } }
 
         public void Execute(List<Entity> entities)
         {

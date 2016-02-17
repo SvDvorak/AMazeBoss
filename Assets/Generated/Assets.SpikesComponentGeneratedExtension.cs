@@ -1,15 +1,17 @@
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
         static readonly Assets.SpikesComponent spikesComponent = new Assets.SpikesComponent();
 
         public bool isSpikes {
-            get { return HasComponent(ComponentIds.Spikes); }
+            get { return HasComponent(GameComponentIds.Spikes); }
             set {
                 if (value != isSpikes) {
                     if (value) {
-                        AddComponent(ComponentIds.Spikes, spikesComponent);
+                        AddComponent(GameComponentIds.Spikes, spikesComponent);
                     } else {
-                        RemoveComponent(ComponentIds.Spikes);
+                        RemoveComponent(GameComponentIds.Spikes);
                     }
                 }
             }
@@ -20,15 +22,16 @@ namespace Entitas {
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherSpikes;
 
         public static IMatcher Spikes {
             get {
                 if (_matcherSpikes == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Spikes);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Spikes);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherSpikes = matcher;
                 }
 
@@ -36,4 +39,3 @@ namespace Entitas {
             }
         }
     }
-}

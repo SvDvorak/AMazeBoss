@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using Assets;
+using UnityEngine;
 
 public class LoadSceneAfterDelay : MonoBehaviour
 {
     public int Delay;
-    public Scene Scene;
+    public UnityEngine.SceneManagement.Scene Scene;
 
 	public void Start ()
     {
@@ -13,6 +13,6 @@ public class LoadSceneAfterDelay : MonoBehaviour
 
     public void LoadScene()
     {
-        SceneManager.LoadScene("Play");
+        SceneSetup.LoadScene("Play");
     }
 }

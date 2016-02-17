@@ -1,15 +1,17 @@
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
         static readonly Assets.Input.InputCurseSwitchComponent inputCurseSwitchComponent = new Assets.Input.InputCurseSwitchComponent();
 
         public bool isInputCurseSwitch {
-            get { return HasComponent(ComponentIds.InputCurseSwitch); }
+            get { return HasComponent(GameComponentIds.InputCurseSwitch); }
             set {
                 if (value != isInputCurseSwitch) {
                     if (value) {
-                        AddComponent(ComponentIds.InputCurseSwitch, inputCurseSwitchComponent);
+                        AddComponent(GameComponentIds.InputCurseSwitch, inputCurseSwitchComponent);
                     } else {
-                        RemoveComponent(ComponentIds.InputCurseSwitch);
+                        RemoveComponent(GameComponentIds.InputCurseSwitch);
                     }
                 }
             }
@@ -20,15 +22,16 @@ namespace Entitas {
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherInputCurseSwitch;
 
         public static IMatcher InputCurseSwitch {
             get {
                 if (_matcherInputCurseSwitch == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.InputCurseSwitch);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.InputCurseSwitch);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherInputCurseSwitch = matcher;
                 }
 
@@ -36,4 +39,3 @@ namespace Entitas {
             }
         }
     }
-}

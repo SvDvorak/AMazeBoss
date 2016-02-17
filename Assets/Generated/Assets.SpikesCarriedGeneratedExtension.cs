@@ -1,15 +1,17 @@
+using Entitas;
+
 namespace Entitas {
     public partial class Entity {
         static readonly Assets.SpikesCarried spikesCarriedComponent = new Assets.SpikesCarried();
 
         public bool isSpikesCarried {
-            get { return HasComponent(ComponentIds.SpikesCarried); }
+            get { return HasComponent(GameComponentIds.SpikesCarried); }
             set {
                 if (value != isSpikesCarried) {
                     if (value) {
-                        AddComponent(ComponentIds.SpikesCarried, spikesCarriedComponent);
+                        AddComponent(GameComponentIds.SpikesCarried, spikesCarriedComponent);
                     } else {
-                        RemoveComponent(ComponentIds.SpikesCarried);
+                        RemoveComponent(GameComponentIds.SpikesCarried);
                     }
                 }
             }
@@ -20,15 +22,16 @@ namespace Entitas {
             return this;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherSpikesCarried;
 
         public static IMatcher SpikesCarried {
             get {
                 if (_matcherSpikesCarried == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.SpikesCarried);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.SpikesCarried);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherSpikesCarried = matcher;
                 }
 
@@ -36,4 +39,3 @@ namespace Entitas {
             }
         }
     }
-}

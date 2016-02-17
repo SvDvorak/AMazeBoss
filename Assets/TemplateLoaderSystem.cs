@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets
 {
+    [Game]
     public class TemplateLoaderSystem : IInitializeSystem, ISetPool
     {
         private Pool _pool;

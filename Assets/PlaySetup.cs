@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Camera;
+using Assets.FileOperations;
+using Assets.Input;
+using Assets.LevelEditor.Input;
+using Assets.Render;
 using Entitas;
-using Entitas.Unity.VisualDebugging;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,19 +15,23 @@ namespace Assets
     {
         public static bool FromEditor;
         public static string LevelPath;
+        public static Level EditorLevel;
 
         public List<string> Levels; 
 
         private Systems _systems;
+        private Pool _gamePool;
 
         public void Start()
         {
             Random.seed = 42;
+            SceneSetup.CurrentScene = "Play";
+            SceneSetup.OnSceneChanging += OnSceneChanging;
 
-            var pool = Pools.pool;
-            _systems = CreateSystems(pool);
+            _gamePool = Pools.game;
+            _systems = CreateSystems(_gamePool);
 
-            pool.SetLevels(Levels);
+            _gamePool.SetLevels(Levels);
 
             _systems.Initialize();
         }
@@ -33,81 +41,79 @@ namespace Assets
             _systems.Execute();
         }
 
-        public void OnDisable()
+        public void OnDestroy()
         {
             _systems.ClearReactiveSystems();
-            Pools.pool.Reset();
+            _gamePool.Reset();
+            SceneSetup.OnSceneChanging -= OnSceneChanging;
+        }
+
+        private void OnSceneChanging()
+        {
+            _gamePool.SafeDeleteAll();
         }
 
         public Systems CreateSystems(Pool pool)
         {
-#if (UNITY_EDITOR)
-            return new DebugSystems()
-#else
-        return new Systems()
-#endif
+            return SceneSetup.CreateSystem()
+
             // Initialize
                 .AddLevelLoaderSystem(pool)
-                .Add(pool.CreateTemplateLoaderSystem())
+                .Add(pool.CreateSystem<TemplateLoaderSystem>())
 
             // Input
-                .Add(pool.CreatePlayerRestartSystem())
-                .AddReturnToEditorIfFromEditor(pool)
-                .Add(pool.CreateRotateCameraInputSystem())
-                .Add(pool.CreateHeroInputSystem())
-                .Add(pool.CreatePerformInputQueueSystem())
+                .Add(pool.CreateSystem<PlayerRestartSystem>())
+                .Add(pool.CreateSystem<ReturnToPreviousViewSystem>())
+                .Add(pool.CreateSystem<RotateCameraInputSystem>())
+                .Add(pool.CreateSystem<HeroInputSystem>())
+                .Add(pool.CreateSystem<PerformInputQueueSystem>())
 
             // Update
-                .Add(pool.CreateNextTurnSystem())
-                .Add(pool.CreateBottomSpawnerSystem())
-                .Add(pool.CreateBossMoveSystem())
-                .Add(pool.CreateHeroMoveSystem())
-                .Add(pool.CreateHeroPullBoxSystem())
-                .Add(pool.CreateHeroItemSystem())
-                .Add(pool.CreateHeroCurseSystem())
-                .Add(pool.CreateSpikeTrapSystem())
-                .Add(pool.CreateCurseSwitchSystem())
-                .Add(pool.CreateKnockBoxSystem())
-                .Add(pool.CreateDeathSystem())
+                .Add(pool.CreateSystem<NextTurnSystem>())
+                .Add(pool.CreateSystem<BottomSpawnerSystem>())
+                .Add(pool.CreateSystem<BossMoveSystem>())
+                .Add(pool.CreateSystem<HeroMoveSystem>())
+                .Add(pool.CreateSystem<HeroPullBoxSystem>())
+                .Add(pool.CreateSystem<HeroItemSystem>())
+                .Add(pool.CreateSystem<HeroCurseSystem>())
+                .Add(pool.CreateSystem<SpikeTrapSystem>())
+                .Add(pool.CreateSystem<CurseSwitchSystem>())
+                .Add(pool.CreateSystem<KnockBoxSystem>())
+                .Add(pool.CreateSystem<DeathSystem>())
 
-                .Add(pool.CreateRemoveActingOnDoneSystem())
+                .Add(pool.CreateSystem<RemoveActingOnDoneSystem>())
 
             // Render
-                .Add(pool.CreateSubtypeSelectorSystem())
-                .Add(pool.CreateTemplateSelectorSystem())
-                .Add(pool.CreateAddViewSystem())
-                .Add(pool.CreateMoveAndRotateCameraSystem())
+                .Add(pool.CreateSystem<SubtypeSelectorSystem>())
+                .Add(pool.CreateSystem<TemplateSelectorSystem>())
+                .Add(pool.CreateSystem<AddViewSystem>())
+                .Add(pool.CreateSystem<SetInitialTransformSystem>())
+                .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
                 .AddAnimationSystems(pool)
 
             // Level-handling
                 .AddLevelClearedSystemIfNotFromEditor(pool)
-                .Add(pool.CreateLevelRestartSystem())
+                .Add(pool.CreateSystem<LevelRestartSystem>())
 
             // Destroy
-                .Add(pool.CreateCleanupSystem())
-                .Add(pool.CreateDestroySystem());
+                .Add(pool.CreateSystem<CleanupSystem>())
+                .Add(pool.CreateSystem<DestroySystem>());
         }
     }
 
     public static class EditorPlaySystemsExtensions
     {
-        public static Systems AddReturnToEditorIfFromEditor(this Systems systems, Pool pool)
-        {
-            PlayOrEditorPlayAction(null, () => systems.Add(pool.CreateReturnToEditorSystem()));
-            return systems;
-        }
-
         public static Systems AddLevelLoaderSystem(this Systems systems, Pool pool)
         {
             PlayOrEditorPlayAction(
-                () => systems.Add(pool.CreateLevelLoaderSystem()),
-                () => systems.Add(pool.CreateEditorTestLevelLoaderSystem()));
+                () => systems.Add(pool.CreateSystem<LevelLoaderSystem>()),
+                () => systems.Add(pool.CreateSystem<EditorTestLevelLoaderSystem>()));
             return systems;
         }
 
         public static Systems AddLevelClearedSystemIfNotFromEditor(this Systems systems, Pool pool)
         {
-            PlayOrEditorPlayAction(() => systems.Add(pool.CreateLevelClearedSystem()), null);
+            PlayOrEditorPlayAction(() => systems.Add(pool.CreateSystem<LevelClearedSystem>()), null);
             return systems;
         }
 
@@ -132,14 +138,14 @@ namespace Assets
         public static Systems AddAnimationSystems(this Systems systems, Pool pool)
         {
             return systems
-                .Add(pool.CreateMoveAnimationSystem())
-                .Add(pool.CreateTrapLoadedAnimationSystem())
-                .Add(pool.CreateTrapActivatedAnimationSystem())
-                .Add(pool.CreateCurseSwitchActivatedAnimationSystem())
-                .Add(pool.CreateHealthChangedAnimationSystem())
-                .Add(pool.CreateBoxKnockAnimationSystem())
-                .Add(pool.CreateDeathAnimationSystem())
-                .Add(pool.CreateCurseAnimationSystem());
+                .Add(pool.CreateSystem<MoveAnimationSystem>())
+                .Add(pool.CreateSystem<TrapLoadedAnimationSystem>())
+                .Add(pool.CreateSystem<TrapActivatedAnimationSystem>())
+                .Add(pool.CreateSystem<CurseSwitchActivatedAnimationSystem>())
+                .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
+                .Add(pool.CreateSystem<BoxKnockAnimationSystem>())
+                .Add(pool.CreateSystem<DeathAnimationSystem>())
+                .Add(pool.CreateSystem<CurseAnimationSystem>());
         }
     }
 }

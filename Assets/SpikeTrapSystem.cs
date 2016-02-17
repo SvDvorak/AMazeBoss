@@ -7,12 +7,12 @@ namespace Assets
     public class SpikeTrapSystem : IReactiveSystem, ISetPool, IEnsureComponents
     {
         private Group _characters;
-        public TriggerOnEvent trigger { get { return Matcher.ActiveTurn.OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.SpikeTrap, Matcher.Loaded); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.ActiveTurn.OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.SpikeTrap, GameMatcher.Loaded); } }
 
         public void SetPool(Pool pool)
         {
-            _characters = pool.GetGroup(Matcher.AllOf(Matcher.Position, Matcher.Character));
+            _characters = pool.GetGroup(Matcher.AllOf(GameMatcher.Position, GameMatcher.Character));
             _characters.OnEntityUpdated += (g, e, i, nc, pc) => RemoveLoadedThisTurnOnCharacterMove(pool);
         }
 
@@ -38,7 +38,7 @@ namespace Assets
 
         private void RemoveLoadedThisTurnOnCharacterMove(Pool pool)
         {
-            var loadedTraps = pool.GetEntities(Matcher.AllOf(Matcher.SpikeTrap, Matcher.Loaded)).ToList();
+            var loadedTraps = pool.GetEntities(Matcher.AllOf(GameMatcher.SpikeTrap, GameMatcher.Loaded)).ToList();
             loadedTraps.ForEach(e => e.ReplaceLoaded(false));
         }
     }

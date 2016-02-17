@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.Destroyed.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Destroyed.OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {
@@ -19,9 +20,16 @@ namespace Assets
         {
             foreach (var entity in entities)
             {
+                var hasBeenDestroyedAsChild = !entity.isDestroyed;
+                if (hasBeenDestroyedAsChild)
+                {
+                    continue;
+                }
+
                 if (entity.hasView)
                 {
                     GameObject.Destroy(entity.view.Value);
+                    GameObjectConfigurer.DetachEntity(entity.view.Value, entity);
                 }
                 if (entity.hasId)
                 {

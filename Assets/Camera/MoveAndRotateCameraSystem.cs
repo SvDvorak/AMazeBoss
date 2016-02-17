@@ -9,8 +9,8 @@ namespace Assets.Camera
     {
         private int _cameraRotationOffset = 35;
 
-        public TriggerOnEvent trigger { get { return Matcher.AnyOf(Matcher.Rotation, Matcher.FocusPoint).OnEntityAdded(); } }
-        public IMatcher ensureComponents { get { return Matcher.AllOf(Matcher.View, Matcher.Camera); } }
+        public TriggerOnEvent trigger { get { return Matcher.AnyOf(GameMatcher.Rotation, GameMatcher.FocusPoint).OnEntityAdded(); } }
+        public IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.View, GameMatcher.Camera); } }
 
         public void Execute(List<Entity> entities)
         {

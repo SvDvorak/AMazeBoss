@@ -7,7 +7,7 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(Matcher.Hero, Matcher.InputCurseSwitch).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Hero, GameMatcher.InputCurseSwitch).OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {

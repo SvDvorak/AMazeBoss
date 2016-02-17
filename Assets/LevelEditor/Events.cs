@@ -5,16 +5,6 @@ namespace Assets.LevelEditor
 {
     public class LevelClearEvent : GameEvent { }
 
-    public class DefaultPathChanged : GameEvent
-    {
-        public DefaultPathChanged(string path)
-        {
-            Path = path;
-        }
-
-        public string Path;
-    }
-
     public class GameEvent
     {
     }

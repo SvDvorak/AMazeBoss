@@ -5,7 +5,7 @@ using Entitas.CodeGenerator;
 
 namespace Assets
 {
-    [SingleEntity]
+    [SingleEntity, Game]
     public class TileTemplates : IComponent
     {
         public TemplateNames Value;

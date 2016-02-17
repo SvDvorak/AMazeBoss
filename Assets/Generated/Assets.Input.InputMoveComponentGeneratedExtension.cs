@@ -1,50 +1,40 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.Input.InputMoveComponent inputMove { get { return (Assets.Input.InputMoveComponent)GetComponent(ComponentIds.InputMove); } }
+        public Assets.Input.InputMoveComponent inputMove { get { return (Assets.Input.InputMoveComponent)GetComponent(GameComponentIds.InputMove); } }
 
-        public bool hasInputMove { get { return HasComponent(ComponentIds.InputMove); } }
-
-        static readonly Stack<Assets.Input.InputMoveComponent> _inputMoveComponentPool = new Stack<Assets.Input.InputMoveComponent>();
-
-        public static void ClearInputMoveComponentPool() {
-            _inputMoveComponentPool.Clear();
-        }
+        public bool hasInputMove { get { return HasComponent(GameComponentIds.InputMove); } }
 
         public Entity AddInputMove(Assets.TilePos newDirection) {
-            var component = _inputMoveComponentPool.Count > 0 ? _inputMoveComponentPool.Pop() : new Assets.Input.InputMoveComponent();
+            var componentPool = GetComponentPool(GameComponentIds.InputMove);
+            var component = (Assets.Input.InputMoveComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Input.InputMoveComponent());
             component.Direction = newDirection;
-            return AddComponent(ComponentIds.InputMove, component);
+            return AddComponent(GameComponentIds.InputMove, component);
         }
 
         public Entity ReplaceInputMove(Assets.TilePos newDirection) {
-            var previousComponent = hasInputMove ? inputMove : null;
-            var component = _inputMoveComponentPool.Count > 0 ? _inputMoveComponentPool.Pop() : new Assets.Input.InputMoveComponent();
+            var componentPool = GetComponentPool(GameComponentIds.InputMove);
+            var component = (Assets.Input.InputMoveComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Input.InputMoveComponent());
             component.Direction = newDirection;
-            ReplaceComponent(ComponentIds.InputMove, component);
-            if (previousComponent != null) {
-                _inputMoveComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.InputMove, component);
             return this;
         }
 
         public Entity RemoveInputMove() {
-            var component = inputMove;
-            RemoveComponent(ComponentIds.InputMove);
-            _inputMoveComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.InputMove);;
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherInputMove;
 
         public static IMatcher InputMove {
             get {
                 if (_matcherInputMove == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.InputMove);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.InputMove);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherInputMove = matcher;
                 }
 
@@ -52,4 +42,3 @@ namespace Entitas {
             }
         }
     }
-}

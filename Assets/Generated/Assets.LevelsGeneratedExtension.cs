@@ -1,44 +1,33 @@
-using System.Collections.Generic;
+using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.Levels levels { get { return (Assets.Levels)GetComponent(ComponentIds.Levels); } }
+        public Assets.Levels levels { get { return (Assets.Levels)GetComponent(GameComponentIds.Levels); } }
 
-        public bool hasLevels { get { return HasComponent(ComponentIds.Levels); } }
-
-        static readonly Stack<Assets.Levels> _levelsComponentPool = new Stack<Assets.Levels>();
-
-        public static void ClearLevelsComponentPool() {
-            _levelsComponentPool.Clear();
-        }
+        public bool hasLevels { get { return HasComponent(GameComponentIds.Levels); } }
 
         public Entity AddLevels(System.Collections.Generic.List<string> newValue) {
-            var component = _levelsComponentPool.Count > 0 ? _levelsComponentPool.Pop() : new Assets.Levels();
+            var componentPool = GetComponentPool(GameComponentIds.Levels);
+            var component = (Assets.Levels)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Levels());
             component.Value = newValue;
-            return AddComponent(ComponentIds.Levels, component);
+            return AddComponent(GameComponentIds.Levels, component);
         }
 
         public Entity ReplaceLevels(System.Collections.Generic.List<string> newValue) {
-            var previousComponent = hasLevels ? levels : null;
-            var component = _levelsComponentPool.Count > 0 ? _levelsComponentPool.Pop() : new Assets.Levels();
+            var componentPool = GetComponentPool(GameComponentIds.Levels);
+            var component = (Assets.Levels)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Levels());
             component.Value = newValue;
-            ReplaceComponent(ComponentIds.Levels, component);
-            if (previousComponent != null) {
-                _levelsComponentPool.Push(previousComponent);
-            }
+            ReplaceComponent(GameComponentIds.Levels, component);
             return this;
         }
 
         public Entity RemoveLevels() {
-            var component = levels;
-            RemoveComponent(ComponentIds.Levels);
-            _levelsComponentPool.Push(component);
-            return this;
+            return RemoveComponent(GameComponentIds.Levels);;
         }
     }
 
     public partial class Pool {
-        public Entity levelsEntity { get { return GetGroup(Matcher.Levels).GetSingleEntity(); } }
+        public Entity levelsEntity { get { return GetGroup(GameMatcher.Levels).GetSingleEntity(); } }
 
         public Assets.Levels levels { get { return levelsEntity.levels; } }
 
@@ -69,15 +58,16 @@ namespace Entitas {
             DestroyEntity(levelsEntity);
         }
     }
+}
 
-    public partial class Matcher {
+    public partial class GameMatcher {
         static IMatcher _matcherLevels;
 
         public static IMatcher Levels {
             get {
                 if (_matcherLevels == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Levels);
-                    matcher.componentNames = ComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Levels);
+                    matcher.componentNames = GameComponentIds.componentNames;
                     _matcherLevels = matcher;
                 }
 
@@ -85,4 +75,3 @@ namespace Entitas {
             }
         }
     }
-}

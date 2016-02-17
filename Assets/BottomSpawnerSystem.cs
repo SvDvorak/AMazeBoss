@@ -8,7 +8,7 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.Tile.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.Tile.OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {

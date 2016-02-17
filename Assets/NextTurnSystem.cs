@@ -9,7 +9,7 @@ namespace Assets
 
         public void SetPool(Pool pool)
         {
-            _dynamicGroup = pool.GetGroup(Matcher.Dynamic);
+            _dynamicGroup = pool.GetGroup(GameMatcher.Dynamic);
         }
 
         public void Execute()

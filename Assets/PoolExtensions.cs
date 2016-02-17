@@ -9,14 +9,14 @@ namespace Assets
     {
         public static UnityEngine.Camera GetCamera(this Pool pool)
         {
-            var cameras = Pools.pool.GetEntities(Matcher.Camera);
+            var cameras = Pools.game.GetEntities(GameMatcher.Camera);
             return cameras.SingleEntity().camera.Value;
         }
 
         public static void SwitchCurse(this Pool pool)
         {
-            var heroes = pool.GetEntities(Matcher.Hero);
-            var bosses = pool.GetEntities(Matcher.Boss);
+            var heroes = pool.GetEntities(GameMatcher.Hero);
+            var bosses = pool.GetEntities(GameMatcher.Boss);
 
             foreach (var hero in heroes)
             {
@@ -31,17 +31,17 @@ namespace Assets
 
         public static Entity GetItemAt(this Pool pool, TilePos position)
         {
-            return pool.GetEntityAt(position, Matcher.Item);
+            return pool.GetEntityAt(position, GameMatcher.Item);
         }
 
         public static Entity GetTileAt(this Pool pool, TilePos position)
         {
-            return pool.GetEntityAt(position, Matcher.Tile);
+            return pool.GetEntityAt(position, GameMatcher.Tile);
         }
 
         public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection, bool immediate)
         {
-            pool.GetEntitiesAt(position + forwardDirection, Matcher.Item)
+            pool.GetEntitiesAt(position + forwardDirection, GameMatcher.Item)
                 .Where(x => x.isBlockingTile)
                 .ToList()
                 .ForEach(x => x.ReplaceKnocked(forwardDirection, immediate));
@@ -55,15 +55,15 @@ namespace Assets
 
         public static bool PushableItemAt(this Pool pool, TilePos position)
         {
-            var entitiesAtPosition = pool.GetEntitiesAt(position, Matcher.Box).ToList();
+            var entitiesAtPosition = pool.GetEntitiesAt(position, GameMatcher.Box).ToList();
             return entitiesAtPosition.Count > 0;
         }
 
         public static IEnumerable<Entity> GetEntitiesAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)
         {
             var completeMatcher = entityMatcher != null
-                ? Matcher.AllOf(Matcher.Position, entityMatcher)
-                : Matcher.Position;
+                ? Matcher.AllOf(GameMatcher.Position, entityMatcher)
+                : GameMatcher.Position;
             return pool.GetEntities(completeMatcher).Where(x => x.position.Value == position && !x.isDestroyed);
         }
 
@@ -72,12 +72,10 @@ namespace Assets
             return pool.GetEntitiesAt(position, entityMatcher).SingleOrDefault();
         }
 
-        public static void Clear(this Pool pool, IMatcher matcher)
+        public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null)
         {
-            foreach (var entity in pool.GetEntities(matcher))
-            {
-                entity.IsDestroyed(true);
-            }
+            var entities = matcher != null ? pool.GetEntities(matcher) : pool.GetEntities();
+            entities.DoForAll(x => x.IsDestroyed(true));
         }
 
         public static Entity FindChildFor(this Pool pool, Entity entity)
@@ -88,7 +86,7 @@ namespace Assets
         public static List<Entity> FindChildrenFor(this Pool pool, Entity entity)
         {
             return pool
-                .GetEntities(Matcher.Child)
+                .GetEntities(GameMatcher.Child)
                 .Where(x => x.child.ParentId == entity.id.Value)
                 .ToList();
         }
