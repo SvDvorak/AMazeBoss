@@ -14,5 +14,6 @@ namespace Assets.LevelEditor
         public static IPlaceable Boss { get { return new Item(ItemType.Boss.ToString(), e => e.IsDynamic(true).IsBlockingTile(true).IsBoss(true).IsCursed(true).AddHealth(3)); } }
         public static IPlaceable Spikes { get { return new Spikes(); } }
         public static IPlaceable Box { get { return new Item(ItemType.Box.ToString(), e => e.IsBlockingTile(true).IsDynamic(true).IsBox(true)); } }
+        public static IPlaceable VictoryExit { get { return new Item(ItemType.VictoryExit.ToString(), e => e.IsDynamic(true).IsBlockingTile(true).IsVictoryExit(true)); } }
     }
 }

@@ -122,6 +122,11 @@ namespace Assets
     }
 
     [Game]
+    public class VictoryExitComponent : IComponent
+    {
+    }
+
+    [Game]
     public class CharacterComponent : IComponent
     {
     }

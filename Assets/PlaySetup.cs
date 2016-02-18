@@ -80,6 +80,7 @@ namespace Assets
                 .Add(pool.CreateSystem<CurseSwitchSystem>())
                 .Add(pool.CreateSystem<KnockBoxSystem>())
                 .Add(pool.CreateSystem<DeathSystem>())
+                .Add(pool.CreateSystem<VictoryExitSystem>())
 
                 .Add(pool.CreateSystem<RemoveActingOnDoneSystem>())
 
@@ -92,7 +93,7 @@ namespace Assets
                 .AddAnimationSystems(pool)
 
             // Level-handling
-                .AddLevelClearedSystemIfNotFromEditor(pool)
+                //.AddLevelClearedSystemIfNotFromEditor(pool)
                 .Add(pool.CreateSystem<LevelRestartSystem>())
 
             // Destroy

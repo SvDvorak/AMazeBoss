@@ -53,9 +53,10 @@ public static class GameComponentIds {
     public const int Tile = 51;
     public const int TileTemplates = 52;
     public const int TrapActivated = 53;
-    public const int ViewOffset = 54;
+    public const int VictoryExit = 54;
+    public const int ViewOffset = 55;
 
-    public const int TotalComponents = 55;
+    public const int TotalComponents = 56;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -112,6 +113,7 @@ public static class GameComponentIds {
         "Tile",
         "TileTemplates",
         "TrapActivated",
+        "VictoryExit",
         "ViewOffset"
     };
 
@@ -170,6 +172,7 @@ public static class GameComponentIds {
         typeof(Assets.TileComponent),
         typeof(Assets.TileTemplates),
         typeof(Assets.TrapActivatedComponent),
+        typeof(Assets.VictoryExitComponent),
         typeof(Assets.ViewOffsetComponent)
     };
 }

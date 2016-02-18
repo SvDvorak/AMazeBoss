@@ -32,7 +32,7 @@ namespace Assets.LevelEditor
                 {
                     { 1, new SelectionGroup(AllPlaceables.Empty) },
                     { 2, new SelectionGroup(AllPlaceables.Pillar, AllPlaceables.Wall) },
-                    { 3, new SelectionGroup(AllPlaceables.SpikeTrap, AllPlaceables.WallTrap, AllPlaceables.CurseTrigger) },
+                    { 3, new SelectionGroup(AllPlaceables.SpikeTrap, AllPlaceables.WallTrap, AllPlaceables.CurseTrigger, AllPlaceables.VictoryExit) },
                     { 4, new SelectionGroup(AllPlaceables.Spikes, AllPlaceables.Box) },
                     { 5, new SelectionGroup(AllPlaceables.Hero, AllPlaceables.Boss) },
                 };

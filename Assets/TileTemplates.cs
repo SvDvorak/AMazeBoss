@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Entitas;
@@ -21,8 +22,20 @@ namespace Assets
 
         public List<string> Retrieve(string type, string subtype)
         {
-            return this[type.ToUpper()][subtype.ToUpper()];
+            try
+            {
+                return this[type.ToUpper()][subtype.ToUpper()];
+            }
+            catch (Exception)
+            {
+                throw new MissingTemplateException(type, subtype);
+            }
         }
+    }
+
+    public class MissingTemplateException : Exception
+    {
+        public MissingTemplateException(string type, string subtype) : base(string.Format("Could not retrieve {0} - {1}", type, subtype)) { }
     }
 
     public class SubtemplateNames : Dictionary<string, List<string>>

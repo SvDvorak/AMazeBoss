@@ -150,6 +150,7 @@
     <Compile Include="Assets\Generated\Assets.TileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TileTemplatesGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.TrapActivatedComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.VictoryExitComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ViewComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ViewOffsetComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\GameAttribute.cs" />
@@ -159,7 +160,6 @@
     <Compile Include="Assets\Generated\UiComponentIds.cs" />
     <Compile Include="Assets\HealthBehaviorConfigurer.cs" />
     <Compile Include="Assets\HeroCurseSystem.cs" />
-    <Compile Include="Assets\HeroItemSystem.cs" />
     <Compile Include="Assets\HeroMoveSystem.cs" />
     <Compile Include="Assets\HeroPullBoxSystem.cs" />
     <Compile Include="Assets\IEnumerableExtensions.cs" />
@@ -240,8 +240,6 @@
     <Compile Include="Assets\MainMenu\SelectedItemAnimationSystem.cs" />
     <Compile Include="Assets\MovementCalculator.cs" />
     <Compile Include="Assets\NextTurnSystem.cs" />
-    <Compile Include="Assets\PickUpItem\InterfaceItems.cs" />
-    <Compile Include="Assets\PickUpItem\Spin.cs" />
     <Compile Include="Assets\PlaySetup.cs" />
     <Compile Include="Assets\PoolExtensions.cs" />
     <Compile Include="Assets\RemoveActingOnDoneSystem.cs" />
@@ -260,6 +258,10 @@
     <Compile Include="Assets\TilePos.cs" />
     <Compile Include="Assets\TileTemplates.cs" />
     <Compile Include="Assets\Tuple.cs" />
+    <Compile Include="Assets\UsableItems\HeroItemSystem.cs" />
+    <Compile Include="Assets\UsableItems\InterfaceItems.cs" />
+    <Compile Include="Assets\UsableItems\Spin.cs" />
+    <Compile Include="Assets\VictoryExitSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Libraries\Demigiant\DOTween\DOTween.XML" />

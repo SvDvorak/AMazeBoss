@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Assets
@@ -22,7 +24,14 @@ namespace Assets
         {
             foreach (var entity in entities)
             {
-                entity.ReplaceResource(RetrieveTemplateName(entity));
+                try
+                {
+                    entity.ReplaceResource(RetrieveTemplateName(entity));
+                }
+                catch (MissingTemplateException missingTemplate)
+                {
+                    Debug.LogWarning(missingTemplate);
+                }
             }
         }
 
