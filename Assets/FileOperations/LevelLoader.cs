@@ -37,7 +37,7 @@ namespace Assets.FileOperations
         {
             level
                 .Tiles
-                .ForEach(tile => UpdateCamera(pool, tile));
+                .ForEach(tile => CreateMapObject(pool, tile));
 
             var camera = pool.GetEntities(GameMatcher.Camera).SingleOrDefault();
             if (camera == null)
@@ -55,7 +55,7 @@ namespace Assets.FileOperations
                 .ReplaceSavedFocusPoint(new Vector3(levelCamera.FocusX, 0, levelCamera.FocusZ));
         }
 
-        private static void UpdateCamera(Pool pool, LevelObject mapGameObject)
+        private static void CreateMapObject(Pool pool, LevelObject mapGameObject)
         {
             var entity = pool
                 .CreateEntity()
