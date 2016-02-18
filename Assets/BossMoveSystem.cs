@@ -74,6 +74,7 @@ namespace Assets
             }
             else
             {
+                boss.IsAttacking(true);
                 hero.ReplaceHealth(hero.health.Value - 1);
                 _pool.SwitchCurse();
             }

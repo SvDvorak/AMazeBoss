@@ -27,7 +27,7 @@ namespace Assets
                 }
             }
 
-            hasActingEntities = dynamicEntities.Any(x => x.hasActingTime);
+            hasActingEntities = dynamicEntities.Any(x => x.hasActingTime || x.hasActingActions);
             foreach (var entity in dynamicEntities)
             {
                 entity.isActiveTurn = false;

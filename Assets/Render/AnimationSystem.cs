@@ -31,22 +31,26 @@ namespace Assets.Render
         {
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
-            var tweener = DOTween.Sequence();
 
             if (entity.IsMoving())
             {
                 var animator = entity.animator.Value;
-                tweener.OnStart(() => animator.SetBool("IsMoving", true));
-                tweener.AppendInterval(MoveTime);
-                tweener.OnComplete(() =>
-                    {
-                        transform.position = newPosition;
-                        animator.SetBool("IsMoving", false);
-                    });
+                var moveSequence = DOTween.Sequence()
+                    .Pause()
+                    .OnStart(() =>
+                        {
+                            animator.SetBool("IsMoving", true);
+                            transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
+                        })
+                    .AppendInterval(MoveTime)
+                    .OnComplete(() =>
+                        {
+                            transform.position = newPosition;
+                            animator.SetBool("IsMoving", false);
+                        });
 
+                entity.AddActingAction(MoveTime, () => moveSequence.Play());
                 entity.ReplaceActingTime(MoveTime);
-
-                transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
             }
         }
     }
@@ -76,10 +80,12 @@ namespace Assets.Render
             foreach (var entity in entities)
             {
                 var animator = entity.animator.Value;
-                DOTween.Sequence()
+                var animationSequence = DOTween.Sequence()
+                    .Pause()
                     .AppendInterval(MoveAnimationSystem.MoveTime + TrapActivateTime/2)
                     .OnComplete(() => animator.SetTrigger("Activated"));
-                entity.ReplaceActingTime(TrapActivateTime);
+
+                entity.AddActingAction(TrapActivateTime, () => animationSequence.Play());
             }
         }
     }
@@ -92,8 +98,22 @@ namespace Assets.Render
         {
             foreach (var entity in entities)
             {
-                entity.animator.Value.SetBool("WeightedDown", entity.isTrapActivated);
-                entity.ReplaceActingTime(1);
+                var animator = entity.animator.Value;
+                entity.AddActingAction(1, () => animator.SetBool("WeightedDown", entity.isTrapActivated));
+            }
+        }
+    }
+
+    public class AttackAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.Attacking).OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var boss in entities)
+            {
+                var animator = boss.animator.Value;
+                boss.AddActingAction(1, () => animator.SetTrigger("Attack"));
             }
         }
     }
@@ -113,7 +133,7 @@ namespace Assets.Render
 
                 if (entity.hasAnimator && entity.IsActing() && !entity.isDead)
                 {
-                    entity.ReplaceQueueActing(1f, () => entity.animator.Value.SetTrigger("Damage"));
+                    entity.AddActingAction(1, () => entity.animator.Value.SetTrigger("Damage"));
                 }
             }
         }
@@ -157,7 +177,8 @@ namespace Assets.Render
             }
             else
             {
-                entity.AddQueueActing(time, animationAction);
+                entity.AddActingAction(MoveAnimationSystem.MoveTime);
+                entity.AddActingAction(time, animationAction);
             }
         }
 
@@ -190,7 +211,7 @@ namespace Assets.Render
             foreach (var dead in entities)
             {
                 var animator = dead.animator.Value;
-                dead.AddQueueActing(DeathTime, () => animator.SetTrigger("Killed"));
+                dead.AddActingAction(DeathTime, () => animator.SetTrigger("Killed"));
             }
         }
     }
@@ -213,8 +234,7 @@ namespace Assets.Render
             foreach (var cursed in entities.Where(x => x.health.Value > 0))
             {
                 var animator = cursed.animator.Value;
-                animator.SetBool("IsCursed", cursed.isCursed);
-                cursed.AddActingTime(CurseAnimationTime);
+                cursed.AddActingAction(CurseAnimationTime, () => animator.SetBool("IsCursed", cursed.isCursed));
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Assets
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return GameMatcher.ActingTime.OnEntityRemoved(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.ActingActions.OnEntityRemoved(); } }
         public IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.Dead); } }
 
         public void SetPool(Pool pool)
@@ -75,7 +75,7 @@ namespace Assets
 
     public class LevelRestartSystem : IReactiveSystem, IEnsureComponents
     {
-        public TriggerOnEvent trigger { get { return GameMatcher.ActingTime.OnEntityRemoved(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.ActingActions.OnEntityRemoved(); } }
         public IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.Hero, GameMatcher.Dead); } }
 
         public void Execute(List<Entity> entities)
