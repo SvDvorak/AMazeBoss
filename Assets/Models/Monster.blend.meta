@@ -242,6 +242,7 @@ ModelImporter:
     7400024: Cursed_Animation
     7400026: Objekt_block_Animation
     7400028: Taking_Damage
+    7400030: Dealing_Damage
     9500000: //RootNode
     13700000: Hero
     13700002: Monster
@@ -918,6 +919,114 @@ ModelImporter:
     - serializedVersion: 16
       name: Taking_Damage
       takeName: Taking_Damage
+      firstFrame: -1
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Monster
+        weight: 1
+      - path: Monster_Bone
+        weight: 1
+      - path: Monster_Bone/Bone
+        weight: 1
+      - path: Monster_Bone/Bone_001
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Neck/Head
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Point_finger01_L/Point_finger02_L/Point_finger03_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Smal_finger01_L/Smal_finger02_L/Smal_finger03_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Tumb01_L/Tumb02_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Point_finger01_R/Point_finger02_R/Point_finger03_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Smal_finger01_R/Smal_finger02_R/Smal_finger03_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Tumb01_R/Tumb02_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_L/Midel_leg_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Bottom/Upper_leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_L/Bottom_Leg_L/Feet_L
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R
+        weight: 1
+      - path: Monster_Bone/Bone_001/Leg_control_R/Bottom_Leg_R/Feet_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Dealing_Damage
+      takeName: Dealing_Damage
       firstFrame: -1
       lastFrame: 14
       wrapMode: 0

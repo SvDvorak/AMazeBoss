@@ -144,6 +144,7 @@ namespace Assets
                 .Add(pool.CreateSystem<CurseSwitchActivatedAnimationSystem>())
                 .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
                 .Add(pool.CreateSystem<BoxKnockAnimationSystem>())
+                .Add(pool.CreateSystem<AttackAnimationSystem>())
                 .Add(pool.CreateSystem<DeathAnimationSystem>())
                 .Add(pool.CreateSystem<CurseAnimationSystem>());
         }
