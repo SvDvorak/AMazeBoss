@@ -93,7 +93,7 @@ namespace Assets
                 .AddAnimationSystems(pool)
 
             // Level-handling
-                //.AddLevelClearedSystemIfNotFromEditor(pool)
+                .AddLevelClearedSystemIfNotFromEditor(pool)
                 .Add(pool.CreateSystem<LevelRestartSystem>())
 
             // Destroy
