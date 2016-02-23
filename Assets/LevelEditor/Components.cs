@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Assets.LevelEditor.Placeables;
+﻿using Assets.LevelEditor.Placeables;
 using Entitas;
 using Entitas.CodeGenerator;
 
@@ -8,6 +6,16 @@ namespace Assets.LevelEditor
 {
     [SingleEntity, Game]
     public class PausedComponent : IComponent
+    {
+    }
+
+    [SingleEntity, Game]
+    public class InEditorComponent : IComponent
+    {
+    }
+
+    [Game]
+    public class EditorOnlyVisual : IComponent
     {
     }
 

@@ -35,6 +35,7 @@ namespace Assets.LevelEditor
                     { 3, new SelectionGroup(AllPlaceables.SpikeTrap, AllPlaceables.WallTrap, AllPlaceables.CurseTrigger, AllPlaceables.VictoryExit) },
                     { 4, new SelectionGroup(AllPlaceables.Spikes, AllPlaceables.Box) },
                     { 5, new SelectionGroup(AllPlaceables.Hero, AllPlaceables.Boss) },
+                    { 6, new SelectionGroup(AllPlaceables.LevelExitTrigger) }
                 };
 
         private Pool _pool;

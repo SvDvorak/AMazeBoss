@@ -127,6 +127,11 @@ namespace Assets
     }
 
     [Game]
+    public class LevelExitTrigger : IComponent
+    {
+    }
+
+    [Game]
     public class CharacterComponent : IComponent
     {
     }

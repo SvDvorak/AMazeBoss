@@ -30,7 +30,7 @@ namespace Assets.MainMenu
             _uiPool = Pools.ui;
 
             _systems = SceneSetup.CreateSystem().Add<ReloadSystem>()
-                .Add(_uiPool.CreateSystem<AddViewSystem>())
+                .Add(_uiPool.CreateSystem<AddOrRemoveViewSystem>())
                 .Add(_uiPool.CreateSystem<ConnectMenuItemToParentSystem>())
                 .Add(_uiPool.CreateSystem<CursorClickMenuItemSystem>())
                 .Add(_uiPool.CreateSystem<SelectedItemAnimationSystem>())

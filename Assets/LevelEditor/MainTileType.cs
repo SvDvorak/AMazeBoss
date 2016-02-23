@@ -40,6 +40,7 @@ namespace Assets.LevelEditor
         Hero,
         Boss,
         Box,
-        VictoryExit
+        VictoryExit,
+        LevelExitTrigger
     }
 }

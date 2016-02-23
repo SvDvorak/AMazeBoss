@@ -5,11 +5,17 @@ using UnityEngine;
 
 namespace Assets.Render
 {
-    public class AddViewSystem : IReactiveSystem
+    public class AddOrRemoveViewSystem : IReactiveSystem, ISetPool
     {
         private readonly Transform _viewsContainer = new GameObject("Views").transform;
+        private Pool _pool;
 
         public TriggerOnEvent trigger { get { return GameMatcher.Resource.OnEntityAddedOrRemoved(); } }
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
 
         public void Execute(List<Entity> entities)
         {
@@ -18,7 +24,7 @@ namespace Assets.Render
                 DestroySystem.DestoryView(entity);
             }
 
-            foreach (var entity in entities.Where(x => x.hasResource))
+            foreach (var entity in entities.Where(x => x.hasResource && (_pool.isInEditor || !x.isEditorOnlyVisual)))
             {
                 AddView(entity);
             }

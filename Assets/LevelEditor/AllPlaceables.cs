@@ -15,5 +15,6 @@ namespace Assets.LevelEditor
         public static IPlaceable Spikes { get { return new Spikes(); } }
         public static IPlaceable Box { get { return new Item(ItemType.Box.ToString(), e => e.IsBlockingTile(true).IsDynamic(true).IsBox(true)); } }
         public static IPlaceable VictoryExit { get { return new Item(ItemType.VictoryExit.ToString(), e => e.IsDynamic(true).IsBlockingTile(true).IsVictoryExit(true)); } }
+        public static IPlaceable LevelExitTrigger { get { return new Item(ItemType.LevelExitTrigger.ToString(), e => e.IsDynamic(true).IsLevelExitTrigger(true).IsEditorOnlyVisual(true)); } }
     }
 }

@@ -47,6 +47,8 @@ namespace Assets.LevelEditor
             SceneSetup.OnSceneChanging += OnSceneChanging;
 
             _gamePool = Pools.game;
+            _gamePool.isInEditor = true;
+
             _systems = CreateGameSystems(_gamePool);
 
             _gamePool.CreateEntity().IsInput(true);
@@ -123,7 +125,7 @@ namespace Assets.LevelEditor
             // Render
                 .Add(pool.CreateSystem<SubtypeSelectorSystem>())
                 .Add(pool.CreateSystem<TemplateSelectorSystem>())
-                .Add(pool.CreateSystem<AddViewSystem>())
+                .Add(pool.CreateSystem<AddOrRemoveViewSystem>())
                 .Add(pool.CreateSystem<SetInitialTransformSystem>())
                 .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
                 .Add(pool.CreateSystem<RenderPositionsSystem>())

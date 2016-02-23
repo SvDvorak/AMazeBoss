@@ -87,13 +87,13 @@ namespace Assets
             // Render
                 .Add(pool.CreateSystem<SubtypeSelectorSystem>())
                 .Add(pool.CreateSystem<TemplateSelectorSystem>())
-                .Add(pool.CreateSystem<AddViewSystem>())
+                .Add(pool.CreateSystem<AddOrRemoveViewSystem>())
                 .Add(pool.CreateSystem<SetInitialTransformSystem>())
                 .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
                 .AddAnimationSystems(pool)
 
             // Level-handling
-                .AddLevelClearedSystemIfNotFromEditor(pool)
+                .Add(pool.CreateSystem<LevelExitSystem>())
                 .Add(pool.CreateSystem<LevelRestartSystem>())
 
             // Destroy
@@ -109,12 +109,6 @@ namespace Assets
             PlayOrEditorPlayAction(
                 () => systems.Add(pool.CreateSystem<LevelLoaderSystem>()),
                 () => systems.Add(pool.CreateSystem<EditorTestLevelLoaderSystem>()));
-            return systems;
-        }
-
-        public static Systems AddLevelClearedSystemIfNotFromEditor(this Systems systems, Pool pool)
-        {
-            PlayOrEditorPlayAction(() => systems.Add(pool.CreateSystem<LevelClearedSystem>()), null);
             return systems;
         }
 
