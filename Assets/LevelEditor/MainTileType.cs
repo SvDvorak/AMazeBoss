@@ -41,6 +41,7 @@ namespace Assets.LevelEditor
         Boss,
         Box,
         VictoryExit,
-        LevelExitTrigger
+        LevelExitTrigger,
+        PuzzleSeparator
     }
 }

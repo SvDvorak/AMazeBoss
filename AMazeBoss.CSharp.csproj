@@ -100,6 +100,7 @@
     <Compile Include="Assets\Generated\Assets.AttackingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BlockingTileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.BossConnectionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BoxComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CameraComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CharacterComponentGeneratedExtension.cs" />
@@ -130,7 +131,7 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.PreviewComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SelectedPlaceableComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SelectedPlaceablesGroupComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.LevelExitTriggerGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.LevelExitTriggerComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LoadedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MainMenu.ActivateActionComponentGeneratedExtension.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ObjectPositionCacheComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.PuzzleEdgeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueueActingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueuedPositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ResourceComponentGeneratedExtension.cs" />
@@ -172,6 +174,7 @@
     <Compile Include="Assets\Input\PerformInputQueueSystem.cs" />
     <Compile Include="Assets\KnockBoxSystem.cs" />
     <Compile Include="Assets\LevelEditor\AllPlaceables.cs" />
+    <Compile Include="Assets\LevelEditor\BossPuzzleConnectionSetterSystem.cs" />
     <Compile Include="Assets\LevelEditor\CloseDialog.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
@@ -188,6 +191,7 @@
     <Compile Include="Assets\LevelEditor\Placeables\Placeable.cs" />
     <Compile Include="Assets\LevelEditor\Placeables\Tile.cs" />
     <Compile Include="Assets\LevelEditor\Preview\PreviewChangedSystem.cs" />
+    <Compile Include="Assets\LevelEditor\Preview\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\LevelEditor\Preview\PreviewTilePositionChangedSystem.cs" />
     <Compile Include="Assets\LevelEditor\Preview\PreviewTileTypeChangedSystem.cs" />
     <Compile Include="Assets\LevelEditor\PutDownPlaceableSystem.cs" />
@@ -251,7 +255,6 @@
     <Compile Include="Assets\RemoveActingOnDoneSystem.cs" />
     <Compile Include="Assets\Render\AddOrRemoveViewSystem.cs" />
     <Compile Include="Assets\Render\AnimationSystem.cs" />
-    <Compile Include="Assets\Render\PreviewMaterialChangeSystem.cs" />
     <Compile Include="Assets\Render\RenderComponent.cs" />
     <Compile Include="Assets\Render\RenderPositionsSystem.cs" />
     <Compile Include="Assets\Render\SetInitialTransformSystem.cs" />

@@ -2,7 +2,7 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.LevelExitTrigger levelExitTriggerComponent = new Assets.LevelExitTrigger();
+        static readonly Assets.LevelExitTriggerComponent levelExitTriggerComponent = new Assets.LevelExitTriggerComponent();
 
         public bool isLevelExitTrigger {
             get { return HasComponent(GameComponentIds.LevelExitTrigger); }

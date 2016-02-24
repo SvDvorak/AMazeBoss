@@ -135,8 +135,19 @@ namespace Assets
     }
 
     [Game]
-    public class LevelExitTrigger : IComponent
+    public class LevelExitTriggerComponent : IComponent
     {
+    }
+
+    [Game]
+    public class PuzzleEdgeComponent : IComponent
+    {
+    }
+
+    [Game]
+    public class BossConnectionComponent : IComponent
+    {
+        public int Id;
     }
 
     [Game]

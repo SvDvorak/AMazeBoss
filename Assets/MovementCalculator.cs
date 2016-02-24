@@ -64,7 +64,7 @@ namespace Assets
         }
     }
 
-    public static class DirectionRotationConverter
+    public static class LocalDirections
     {
         private static readonly List<Tuple<TilePos, int>> DirectionRotation = new List<Tuple<TilePos, int>>()
             {
@@ -84,7 +84,7 @@ namespace Assets
             return DirectionRotation.Single(x => x.Item2 == rotation).Item1;
         }
 
-        public static List<TilePos> GetSurroundingDirections()
+        public static List<TilePos> GetAll()
         {
             return DirectionRotation.Select(x => x.Item1).ToList();
         } 
@@ -123,7 +123,7 @@ namespace Assets
                     break;
                 }
 
-                foreach (var moveDirection in DirectionRotationConverter.GetSurroundingDirections())
+                foreach (var moveDirection in LocalDirections.GetAll())
                 {
                     var newPos = pos + moveDirection;
                     if (_walkValidator.CanMoveTo(newPos) && !_visited.Contains(newPos))

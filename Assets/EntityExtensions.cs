@@ -56,15 +56,20 @@ namespace Assets
             entity.AddActingAction(time, () => { });
         }
 
-        public static Entity GetEntityAtPosition(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher)
+        public static Entity GetEntityAtPosition(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher = null)
         {
-            var entitiesAtPosition = pool.objectPositionCache.Cache[position].Where(x => entityMatcher(x)).ToList();
+            var entitiesAtPosition = pool.GetEntitiesAtPosition(position);
             if (entitiesAtPosition.Count() > 1)
             {
                 throw new MoreThanOneMatchException(entitiesAtPosition);
             }
 
-            return entitiesAtPosition.SingleOrDefault();
+            return entitiesAtPosition.SingleOrDefault(x => entityMatcher == null || entityMatcher(x));
+        }
+
+        public static List<Entity> GetEntitiesAtPosition(this Pool pool, TilePos position)
+        {
+            return pool.objectPositionCache.Cache.ContainsKey(position) ? pool.objectPositionCache.Cache[position] : new List<Entity>();
         }
 
         public class MoreThanOneMatchException : Exception

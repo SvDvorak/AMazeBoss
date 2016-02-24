@@ -12,55 +12,57 @@ public static class GameComponentIds {
     public const int Attacking = 10;
     public const int BlockingTile = 11;
     public const int Boss = 12;
-    public const int Box = 13;
-    public const int Camera = 14;
-    public const int Character = 15;
-    public const int Cursed = 16;
-    public const int CurseSwitch = 17;
-    public const int Dead = 18;
-    public const int Dynamic = 19;
-    public const int EditorOnlyVisual = 20;
-    public const int FocusPoint = 21;
-    public const int Health = 22;
-    public const int HealthVisual = 23;
-    public const int Hero = 24;
-    public const int InEditor = 25;
-    public const int Input = 26;
-    public const int InputCurseSwitch = 27;
-    public const int InputItemInteract = 28;
-    public const int InputMove = 29;
-    public const int InputPlace = 30;
-    public const int InputPullItem = 31;
-    public const int InputQueue = 32;
-    public const int InputRemove = 33;
-    public const int Item = 34;
-    public const int Knocked = 35;
-    public const int LevelExitTrigger = 36;
-    public const int Levels = 37;
-    public const int Loaded = 38;
-    public const int Maintype = 39;
-    public const int MovesInARow = 40;
-    public const int ObjectPositionCache = 41;
-    public const int Paused = 42;
-    public const int Position = 43;
-    public const int Preview = 44;
-    public const int QueueActing = 45;
-    public const int QueuedPosition = 46;
-    public const int Rotation = 47;
-    public const int SavedFocusPoint = 48;
-    public const int SelectedPlaceable = 49;
-    public const int SelectedPlaceablesGroup = 50;
-    public const int SpikesCarried = 51;
-    public const int Spikes = 52;
-    public const int SpikeTrap = 53;
-    public const int Subtype = 54;
-    public const int Tile = 55;
-    public const int TileTemplates = 56;
-    public const int TrapActivated = 57;
-    public const int VictoryExit = 58;
-    public const int ViewOffset = 59;
+    public const int BossConnection = 13;
+    public const int Box = 14;
+    public const int Camera = 15;
+    public const int Character = 16;
+    public const int Cursed = 17;
+    public const int CurseSwitch = 18;
+    public const int Dead = 19;
+    public const int Dynamic = 20;
+    public const int EditorOnlyVisual = 21;
+    public const int FocusPoint = 22;
+    public const int Health = 23;
+    public const int HealthVisual = 24;
+    public const int Hero = 25;
+    public const int InEditor = 26;
+    public const int Input = 27;
+    public const int InputCurseSwitch = 28;
+    public const int InputItemInteract = 29;
+    public const int InputMove = 30;
+    public const int InputPlace = 31;
+    public const int InputPullItem = 32;
+    public const int InputQueue = 33;
+    public const int InputRemove = 34;
+    public const int Item = 35;
+    public const int Knocked = 36;
+    public const int LevelExitTrigger = 37;
+    public const int Levels = 38;
+    public const int Loaded = 39;
+    public const int Maintype = 40;
+    public const int MovesInARow = 41;
+    public const int ObjectPositionCache = 42;
+    public const int Paused = 43;
+    public const int Position = 44;
+    public const int Preview = 45;
+    public const int PuzzleEdge = 46;
+    public const int QueueActing = 47;
+    public const int QueuedPosition = 48;
+    public const int Rotation = 49;
+    public const int SavedFocusPoint = 50;
+    public const int SelectedPlaceable = 51;
+    public const int SelectedPlaceablesGroup = 52;
+    public const int SpikesCarried = 53;
+    public const int Spikes = 54;
+    public const int SpikeTrap = 55;
+    public const int Subtype = 56;
+    public const int Tile = 57;
+    public const int TileTemplates = 58;
+    public const int TrapActivated = 59;
+    public const int VictoryExit = 60;
+    public const int ViewOffset = 61;
 
-    public const int TotalComponents = 60;
+    public const int TotalComponents = 62;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -76,6 +78,7 @@ public static class GameComponentIds {
         "Attacking",
         "BlockingTile",
         "Boss",
+        "BossConnection",
         "Box",
         "Camera",
         "Character",
@@ -108,6 +111,7 @@ public static class GameComponentIds {
         "Paused",
         "Position",
         "Preview",
+        "PuzzleEdge",
         "QueueActing",
         "QueuedPosition",
         "Rotation",
@@ -139,6 +143,7 @@ public static class GameComponentIds {
         typeof(Assets.AttackingComponent),
         typeof(Assets.BlockingTileComponent),
         typeof(Assets.BossComponent),
+        typeof(Assets.BossConnectionComponent),
         typeof(Assets.BoxComponent),
         typeof(Assets.CameraComponent),
         typeof(Assets.CharacterComponent),
@@ -162,7 +167,7 @@ public static class GameComponentIds {
         typeof(Assets.LevelEditor.InputRemoveComponent),
         typeof(Assets.ItemComponent),
         typeof(Assets.KnockedComponent),
-        typeof(Assets.LevelExitTrigger),
+        typeof(Assets.LevelExitTriggerComponent),
         typeof(Assets.Levels),
         typeof(Assets.LoadedComponent),
         typeof(Assets.MaintypeComponent),
@@ -171,6 +176,7 @@ public static class GameComponentIds {
         typeof(Assets.LevelEditor.PausedComponent),
         typeof(Assets.PositionComponent),
         typeof(Assets.LevelEditor.PreviewComponent),
+        typeof(Assets.PuzzleEdgeComponent),
         typeof(Assets.QueueActingComponent),
         typeof(Assets.QueuedPositionComponent),
         typeof(Assets.RotationComponent),

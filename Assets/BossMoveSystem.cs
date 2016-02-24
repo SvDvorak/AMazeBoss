@@ -51,7 +51,7 @@ namespace Assets
 
             var pathToHero = _movementCalculator.CalculateMoveToTarget(
                 boss.position.Value,
-                DirectionRotationConverter.ToDirection(boss.rotation.Value),
+                LocalDirections.ToDirection(boss.rotation.Value),
                 heroPosition);
 
             if (!pathToHero.HasStepsLeft)
@@ -68,7 +68,7 @@ namespace Assets
                 }
 
                 boss.ReplacePosition(nextStep.Position);
-                boss.ReplaceRotation(DirectionRotationConverter.ToRotation(nextStep.Direction));
+                boss.ReplaceRotation(LocalDirections.ToRotation(nextStep.Direction));
 
                 _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction, false);
             }

@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine;
 
-namespace Assets.Render
+namespace Assets.LevelEditor.Preview
 {
     public class PreviewMaterialChangeSystem : IReactiveSystem
     {

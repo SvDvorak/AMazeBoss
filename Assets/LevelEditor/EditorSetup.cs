@@ -123,6 +123,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSystem<PreviewTilePositionChangedSystem>())
                 .Add(pool.CreateSystem<PreviewTileTypeChangedSystem>())
                 .Add(pool.CreateSystem<PreviewMaterialChangeSystem>())
+                .Add(pool.CreateSystem<BossPuzzleConnectionSetterSystem>())
 
             // Render
                 .Add(pool.CreateSystem<SubtypeSelectorSystem>())
