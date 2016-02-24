@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 
 namespace Assets
@@ -28,6 +30,30 @@ namespace Assets
             var target = entity.position.Value.ToV3();
             var current = entity.view.Value.transform.position;
             return entity.hasPosition && entity.hasView && target != current;
+        }
+
+        public static void AddActingAction(this Entity entity, float time, Action action)
+        {
+            var actingAction = new ActingAction(time, action);
+            Queue<ActingAction> actions;
+            if (entity.hasActingActions)
+            {
+                actions = entity.actingActions.Actions;
+            }
+            else
+            {
+                actions = new Queue<ActingAction>();
+                actingAction.Action();
+            }
+
+            actions.Enqueue(actingAction);
+
+            entity.ReplaceActingActions(actions);
+        }
+
+        public static void AddActingAction(this Entity entity, float time)
+        {
+            entity.AddActingAction(time, () => { });
         }
     }
 }

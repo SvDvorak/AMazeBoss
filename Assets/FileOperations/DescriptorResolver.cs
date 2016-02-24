@@ -19,6 +19,7 @@ namespace Assets.FileOperations
                 new FlagDescriptorSet("ITEM", e => e.isItem, e => e.IsItem(true)),
                 new FlagDescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
                 new FlagDescriptorSet("BOX", e => e.isBox, e => e.IsBox(true)),
+                new FlagDescriptorSet("VICTORYEXIT", e => e.isVictoryExit, e => e.IsVictoryExit(true)),
                 new FlagDescriptorSet("HERO", e => e.isHero, e => e.IsCharacter(true).IsHero(true)),
                 new FlagDescriptorSet("BOSS", e => e.isBoss, e => e.IsCharacter(true).IsBoss(true)),
                 new FlagDescriptorSet("CURSED", e => e.isCursed, e => e.IsCursed(true)),

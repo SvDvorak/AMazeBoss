@@ -122,12 +122,22 @@ namespace Assets
     }
 
     [Game]
+    public class VictoryExitComponent : IComponent
+    {
+    }
+
+    [Game]
     public class CharacterComponent : IComponent
     {
     }
 
     [Game]
     public class BossComponent : IComponent
+    {
+    }
+
+    [Game]
+    public class AttackingComponent : IComponent
     {
     }
 
@@ -176,6 +186,24 @@ namespace Assets
     public class HealthVisualComponent : IComponent
     {
         public TextMesh Text;
+    }
+
+    [Game]
+    public class ActingActionsComponent : IComponent
+    {
+        public Queue<ActingAction> Actions;
+    }
+
+    public class ActingAction
+    {
+        public float TimeLeft;
+        public Action Action;
+
+        public ActingAction(float time, Action action)
+        {
+            TimeLeft = time;
+            Action = action;
+        }
     }
 
     [Game]

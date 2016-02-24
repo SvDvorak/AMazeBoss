@@ -39,6 +39,7 @@ namespace Assets.LevelEditor
         PillarTrap,
         Hero,
         Boss,
-        Box
+        Box,
+        VictoryExit
     }
 }

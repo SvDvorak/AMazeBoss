@@ -54,19 +54,27 @@ namespace Assets.LevelEditor
             _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
 
             _systems.Initialize();
+            Update();
         }
 
-        private static void LoadLevel()
+        private void LoadLevel()
         {
-            var lastUsedLevelName = PlayerPrefsLevelReader.LastUsedLevelName;
-
-            try
+            if (PlaySetup.FromEditor)
             {
-                PlayerPrefsLevelReader.LoadLevel(lastUsedLevelName);
+                LevelLoader.ReadLevelData(PlaySetup.EditorLevel, Pools.game);
             }
-            catch (Exception)
+            else
             {
-                Debug.LogWarning("Unable to read last used level " + lastUsedLevelName);
+                var lastUsedLevelName = PlayerPrefsLevelReader.LastUsedLevelName;
+
+                try
+                {
+                    PlayerPrefsLevelReader.LoadLevel(lastUsedLevelName);
+                }
+                catch (Exception)
+                {
+                    Debug.LogWarning("Unable to read last used level " + lastUsedLevelName);
+                }
             }
         }
 

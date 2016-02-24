@@ -80,6 +80,7 @@ namespace Assets
                 .Add(pool.CreateSystem<CurseSwitchSystem>())
                 .Add(pool.CreateSystem<KnockBoxSystem>())
                 .Add(pool.CreateSystem<DeathSystem>())
+                .Add(pool.CreateSystem<VictoryExitSystem>())
 
                 .Add(pool.CreateSystem<RemoveActingOnDoneSystem>())
 
@@ -144,6 +145,7 @@ namespace Assets
                 .Add(pool.CreateSystem<CurseSwitchActivatedAnimationSystem>())
                 .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
                 .Add(pool.CreateSystem<BoxKnockAnimationSystem>())
+                .Add(pool.CreateSystem<AttackAnimationSystem>())
                 .Add(pool.CreateSystem<DeathAnimationSystem>())
                 .Add(pool.CreateSystem<CurseAnimationSystem>());
         }
