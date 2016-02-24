@@ -55,5 +55,29 @@ namespace Assets
         {
             entity.AddActingAction(time, () => { });
         }
+
+        public static Entity GetEntityAtPosition(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher)
+        {
+            var entitiesAtPosition = pool.objectPositionCache.Cache[position].Where(x => entityMatcher(x)).ToList();
+            if (entitiesAtPosition.Count() > 1)
+            {
+                throw new MoreThanOneMatchException(entitiesAtPosition);
+            }
+
+            return entitiesAtPosition.SingleOrDefault();
+        }
+
+        public class MoreThanOneMatchException : Exception
+        {
+            public MoreThanOneMatchException(params object[] matched) :
+                base("Found multiple matches: " + string.Join(",", matched.Select(x => x.ToString()).ToArray()))
+            {
+            }
+        }
+
+        public static void DoForAllAtPosition(this Pool pool, TilePos position, Action<Entity> entityAction)
+        {
+            pool.objectPositionCache.Cache[position].ForEach(entityAction);
+        }
     }
 }

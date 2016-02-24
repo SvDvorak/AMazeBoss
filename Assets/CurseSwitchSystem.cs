@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Entitas;
 
 namespace Assets
@@ -9,29 +7,22 @@ namespace Assets
     public class CurseSwitchSystem : IReactiveSystem, ISetPool
     {
         private Pool _pool;
-        private Group _curseSwitchGroup;
 
         public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.Position).OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
-            _curseSwitchGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.CurseSwitch, GameMatcher.Position));
         }
 
         public void Execute(List<Entity> entities)
         {
-            var boss = entities.SingleEntity();
+            var isSomeBossStandingOnSwitch = entities.Any(boss =>
+                _pool.GetEntityAtPosition(boss.position.Value, e => e.isCurseSwitch) != null);
 
-            foreach (var curseSwitch in _curseSwitchGroup.GetEntities())
+            if (isSomeBossStandingOnSwitch)
             {
-                var bossAtSamePosition = boss.position.Value == curseSwitch.position.Value;
-                if (bossAtSamePosition && !boss.isCursed)
-                {
-                    _pool.SwitchCurse();
-                }
-
-                curseSwitch.IsTrapActivated(bossAtSamePosition);
+                _pool.SwitchCurse();
             }
         }
     }

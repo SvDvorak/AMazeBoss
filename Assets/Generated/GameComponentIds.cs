@@ -40,26 +40,27 @@ public static class GameComponentIds {
     public const int Loaded = 38;
     public const int Maintype = 39;
     public const int MovesInARow = 40;
-    public const int Paused = 41;
-    public const int Position = 42;
-    public const int Preview = 43;
-    public const int QueueActing = 44;
-    public const int QueuedPosition = 45;
-    public const int Rotation = 46;
-    public const int SavedFocusPoint = 47;
-    public const int SelectedPlaceable = 48;
-    public const int SelectedPlaceablesGroup = 49;
-    public const int SpikesCarried = 50;
-    public const int Spikes = 51;
-    public const int SpikeTrap = 52;
-    public const int Subtype = 53;
-    public const int Tile = 54;
-    public const int TileTemplates = 55;
-    public const int TrapActivated = 56;
-    public const int VictoryExit = 57;
-    public const int ViewOffset = 58;
+    public const int ObjectPositionCache = 41;
+    public const int Paused = 42;
+    public const int Position = 43;
+    public const int Preview = 44;
+    public const int QueueActing = 45;
+    public const int QueuedPosition = 46;
+    public const int Rotation = 47;
+    public const int SavedFocusPoint = 48;
+    public const int SelectedPlaceable = 49;
+    public const int SelectedPlaceablesGroup = 50;
+    public const int SpikesCarried = 51;
+    public const int Spikes = 52;
+    public const int SpikeTrap = 53;
+    public const int Subtype = 54;
+    public const int Tile = 55;
+    public const int TileTemplates = 56;
+    public const int TrapActivated = 57;
+    public const int VictoryExit = 58;
+    public const int ViewOffset = 59;
 
-    public const int TotalComponents = 59;
+    public const int TotalComponents = 60;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -103,6 +104,7 @@ public static class GameComponentIds {
         "Loaded",
         "Maintype",
         "MovesInARow",
+        "ObjectPositionCache",
         "Paused",
         "Position",
         "Preview",
@@ -165,6 +167,7 @@ public static class GameComponentIds {
         typeof(Assets.LoadedComponent),
         typeof(Assets.MaintypeComponent),
         typeof(Assets.MovesInARow),
+        typeof(Assets.ObjectPositionCacheComponent),
         typeof(Assets.LevelEditor.PausedComponent),
         typeof(Assets.PositionComponent),
         typeof(Assets.LevelEditor.PreviewComponent),

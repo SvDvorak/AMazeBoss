@@ -31,6 +31,7 @@ namespace Assets
             _gamePool = Pools.game;
             _systems = CreateSystems(_gamePool);
 
+            _gamePool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _gamePool.SetLevels(Levels);
 
             _systems.Initialize();
@@ -58,6 +59,7 @@ namespace Assets
             return SceneSetup.CreateSystem()
 
             // Initialize
+                .Add(pool.CreateSystem<PositionsCacheUpdateSystem>())
                 .AddLevelLoaderSystem(pool)
                 .Add(pool.CreateSystem<TemplateLoaderSystem>())
 

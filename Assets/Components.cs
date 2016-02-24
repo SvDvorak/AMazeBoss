@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using Entitas.CodeGenerator;
 using UnityEngine;
@@ -35,6 +37,12 @@ namespace Assets
     public class PositionComponent : IComponent
     {
         public TilePos Value;
+    }
+
+    [SingleEntity, Game]
+    public class ObjectPositionCacheComponent : IComponent
+    {
+        public Dictionary<TilePos, List<Entity>> Cache;
     }
 
     [Game]

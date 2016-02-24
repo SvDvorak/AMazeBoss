@@ -15,18 +15,19 @@ namespace Assets
 
         public static void SwitchCurse(this Pool pool)
         {
-            var heroes = pool.GetEntities(GameMatcher.Hero);
-            var bosses = pool.GetEntities(GameMatcher.Boss);
+            var hero = pool.GetEntities(GameMatcher.Hero).SingleEntity();
+            var closestBoss = pool.GetActiveBoss(hero);
 
-            foreach (var hero in heroes)
-            {
-                hero.isCursed = !hero.isCursed;
-            }
+            hero.isCursed = !hero.isCursed;
+            closestBoss.isCursed = !closestBoss.isCursed;
+        }
 
-            foreach (var boss in bosses)
-            {
-                boss.isCursed = !boss.isCursed;
-            }
+        public static Entity GetActiveBoss(this Pool pool, Entity hero)
+        {
+            return pool
+                .GetEntities(GameMatcher.Boss)
+                .OrderBy(x => (x.position.Value - hero.position.Value).ManhattanDistance())
+                .First();
         }
 
         public static Entity GetItemAt(this Pool pool, TilePos position)

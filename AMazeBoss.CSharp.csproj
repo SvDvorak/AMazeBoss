@@ -141,6 +141,7 @@
     <Compile Include="Assets\Generated\Assets.MainMenu.TextComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.MovesInARowGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.ObjectPositionCacheComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueueActingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.QueuedPositionComponentGeneratedExtension.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="Assets\NextTurnSystem.cs" />
     <Compile Include="Assets\PlaySetup.cs" />
     <Compile Include="Assets\PoolExtensions.cs" />
+    <Compile Include="Assets\PositionsCacheUpdateSystem.cs" />
     <Compile Include="Assets\RemoveActingOnDoneSystem.cs" />
     <Compile Include="Assets\Render\AddOrRemoveViewSystem.cs" />
     <Compile Include="Assets\Render\AnimationSystem.cs" />

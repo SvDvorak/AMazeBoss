@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets.Camera;
 using Assets.FileOperations;
 using Assets.LevelEditor.Input;
@@ -47,10 +48,10 @@ namespace Assets.LevelEditor
             SceneSetup.OnSceneChanging += OnSceneChanging;
 
             _gamePool = Pools.game;
-            _gamePool.isInEditor = true;
-
             _systems = CreateGameSystems(_gamePool);
 
+            _gamePool.isInEditor = true;
+            _gamePool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _gamePool.CreateEntity().IsInput(true);
             _gamePool.CreateEntity().IsPreview(true);
             _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
@@ -102,6 +103,7 @@ namespace Assets.LevelEditor
             return SceneSetup.CreateSystem()
 
             // Initialize
+                .Add(pool.CreateSystem<PositionsCacheUpdateSystem>())
                 .Add(pool.CreateSystem<TemplateLoaderSystem>())
 
             // Input
