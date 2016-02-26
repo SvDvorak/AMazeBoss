@@ -13,56 +13,57 @@ public static class GameComponentIds {
     public const int Attacking = 11;
     public const int BlockingTile = 12;
     public const int Boss = 13;
-    public const int Box = 14;
-    public const int Camera = 15;
-    public const int Character = 16;
-    public const int Cursed = 17;
-    public const int CurseSwitch = 18;
-    public const int Dead = 19;
-    public const int Dynamic = 20;
-    public const int EditorOnlyVisual = 21;
-    public const int EditorViewMode = 22;
-    public const int FocusPoint = 23;
-    public const int Health = 24;
-    public const int HealthVisual = 25;
-    public const int Hero = 26;
-    public const int InEditor = 27;
-    public const int Input = 28;
-    public const int InputCurseSwitch = 29;
-    public const int InputItemInteract = 30;
-    public const int InputMove = 31;
-    public const int InputPlace = 32;
-    public const int InputPullItem = 33;
-    public const int InputQueue = 34;
-    public const int InputRemove = 35;
-    public const int Item = 36;
-    public const int Knocked = 37;
-    public const int LevelExitTrigger = 38;
-    public const int LevelLoaded = 39;
-    public const int Levels = 40;
-    public const int Loaded = 41;
-    public const int Maintype = 42;
-    public const int ObjectPositionCache = 43;
-    public const int Paused = 44;
-    public const int Position = 45;
-    public const int Preview = 46;
-    public const int PuzzleArea = 47;
-    public const int QueueActing = 48;
-    public const int Rotation = 49;
-    public const int SavedFocusPoint = 50;
-    public const int SelectedPlaceable = 51;
-    public const int SelectedPlaceablesGroup = 52;
-    public const int SpikesCarried = 53;
-    public const int Spikes = 54;
-    public const int SpikeTrap = 55;
-    public const int Subtype = 56;
-    public const int Tile = 57;
-    public const int TileTemplates = 58;
-    public const int TrapActivated = 59;
-    public const int VictoryExit = 60;
-    public const int ViewOffset = 61;
+    public const int BossConnection = 14;
+    public const int Box = 15;
+    public const int Camera = 16;
+    public const int Character = 17;
+    public const int Cursed = 18;
+    public const int CurseSwitch = 19;
+    public const int Dead = 20;
+    public const int Dynamic = 21;
+    public const int EditorOnlyVisual = 22;
+    public const int EditorViewMode = 23;
+    public const int ExitTrigger = 24;
+    public const int FocusPoint = 25;
+    public const int Health = 26;
+    public const int HealthVisual = 27;
+    public const int Hero = 28;
+    public const int InEditor = 29;
+    public const int Input = 30;
+    public const int InputCurseSwitch = 31;
+    public const int InputItemInteract = 32;
+    public const int InputMove = 33;
+    public const int InputPlace = 34;
+    public const int InputPullItem = 35;
+    public const int InputQueue = 36;
+    public const int InputRemove = 37;
+    public const int Item = 38;
+    public const int Knocked = 39;
+    public const int LevelLoaded = 40;
+    public const int Levels = 41;
+    public const int Loaded = 42;
+    public const int Maintype = 43;
+    public const int ObjectPositionCache = 44;
+    public const int Paused = 45;
+    public const int Position = 46;
+    public const int Preview = 47;
+    public const int PuzzleArea = 48;
+    public const int QueueActing = 49;
+    public const int Rotation = 50;
+    public const int SavedFocusPoint = 51;
+    public const int SelectedPlaceable = 52;
+    public const int SelectedPlaceablesGroup = 53;
+    public const int SpikesCarried = 54;
+    public const int Spikes = 55;
+    public const int SpikeTrap = 56;
+    public const int Subtype = 57;
+    public const int Tile = 58;
+    public const int TileTemplates = 59;
+    public const int TrapActivated = 60;
+    public const int VictoryExit = 61;
+    public const int ViewOffset = 62;
 
-    public const int TotalComponents = 62;
+    public const int TotalComponents = 63;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -79,6 +80,7 @@ public static class GameComponentIds {
         "Attacking",
         "BlockingTile",
         "Boss",
+        "BossConnection",
         "Box",
         "Camera",
         "Character",
@@ -88,6 +90,7 @@ public static class GameComponentIds {
         "Dynamic",
         "EditorOnlyVisual",
         "EditorViewMode",
+        "ExitTrigger",
         "FocusPoint",
         "Health",
         "HealthVisual",
@@ -103,7 +106,6 @@ public static class GameComponentIds {
         "InputRemove",
         "Item",
         "Knocked",
-        "LevelExitTrigger",
         "LevelLoaded",
         "Levels",
         "Loaded",
@@ -144,6 +146,7 @@ public static class GameComponentIds {
         typeof(Assets.AttackingComponent),
         typeof(Assets.BlockingTileComponent),
         typeof(Assets.BossComponent),
+        typeof(Assets.BossConnectionComponent),
         typeof(Assets.BoxComponent),
         typeof(Assets.CameraComponent),
         typeof(Assets.CharacterComponent),
@@ -153,6 +156,7 @@ public static class GameComponentIds {
         typeof(Assets.DynamicComponent),
         typeof(Assets.LevelEditor.EditorOnlyVisual),
         typeof(Assets.LevelEditor.EditorViewMode),
+        typeof(Assets.ExitTriggerComponent),
         typeof(Assets.FocusPointComponent),
         typeof(Assets.HealthComponent),
         typeof(Assets.HealthVisualComponent),
@@ -168,7 +172,6 @@ public static class GameComponentIds {
         typeof(Assets.LevelEditor.InputRemoveComponent),
         typeof(Assets.ItemComponent),
         typeof(Assets.KnockedComponent),
-        typeof(Assets.LevelExitTriggerComponent),
         typeof(Assets.LevelLoaded),
         typeof(Assets.LevelsComponent),
         typeof(Assets.LoadedComponent),

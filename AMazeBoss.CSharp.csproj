@@ -102,6 +102,7 @@
     <Compile Include="Assets\Generated\Assets.AttackingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BlockingTileComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BossComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.BossConnectionComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.BoxComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CameraComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.CharacterComponentGeneratedExtension.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets\Generated\Assets.DeadComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DestroyedComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.DynamicComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.ExitTriggerComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.FocusPointComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.HealthVisualComponentGeneratedExtension.cs" />
@@ -133,7 +135,6 @@
     <Compile Include="Assets\Generated\Assets.LevelEditor.PreviewComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SelectedPlaceableComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelEditor.SelectedPlaceablesGroupComponentGeneratedExtension.cs" />
-    <Compile Include="Assets\Generated\Assets.LevelExitTriggerComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelLoadedGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LevelsComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.LoadedComponentGeneratedExtension.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Assets\LevelEditor\Preview\PreviewTilePositionChangedSystem.cs" />
     <Compile Include="Assets\LevelEditor\Preview\PreviewTileTypeChangedSystem.cs" />
     <Compile Include="Assets\LevelEditor\PutDownPlaceableSystem.cs" />
+    <Compile Include="Assets\LevelEditor\PuzzleAreaChangedSystem.cs" />
     <Compile Include="Assets\LevelEditor\RemoveImpossiblyPlacedItemsSystem.cs" />
     <Compile Include="Assets\LevelEditor\RemovePlaceableSystem.cs" />
     <Compile Include="Assets\LevelEditor\SelectPlaceableSystem.cs" />

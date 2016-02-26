@@ -93,6 +93,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSystem<RemoveImpossiblyPlacedItemsSystem>())
                 .Add(pool.CreateSystem<ViewModeChangedSystem>())
                 .Add(pool.CreateSystem<ViewModeVisualAddedSystem>())
+                .Add(pool.CreateSystem<PuzzleAreaChangedSystem>())
                 .Add(pool.CreateSystem<PreviewTilePositionChangedSystem>())
                 .Add(pool.CreateSystem<PreviewTileTypeChangedSystem>())
                 .Add(pool.CreateSystem<PreviewMaterialChangeSystem>())

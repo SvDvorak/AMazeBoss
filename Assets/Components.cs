@@ -133,13 +133,19 @@ namespace Assets
     }
 
     [Game]
-    public class LevelExitTriggerComponent : IComponent
+    public class ExitTriggerComponent : IComponent
     {
     }
 
     [Game]
     public class PuzzleAreaComponent : IComponent
     {
+    }
+
+    [Game]
+    public class BossConnectionComponent : IComponent
+    {
+        public int BossId;
     }
 
     [Game]

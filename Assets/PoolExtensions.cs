@@ -71,6 +71,11 @@ namespace Assets
             entities.DoForAll(x => x.IsDestroyed(true));
         }
 
+        public static void SafeDeleteLevel(this Pool pool)
+        {
+            Pools.game.SafeDeleteAll(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item, GameMatcher.Area));
+        }
+
         public static Entity FindChildFor(this Pool pool, Entity entity)
         {
             return pool.FindChildrenFor(entity).SingleEntity();

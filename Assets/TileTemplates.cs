@@ -16,8 +16,15 @@ namespace Assets
     {
         public Tuple<string, List<string>> Retrieve(string type)
         {
-            var firstSubtypeNames = this[type.ToUpper()].First();
-            return new Tuple<string, List<string>>(firstSubtypeNames.Key, firstSubtypeNames.Value);
+            try
+            {
+                var firstSubtypeNames = this[type.ToUpper()].First();
+                return new Tuple<string, List<string>>(firstSubtypeNames.Key, firstSubtypeNames.Value);
+            }
+            catch (Exception)
+            {
+                throw new MissingTemplateException(type);
+            }
         }
 
         public List<string> Retrieve(string type, string subtype)
@@ -35,7 +42,7 @@ namespace Assets
 
     public class MissingTemplateException : Exception
     {
-        public MissingTemplateException(string type, string subtype) : base(string.Format("Could not retrieve {0} - {1}", type, subtype)) { }
+        public MissingTemplateException(string type, string subtype = null) : base(string.Format("Could not retrieve {0} - {1}", type, subtype ?? "none")) { }
     }
 
     public class SubtemplateNames : Dictionary<string, List<string>>

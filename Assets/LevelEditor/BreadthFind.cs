@@ -17,7 +17,7 @@ namespace Assets.LevelEditor
             _pool = pool;
         }
 
-        public Entity FindAllInConnection(Entity initiator, Func<Entity, bool> toFind, Func<Entity, bool> pathEndIdentifier)
+        public Entity FindAllInConnection(Entity initiator, Func<Entity, bool> toFind, Func<List<Entity>, bool> pathEndIdentifier)
         {
             _checkedPositions = new HashSet<TilePos>();
             _uncheckedPositions = new Queue<TilePos>();
@@ -27,19 +27,16 @@ namespace Assets.LevelEditor
             {
                 var currentPosition = _uncheckedPositions.Dequeue();
                 _checkedPositions.Add(currentPosition);
-                Debug.DrawLine(currentPosition.ToV3(), currentPosition.ToV3() + Vector3.up, Color.red);
 
-                var neighbours = GetUncheckedNeighbours(currentPosition);
-
-                foreach (var neighbour in neighbours)
+                var foundTarget = _pool.GetEntitiesAt(currentPosition, x => toFind(x)).SingleOrDefault();
+                if (foundTarget != null)
                 {
-                    var found = neighbour.Entities.SingleOrDefault(x => toFind(x));
-                    if (found != null)
-                    {
-                        return found;
-                    }
+                    return foundTarget;
+                }
 
-                    if (!neighbour.Entities.Any(x => pathEndIdentifier(x)))
+                foreach (var neighbour in GetUncheckedNeighbours(currentPosition))
+                {
+                    if (!pathEndIdentifier(neighbour.Entities))
                     {
                         _uncheckedPositions.Enqueue(neighbour.Position);
                     }

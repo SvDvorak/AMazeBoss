@@ -36,7 +36,7 @@ namespace Assets
         public void SetPool(Pool pool)
         {
             _pool = pool;
-            _levelExitsGroup = pool.GetGroup(GameMatcher.LevelExitTrigger);
+            _levelExitsGroup = pool.GetGroup(GameMatcher.ExitTrigger);
         }
 
         public void Execute(List<Entity> entities)

@@ -40,8 +40,12 @@ namespace Assets.LevelEditor
         Hero,
         Boss,
         Box,
-        VictoryExit,
-        LevelExitTrigger,
-        PuzzleSeparator
+        VictoryExit
+    }
+
+    public enum AreaType
+    {
+        ExitTrigger,
+        Puzzle
     }
 }

@@ -61,7 +61,7 @@ namespace Assets.LevelEditor
 
         public void Clear()
         {
-            Pools.game.SafeDeleteAll(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
+            Pools.game.SafeDeleteLevel();
             EditorSetup.Instance.Update();
         }
 
