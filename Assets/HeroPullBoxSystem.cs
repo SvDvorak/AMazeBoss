@@ -20,7 +20,7 @@ namespace Assets
             var hero = entities.SingleEntity();
             var pullDirection = hero.inputPullItem.Direction;
             var boxPosition = hero.position.Value - pullDirection;
-            var box = _pool.GetEntityAt(boxPosition, GameMatcher.Box);
+            var box = _pool.GetEntityAt(boxPosition, x => x.isBox);
 
             if (box != null)
             {

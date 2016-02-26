@@ -2,7 +2,7 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.Cursed cursedComponent = new Assets.Cursed();
+        static readonly Assets.CursedComponent cursedComponent = new Assets.CursedComponent();
 
         public bool isCursed {
             get { return HasComponent(GameComponentIds.Cursed); }

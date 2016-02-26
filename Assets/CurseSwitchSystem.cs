@@ -18,7 +18,7 @@ namespace Assets
         public void Execute(List<Entity> entities)
         {
             var isSomeBossStandingOnSwitch = entities.Any(boss =>
-                _pool.GetEntityAtPosition(boss.position.Value, e => e.isCurseSwitch) != null);
+                _pool.GetEntityAt(boss.position.Value, e => e.isCurseSwitch) != null);
 
             if (isSomeBossStandingOnSwitch)
             {

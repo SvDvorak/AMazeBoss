@@ -20,7 +20,7 @@ namespace Assets
         Play,
         Editor
     }
-
+    
     [Game, Ui]
     public class IdComponent : IComponent
     {
@@ -33,6 +33,11 @@ namespace Assets
         public int ParentId;
     }
 
+    [SingleEntity, Game]
+    public class LevelLoaded : IComponent
+    {
+    }
+
     [Game]
     public class PositionComponent : IComponent
     {
@@ -43,18 +48,6 @@ namespace Assets
     public class ObjectPositionCacheComponent : IComponent
     {
         public Dictionary<TilePos, List<Entity>> Cache;
-    }
-
-    [Game]
-    public class MovesInARow : IComponent
-    {
-        public int Moves;
-    }
-
-    [Game]
-    public class QueuedPositionComponent : IComponent
-    {
-        public TilePos Value;
     }
 
     [Game]
@@ -135,19 +128,18 @@ namespace Assets
     }
 
     [Game]
+    public class AreaComponent : IComponent
+    {
+    }
+
+    [Game]
     public class LevelExitTriggerComponent : IComponent
     {
     }
 
     [Game]
-    public class PuzzleEdgeComponent : IComponent
+    public class PuzzleAreaComponent : IComponent
     {
-    }
-
-    [Game]
-    public class BossConnectionComponent : IComponent
-    {
-        public int Id;
     }
 
     [Game]
@@ -171,17 +163,17 @@ namespace Assets
     }
 
     [Game]
-    public class SpikesCarried : IComponent
+    public class SpikesCarriedComponent : IComponent
     {
     }
 
     [Game]
-    public class Cursed : IComponent
+    public class CursedComponent : IComponent
     {
     }
 
     [Game]
-    public class CurseSwitch : IComponent
+    public class CurseSwitchComponent : IComponent
     {
     }
 
@@ -263,7 +255,7 @@ namespace Assets
     }
 
     [SingleEntity, Game]
-    public class Levels : IComponent
+    public class LevelsComponent : IComponent
     {
         public List<string> Value;
     }

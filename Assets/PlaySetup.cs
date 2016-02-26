@@ -110,7 +110,7 @@ namespace Assets
         {
             PlayOrEditorPlayAction(
                 () => systems.Add(pool.CreateSystem<LevelLoaderSystem>()),
-                () => systems.Add(pool.CreateSystem<EditorTestLevelLoaderSystem>()));
+                () => systems.Add(pool.CreateSystem<EditorLevelLoaderSystem>()));
             return systems;
         }
 

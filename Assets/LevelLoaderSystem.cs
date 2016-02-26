@@ -4,7 +4,6 @@ using System.Linq;
 using Assets.FileOperations;
 using Entitas;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets
 {
@@ -70,11 +69,27 @@ namespace Assets
         }
     }
 
-    public class EditorTestLevelLoaderSystem : IInitializeSystem
+    public class EditorLevelLoaderSystem : IInitializeSystem
     {
         public void Initialize()
         {
-            LevelLoader.ReadLevelData(PlaySetup.EditorLevel, Pools.game);
+            if (PlaySetup.EditorLevel != null)
+            {
+                LevelLoader.ReadLevelData(PlaySetup.EditorLevel, Pools.game);
+            }
+            else
+            {
+                var lastUsedLevelName = PlayerPrefsLevelReader.LastUsedLevelName;
+
+                try
+                {
+                    PlayerPrefsLevelReader.LoadLevel(lastUsedLevelName);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogWarning("Unable to read last used level " + lastUsedLevelName + ". Reason: " + ex);
+                }
+            }
         }
     }
 }

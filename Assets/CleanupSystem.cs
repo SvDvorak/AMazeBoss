@@ -19,16 +19,4 @@ namespace Assets
                 .DoForAll(x => x.isInputCurseSwitch = false);
         }
     }
-
-    public static class CleanupPoolExtensions
-    {
-        public static Entity[] DoForAll(this Entity[] entities, Action<Entity> action)
-        {
-            foreach (var entity in entities)
-            {
-                action(entity);
-            }
-            return entities;
-        } 
-    }
 }

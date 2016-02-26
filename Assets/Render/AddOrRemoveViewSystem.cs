@@ -24,7 +24,7 @@ namespace Assets.Render
                 DestroySystem.DestoryView(entity);
             }
 
-            foreach (var entity in entities.Where(x => x.hasResource && (_pool.isInEditor || !x.isEditorOnlyVisual)))
+            foreach (var entity in entities.Where(x => x.hasResource && (_pool.isInEditor || !x.hasEditorOnlyVisual)))
             {
                 AddView(entity);
             }

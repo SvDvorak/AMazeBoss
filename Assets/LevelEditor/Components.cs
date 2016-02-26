@@ -14,9 +14,22 @@ namespace Assets.LevelEditor
     {
     }
 
+    [SingleEntity, Game]
+    public class EditorViewMode : IComponent
+    {
+        public ViewMode Value;
+    }
+
     [Game]
     public class EditorOnlyVisual : IComponent
     {
+        public ViewMode ShowInMode;
+    }
+
+    public enum ViewMode
+    {
+        Normal,
+        Area
     }
 
     [Game]

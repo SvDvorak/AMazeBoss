@@ -2,7 +2,7 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.SpikesCarried spikesCarriedComponent = new Assets.SpikesCarried();
+        static readonly Assets.SpikesCarriedComponent spikesCarriedComponent = new Assets.SpikesCarriedComponent();
 
         public bool isSpikesCarried {
             get { return HasComponent(GameComponentIds.SpikesCarried); }

@@ -2,24 +2,27 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.LevelEditor.EditorOnlyVisual editorOnlyVisualComponent = new Assets.LevelEditor.EditorOnlyVisual();
+        public Assets.LevelEditor.EditorOnlyVisual editorOnlyVisual { get { return (Assets.LevelEditor.EditorOnlyVisual)GetComponent(GameComponentIds.EditorOnlyVisual); } }
 
-        public bool isEditorOnlyVisual {
-            get { return HasComponent(GameComponentIds.EditorOnlyVisual); }
-            set {
-                if (value != isEditorOnlyVisual) {
-                    if (value) {
-                        AddComponent(GameComponentIds.EditorOnlyVisual, editorOnlyVisualComponent);
-                    } else {
-                        RemoveComponent(GameComponentIds.EditorOnlyVisual);
-                    }
-                }
-            }
+        public bool hasEditorOnlyVisual { get { return HasComponent(GameComponentIds.EditorOnlyVisual); } }
+
+        public Entity AddEditorOnlyVisual(Assets.LevelEditor.ViewMode newShowInMode) {
+            var componentPool = GetComponentPool(GameComponentIds.EditorOnlyVisual);
+            var component = (Assets.LevelEditor.EditorOnlyVisual)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.LevelEditor.EditorOnlyVisual());
+            component.ShowInMode = newShowInMode;
+            return AddComponent(GameComponentIds.EditorOnlyVisual, component);
         }
 
-        public Entity IsEditorOnlyVisual(bool value) {
-            isEditorOnlyVisual = value;
+        public Entity ReplaceEditorOnlyVisual(Assets.LevelEditor.ViewMode newShowInMode) {
+            var componentPool = GetComponentPool(GameComponentIds.EditorOnlyVisual);
+            var component = (Assets.LevelEditor.EditorOnlyVisual)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.LevelEditor.EditorOnlyVisual());
+            component.ShowInMode = newShowInMode;
+            ReplaceComponent(GameComponentIds.EditorOnlyVisual, component);
             return this;
+        }
+
+        public Entity RemoveEditorOnlyVisual() {
+            return RemoveComponent(GameComponentIds.EditorOnlyVisual);;
         }
     }
 }

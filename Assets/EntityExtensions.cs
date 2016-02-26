@@ -11,13 +11,13 @@ namespace Assets
         {
             var identifiables = Pools.game.GetEntities(GameMatcher.Id);
             var currentId = identifiables.Any() ? identifiables.Max(x => x.id.Value) : 0;
-            entity.AddId(currentId+1);
+            entity.AddId(currentId + 1);
             return entity;
         }
 
         public static Entity SetParent(this Entity child, Entity parent)
         {
-            if(!parent.hasId)
+            if (!parent.hasId)
             {
                 parent.AddId();
             }
@@ -56,20 +56,29 @@ namespace Assets
             entity.AddActingAction(time, () => { });
         }
 
-        public static Entity GetEntityAtPosition(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher = null)
+        public static Entity GetEntityAt(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher = null)
         {
-            var entitiesAtPosition = pool.GetEntitiesAtPosition(position);
+            var entitiesAtPosition = pool
+                .GetEntitiesAt(position, entityMatcher)
+                .ToList();
+
             if (entitiesAtPosition.Count() > 1)
             {
                 throw new MoreThanOneMatchException(entitiesAtPosition);
             }
 
-            return entitiesAtPosition.SingleOrDefault(x => entityMatcher == null || entityMatcher(x));
+            return entitiesAtPosition.SingleOrDefault();
         }
 
-        public static List<Entity> GetEntitiesAtPosition(this Pool pool, TilePos position)
+        public static List<Entity> GetEntitiesAt(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher = null)
         {
-            return pool.objectPositionCache.Cache.ContainsKey(position) ? pool.objectPositionCache.Cache[position] : new List<Entity>();
+            if (!pool.objectPositionCache.Cache.ContainsKey(position))
+                return new List<Entity>();
+
+            return pool.objectPositionCache
+                .Cache[position]
+                .Where(x => !x.isDestroyed && !x.isPreview && (entityMatcher == null || entityMatcher(x)))
+                .ToList();
         }
 
         public class MoreThanOneMatchException : Exception

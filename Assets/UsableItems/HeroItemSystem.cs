@@ -20,8 +20,8 @@ namespace Assets
         {
             var hero = entities.SingleEntity();
 
-            var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, GameMatcher.Spikes);
-            var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, GameMatcher.SpikeTrap);
+            var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, x => x.isSpikes);
+            var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, x => x.isSpikeTrap);
             var isTrapEmpty = spikeTrapBelow != null && !spikeTrapBelow.hasLoaded;
 
             if (hero.isSpikesCarried && isTrapEmpty)

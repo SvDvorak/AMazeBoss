@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.LevelEditor;
 using Entitas;
 
 namespace Assets.FileOperations
@@ -21,9 +22,9 @@ namespace Assets.FileOperations
                 new FlagDescriptorSet("BOX", e => e.isBox, e => e.IsBox(true)),
                 new FlagDescriptorSet("VICTORYEXIT", e => e.isVictoryExit, e => e.IsVictoryExit(true)),
                 new FlagDescriptorSet("LEVELEXITTRIGGER", e => e.isLevelExitTrigger, e => e.IsLevelExitTrigger(true)),
-                new FlagDescriptorSet("PUZZLEEDGE", e => e.isPuzzleEdge, e => e.IsPuzzleEdge(true)),
-                new ValueDescriptorSet<int>("BOSSCONNECTION", e => e.hasBossConnection, (e, val) => e.AddBossConnection(int.Parse(val)), e => e.bossConnection.Id),
-                new FlagDescriptorSet("EDITORONLYVISUAL", e => e.isEditorOnlyVisual, e => e.IsEditorOnlyVisual(true)),
+                new FlagDescriptorSet("AREA", e => e.isArea, e => e.IsArea(true)),
+                new FlagDescriptorSet("PUZZLEAREA", e => e.isPuzzleArea, e => e.IsPuzzleArea(true)),
+                new ValueDescriptorSet<int>("EDITORONLYVISUAL", e => e.hasEditorOnlyVisual, (e, val) => e.AddEditorOnlyVisual((ViewMode)int.Parse(val)), e => (int)e.editorOnlyVisual.ShowInMode),
                 new FlagDescriptorSet("HERO", e => e.isHero, e => e.IsCharacter(true).IsHero(true)),
                 new FlagDescriptorSet("BOSS", e => e.isBoss, e => e.IsCharacter(true).IsBoss(true)),
                 new FlagDescriptorSet("CURSED", e => e.isCursed, e => e.IsCursed(true)),

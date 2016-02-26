@@ -10,7 +10,7 @@ namespace Assets.FileOperations
 
         public static Level CreateLevelData(Pool pool)
         {
-            var mapObjects = pool.GetEntities(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
+            var mapObjects = pool.GetEntities(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item, GameMatcher.Area));
             var fileMap = new Level(
                 CreateFileCamera(pool),
                 mapObjects
@@ -39,7 +39,7 @@ namespace Assets.FileOperations
                 .Tiles
                 .ForEach(tile => CreateMapObject(pool, tile));
 
-            var camera = pool.GetEntities(GameMatcher.Camera).SingleOrDefault();
+            var camera = pool.GetEntities(GameMatcher.Resource).SingleOrDefault(x => x.resource.Path == "Camera");
             if (camera == null)
             {
                 camera = pool.CreateEntity().AddResource("Camera").AddRotation(0);

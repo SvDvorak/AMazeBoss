@@ -2,7 +2,7 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.CurseSwitch curseSwitchComponent = new Assets.CurseSwitch();
+        static readonly Assets.CurseSwitchComponent curseSwitchComponent = new Assets.CurseSwitchComponent();
 
         public bool isCurseSwitch {
             get { return HasComponent(GameComponentIds.CurseSwitch); }

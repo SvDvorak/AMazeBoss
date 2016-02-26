@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Entitas;
 using UnityEngine;
@@ -30,20 +31,24 @@ namespace Assets
                 .First();
         }
 
-        public static Entity GetItemAt(this Pool pool, TilePos position)
-        {
-            return pool.GetEntityAt(position, GameMatcher.Item);
-        }
-
         public static Entity GetTileAt(this Pool pool, TilePos position)
         {
-            return pool.GetEntityAt(position, GameMatcher.Tile);
+            return pool.GetEntityAt(position, x => x.isTile);
+        }
+
+        public static Entity GetItemAt(this Pool pool, TilePos position)
+        {
+            return pool.GetEntityAt(position, x => x.isItem);
+        }
+
+        public static Entity GetAreaAt(this Pool pool, TilePos position)
+        {
+            return pool.GetEntityAt(position, x => x.isArea);
         }
 
         public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection, bool immediate)
         {
-            pool.GetEntitiesAt(position + forwardDirection, GameMatcher.Item)
-                .Where(x => x.isBlockingTile)
+            pool.GetEntitiesAt(position + forwardDirection, x => x.isItem && x.isBlockingTile)
                 .ToList()
                 .ForEach(x => x.ReplaceKnocked(forwardDirection, immediate));
         }
@@ -56,21 +61,8 @@ namespace Assets
 
         public static bool PushableItemAt(this Pool pool, TilePos position)
         {
-            var entitiesAtPosition = pool.GetEntitiesAt(position, GameMatcher.Box).ToList();
+            var entitiesAtPosition = pool.GetEntitiesAt(position, x => x.isBox).ToList();
             return entitiesAtPosition.Count > 0;
-        }
-
-        public static IEnumerable<Entity> GetEntitiesAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)
-        {
-            var completeMatcher = entityMatcher != null
-                ? Matcher.AllOf(GameMatcher.Position, entityMatcher)
-                : GameMatcher.Position;
-            return pool.GetEntities(completeMatcher).Where(x => x.position.Value == position && !x.isDestroyed);
-        }
-
-        public static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)
-        {
-            return pool.GetEntitiesAt(position, entityMatcher).SingleOrDefault();
         }
 
         public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null)
@@ -90,6 +82,15 @@ namespace Assets
                 .GetEntities(GameMatcher.Child)
                 .Where(x => x.child.ParentId == entity.id.Value)
                 .ToList();
+        }
+
+        public static Entity[] DoForAll(this Entity[] entities, Action<Entity> action)
+        {
+            foreach (var entity in entities)
+            {
+                action(entity);
+            }
+            return entities;
         }
     }
 }

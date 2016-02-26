@@ -7,17 +7,28 @@ namespace Assets.LevelEditor
 {
     public class SelectionGroup
     {
+        private readonly ViewMode _viewMode;
         private readonly List<IPlaceable> _placeables;
         private int _selectedIndex;
 
-        public SelectionGroup(params IPlaceable[] placeables)
+        public SelectionGroup(ViewMode viewMode, params IPlaceable[] placeables)
         {
+            _viewMode = viewMode;
             _placeables = placeables.ToList();
+        }
+
+        public SelectionGroup(params IPlaceable[] placeables) : this(ViewMode.Normal, placeables)
+        {
         }
 
         public IPlaceable GetCurrentSelection()
         {
             return _placeables[_selectedIndex];
+        }
+
+        public ViewMode GetViewMode()
+        {
+            return _viewMode;
         }
 
         public void RotateSelection()
@@ -35,7 +46,7 @@ namespace Assets.LevelEditor
                     { 3, new SelectionGroup(AllPlaceables.SpikeTrap, AllPlaceables.WallTrap, AllPlaceables.CurseTrigger, AllPlaceables.VictoryExit) },
                     { 4, new SelectionGroup(AllPlaceables.Spikes, AllPlaceables.Box) },
                     { 5, new SelectionGroup(AllPlaceables.Hero, AllPlaceables.Boss) },
-                    { 6, new SelectionGroup(AllPlaceables.LevelExitTrigger, AllPlaceables.PuzzleSeparator) }
+                    { 6, new SelectionGroup(ViewMode.Area, AllPlaceables.LevelExitTrigger, AllPlaceables.PuzzleSeparator) }
                 };
 
         private Pool _pool;
@@ -86,6 +97,7 @@ namespace Assets.LevelEditor
                 input.ReplaceSelectedPlaceablesGroup(selectedGroup);
             }
 
+            _pool.ReplaceEditorViewMode(selectedGroup.GetViewMode());
             input.ReplaceSelectedPlaceable(selectedGroup.GetCurrentSelection());
         }
     }
