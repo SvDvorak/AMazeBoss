@@ -10,19 +10,18 @@ namespace Assets.FileOperations
     {
         private readonly List<IDescriptorSet> _descriptorSets = new List<IDescriptorSet>()
             {
+                new ValueDescriptorSet<int>("GAMEOBJECT", e => e.hasGameObject, (e, val) => e.AddGameObject((ObjectType)int.Parse(val)), e => (int)e.gameObject.Type),
                 new ValueDescriptorSet<int>("ID", e => e.hasId, (e, val) => e.AddId(int.Parse(val)), e => e.id.Value),
-                new FlagDescriptorSet("TILE", e => e.isTile, e => e.IsTile(true)),
+                new FlagDescriptorSet("WALL", e => e.isWall, e => e.IsWall(true)),
                 new FlagDescriptorSet("BLOCKINGTILE", e => e.isBlockingTile, e => e.IsBlockingTile(true)),
                 new FlagDescriptorSet("SPIKETRAP", e => e.isSpikeTrap, e => e.IsSpikeTrap(true)),
                 new FlagDescriptorSet("LOADED", e => e.hasLoaded, e => e.AddLoaded(true)),
                 new FlagDescriptorSet("CURSESWITCH", e => e.isCurseSwitch, e => e.IsCurseSwitch(true)),
                 new FlagDescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
-                new FlagDescriptorSet("ITEM", e => e.isItem, e => e.IsItem(true)),
                 new FlagDescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
                 new FlagDescriptorSet("BOX", e => e.isBox, e => e.IsBox(true)),
                 new FlagDescriptorSet("VICTORYEXIT", e => e.isVictoryExit, e => e.IsVictoryExit(true)),
                 new FlagDescriptorSet("LEVELEXIT", e => e.isExitTrigger, e => e.IsExitTrigger(true)),
-                new FlagDescriptorSet("AREA", e => e.isArea, e => e.IsArea(true)),
                 new FlagDescriptorSet("PUZZLE", e => e.isPuzzleArea, e => e.IsPuzzleArea(true)),
                 new ValueDescriptorSet<int>("BOSSCONNECTION", e => e.hasBossConnection, (e, val) => e.AddBossConnection(int.Parse(val)), e => e.bossConnection.BossId),
                 new ValueDescriptorSet<int>("EDITORONLYVISUAL", e => e.hasEditorOnlyVisual, (e, val) => e.AddEditorOnlyVisual((ViewMode)int.Parse(val)), e => (int)e.editorOnlyVisual.ShowInMode),

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Entitas;
+using UnityEngine;
 
 namespace Assets
 {
@@ -25,6 +26,11 @@ namespace Assets
 
         private void AddToCache(Entity entity, PositionComponent positionComponent)
         {
+            if (entity.isPreview)
+            {
+                return;
+            }
+
             var cache = GetCache;
             entity.Retain(this);
             if (cache.ContainsKey(positionComponent.Value))
@@ -39,6 +45,11 @@ namespace Assets
 
         private void RemoveFromCache(Entity entity, PositionComponent positionComponent)
         {
+            if (entity.isPreview)
+            {
+                return;
+            }
+
             entity.Release(this);
             if (_pool.hasObjectPositionCache)
             {

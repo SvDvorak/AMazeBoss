@@ -74,7 +74,20 @@ namespace Assets
     }
 
     [Game]
-    public class TileComponent : IComponent
+    public class GameObjectComponent : IComponent
+    {
+        public ObjectType Type;
+    }
+
+    public enum ObjectType
+    {
+        Tile,
+        Item,
+        Area
+    }
+
+    [Game]
+    public class WallComponent : IComponent
     {
     }
 
@@ -101,11 +114,6 @@ namespace Assets
     }
 
     [Game]
-    public class ItemComponent : IComponent
-    {
-    }
-
-    [Game]
     public class SpikesComponent : IComponent
     {
     }
@@ -124,11 +132,6 @@ namespace Assets
 
     [Game]
     public class VictoryExitComponent : IComponent
-    {
-    }
-
-    [Game]
-    public class AreaComponent : IComponent
     {
     }
 

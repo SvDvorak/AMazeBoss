@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Assets.LevelEditor.Placeables;
 using Entitas;
 
 namespace Assets.LevelEditor
@@ -8,20 +8,20 @@ namespace Assets.LevelEditor
     public class SelectionGroup
     {
         private readonly ViewMode _viewMode;
-        private readonly List<IPlaceable> _placeables;
+        private readonly List<EntityPerformer> _placeables;
         private int _selectedIndex;
 
-        public SelectionGroup(ViewMode viewMode, params IPlaceable[] placeables)
+        public SelectionGroup(ViewMode viewMode, params EntityPerformer[] placeables)
         {
             _viewMode = viewMode;
             _placeables = placeables.ToList();
         }
 
-        public SelectionGroup(params IPlaceable[] placeables) : this(ViewMode.Normal, placeables)
+        public SelectionGroup(params EntityPerformer[] placeables) : this(ViewMode.Normal, placeables)
         {
         }
 
-        public IPlaceable GetCurrentSelection()
+        public EntityPerformer GetCurrentSelection()
         {
             return _placeables[_selectedIndex];
         }
@@ -41,12 +41,12 @@ namespace Assets.LevelEditor
     {
         private readonly Dictionary<int, SelectionGroup> _numberToPlaceable = new Dictionary<int, SelectionGroup>
                 {
-                    { 1, new SelectionGroup(AllPlaceables.Empty) },
-                    { 2, new SelectionGroup(AllPlaceables.Pillar, AllPlaceables.Wall) },
-                    { 3, new SelectionGroup(AllPlaceables.SpikeTrap, AllPlaceables.WallTrap, AllPlaceables.CurseTrigger, AllPlaceables.VictoryExit) },
-                    { 4, new SelectionGroup(AllPlaceables.Spikes, AllPlaceables.Box) },
-                    { 5, new SelectionGroup(AllPlaceables.Hero, AllPlaceables.Boss) },
-                    { 6, new SelectionGroup(ViewMode.Area, AllPlaceables.ExitTrigger, AllPlaceables.PuzzleArea) }
+                    { 1, new SelectionGroup(WorldObjects.Empty) },
+                    { 2, new SelectionGroup(WorldObjects.Pillar, WorldObjects.Wall) },
+                    { 3, new SelectionGroup(WorldObjects.SpikeTrap, WorldObjects.WallTrap, WorldObjects.CurseTrigger, WorldObjects.VictoryExit) },
+                    { 4, new SelectionGroup(WorldObjects.Spikes, WorldObjects.Box) },
+                    { 5, new SelectionGroup(WorldObjects.Hero, WorldObjects.Boss) },
+                    { 6, new SelectionGroup(ViewMode.Area, WorldObjects.ExitTrigger, WorldObjects.PuzzleArea) }
                 };
 
         private Pool _pool;

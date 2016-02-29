@@ -10,7 +10,7 @@ namespace Assets.FileOperations
 
         public static Level CreateLevelData(Pool pool)
         {
-            var mapObjects = pool.GetEntities(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item, GameMatcher.Area));
+            var mapObjects = pool.GetEntities(GameMatcher.GameObject).Where(x => !x.isPreview);
             var fileMap = new Level(
                 CreateFileCamera(pool),
                 mapObjects

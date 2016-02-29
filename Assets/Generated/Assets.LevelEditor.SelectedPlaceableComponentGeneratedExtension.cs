@@ -6,14 +6,14 @@ namespace Entitas {
 
         public bool hasSelectedPlaceable { get { return HasComponent(GameComponentIds.SelectedPlaceable); } }
 
-        public Entity AddSelectedPlaceable(Assets.LevelEditor.Placeables.IPlaceable newValue) {
+        public Entity AddSelectedPlaceable(Assets.LevelEditor.EntityPerformer newValue) {
             var componentPool = GetComponentPool(GameComponentIds.SelectedPlaceable);
             var component = (Assets.LevelEditor.SelectedPlaceableComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.LevelEditor.SelectedPlaceableComponent());
             component.Value = newValue;
             return AddComponent(GameComponentIds.SelectedPlaceable, component);
         }
 
-        public Entity ReplaceSelectedPlaceable(Assets.LevelEditor.Placeables.IPlaceable newValue) {
+        public Entity ReplaceSelectedPlaceable(Assets.LevelEditor.EntityPerformer newValue) {
             var componentPool = GetComponentPool(GameComponentIds.SelectedPlaceable);
             var component = (Assets.LevelEditor.SelectedPlaceableComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.LevelEditor.SelectedPlaceableComponent());
             component.Value = newValue;

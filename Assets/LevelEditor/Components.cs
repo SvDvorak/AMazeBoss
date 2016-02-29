@@ -1,5 +1,4 @@
-﻿using Assets.LevelEditor.Placeables;
-using Entitas;
+﻿using Entitas;
 using Entitas.CodeGenerator;
 
 namespace Assets.LevelEditor
@@ -35,7 +34,7 @@ namespace Assets.LevelEditor
     [Game]
     public class SelectedPlaceableComponent : IComponent
     {
-        public IPlaceable Value;
+        public EntityPerformer Value;
     }
 
     [SingleEntity, Game]
@@ -49,7 +48,7 @@ namespace Assets.LevelEditor
     {
     }
 
-    [SingleEntity, Game]
+    [Game]
     public class PreviewComponent : IComponent
     {
     }

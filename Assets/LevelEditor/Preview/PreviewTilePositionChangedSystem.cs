@@ -11,8 +11,7 @@ namespace Assets.LevelEditor.Preview
         {
             var tilePosition = entities.SingleEntity().position.Value;
 
-            Pool.previewEntity
-                .ReplacePosition(tilePosition);
+            GetPreviewEntity().ReplacePosition(tilePosition);
         }
     }
 }

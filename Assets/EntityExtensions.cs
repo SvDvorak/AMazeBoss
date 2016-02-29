@@ -56,42 +56,24 @@ namespace Assets
             entity.AddActingAction(time, () => { });
         }
 
-        public static Entity GetEntityAt(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher = null)
+        public static bool IsTile(this Entity entity)
         {
-            var entitiesAtPosition = pool
-                .GetEntitiesAt(position, entityMatcher)
-                .ToList();
-
-            if (entitiesAtPosition.Count() > 1)
-            {
-                throw new MoreThanOneMatchException(entitiesAtPosition);
-            }
-
-            return entitiesAtPosition.SingleOrDefault();
+            return entity.IsObjectType(ObjectType.Tile);
         }
 
-        public static List<Entity> GetEntitiesAt(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher = null)
+        public static bool IsItem(this Entity entity)
         {
-            if (!pool.objectPositionCache.Cache.ContainsKey(position))
-                return new List<Entity>();
-
-            return pool.objectPositionCache
-                .Cache[position]
-                .Where(x => !x.isDestroyed && !x.isPreview && (entityMatcher == null || entityMatcher(x)))
-                .ToList();
+            return entity.IsObjectType(ObjectType.Item);
         }
 
-        public class MoreThanOneMatchException : Exception
+        public static bool IsArea(this Entity entity)
         {
-            public MoreThanOneMatchException(params object[] matched) :
-                base("Found multiple matches: " + string.Join(",", matched.Select(x => x.ToString()).ToArray()))
-            {
-            }
+            return entity.IsObjectType(ObjectType.Area);
         }
 
-        public static void DoForAllAtPosition(this Pool pool, TilePos position, Action<Entity> entityAction)
+        public static bool IsObjectType(this Entity entity, ObjectType type)
         {
-            pool.objectPositionCache.Cache[position].ForEach(entityAction);
+            return entity.gameObject.Type == type;
         }
     }
 }

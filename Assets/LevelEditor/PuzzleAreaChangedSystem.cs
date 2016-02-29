@@ -28,12 +28,13 @@ namespace Assets.LevelEditor
         }
     }
 
-    public class PuzzleAreaShrunkSystem : IReactiveSystem, ISetPool
+    public class PuzzleAreaShrunkSystem : IReactiveSystem, ISetPool, IExcludeComponents
     {
         private Pool _pool;
         private PuzzleAreaBossConnector _bossConnector;
 
         public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.PuzzleArea, GameMatcher.Destroyed).OnEntityAdded(); } }
+        public IMatcher excludeComponents { get { return GameMatcher.Preview; } }
 
         public void SetPool(Pool pool)
         {

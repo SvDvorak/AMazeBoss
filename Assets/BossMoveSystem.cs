@@ -23,7 +23,6 @@ namespace Assets
     public class BossMoveSystem : IReactiveSystem, ISetPool, IExcludeComponents
     {
         private MovementCalculator _movementCalculator;
-        private Group _heroGroup;
         private Pool _pool;
 
         public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.ActiveTurn).OnEntityAdded(); } }
@@ -33,7 +32,6 @@ namespace Assets
         {
             _pool = pool;
             _movementCalculator = new MovementCalculator(new WalkableValidator(pool));
-            _heroGroup = pool.GetGroup(GameMatcher.Hero);
         }
 
         public void Execute(List<Entity> entities)
@@ -46,7 +44,7 @@ namespace Assets
 
         public void MoveBoss(Entity boss)
         {
-            var hero = GetHero();
+            var hero = _pool.GetHero();
             var heroPosition = hero.position.Value;
 
             var pathToHero = _movementCalculator.CalculateMoveToTarget(
@@ -86,11 +84,6 @@ namespace Assets
             {
                 Debug.DrawLine(step.Position.ToV3(), step.Position.ToV3() + Vector3.up*5, Color.blue);
             }
-        }
-
-        private Entity GetHero()
-        {
-            return _heroGroup.GetSingleEntity();
         }
     }
 }

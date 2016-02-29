@@ -46,6 +46,7 @@ namespace Assets.LevelEditor
 
             _checkedPositions
                 .Select(pos => _pool.GetEntityAt(pos, entity => entity.isPuzzleArea))
+                .Where(x => x != null)
                 .ToList()
                 .DoForAll(x => UpdateOrRemoveBossConnection(x, closestBoss));
         }
