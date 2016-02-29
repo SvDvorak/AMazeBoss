@@ -17,18 +17,28 @@ namespace Assets
         public static void SwitchCurse(this Pool pool)
         {
             var hero = pool.GetEntities(GameMatcher.Hero).SingleEntity();
-            var closestBoss = pool.GetActiveBoss(hero);
+            var activeBoss = pool.GetActiveBoss(hero);
 
-            hero.isCursed = !hero.isCursed;
-            closestBoss.isCursed = !closestBoss.isCursed;
+            if (activeBoss != null)
+            {
+                hero.isCursed = !hero.isCursed;
+                activeBoss.isCursed = !activeBoss.isCursed;
+            }
         }
 
         public static Entity GetActiveBoss(this Pool pool, Entity hero)
         {
-            return pool
-                .GetEntities(GameMatcher.Boss)
-                .OrderBy(x => (x.position.Value - hero.position.Value).ManhattanDistance())
-                .First();
+            try
+            {
+                var currentPuzzleArea = pool.GetEntityAt(hero.position.Value, x => x.isPuzzleArea);
+                return pool
+                    .GetEntities(GameMatcher.Boss)
+                    .Single(x => x.id.Value == currentPuzzleArea.bossConnection.BossId);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public static Entity GetTileAt(this Pool pool, TilePos position)
