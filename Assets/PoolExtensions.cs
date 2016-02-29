@@ -68,7 +68,7 @@ namespace Assets
         public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null)
         {
             var entities = matcher != null ? pool.GetEntities(matcher) : pool.GetEntities();
-            entities.DoForAll(x => x.IsDestroyed(true));
+            entities.ToList().DoForAll(x => x.IsDestroyed(true));
         }
 
         public static void SafeDeleteLevel(this Pool pool)
@@ -89,7 +89,7 @@ namespace Assets
                 .ToList();
         }
 
-        public static Entity[] DoForAll(this Entity[] entities, Action<Entity> action)
+        public static List<Entity> DoForAll(this List<Entity> entities, Action<Entity> action)
         {
             foreach (var entity in entities)
             {

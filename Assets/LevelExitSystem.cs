@@ -21,7 +21,7 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
-            _bossExitsGroup.GetEntities().DoForAll(x => x.IsBlockingTile(false));
+            _bossExitsGroup.GetEntities().ToList().DoForAll(x => x.IsBlockingTile(false));
             _pool.SwitchCurse();
         }
     }

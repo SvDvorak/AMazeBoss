@@ -44,58 +44,62 @@ namespace Assets.FileOperations
         {
             foreach (var descriptor in descriptors.Split(';'))
             {
-                try
+                var currentDescriptor = descriptor;
+                var matchedDescriptors = _descriptorSets
+                    .Where(ds => ds.SetDescriptor(entity, currentDescriptor))
+                    .ToList();
+
+                if (matchedDescriptors.Count() > 1)
                 {
-                    var correctDescriptorSet = _descriptorSets.Single(ds => IsDescriptor(descriptor, ds));
-                    correctDescriptorSet.SetDescriptor(entity, descriptor);
+                    throw new MultipleDescriptorsFoundException(descriptor, matchedDescriptors);
                 }
-                catch (InvalidOperationException)
-                {
-                    throw new MultipleDescriptorsFoundException(descriptor);
-                }
-                catch (Exception)
+                if (!matchedDescriptors.Any())
                 {
                     throw new InvalidDescriptorException(descriptor);
                 }
             }
         }
 
-        private static bool IsDescriptor(string descriptor, IDescriptorSet ds)
+        public interface IDescriptorSet
         {
-            var isShorter = descriptor.Length < ds.DescriptorText.Length;
-            return !isShorter && descriptor.Substring(0, ds.DescriptorText.Length) == ds.DescriptorText;
-        }
-
-        private interface IDescriptorSet
-        {
-            string DescriptorText { get; }
             Func<Entity, bool> HasDescriptor { get; }
             string CreateDescriptorText(Entity entity);
-            void SetDescriptor(Entity e, string text);
+            bool SetDescriptor(Entity e, string text);
         }
 
         private class FlagDescriptorSet : IDescriptorSet
         {
             public FlagDescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity> setFlagDescriptor)
             {
-                DescriptorText = descriptorText;
+                _descriptorText = descriptorText;
                 HasDescriptor = hasDescriptor;
                 SetFlagDescriptor = setFlagDescriptor;
             }
 
-            public string DescriptorText { get; private set; }
-            public Func<Entity, bool> HasDescriptor { get; private set; }
+            private readonly string _descriptorText;
 
+            public Func<Entity, bool> HasDescriptor { get; private set; }
             private Action<Entity> SetFlagDescriptor { get; set; }
 
             public string CreateDescriptorText(Entity entity)
             {
-                return DescriptorText;
+                return _descriptorText;
             }
 
-            public void SetDescriptor(Entity e, string text)
+            public bool SetDescriptor(Entity e, string text)
             {
-                SetFlagDescriptor(e);
+                if (text == _descriptorText)
+                {
+                    SetFlagDescriptor(e);
+                    return true;
+                }
+
+                return false;
+            }
+
+            public override string ToString()
+            {
+                return _descriptorText;
             }
         }
 
@@ -103,21 +107,21 @@ namespace Assets.FileOperations
         {
             public ValueDescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity, string> setValueDescriptor, Func<Entity, TValueType> getValue = null)
             {
-                DescriptorText = descriptorText;
+                _descriptorText = descriptorText;
                 HasDescriptor = hasDescriptor;
                 SetValueDescriptor = setValueDescriptor;
                 GetValue = getValue;
             }
 
-            public string DescriptorText { get; private set; }
-            public Func<Entity, bool> HasDescriptor { get; private set; }
+            private readonly string _descriptorText;
 
-            private Action<Entity, string> SetValueDescriptor  { get; set; }
-            private Func<Entity, TValueType> GetValue  { get; set; }
+            public Func<Entity, bool> HasDescriptor { get; private set; }
+            private Action<Entity, string> SetValueDescriptor { get; set; }
+            private Func<Entity, TValueType> GetValue { get; set; }
 
             public string CreateDescriptorText(Entity entity)
             {
-                var descriptor = DescriptorText;
+                var descriptor = _descriptorText;
                 if (GetValue != null)
                 {
                     descriptor += "(" + GetValue(entity) + ")";
@@ -125,23 +129,56 @@ namespace Assets.FileOperations
                 return descriptor;
             }
 
-            public void SetDescriptor(Entity e, string text)
+            public bool SetDescriptor(Entity e, string text)
             {
-                string value = null;
+                var parseResult = TryParseNameAndValue(text);
+                if (parseResult != null && parseResult.Descriptor == _descriptorText)
+                {
+                    SetValueDescriptor(e, parseResult.Value);
+                    return true;
+                }
+                return false;
+            }
+
+            private ParseResult TryParseNameAndValue(string text)
+            {
                 if (text.Contains("("))
                 {
                     var startIndex = text.IndexOf("(") + 1;
                     var endIndex = text.IndexOf(")");
-                    value = text.Substring(startIndex, endIndex - startIndex);
+                    var descriptor = text.Substring(0, startIndex - 1);
+                    var value = text.Substring(startIndex, endIndex - startIndex);
+                    return new ParseResult(descriptor, value);
                 }
-                SetValueDescriptor(e, value);
+
+                return null;
+            }
+
+            private class ParseResult
+            {
+                public readonly string Descriptor;
+                public readonly string Value;
+
+                public ParseResult(string descriptor, string value)
+                {
+                    Descriptor = descriptor;
+                    Value = value;
+                }
+            }
+
+            public override string ToString()
+            {
+                return _descriptorText;
             }
         }
     }
 
     public class MultipleDescriptorsFoundException : Exception
     {
-        public MultipleDescriptorsFoundException(string descriptor) : base("Found multiple descriptors when using tag " + descriptor)
+        public MultipleDescriptorsFoundException(string descriptor, List<DescriptorResolver.IDescriptorSet> matchedDescriptors) :
+            base(string.Format("Found multiple descriptors when using tag {0}, matching descriptors: {1}",
+                descriptor,
+                string.Join(", ", matchedDescriptors.Select(x => x.ToString()).ToArray())))
         {
         }
     }

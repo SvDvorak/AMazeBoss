@@ -1,49 +1,56 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Entitas;
-using UnityEngine;
 
 namespace Assets.LevelEditor
 {
-    public class BreadthFind
+    public class PuzzleAreaBossConnector
     {
         private readonly Pool _pool;
         private HashSet<TilePos> _checkedPositions;
         private Queue<TilePos> _uncheckedPositions;
 
-        public BreadthFind(Pool pool)
+        public PuzzleAreaBossConnector(Pool pool)
         {
             _pool = pool;
         }
 
-        public Entity FindAllInConnection(Entity initiator, Func<Entity, bool> toFind, Func<List<Entity>, bool> pathEndIdentifier)
+        public void ConnectWholeAreaToClosestBoss(List<TilePos> startPositions)
         {
             _checkedPositions = new HashSet<TilePos>();
-            _uncheckedPositions = new Queue<TilePos>();
-            _uncheckedPositions.Enqueue(initiator.position.Value);
+            _uncheckedPositions = new Queue<TilePos>(startPositions);
+            Entity closestBoss = null;
 
             while (_uncheckedPositions.Any())
             {
                 var currentPosition = _uncheckedPositions.Dequeue();
                 _checkedPositions.Add(currentPosition);
 
-                var foundTarget = _pool.GetEntitiesAt(currentPosition, x => toFind(x)).SingleOrDefault();
-                if (foundTarget != null)
+                if (closestBoss == null)
                 {
-                    return foundTarget;
+                    var foundTarget = _pool.GetEntitiesAt(currentPosition, x => x.isBoss).SingleOrDefault();
+                    if (foundTarget != null)
+                    {
+                        closestBoss = foundTarget;
+                    }
                 }
 
                 foreach (var neighbour in GetUncheckedNeighbours(currentPosition))
                 {
-                    if (!pathEndIdentifier(neighbour.Entities))
+                    if (neighbour.Entities.Any(x => x.isPuzzleArea))
                     {
                         _uncheckedPositions.Enqueue(neighbour.Position);
                     }
                 }
             }
 
-            return null;
+            if (closestBoss != null)
+            {
+                _checkedPositions
+                    .Select(pos => _pool.GetEntityAt(pos, entity => entity.isPuzzleArea))
+                    .ToList()
+                    .DoForAll(x => x.ReplaceBossConnection(closestBoss.id.Value));
+            }
         }
 
         private IEnumerable<PositionEntities> GetUncheckedNeighbours(TilePos currentPosition)

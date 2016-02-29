@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Entitas;
 
 namespace Assets
@@ -15,6 +16,7 @@ namespace Assets
         public void Execute()
         {
             _pool.GetEntities()
+                .ToList()
                 .DoForAll(x => x.isInputItemInteract = false)
                 .DoForAll(x => x.isInputCurseSwitch = false);
         }
