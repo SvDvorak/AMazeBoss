@@ -95,6 +95,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSystem<ViewModeVisualAddedSystem>())
                 .Add(pool.CreateSystem<PuzzleAreaExpandedSystem>())
                 .Add(pool.CreateSystem<PuzzleAreaShrunkSystem>())
+                .Add(pool.CreateSystem<PuzzleAreaBossRemovedSystem>())
                 .Add(pool.CreateSystem<PreviewTilePositionChangedSystem>())
                 .Add(pool.CreateSystem<PreviewTileTypeChangedSystem>())
                 .Add(pool.CreateSystem<PreviewMaterialChangeSystem>())

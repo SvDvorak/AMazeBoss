@@ -57,4 +57,26 @@ namespace Assets.LevelEditor
             }
         }
     }
+
+    public class PuzzleAreaBossRemovedSystem : IInitializeSystem, ISetPool
+    {
+        private Group _destroyedBossGroup;
+        private PuzzleAreaBossConnector _bossConnector;
+
+        public void SetPool(Pool pool)
+        {
+            _destroyedBossGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Boss, GameMatcher.Destroyed));
+            _bossConnector = new PuzzleAreaBossConnector(pool);
+        }
+
+        public void Initialize()
+        {
+            _destroyedBossGroup.OnEntityAdded += (@group, entity, index, component) => UpdatePuzzleConnection(entity);
+        }
+
+        private void UpdatePuzzleConnection(Entity boss)
+        {
+            _bossConnector.ConnectWholeAreaToClosestBoss(new List<TilePos>() { boss.position.Value });
+        }
+    }
 }

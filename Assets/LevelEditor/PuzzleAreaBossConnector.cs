@@ -44,12 +44,21 @@ namespace Assets.LevelEditor
                 }
             }
 
+            _checkedPositions
+                .Select(pos => _pool.GetEntityAt(pos, entity => entity.isPuzzleArea))
+                .ToList()
+                .DoForAll(x => UpdateOrRemoveBossConnection(x, closestBoss));
+        }
+
+        private void UpdateOrRemoveBossConnection(Entity puzzleArea, Entity closestBoss)
+        {
             if (closestBoss != null)
             {
-                _checkedPositions
-                    .Select(pos => _pool.GetEntityAt(pos, entity => entity.isPuzzleArea))
-                    .ToList()
-                    .DoForAll(x => x.ReplaceBossConnection(closestBoss.id.Value));
+                puzzleArea.ReplaceBossConnection(closestBoss.id.Value);
+            }
+            else if(puzzleArea.hasBossConnection)
+            {
+                puzzleArea.RemoveBossConnection();
             }
         }
 
