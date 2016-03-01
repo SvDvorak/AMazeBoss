@@ -1,0 +1,147 @@
+fileFormatVersion: 2
+guid: cfc22ee81b896da45a11b76212b324a8
+timeCreated: 1456801386
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Armature_001
+    100004: Armature_002
+    100006: Armature_003
+    100008: Armature_004
+    100010: Armature_005
+    100012: Bone
+    100014: Bone_0
+    100016: Bone_1
+    100018: Bone_2
+    100020: Bone_3
+    100022: Bone_4
+    100024: Cylinder
+    100026: Cylinder_000
+    100028: Cylinder_001
+    100030: Cylinder_002
+    100032: Cylinder_003
+    100034: Cylinder_004
+    100036: Cylinder_005
+    100038: Cylinder_006
+    100040: Cylinder_007
+    100042: Cylinder_008
+    100044: //RootNode
+    400000: Armature
+    400002: Armature_001
+    400004: Armature_002
+    400006: Armature_003
+    400008: Armature_004
+    400010: Armature_005
+    400012: Bone
+    400014: Bone_0
+    400016: Bone_1
+    400018: Bone_2
+    400020: Bone_3
+    400022: Bone_4
+    400024: Cylinder
+    400026: Cylinder_000
+    400028: Cylinder_001
+    400030: Cylinder_002
+    400032: Cylinder_003
+    400034: Cylinder_004
+    400036: Cylinder_005
+    400038: Cylinder_006
+    400040: Cylinder_007
+    400042: Cylinder_008
+    400044: //RootNode
+    2300000: Cylinder_000
+    2300002: Cylinder_001
+    2300004: Cylinder_002
+    2300006: Cylinder_003
+    2300008: Cylinder_004
+    3300000: Cylinder_000
+    3300002: Cylinder_001
+    3300004: Cylinder_002
+    3300006: Cylinder_003
+    3300008: Cylinder_004
+    4300000: Cylinder_008
+    4300002: Cylinder_007
+    4300004: Cylinder_006
+    4300006: Cylinder_005
+    4300008: Cylinder
+    4300010: Cylinder_004
+    4300012: Cylinder_003
+    4300014: Cylinder_002
+    4300016: Cylinder_000
+    4300018: Cylinder_001
+    7400000: Default Take
+    7400002: Close
+    7400004: Standby
+    7400006: Unlock
+    9500000: //RootNode
+    13700000: Cylinder
+    13700002: Cylinder_005
+    13700004: Cylinder_006
+    13700006: Cylinder_007
+    13700008: Cylinder_008
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
