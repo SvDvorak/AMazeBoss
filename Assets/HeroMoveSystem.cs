@@ -20,10 +20,12 @@ namespace Assets
             var hero = entities.SingleEntity();
             var moveDirection = hero.inputMove.Direction;
             var newPosition = moveDirection + hero.position.Value;
+
             var canMoveTo = _pool.OpenTileAt(newPosition);
+            var stillInsideSamePuzzle = _pool.IsStillInsideSamePuzzle(hero.position.Value, newPosition);
             var pushableItem = _pool.PushableItemAt(newPosition, moveDirection);
 
-            if (canMoveTo)
+            if (canMoveTo && !(hero.isSpikesCarried && !stillInsideSamePuzzle))
             {
                 hero.ReplacePosition(newPosition);
             }

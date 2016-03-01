@@ -68,7 +68,7 @@ namespace Assets
                 boss.ReplacePosition(nextStep.Position);
                 boss.ReplaceRotation(LocalDirections.ToRotation(nextStep.Direction));
 
-                _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction, false);
+                _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction);
             }
             else
             {

@@ -66,17 +66,19 @@ namespace Assets
             return pool.GetEntityAt(position, x => x.gameObject.Type == ObjectType.Area);
         }
 
-        public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection, bool immediate)
-        {
-            pool.GetEntitiesAt(position + forwardDirection, x => x.gameObject.Type == ObjectType.Item && x.isBlockingTile)
-                .ToList()
-                .ForEach(x => x.ReplaceKnocked(forwardDirection, immediate));
-        }
-
         public static bool OpenTileAt(this Pool pool, TilePos position)
         {
             var entitiesAtPosition = pool.GetEntitiesAt(position).ToList();
             return entitiesAtPosition.Count > 0 && entitiesAtPosition.All(x => !x.isBlockingTile);
+        }
+
+        public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection)
+        {
+            var pushableItem = pool.PushableItemAt(position + forwardDirection, forwardDirection);
+            if (pushableItem != null)
+            {
+                pushableItem.ReplaceKnocked(forwardDirection, false);
+            }
         }
 
         public static Entity PushableItemAt(this Pool pool, TilePos position, TilePos moveDirection)
@@ -89,7 +91,7 @@ namespace Assets
             return openSpaceAtNextPosition && stillInsidePuzzle ? entitiesAtPosition.SingleOrDefault() : null;
         }
 
-        private static bool IsStillInsideSamePuzzle(this Pool pool, TilePos currentPosition, TilePos nextPosition)
+        public static bool IsStillInsideSamePuzzle(this Pool pool, TilePos currentPosition, TilePos nextPosition)
         {
             var currentPuzzle = pool.GetEntityAt(currentPosition, x => x.isPuzzleArea && x.hasBossConnection);
             var nextPuzzle = pool.GetEntityAt(nextPosition, x => x.isPuzzleArea && x.hasBossConnection);
