@@ -16,14 +16,14 @@ public static class GameComponentIds {
     public const int Box = 14;
     public const int Camera = 15;
     public const int Character = 16;
-    public const int Cursed = 17;
-    public const int CurseSwitch = 18;
-    public const int Dead = 19;
-    public const int Dynamic = 20;
-    public const int EditorOnlyVisual = 21;
-    public const int EditorViewMode = 22;
-    public const int ExitTrigger = 23;
-    public const int FocusPoint = 24;
+    public const int CurrentFocusPoint = 17;
+    public const int Cursed = 18;
+    public const int CurseSwitch = 19;
+    public const int Dead = 20;
+    public const int Dynamic = 21;
+    public const int EditorOnlyVisual = 22;
+    public const int EditorViewMode = 23;
+    public const int ExitTrigger = 24;
     public const int GameObject = 25;
     public const int Health = 26;
     public const int HealthVisual = 27;
@@ -56,13 +56,14 @@ public static class GameComponentIds {
     public const int Spikes = 54;
     public const int SpikeTrap = 55;
     public const int Subtype = 56;
-    public const int TileTemplates = 57;
-    public const int TrapActivated = 58;
-    public const int VictoryExit = 59;
-    public const int ViewOffset = 60;
-    public const int Wall = 61;
+    public const int TargetFocusPoint = 57;
+    public const int TileTemplates = 58;
+    public const int TrapActivated = 59;
+    public const int VictoryExit = 60;
+    public const int ViewOffset = 61;
+    public const int Wall = 62;
 
-    public const int TotalComponents = 62;
+    public const int TotalComponents = 63;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -82,6 +83,7 @@ public static class GameComponentIds {
         "Box",
         "Camera",
         "Character",
+        "CurrentFocusPoint",
         "Cursed",
         "CurseSwitch",
         "Dead",
@@ -89,7 +91,6 @@ public static class GameComponentIds {
         "EditorOnlyVisual",
         "EditorViewMode",
         "ExitTrigger",
-        "FocusPoint",
         "GameObject",
         "Health",
         "HealthVisual",
@@ -122,6 +123,7 @@ public static class GameComponentIds {
         "Spikes",
         "SpikeTrap",
         "Subtype",
+        "TargetFocusPoint",
         "TileTemplates",
         "TrapActivated",
         "VictoryExit",
@@ -145,8 +147,9 @@ public static class GameComponentIds {
         typeof(Assets.BossComponent),
         typeof(Assets.BossConnectionComponent),
         typeof(Assets.BoxComponent),
-        typeof(Assets.CameraComponent),
+        typeof(Assets.Camera.CameraComponent),
         typeof(Assets.CharacterComponent),
+        typeof(Assets.Camera.CurrentFocusPointComponent),
         typeof(Assets.CursedComponent),
         typeof(Assets.CurseSwitchComponent),
         typeof(Assets.DeadComponent),
@@ -154,7 +157,6 @@ public static class GameComponentIds {
         typeof(Assets.LevelEditor.EditorOnlyVisual),
         typeof(Assets.LevelEditor.EditorViewMode),
         typeof(Assets.ExitTriggerComponent),
-        typeof(Assets.FocusPointComponent),
         typeof(Assets.GameObjectComponent),
         typeof(Assets.HealthComponent),
         typeof(Assets.HealthVisualComponent),
@@ -180,13 +182,13 @@ public static class GameComponentIds {
         typeof(Assets.PuzzleAreaComponent),
         typeof(Assets.QueueActingComponent),
         typeof(Assets.RotationComponent),
-        typeof(Assets.SavedFocusPointComponent),
         typeof(Assets.LevelEditor.SelectedPlaceableComponent),
         typeof(Assets.LevelEditor.SelectedPlaceablesGroupComponent),
         typeof(Assets.SpikesCarriedComponent),
         typeof(Assets.SpikesComponent),
         typeof(Assets.SpikeTrapComponent),
         typeof(Assets.SubtypeComponent),
+        typeof(Assets.Camera.TargetFocusPointComponent),
         typeof(Assets.TileTemplates),
         typeof(Assets.TrapActivatedComponent),
         typeof(Assets.VictoryExitComponent),

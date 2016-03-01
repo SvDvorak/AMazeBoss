@@ -2,20 +2,20 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        public Assets.CameraComponent camera { get { return (Assets.CameraComponent)GetComponent(GameComponentIds.Camera); } }
+        public Assets.Camera.CameraComponent camera { get { return (Assets.Camera.CameraComponent)GetComponent(GameComponentIds.Camera); } }
 
         public bool hasCamera { get { return HasComponent(GameComponentIds.Camera); } }
 
         public Entity AddCamera(UnityEngine.Camera newValue) {
             var componentPool = GetComponentPool(GameComponentIds.Camera);
-            var component = (Assets.CameraComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.CameraComponent());
+            var component = (Assets.Camera.CameraComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Camera.CameraComponent());
             component.Value = newValue;
             return AddComponent(GameComponentIds.Camera, component);
         }
 
         public Entity ReplaceCamera(UnityEngine.Camera newValue) {
             var componentPool = GetComponentPool(GameComponentIds.Camera);
-            var component = (Assets.CameraComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.CameraComponent());
+            var component = (Assets.Camera.CameraComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.Camera.CameraComponent());
             component.Value = newValue;
             ReplaceComponent(GameComponentIds.Camera, component);
             return this;

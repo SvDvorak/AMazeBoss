@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using UnityEngine;
 
-namespace Assets
+namespace Assets.Camera
 {
     [Game]
     public class CameraComponent : IComponent
@@ -10,13 +10,13 @@ namespace Assets
     }
 
     [Game]
-    public class FocusPointComponent : IComponent
+    public class CurrentFocusPointComponent : IComponent
     {
         public Vector3 Position;
     }
 
     [Game]
-    public class SavedFocusPointComponent : IComponent
+    public class TargetFocusPointComponent : IComponent
     {
         public Vector3 Position;
     }

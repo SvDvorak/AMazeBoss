@@ -12,18 +12,11 @@ namespace Assets.FileOperations
         {
             var mapObjects = pool.GetEntities(GameMatcher.GameObject).Where(x => !x.isPreview);
             var fileMap = new Level(
-                CreateFileCamera(pool),
                 mapObjects
                     .Select(x => CreateFileMapObject(x))
                     .ToList());
 
             return fileMap;
-        }
-
-        private static LevelCamera CreateFileCamera(Pool pool)
-        {
-            var cameraFocus = pool.GetEntities(GameMatcher.Camera).SingleEntity().savedFocusPoint;
-            return new LevelCamera(cameraFocus.Position.x, cameraFocus.Position.z);
         }
 
         private static LevelObject CreateFileMapObject(Entity entity)
@@ -42,17 +35,8 @@ namespace Assets.FileOperations
             var camera = pool.GetEntities(GameMatcher.Resource).SingleOrDefault(x => x.resource.Path == "Camera");
             if (camera == null)
             {
-                camera = pool.CreateEntity().AddResource("Camera").AddRotation(0);
+                pool.CreateEntity().AddResource("Camera").AddRotation(0).ReplaceTargetFocusPoint(Vector3.zero);
             }
-
-            UpdateCamera(camera, level.Camera);
-        }
-
-        private static void UpdateCamera(Entity cameraEntity, LevelCamera levelCamera)
-        {
-            cameraEntity
-                .ReplaceFocusPoint(new Vector3(levelCamera.FocusX, 0, levelCamera.FocusZ))
-                .ReplaceSavedFocusPoint(new Vector3(levelCamera.FocusX, 0, levelCamera.FocusZ));
         }
 
         private static void CreateMapObject(Pool pool, LevelObject mapGameObject)

@@ -22,24 +22,6 @@ namespace Entitas {
             return this;
         }
     }
-
-    public partial class Pool {
-        public Entity previewEntity { get { return GetGroup(GameMatcher.Preview).GetSingleEntity(); } }
-
-        public bool isPreview {
-            get { return previewEntity != null; }
-            set {
-                var entity = previewEntity;
-                if (value != (entity != null)) {
-                    if (value) {
-                        CreateEntity().isPreview = true;
-                    } else {
-                        DestroyEntity(entity);
-                    }
-                }
-            }
-        }
-    }
 }
 
     public partial class GameMatcher {

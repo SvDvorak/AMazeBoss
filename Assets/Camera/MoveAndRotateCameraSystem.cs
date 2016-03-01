@@ -9,7 +9,7 @@ namespace Assets.Camera
     {
         private int _cameraRotationOffset = 35;
 
-        public TriggerOnEvent trigger { get { return Matcher.AnyOf(GameMatcher.Rotation, GameMatcher.FocusPoint).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AnyOf(GameMatcher.Rotation, GameMatcher.TargetFocusPoint).OnEntityAdded(); } }
         public IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.View, GameMatcher.Camera); } }
 
         public void Execute(List<Entity> entities)
@@ -19,9 +19,17 @@ namespace Assets.Camera
 
             var currentRotation = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up);
 
-            DOTween
-                .To(() => currentRotation, x => currentRotation = x, new Vector3(0, (_cameraRotationOffset + 90 * camera.rotation.Value) % 360, 0), 1)
-                .OnUpdate(() => UpdateTransform(cameraTransform, camera.focusPoint.Position, currentRotation));
+            if (!camera.hasCurrentFocusPoint)
+            {
+                camera.ReplaceCurrentFocusPoint(camera.targetFocusPoint.Position);
+            }
+
+            var currentFocus = camera.currentFocusPoint.Position;
+
+            DOTween.Sequence()
+                .Append(DOTween.To(() => camera.currentFocusPoint.Position, x => camera.ReplaceCurrentFocusPoint(x), camera.targetFocusPoint.Position, 1))
+                .Join(DOTween.To(() => currentRotation, x => currentRotation = x, new Vector3(0, (_cameraRotationOffset + 90 * camera.rotation.Value) % 360, 0), 1))
+                .OnUpdate(() => UpdateTransform(cameraTransform, camera.currentFocusPoint.Position, currentRotation));
         }
 
         private void UpdateTransform(Transform transform, Vector3 focusPoint, Quaternion spin)

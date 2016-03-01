@@ -26,26 +26,11 @@ namespace Assets.FileOperations
     [Serializable]
     public class Level
     {
-        public LevelCamera Camera;
         public List<LevelObject> Tiles;
 
-        public Level(LevelCamera camera, List<LevelObject> tiles)
+        public Level(List<LevelObject> tiles)
         {
-            Camera = camera;
             Tiles = tiles;
-        }
-    }
-
-    [Serializable]
-    public class LevelCamera
-    {
-        public float FocusX;
-        public float FocusZ;
-
-        public LevelCamera(float focusX, float focusZ)
-        {
-            FocusX = focusX;
-            FocusZ = focusZ;
         }
     }
 

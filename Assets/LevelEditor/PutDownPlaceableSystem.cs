@@ -28,7 +28,7 @@ namespace Assets.LevelEditor
             var tileBelow = _pool.GetTileAt(position);
             var tileIsSpikeTrap = tileBelow != null && tileBelow.isSpikeTrap;
 
-            if (tileIsSpikeTrap && !tileBelow.hasLoaded)
+            if (preview.maintype.Value == ItemType.Spikes.ToString() && tileIsSpikeTrap && !tileBelow.hasLoaded)
             {
                 tileBelow.AddLoaded(true);
             }

@@ -46,7 +46,7 @@ namespace Assets.LevelEditor
             _gamePool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _gamePool.CreateEntity().IsInput(true);
             _gamePool.CreateEntity().AddPosition(new TilePos(0, 0)).IsPreview(true);
-            _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
+            _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddTargetFocusPoint(Vector3.zero);
 
             _systems.Initialize();
         }
@@ -88,7 +88,6 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSystem<SelectPlaceableSystem>())
                 .Add(pool.CreateSystem<PutDownPlaceableSystem>())
                 .Add(pool.CreateSystem<RemovePlaceableSystem>())
-                .Add(pool.CreateSystem<SetFocusPointSystem>())
 
                 .Add(pool.CreateSystem<BottomSpawnerSystem>())
                 .Add(pool.CreateSystem<RemoveImpossiblyPlacedItemsSystem>())

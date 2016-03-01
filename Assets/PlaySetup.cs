@@ -91,6 +91,7 @@ namespace Assets
                 .Add(pool.CreateSystem<TemplateSelectorSystem>())
                 .Add(pool.CreateSystem<AddOrRemoveViewSystem>())
                 .Add(pool.CreateSystem<SetInitialTransformSystem>())
+                .Add(pool.CreateSystem<CameraFollowSystem>())
                 .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
                 .AddAnimationSystems(pool)
 
