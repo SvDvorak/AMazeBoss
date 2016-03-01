@@ -7,7 +7,6 @@ namespace Assets.Input
 {
     public class HeroInputSystem : IExecuteSystem, ISetPool
     {
-        private Group _heroGroup;
         private Group _cameraGroup;
 
         private readonly Dictionary<KeyCode, TilePos> _moveDirections = new Dictionary<KeyCode, TilePos>

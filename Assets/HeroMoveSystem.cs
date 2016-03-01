@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 
 namespace Assets
@@ -20,20 +21,16 @@ namespace Assets
             var moveDirection = hero.inputMove.Direction;
             var newPosition = moveDirection + hero.position.Value;
             var canMoveTo = _pool.OpenTileAt(newPosition);
-            var canPush = _pool.PushableItemAt(newPosition);
+            var pushableItem = _pool.PushableItemAt(newPosition, moveDirection);
 
             if (canMoveTo)
             {
                 hero.ReplacePosition(newPosition);
             }
-            else if (canPush)
+            else if (pushableItem != null)
             {
-                var canPushBox = _pool.OpenTileAt(newPosition + moveDirection);
-                if (canPushBox)
-                {
-                    _pool.KnockObjectsInFront(hero.position.Value, moveDirection, true);
-                    hero.ReplacePosition(newPosition);
-                }
+                pushableItem.ReplaceKnocked(moveDirection, true);
+                hero.ReplacePosition(newPosition);
             }
         }
     }
