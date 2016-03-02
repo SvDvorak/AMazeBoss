@@ -42,3 +42,19 @@ namespace Entitas {
             }
         }
     }
+
+    public partial class UiMatcher {
+        static IMatcher _matcherEditorOnlyVisual;
+
+        public static IMatcher EditorOnlyVisual {
+            get {
+                if (_matcherEditorOnlyVisual == null) {
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.EditorOnlyVisual);
+                    matcher.componentNames = GameComponentIds.componentNames;
+                    _matcherEditorOnlyVisual = matcher;
+                }
+
+                return _matcherEditorOnlyVisual;
+            }
+        }
+    }

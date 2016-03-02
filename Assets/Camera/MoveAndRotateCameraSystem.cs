@@ -24,8 +24,6 @@ namespace Assets.Camera
                 camera.ReplaceCurrentFocusPoint(camera.targetFocusPoint.Position);
             }
 
-            var currentFocus = camera.currentFocusPoint.Position;
-
             DOTween.Sequence()
                 .Append(DOTween.To(() => camera.currentFocusPoint.Position, x => camera.ReplaceCurrentFocusPoint(x), camera.targetFocusPoint.Position, 1))
                 .Join(DOTween.To(() => currentRotation, x => currentRotation = x, new Vector3(0, (_cameraRotationOffset + 90 * camera.rotation.Value) % 360, 0), 1))

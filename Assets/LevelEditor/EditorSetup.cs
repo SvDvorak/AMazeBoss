@@ -45,10 +45,10 @@ namespace Assets.LevelEditor
             _gamePool.isInEditor = true;
             _gamePool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _gamePool.CreateEntity().IsInput(true);
-            _gamePool.CreateEntity().AddPosition(new TilePos(0, 0)).IsPreview(true);
-            _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddTargetFocusPoint(Vector3.zero);
 
             _systems.Initialize();
+
+            _gamePool.CreateEntity().AddPosition(new TilePos(0, 0)).IsPreview(true);
         }
 
         public void OnDestroy()

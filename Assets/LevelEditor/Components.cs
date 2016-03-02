@@ -8,7 +8,7 @@ namespace Assets.LevelEditor
     {
     }
 
-    [SingleEntity, Game]
+    [SingleEntity, Game, Ui]
     public class InEditorComponent : IComponent
     {
     }
@@ -19,7 +19,7 @@ namespace Assets.LevelEditor
         public ViewMode Value;
     }
 
-    [Game]
+    [Game, Ui]
     public class EditorOnlyVisual : IComponent
     {
         public ViewMode ShowInMode;
@@ -48,7 +48,7 @@ namespace Assets.LevelEditor
     {
     }
 
-    [Game]
+    [Game, Ui]
     public class PreviewComponent : IComponent
     {
     }
