@@ -268,4 +268,10 @@ namespace Assets
     {
         public List<string> Value;
     }
+
+    [Game]
+    [CustomPrefix("Has")]
+    public class SetCheckpoint : IComponent
+    {
+    }
 }

@@ -21,7 +21,7 @@ namespace Assets.Render
         {
             foreach (var entity in entities.Where(x => x.hasView))
             {
-                DestroySystem.DestoryView(entity);
+                DestroySystem.DestroyView(entity);
             }
 
             foreach (var entity in entities.Where(x => x.hasResource && (_pool.isInEditor || !x.hasEditorOnlyVisual)))

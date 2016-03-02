@@ -219,18 +219,11 @@ namespace Assets.Render
     public class CurseAnimationSystem : AnimationSystem, IReactiveSystem
     {
         private const float CurseAnimationTime = 1.1f;
-        private bool _initialCallDone;
 
         public TriggerOnEvent trigger { get { return GameMatcher.Cursed.OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {
-            if (!_initialCallDone)
-            {
-                _initialCallDone = true;
-                return;
-            }
-
             foreach (var cursed in entities.Where(x => x.health.Value > 0))
             {
                 var animator = cursed.animator.Value;

@@ -96,6 +96,7 @@ namespace Assets
                 .AddAnimationSystems(pool)
 
             // Level-handling
+                .Add(pool.CreateSystem<SetCheckpointSystem>())
                 .Add(pool.CreateSystem<LevelExitSystem>())
                 .Add(pool.CreateSystem<LevelRestartSystem>())
 

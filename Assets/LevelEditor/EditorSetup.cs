@@ -109,6 +109,7 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
                 .Add(pool.CreateSystem<RenderPositionsSystem>())
                 .Add(pool.CreateSystem<TrapLoadedAnimationSystem>())
+                .Add(pool.CreateSystem<CurseAnimationSystem>())
                 .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
 
             // Destroy

@@ -51,18 +51,19 @@ public static class GameComponentIds {
     public const int Rotation = 49;
     public const int SelectedPlaceable = 50;
     public const int SelectedPlaceablesGroup = 51;
-    public const int SpikesCarried = 52;
-    public const int Spikes = 53;
-    public const int SpikeTrap = 54;
-    public const int Subtype = 55;
-    public const int TargetFocusPoint = 56;
-    public const int TileTemplates = 57;
-    public const int TrapActivated = 58;
-    public const int VictoryExit = 59;
-    public const int ViewOffset = 60;
-    public const int Wall = 61;
+    public const int SetCheckpoint = 52;
+    public const int SpikesCarried = 53;
+    public const int Spikes = 54;
+    public const int SpikeTrap = 55;
+    public const int Subtype = 56;
+    public const int TargetFocusPoint = 57;
+    public const int TileTemplates = 58;
+    public const int TrapActivated = 59;
+    public const int VictoryExit = 60;
+    public const int ViewOffset = 61;
+    public const int Wall = 62;
 
-    public const int TotalComponents = 62;
+    public const int TotalComponents = 63;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -117,6 +118,7 @@ public static class GameComponentIds {
         "Rotation",
         "SelectedPlaceable",
         "SelectedPlaceablesGroup",
+        "SetCheckpoint",
         "SpikesCarried",
         "Spikes",
         "SpikeTrap",
@@ -182,6 +184,7 @@ public static class GameComponentIds {
         typeof(Assets.RotationComponent),
         typeof(Assets.LevelEditor.SelectedPlaceableComponent),
         typeof(Assets.LevelEditor.SelectedPlaceablesGroupComponent),
+        typeof(Assets.SetCheckpoint),
         typeof(Assets.SpikesCarriedComponent),
         typeof(Assets.SpikesComponent),
         typeof(Assets.SpikeTrapComponent),

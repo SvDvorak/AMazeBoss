@@ -106,7 +106,7 @@ namespace Assets
         public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null)
         {
             var entities = matcher != null ? pool.GetEntities(matcher) : pool.GetEntities();
-            entities.Where(x => !x.isPreview).ToList().DoForAll(x => x.IsDestroyed(true));
+            entities.ToList().DoForAll(x => x.IsDestroyed(true));
         }
 
         public static void SafeDeleteLevel(this Pool pool)
