@@ -16,6 +16,7 @@ namespace Assets.FileOperations
                 new FlagDescriptorSet("BLOCKINGTILE", e => e.isBlockingTile, e => e.IsBlockingTile(true)),
                 new FlagDescriptorSet("SPIKETRAP", e => e.isSpikeTrap, e => e.IsSpikeTrap(true)),
                 new FlagDescriptorSet("LOADED", e => e.hasLoaded, e => e.AddLoaded(true)),
+                new FlagDescriptorSet("ACTIVATED", e => e.isTrapActivated, e => e.IsTrapActivated(true)),
                 new FlagDescriptorSet("CURSESWITCH", e => e.isCurseSwitch, e => e.IsCurseSwitch(true)),
                 new FlagDescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
                 new FlagDescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
