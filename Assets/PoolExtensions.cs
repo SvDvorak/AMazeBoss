@@ -103,15 +103,19 @@ namespace Assets
             return currentPuzzle == nextPuzzle;
         }
 
-        public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null)
+        public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null, Func<Entity, bool> ignore = null)
         {
-            var entities = matcher != null ? pool.GetEntities(matcher) : pool.GetEntities();
-            entities.ToList().DoForAll(x => x.IsDestroyed(true));
+            IEnumerable<Entity> entities = matcher != null ? pool.GetEntities(matcher) : pool.GetEntities();
+            if (ignore != null)
+            {
+                entities = entities.Where(ignore);
+            }
+            entities.ForEach(x => x.IsDestroyed(true));
         }
 
         public static void SafeDeleteLevel(this Pool pool)
         {
-            Pools.game.SafeDeleteAll(GameMatcher.GameObject);
+            Pools.game.SafeDeleteAll(GameMatcher.GameObject, x => !x.isPreview);
         }
 
         public static Entity FindChildFor(this Pool pool, Entity entity)
@@ -160,15 +164,16 @@ namespace Assets
             }
         }
 
-        public static List<Entity> DoForAll(this List<Entity> entities, Action<Entity> action)
+        public static IEnumerable<Entity> ForEach(this IEnumerable<Entity> entities, Action<Entity> action)
         {
-            entities.ForEach(action);
-            return entities;
+            var list = entities.ToList();
+            list.ForEach(action);
+            return list;
         }
 
         public static void DoForAllAtPosition(this Pool pool, TilePos position, Action<Entity> entityAction)
         {
-            pool.objectPositionCache.Cache[position].DoForAll(entityAction);
+            pool.objectPositionCache.Cache[position].ForEach(entityAction);
         }
     }
 }

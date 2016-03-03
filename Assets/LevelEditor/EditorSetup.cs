@@ -112,6 +112,8 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSystem<CurseAnimationSystem>())
                 .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
 
+                .Add(pool.CreateSystem<UpdateActingSystem>())
+
             // Destroy
                 .Add(pool.CreateSystem<DestroySystem>());
         }

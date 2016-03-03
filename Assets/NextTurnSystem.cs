@@ -16,22 +16,10 @@ namespace Assets
         {
             var dynamicEntities = _dynamicGroup.GetEntities();
 
-            var hasActingEntities = dynamicEntities.Any(x => x.hasActingTime);
-            if(!hasActingEntities)
-            {
-                foreach (var e in dynamicEntities.Where(x => !x.hasActingTime && x.hasQueueActing))
-                {
-                    e.queueActing.Action();
-                    e.AddActingTime(e.queueActing.Time);
-                    e.RemoveQueueActing();
-                }
-            }
-
-            hasActingEntities = dynamicEntities.Any(x => x.hasActingTime || x.hasActingActions);
             foreach (var entity in dynamicEntities)
             {
                 entity.isActiveTurn = false;
-                entity.isActiveTurn = !hasActingEntities;
+                entity.isActiveTurn = !dynamicEntities.Any(x => x.hasActingActions);
             }
         }
     }

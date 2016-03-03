@@ -50,7 +50,6 @@ namespace Assets.Render
                         });
 
                 entity.AddActingAction(MoveTime, () => moveSequence.Play());
-                entity.ReplaceActingTime(MoveTime);
             }
         }
     }
@@ -81,11 +80,10 @@ namespace Assets.Render
             {
                 var animator = entity.animator.Value;
                 var animationSequence = DOTween.Sequence()
-                    .Pause()
-                    .AppendInterval(MoveAnimationSystem.MoveTime + TrapActivateTime/2)
+                    .AppendInterval(MoveAnimationSystem.MoveTime + TrapActivateTime / 2)
                     .OnComplete(() => animator.SetTrigger("Activated"));
 
-                entity.AddActingAction(TrapActivateTime, () => animationSequence.Play());
+                entity.AddActingAction(TrapActivateTime, animationSequence);
             }
         }
     }
@@ -118,9 +116,15 @@ namespace Assets.Render
         }
     }
 
-    public class HealthChangedAnimationSystem : IReactiveSystem
+    public class HealthChangedAnimationSystem : IReactiveSystem, ISetPool
     {
+        private Pool _pool;
         public TriggerOnEvent trigger { get { return GameMatcher.Health.OnEntityAdded(); } }
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
 
         public void Execute(List<Entity> entities)
         {
@@ -131,7 +135,7 @@ namespace Assets.Render
                     entity.healthVisual.Text.text = entity.health.Value.ToString();
                 }
 
-                if (entity.hasAnimator && entity.IsActing() && !entity.isDead)
+                if (entity.hasAnimator && !_pool.isLevelLoaded && !entity.isDead)
                 {
                     entity.AddActingAction(1, () => entity.animator.Value.SetTrigger("Damage"));
                 }

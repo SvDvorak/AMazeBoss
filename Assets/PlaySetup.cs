@@ -84,8 +84,6 @@ namespace Assets
                 .Add(pool.CreateSystem<DeathSystem>())
                 .Add(pool.CreateSystem<VictoryExitSystem>())
 
-                .Add(pool.CreateSystem<RemoveActingOnDoneSystem>())
-
             // Render
                 .Add(pool.CreateSystem<SubtypeSelectorSystem>())
                 .Add(pool.CreateSystem<TemplateSelectorSystem>())
@@ -95,7 +93,10 @@ namespace Assets
                 .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
                 .AddAnimationSystems(pool)
 
+                .Add(pool.CreateSystem<UpdateActingSystem>())
+
             // Level-handling
+                .Add(pool.CreateSystem<FinishedLevelLoadSystem>())
                 .Add(pool.CreateSystem<SetCheckpointSystem>())
                 .Add(pool.CreateSystem<LevelExitSystem>())
                 .Add(pool.CreateSystem<LevelRestartSystem>())

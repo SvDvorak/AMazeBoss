@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Entitas;
 using Entitas.CodeGenerator;
 using UnityEngine;
@@ -222,33 +223,12 @@ namespace Assets
     public class ActingAction
     {
         public float TimeLeft;
-        public Action Action;
+        public Sequence Action;
 
-        public ActingAction(float time, Action action)
+        public ActingAction(float time, Sequence action)
         {
             TimeLeft = time;
             Action = action;
-        }
-    }
-
-    [Game]
-    public class ActingTimeComponent : IComponent
-    {
-        public float TimeLeft;
-    }
-
-    [Game]
-    public class QueueActingComponent : IComponent
-    {
-        public float Time;
-        public Action Action;
-    }
-
-    public static class ActingEntityExtensions
-    {
-        public static bool IsActing(this Entity entity)
-        {
-            return entity.hasActingTime || entity.hasQueueActing;
         }
     }
 

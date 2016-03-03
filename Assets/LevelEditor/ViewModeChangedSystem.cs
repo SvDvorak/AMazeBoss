@@ -19,10 +19,7 @@ namespace Assets.LevelEditor
         public void Execute(List<Entity> entities)
         {
             var currentViewMode = entities.SingleEntity().editorViewMode.Value;
-            _editorVisualsGroup
-                .GetEntities()
-                .ToList()
-                .DoForAll(x => ViewModeState.UpdateVisual(currentViewMode, x));
+            _editorVisualsGroup.GetEntities().ForEach(x => ViewModeState.UpdateVisual(currentViewMode, x));
         }
     }
 
@@ -40,7 +37,7 @@ namespace Assets.LevelEditor
         public void Execute(List<Entity> entities)
         {
             var currentViewMode = _pool.editorViewMode.Value;
-            entities.DoForAll(x => ViewModeState.UpdateVisual(currentViewMode, x));
+            entities.ForEach(x => ViewModeState.UpdateVisual(currentViewMode, x));
         }
     }
 

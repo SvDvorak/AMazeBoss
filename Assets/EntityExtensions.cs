@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Entitas;
 
 namespace Assets
@@ -32,8 +33,9 @@ namespace Assets
             return entity.hasPosition && entity.hasView && target != current;
         }
 
-        public static void AddActingAction(this Entity entity, float time, Action action)
+        public static void AddActingAction(this Entity entity, float time, Sequence action)
         {
+            action.Pause();
             var actingAction = new ActingAction(time, action);
             Queue<ActingAction> actions;
             if (entity.hasActingActions)
@@ -43,7 +45,7 @@ namespace Assets
             else
             {
                 actions = new Queue<ActingAction>();
-                actingAction.Action();
+                actingAction.Action.Play();
             }
 
             actions.Enqueue(actingAction);
@@ -51,9 +53,14 @@ namespace Assets
             entity.ReplaceActingActions(actions);
         }
 
+        public static void AddActingAction(this Entity entity, float time, Action action)
+        {
+            entity.AddActingAction(time, DOTween.Sequence().OnStart(() => action()));
+        }
+
         public static void AddActingAction(this Entity entity, float time)
         {
-            entity.AddActingAction(time, () => { });
+            entity.AddActingAction(time, DOTween.Sequence());
         }
 
         public static bool IsTile(this Entity entity)

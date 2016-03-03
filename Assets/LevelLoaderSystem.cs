@@ -36,11 +36,7 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
-            var hero = entities.SingleEntity();
-            if (!hero.IsActing())
-            {
-                SceneSetup.LoadScene("Play");
-            }
+            SceneSetup.LoadScene("Play");
         }
     }
 
@@ -66,16 +62,25 @@ namespace Assets
             var level = Resources.Load("Levels/" + levelName) as TextAsset;
             var levelData = JsonLevelParser.ReadLevelData(level.text);
             LevelLoader.ReadLevelData(levelData, _pool);
+            _pool.isLevelLoaded = true;
         }
     }
 
-    public class EditorLevelLoaderSystem : IInitializeSystem
+    public class EditorLevelLoaderSystem : IInitializeSystem, ISetPool
     {
+        private Pool _pool;
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
+
         public void Initialize()
         {
             if (PlaySetup.EditorLevel != null)
             {
-                LevelLoader.ReadLevelData(PlaySetup.EditorLevel, Pools.game);
+                LevelLoader.ReadLevelData(PlaySetup.EditorLevel, _pool);
+                _pool.isLevelLoaded = true;
             }
             else
             {
@@ -84,6 +89,7 @@ namespace Assets
                 try
                 {
                     PlayerPrefsLevelReader.LoadLevel(lastUsedLevelName);
+                    _pool.isLevelLoaded = true;
                 }
                 catch (Exception ex)
                 {
