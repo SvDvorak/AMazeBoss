@@ -14,8 +14,10 @@ namespace Assets
     public class PlaySetup : MonoBehaviour
     {
         public static bool FromEditor;
+        public static bool FromSave;
         public static string LevelPath;
         public static Level EditorLevel;
+        public static Level LevelSave;
 
         public List<string> Levels; 
 
@@ -60,7 +62,7 @@ namespace Assets
 
             // Initialize
                 .Add(pool.CreateSystem<PositionsCacheUpdateSystem>())
-                .AddLevelLoaderSystem(pool)
+                .Add(pool.CreateSystem<PlayLevelLoaderSystem>())
                 .Add(pool.CreateSystem<TemplateLoaderSystem>())
 
             // Input
@@ -104,32 +106,6 @@ namespace Assets
             // Destroy
                 .Add(pool.CreateSystem<CleanupSystem>())
                 .Add(pool.CreateSystem<DestroySystem>());
-        }
-    }
-
-    public static class EditorPlaySystemsExtensions
-    {
-        public static Systems AddLevelLoaderSystem(this Systems systems, Pool pool)
-        {
-            PlayOrEditorPlayAction(
-                () => systems.Add(pool.CreateSystem<LevelLoaderSystem>()),
-                () => systems.Add(pool.CreateSystem<EditorLevelLoaderSystem>()));
-            return systems;
-        }
-
-        private static void PlayOrEditorPlayAction(Action playAction, Action editorPlayAction)
-        {
-            if (PlaySetup.FromEditor)
-            {
-                if (editorPlayAction != null)
-                {
-                    editorPlayAction();
-                }
-            }
-            else if (playAction != null)
-            {
-                playAction();
-            }
         }
     }
 

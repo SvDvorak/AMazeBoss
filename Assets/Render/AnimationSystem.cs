@@ -47,7 +47,7 @@ namespace Assets.Render
                         animator.SetBool("IsMoving", false);
                     });
 
-            entity.AddActingSequence(MoveTime, () => moveSequence.Play());
+            entity.AddActingSequence(MoveTime, moveSequence);
         }
     }
 

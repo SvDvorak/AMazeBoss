@@ -23,8 +23,8 @@ namespace Assets
             if (victoryExit != null)
             {
                 victoryExit.HasSetCheckpoint(true);
-                PlaySetup.EditorLevel = LevelLoader.CreateLevelData(Pools.game);
-                PlaySetup.FromEditor = true;
+                PlaySetup.LevelSave = LevelLoader.CreateLevelData(Pools.game);
+                PlaySetup.FromSave = true;
             }
         }
     }

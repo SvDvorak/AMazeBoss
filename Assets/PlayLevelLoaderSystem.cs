@@ -13,6 +13,8 @@ namespace Assets
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
             {
+                PlaySetup.FromSave = false;
+                PlaySetup.LevelSave = null;
                 SceneSetup.LoadPreviousScene();
             }
         }
@@ -40,7 +42,7 @@ namespace Assets
         }
     }
 
-    public class LevelLoaderSystem : IInitializeSystem, ISetPool
+    public class PlayLevelLoaderSystem : IInitializeSystem, ISetPool
     {
         private Pool _pool;
 
@@ -50,6 +52,24 @@ namespace Assets
         }
 
         public void Initialize()
+        {
+            if (PlaySetup.LevelSave != null)
+            {
+                LevelLoader.ReadLevelData(PlaySetup.LevelSave, _pool);
+            }
+            else if (PlaySetup.EditorLevel != null)
+            {
+                LevelLoader.ReadLevelData(PlaySetup.EditorLevel, _pool);
+            }
+            else
+            {
+                LoadBuiltinLevel();
+            }
+
+            _pool.isLevelLoaded = true;
+        }
+
+        private void LoadBuiltinLevel()
         {
             var levelName = PlaySetup.LevelPath;
 
@@ -62,7 +82,6 @@ namespace Assets
             var level = Resources.Load("Levels/" + levelName) as TextAsset;
             var levelData = JsonLevelParser.ReadLevelData(level.text);
             LevelLoader.ReadLevelData(levelData, _pool);
-            _pool.isLevelLoaded = true;
         }
     }
 
@@ -80,7 +99,6 @@ namespace Assets
             if (PlaySetup.EditorLevel != null)
             {
                 LevelLoader.ReadLevelData(PlaySetup.EditorLevel, _pool);
-                _pool.isLevelLoaded = true;
             }
             else
             {
@@ -89,13 +107,14 @@ namespace Assets
                 try
                 {
                     PlayerPrefsLevelReader.LoadLevel(lastUsedLevelName);
-                    _pool.isLevelLoaded = true;
                 }
                 catch (Exception ex)
                 {
                     Debug.LogWarning("Unable to read last used level " + lastUsedLevelName + ". Reason: " + ex);
                 }
             }
+
+            _pool.isLevelLoaded = true;
         }
     }
 }
