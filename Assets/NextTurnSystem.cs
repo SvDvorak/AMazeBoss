@@ -19,7 +19,7 @@ namespace Assets
             foreach (var entity in dynamicEntities)
             {
                 entity.isActiveTurn = false;
-                entity.isActiveTurn = !dynamicEntities.Any(x => x.hasActingActions);
+                entity.isActiveTurn = !dynamicEntities.Any(x => x.hasActingSequences);
             }
         }
     }

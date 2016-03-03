@@ -9,32 +9,32 @@ namespace Assets
 {
     public class UpdateActingSystem : IExecuteSystem, ISetPool
     {
-        private Group _actingActionsGroup;
+        private Group _actingSequencesGroup;
 
         public void SetPool(Pool pool)
         {
-            _actingActionsGroup = pool.GetGroup(GameMatcher.ActingActions);
+            _actingSequencesGroup = pool.GetGroup(GameMatcher.ActingSequences);
         }
 
         public void Execute()
         {
-            var unfinishedActingEntities = _actingActionsGroup
+            var unfinishedActingEntities = _actingSequencesGroup
                 .GetEntities()
-                .Where(x => x.actingActions.Actions.Any());
+                .Where(x => x.actingSequences.Sequences.Any());
 
             foreach (var actingEntity in unfinishedActingEntities)
             {
-                var actionQueue = actingEntity.actingActions.Actions;
+                var actionQueue = actingEntity.actingSequences.Sequences;
                 UpdateCurrentAction(actionQueue, Time.deltaTime);
 
                 if (actionQueue.Count == 0)
                 {
-                    actingEntity.RemoveActingActions();
+                    actingEntity.RemoveActingSequences();
                 }
             }
         }
 
-        private static void UpdateCurrentAction(Queue<ActingAction> queue, float timePassed)
+        private static void UpdateCurrentAction(Queue<ActingSequence> queue, float timePassed)
         {
             var activeAction = queue.Peek();
 
@@ -46,7 +46,7 @@ namespace Assets
                 if(queue.Count > 0)
                 {
                     var nextActiveAction = queue.Peek();
-                    nextActiveAction.Action.Play();
+                    nextActiveAction.Sequence.Play();
                     UpdateCurrentAction(queue, -newTimeLeft);
                 }
             }

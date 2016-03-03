@@ -20,14 +20,14 @@ namespace Assets.Render
             var animatable = _animatorGroup.GetEntities();
             animatable.ForEach(x =>
             {
-                if (x.hasActingActions)
+                if (x.hasActingSequences)
                 {
-                    foreach (var actingAction in x.actingActions.Actions)
+                    foreach (var actingSequence in x.actingSequences.Sequences)
                     {
-                        actingAction.Action.Complete(true);
+                        actingSequence.Sequence.Complete(true);
                         x.animator.Value.Update(10000);
                     }
-                    x.RemoveActingActions();
+                    x.RemoveActingSequences();
                 }
                 x.animator.Value.Update(10000);
             });

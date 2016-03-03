@@ -32,25 +32,22 @@ namespace Assets.Render
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
 
-            if (entity.IsMoving())
-            {
-                var animator = entity.animator.Value;
-                var moveSequence = DOTween.Sequence()
-                    .Pause()
-                    .OnStart(() =>
-                        {
-                            animator.SetBool("IsMoving", true);
-                            transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
-                        })
-                    .AppendInterval(MoveTime)
-                    .OnComplete(() =>
-                        {
-                            transform.position = newPosition;
-                            animator.SetBool("IsMoving", false);
-                        });
+            var animator = entity.animator.Value;
+            var moveSequence = DOTween.Sequence()
+                .Pause()
+                .OnStart(() =>
+                    {
+                        animator.SetBool("IsMoving", true);
+                        transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
+                    })
+                .AppendInterval(MoveTime)
+                .OnComplete(() =>
+                    {
+                        transform.position = newPosition;
+                        animator.SetBool("IsMoving", false);
+                    });
 
-                entity.AddActingAction(MoveTime, () => moveSequence.Play());
-            }
+            entity.AddActingSequence(MoveTime, () => moveSequence.Play());
         }
     }
 
@@ -83,7 +80,7 @@ namespace Assets.Render
                     .AppendInterval(MoveAnimationSystem.MoveTime + TrapActivateTime / 2)
                     .OnComplete(() => animator.SetTrigger("Activated"));
 
-                entity.AddActingAction(TrapActivateTime, animationSequence);
+                entity.AddActingSequence(TrapActivateTime, animationSequence);
             }
         }
     }
@@ -97,7 +94,7 @@ namespace Assets.Render
             foreach (var entity in entities)
             {
                 var animator = entity.animator.Value;
-                entity.AddActingAction(1, () => animator.SetBool("WeightedDown", entity.isTrapActivated));
+                entity.AddActingSequence(1, () => animator.SetBool("WeightedDown", entity.isTrapActivated));
             }
         }
     }
@@ -111,7 +108,7 @@ namespace Assets.Render
             foreach (var boss in entities)
             {
                 var animator = boss.animator.Value;
-                boss.AddActingAction(1, () => animator.SetTrigger("Attack"));
+                boss.AddActingSequence(1, () => animator.SetTrigger("Attack"));
             }
         }
     }
@@ -137,7 +134,7 @@ namespace Assets.Render
 
                 if (entity.hasAnimator && !_pool.isLevelLoaded && !entity.isDead)
                 {
-                    entity.AddActingAction(1, () => entity.animator.Value.SetTrigger("Damage"));
+                    entity.AddActingSequence(1, () => entity.animator.Value.SetTrigger("Damage"));
                 }
             }
         }
@@ -181,8 +178,8 @@ namespace Assets.Render
             }
             else
             {
-                entity.AddActingAction(MoveAnimationSystem.MoveTime);
-                entity.AddActingAction(time, animationAction);
+                entity.AddActingSequence(MoveAnimationSystem.MoveTime);
+                entity.AddActingSequence(time, animationAction);
             }
         }
 
@@ -215,7 +212,7 @@ namespace Assets.Render
             foreach (var dead in entities)
             {
                 var animator = dead.animator.Value;
-                dead.AddActingAction(DeathTime, () => animator.SetTrigger("Killed"));
+                dead.AddActingSequence(DeathTime, () => animator.SetTrigger("Killed"));
             }
         }
     }
@@ -231,7 +228,7 @@ namespace Assets.Render
             foreach (var cursed in entities.Where(x => x.health.Value > 0))
             {
                 var animator = cursed.animator.Value;
-                cursed.AddActingAction(CurseAnimationTime, () => animator.SetBool("IsCursed", cursed.isCursed));
+                cursed.AddActingSequence(CurseAnimationTime, () => animator.SetBool("IsCursed", cursed.isCursed));
             }
         }
     }

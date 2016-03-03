@@ -33,34 +33,34 @@ namespace Assets
             return entity.hasPosition && entity.hasView && target != current;
         }
 
-        public static void AddActingAction(this Entity entity, float time, Sequence action)
+        public static void AddActingSequence(this Entity entity, float time, Sequence action)
         {
             action.Pause();
-            var actingAction = new ActingAction(time, action);
-            Queue<ActingAction> actions;
-            if (entity.hasActingActions)
+            var actingSequence = new ActingSequence(time, action);
+            Queue<ActingSequence> sequences;
+            if (entity.hasActingSequences)
             {
-                actions = entity.actingActions.Actions;
+                sequences = entity.actingSequences.Sequences;
             }
             else
             {
-                actions = new Queue<ActingAction>();
-                actingAction.Action.Play();
+                sequences = new Queue<ActingSequence>();
+                actingSequence.Sequence.Play();
             }
 
-            actions.Enqueue(actingAction);
+            sequences.Enqueue(actingSequence);
 
-            entity.ReplaceActingActions(actions);
+            entity.ReplaceActingSequences(sequences);
         }
 
-        public static void AddActingAction(this Entity entity, float time, Action action)
+        public static void AddActingSequence(this Entity entity, float time, Action action)
         {
-            entity.AddActingAction(time, DOTween.Sequence().OnStart(() => action()));
+            entity.AddActingSequence(time, DOTween.Sequence().OnStart(() => action()));
         }
 
-        public static void AddActingAction(this Entity entity, float time)
+        public static void AddActingSequence(this Entity entity, float time)
         {
-            entity.AddActingAction(time, DOTween.Sequence());
+            entity.AddActingSequence(time, DOTween.Sequence());
         }
 
         public static bool IsTile(this Entity entity)

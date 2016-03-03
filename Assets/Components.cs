@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using DG.Tweening;
 using Entitas;
 using Entitas.CodeGenerator;
@@ -215,20 +212,20 @@ namespace Assets
     }
 
     [Game]
-    public class ActingActionsComponent : IComponent
+    public class ActingSequencesComponent : IComponent
     {
-        public Queue<ActingAction> Actions;
+        public Queue<ActingSequence> Sequences;
     }
 
-    public class ActingAction
+    public class ActingSequence
     {
         public float TimeLeft;
-        public Sequence Action;
+        public Sequence Sequence;
 
-        public ActingAction(float time, Sequence action)
+        public ActingSequence(float time, Sequence sequence)
         {
             TimeLeft = time;
-            Action = action;
+            Sequence = sequence;
         }
     }
 

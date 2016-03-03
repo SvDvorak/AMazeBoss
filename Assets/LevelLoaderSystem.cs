@@ -31,7 +31,7 @@ namespace Assets
 
     public class LevelRestartSystem : IReactiveSystem, IEnsureComponents
     {
-        public TriggerOnEvent trigger { get { return GameMatcher.ActingActions.OnEntityRemoved(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.ActingSequences.OnEntityRemoved(); } }
         public IMatcher ensureComponents { get { return Matcher.AllOf(GameMatcher.Hero, GameMatcher.Dead); } }
 
         public void Execute(List<Entity> entities)
