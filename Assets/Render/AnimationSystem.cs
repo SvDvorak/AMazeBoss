@@ -94,7 +94,8 @@ namespace Assets.Render
             foreach (var entity in entities)
             {
                 var animator = entity.animator.Value;
-                entity.AddActingSequence(1, () => animator.SetBool("WeightedDown", entity.isTrapActivated));
+                var isTrapActivated = entity.isTrapActivated;
+                entity.AddActingSequence(1, () => animator.SetBool("WeightedDown", isTrapActivated));
             }
         }
     }
@@ -134,7 +135,11 @@ namespace Assets.Render
 
                 if (entity.hasAnimator && !_pool.isLevelLoaded && !entity.isDead)
                 {
-                    entity.AddActingSequence(1, () => entity.animator.Value.SetTrigger("Damage"));
+                    var animator = entity.animator.Value;
+                    if(!animator.GetBool("IsCursed"))
+                    {
+                        entity.AddActingSequence(1, () => animator.SetTrigger("Damage"));
+                    }
                 }
             }
         }
@@ -228,7 +233,8 @@ namespace Assets.Render
             foreach (var cursed in entities.Where(x => x.health.Value > 0))
             {
                 var animator = cursed.animator.Value;
-                cursed.AddActingSequence(CurseAnimationTime, () => animator.SetBool("IsCursed", cursed.isCursed));
+                var isCursed = cursed.isCursed;
+                cursed.AddActingSequence(CurseAnimationTime, () => animator.SetBool("IsCursed", isCursed));
             }
         }
     }
