@@ -30,13 +30,13 @@ namespace Assets.FileOperations
 
         public static void ReadLevelData(Level level, Pool pool)
         {
-            CreateMapObjects(pool, level.Tiles);
-
             var camera = pool.GetEntities(GameMatcher.Resource).SingleOrDefault(x => x.resource.Path == "Camera");
             if (camera == null)
             {
                 pool.CreateEntity().AddResource("Camera").AddRotation(0).ReplaceTargetFocusPoint(Vector3.zero);
             }
+
+            CreateMapObjects(pool, level.Tiles);
         }
 
         private static void CreateMapObjects(Pool pool, List<LevelObject> levelObjects)

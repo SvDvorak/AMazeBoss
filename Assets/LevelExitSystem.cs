@@ -19,7 +19,12 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
-            GetExitsForCurrentPuzzle().ForEach(x => x.IsBlockingTile(false));
+            GetExitsForCurrentPuzzle().ForEach(x =>
+            {
+                x.IsBlockingTile(false);
+                x.ReplaceExitGate(false);
+            });
+
             _pool.GetHero().isCursed = false;
         }
 

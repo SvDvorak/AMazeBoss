@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Entitas;
+using UnityEngine;
 
 namespace Assets.LevelEditor
 {
@@ -59,25 +60,31 @@ namespace Assets.LevelEditor
         }
     }
 
-    public class PuzzleAreaBossRemovedSystem : IInitializeSystem, ISetPool
+    public class PuzzleAreaBossChangedSystem : IInitializeSystem, ISetPool
     {
-        private Group _destroyedBossGroup;
+        private Group _addedBossGroup;
+        private Group _removedBossGroup;
         private PuzzleAreaBossConnector _bossConnector;
 
         public void SetPool(Pool pool)
         {
-            _destroyedBossGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Boss, GameMatcher.Destroyed));
+            _addedBossGroup = pool.GetGroup(GameMatcher.Boss);
+            _removedBossGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Boss, GameMatcher.Destroyed));
             _bossConnector = new PuzzleAreaBossConnector(pool);
         }
 
         public void Initialize()
         {
-            _destroyedBossGroup.OnEntityAdded += (@group, entity, index, component) => UpdatePuzzleConnection(entity);
+            _addedBossGroup.OnEntityAdded += (@group, entity, index, component) => UpdatePuzzleConnection(entity);
+            _removedBossGroup.OnEntityAdded += (@group, entity, index, component) => UpdatePuzzleConnection(entity);
         }
 
         private void UpdatePuzzleConnection(Entity boss)
         {
-            _bossConnector.ConnectWholeAreaToClosestBoss(new List<TilePos>() { boss.position.Value });
+            if (boss.hasPosition)
+            {
+                _bossConnector.ConnectWholeAreaToClosestBoss(new List<TilePos>() { boss.position.Value });
+            }
         }
     }
 }

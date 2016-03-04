@@ -122,6 +122,7 @@ namespace Assets
                 .Add(pool.CreateSystem<BoxKnockAnimationSystem>())
                 .Add(pool.CreateSystem<AttackAnimationSystem>())
                 .Add(pool.CreateSystem<DeathAnimationSystem>())
+                .Add(pool.CreateSystem<ExitGateAnimationSystem>())
                 .Add(pool.CreateSystem<CurseAnimationSystem>());
         }
     }

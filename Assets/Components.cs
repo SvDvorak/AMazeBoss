@@ -131,6 +131,7 @@ namespace Assets
     [Game]
     public class ExitGateComponent : IComponent
     {
+        public bool Locked;
     }
 
     [Game]

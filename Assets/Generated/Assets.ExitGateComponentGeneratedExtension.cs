@@ -2,24 +2,27 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.ExitGateComponent exitGateComponent = new Assets.ExitGateComponent();
+        public Assets.ExitGateComponent exitGate { get { return (Assets.ExitGateComponent)GetComponent(GameComponentIds.ExitGate); } }
 
-        public bool isExitGate {
-            get { return HasComponent(GameComponentIds.ExitGate); }
-            set {
-                if (value != isExitGate) {
-                    if (value) {
-                        AddComponent(GameComponentIds.ExitGate, exitGateComponent);
-                    } else {
-                        RemoveComponent(GameComponentIds.ExitGate);
-                    }
-                }
-            }
+        public bool hasExitGate { get { return HasComponent(GameComponentIds.ExitGate); } }
+
+        public Entity AddExitGate(bool newUnlocked) {
+            var componentPool = GetComponentPool(GameComponentIds.ExitGate);
+            var component = (Assets.ExitGateComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ExitGateComponent());
+            component.Locked = newUnlocked;
+            return AddComponent(GameComponentIds.ExitGate, component);
         }
 
-        public Entity IsExitGate(bool value) {
-            isExitGate = value;
+        public Entity ReplaceExitGate(bool newUnlocked) {
+            var componentPool = GetComponentPool(GameComponentIds.ExitGate);
+            var component = (Assets.ExitGateComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ExitGateComponent());
+            component.Locked = newUnlocked;
+            ReplaceComponent(GameComponentIds.ExitGate, component);
             return this;
+        }
+
+        public Entity RemoveExitGate() {
+            return RemoveComponent(GameComponentIds.ExitGate);;
         }
     }
 }

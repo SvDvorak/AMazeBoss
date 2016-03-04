@@ -152,7 +152,7 @@ namespace Assets.LevelEditor
                     .ReplaceMaintype(ItemType.ExitGate.ToString())
                     .IsDynamic(true)
                     .IsBlockingTile(true)
-                    .IsExitGate(true));
+                    .AddExitGate(true));
             }
         }
 

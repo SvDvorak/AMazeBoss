@@ -18,7 +18,7 @@ namespace Assets
         public void Execute(List<Entity> entities)
         {
             var hero = entities.SingleEntity();
-            var exitGate = _pool.GetEntityAt(hero.position.Value, x => x.isExitGate && !x.hasSetCheckpoint);
+            var exitGate = _pool.GetEntityAt(hero.position.Value, x => x.hasExitGate && !x.hasSetCheckpoint);
 
             if (exitGate != null)
             {

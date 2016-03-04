@@ -98,8 +98,9 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSystem<PreviewMaterialChangeSystem>())
                 .Add(pool.CreateSystem<PuzzleAreaExpandedSystem>())
                 .Add(pool.CreateSystem<PuzzleAreaShrunkSystem>())
-                .Add(pool.CreateSystem<PuzzleAreaBossRemovedSystem>())
-                .Add(pool.CreateSystem<PuzzleExitConnectorSystem>())
+                .Add(pool.CreateSystem<PuzzleAreaBossChangedSystem>())
+                .Add(pool.CreateSystem<PuzzleExitGateConnectorSystem>())
+                .Add(pool.CreateSystem<ExitGateAddedSystem>())
 
             // Render
                 .Add(pool.CreateSystem<SubtypeSelectorSystem>())

@@ -21,7 +21,7 @@ namespace Assets.FileOperations
                 new FlagDescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
                 new FlagDescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
                 new FlagDescriptorSet("BOX", e => e.isBox, e => e.IsBox(true)),
-                new FlagDescriptorSet("EXITGATE", e => e.isExitGate, e => e.IsExitGate(true)),
+                new ValueDescriptorSet<bool>("EXITGATE", e => e.hasExitGate, (e, val) => e.AddExitGate(bool.Parse(val)), e => e.exitGate.Locked),
                 new FlagDescriptorSet("LEVELEXIT", e => e.isExitTrigger, e => e.IsExitTrigger(true)),
                 new FlagDescriptorSet("SETCHECKPOINT", e => e.hasSetCheckpoint, e => e.HasSetCheckpoint(true)),
                 new FlagDescriptorSet("PUZZLE", e => e.isPuzzleArea, e => e.IsPuzzleArea(true)),
@@ -123,7 +123,7 @@ namespace Assets.FileOperations
 
         private class ValueDescriptorSet<TValueType> : IDescriptorSet
         {
-            public ValueDescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity, string> setValueDescriptor, Func<Entity, TValueType> getValue = null)
+            public ValueDescriptorSet(string descriptorText, Func<Entity, bool> hasDescriptor, Action<Entity, string> setValueDescriptor, Func<Entity, TValueType> getValue)
             {
                 _descriptorText = descriptorText;
                 HasDescriptor = hasDescriptor;

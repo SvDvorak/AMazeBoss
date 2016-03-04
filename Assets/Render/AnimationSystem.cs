@@ -100,6 +100,21 @@ namespace Assets.Render
         }
     }
 
+    public class ExitGateAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return GameMatcher.ExitGate.OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var exitGate in entities)
+            {
+                var animator = exitGate.animator.Value;
+                var isLocked = exitGate.exitGate.Locked;
+                exitGate.AddActingSequence(0.75f, () => animator.SetBool("IsLocked", isLocked));
+            }
+        }
+    }
+
     public class AttackAnimationSystem : AnimationSystem, IReactiveSystem
     {
         public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.Attacking).OnEntityAdded(); } }
@@ -136,7 +151,7 @@ namespace Assets.Render
                 if (entity.hasAnimator && !_pool.isLevelLoaded && !entity.isDead)
                 {
                     var animator = entity.animator.Value;
-                    if(!animator.GetBool("IsCursed"))
+                    if (!animator.GetBool("IsCursed"))
                     {
                         entity.AddActingSequence(1, () => animator.SetTrigger("Damage"));
                     }
