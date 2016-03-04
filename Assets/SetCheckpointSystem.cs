@@ -18,11 +18,11 @@ namespace Assets
         public void Execute(List<Entity> entities)
         {
             var hero = entities.SingleEntity();
-            var victoryExit = _pool.GetEntityAt(hero.position.Value, x => x.isVictoryExit && !x.hasSetCheckpoint);
+            var exitGate = _pool.GetEntityAt(hero.position.Value, x => x.isExitGate && !x.hasSetCheckpoint);
 
-            if (victoryExit != null)
+            if (exitGate != null)
             {
-                victoryExit.HasSetCheckpoint(true);
+                exitGate.HasSetCheckpoint(true);
                 PlaySetup.LevelSave = LevelLoader.CreateLevelData(Pools.game);
                 PlaySetup.FromSave = true;
             }

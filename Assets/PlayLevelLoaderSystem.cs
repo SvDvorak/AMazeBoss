@@ -108,9 +108,13 @@ namespace Assets
                 {
                     PlayerPrefsLevelReader.LoadLevel(lastUsedLevelName);
                 }
-                catch (Exception ex)
+                catch (LevelLoader.LoadErrorsException ex)
                 {
-                    Debug.LogWarning("Unable to read last used level " + lastUsedLevelName + ". Reason: " + ex);
+                    Debug.LogWarning(ex.ErrorCount + " errors occurred while trying to read last used level " + lastUsedLevelName);
+                }
+                catch (Exception)
+                {
+                    Debug.LogWarning("Unable to read last used level " + lastUsedLevelName);
                 }
             }
 

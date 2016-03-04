@@ -129,7 +129,7 @@ namespace Assets
     }
 
     [Game]
-    public class VictoryExitComponent : IComponent
+    public class ExitGateComponent : IComponent
     {
     }
 

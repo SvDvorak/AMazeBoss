@@ -38,6 +38,11 @@ namespace Assets
         private string RetrieveTemplateName(Entity entity)
         {
             var templateNames = _pool.tileTemplates.Value.Retrieve(entity.maintype.Value, entity.subtype.Value);
+            if (templateNames.Count == 0)
+            {
+                throw new MissingTemplateException(entity.maintype.Value, entity.subtype.Value);
+            }
+
             return templateNames[Random.Range(0, templateNames.Count)];
         }
     }

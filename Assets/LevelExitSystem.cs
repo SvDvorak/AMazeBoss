@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Assets
 {
-    public class VictoryExitSystem : IReactiveSystem, ISetPool
+    public class ExitGateSystem : IReactiveSystem, ISetPool
     {
         private Pool _pool;
 
@@ -27,7 +27,7 @@ namespace Assets
         {
             var currentBossConnection = _pool.GetCurrentPuzzleArea().bossConnection;
             return _pool
-                .GetEntities(GameMatcher.VictoryExit)
+                .GetEntities(GameMatcher.ExitGate)
                 .Where(x => x.bossConnection.BossId == currentBossConnection.BossId)
                 .ToList();
         }

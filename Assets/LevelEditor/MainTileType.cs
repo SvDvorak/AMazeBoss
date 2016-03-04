@@ -40,7 +40,7 @@ namespace Assets.LevelEditor
         Hero,
         Boss,
         Box,
-        VictoryExit
+        ExitGate
     }
 
     public enum AreaType

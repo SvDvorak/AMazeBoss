@@ -21,7 +21,7 @@ namespace Assets.FileOperations
                 new FlagDescriptorSet("DYNAMIC", e => e.isDynamic, e => e.IsDynamic(true)),
                 new FlagDescriptorSet("SPIKES", e => e.isSpikes, e => e.IsSpikes(true)),
                 new FlagDescriptorSet("BOX", e => e.isBox, e => e.IsBox(true)),
-                new FlagDescriptorSet("VICTORYEXIT", e => e.isVictoryExit, e => e.IsVictoryExit(true)),
+                new FlagDescriptorSet("EXITGATE", e => e.isExitGate, e => e.IsExitGate(true)),
                 new FlagDescriptorSet("LEVELEXIT", e => e.isExitTrigger, e => e.IsExitTrigger(true)),
                 new FlagDescriptorSet("SETCHECKPOINT", e => e.hasSetCheckpoint, e => e.HasSetCheckpoint(true)),
                 new FlagDescriptorSet("PUZZLE", e => e.isPuzzleArea, e => e.IsPuzzleArea(true)),
@@ -43,23 +43,35 @@ namespace Assets.FileOperations
                 .ToList();
         }
 
+        public void Validate(string descriptors)
+        {
+            descriptors.Split(';').ToList().ForEach(x => CheckMatchingDescriptors(x));
+        }
+
+        public List<IDescriptorSet> CheckMatchingDescriptors(string descriptor)
+        {
+            var matchedDescriptors = _descriptorSets
+                .Where(ds => ds.IsMatching(descriptor))
+                .ToList();
+
+            if (matchedDescriptors.Count() > 1)
+            {
+                throw new MultipleDescriptorsFoundException(descriptor, matchedDescriptors);
+            }
+            if (!matchedDescriptors.Any())
+            {
+                throw new InvalidDescriptorException(descriptor);
+            }
+
+            return matchedDescriptors;
+        }
+
         public void FromDescriptors(string descriptors, Entity entity)
         {
             foreach (var descriptor in descriptors.Split(';'))
             {
-                var currentDescriptor = descriptor;
-                var matchedDescriptors = _descriptorSets
-                    .Where(ds => ds.SetDescriptor(entity, currentDescriptor))
-                    .ToList();
-
-                if (matchedDescriptors.Count() > 1)
-                {
-                    throw new MultipleDescriptorsFoundException(descriptor, matchedDescriptors);
-                }
-                if (!matchedDescriptors.Any())
-                {
-                    throw new InvalidDescriptorException(descriptor);
-                }
+                var matchedDescriptors = CheckMatchingDescriptors(descriptor);
+                matchedDescriptors.ForEach(ds => ds.SetDescriptor(entity, descriptor));
             }
         }
 
@@ -67,7 +79,8 @@ namespace Assets.FileOperations
         {
             Func<Entity, bool> HasDescriptor { get; }
             string CreateDescriptorText(Entity entity);
-            bool SetDescriptor(Entity e, string text);
+            bool IsMatching(string text);
+            void SetDescriptor(Entity e, string text);
         }
 
         private class FlagDescriptorSet : IDescriptorSet
@@ -89,15 +102,17 @@ namespace Assets.FileOperations
                 return _descriptorText;
             }
 
-            public bool SetDescriptor(Entity e, string text)
+            public bool IsMatching(string text)
+            {
+                return text == _descriptorText;
+            }
+
+            public void SetDescriptor(Entity e, string text)
             {
                 if (text == _descriptorText)
                 {
                     SetFlagDescriptor(e);
-                    return true;
                 }
-
-                return false;
             }
 
             public override string ToString()
@@ -132,15 +147,19 @@ namespace Assets.FileOperations
                 return descriptor;
             }
 
-            public bool SetDescriptor(Entity e, string text)
+            public bool IsMatching(string text)
+            {
+                var parseResult = TryParseNameAndValue(text);
+                return parseResult != null && parseResult.Descriptor == _descriptorText;
+            }
+
+            public void SetDescriptor(Entity e, string text)
             {
                 var parseResult = TryParseNameAndValue(text);
                 if (parseResult != null && parseResult.Descriptor == _descriptorText)
                 {
                     SetValueDescriptor(e, parseResult.Value);
-                    return true;
                 }
-                return false;
             }
 
             private ParseResult TryParseNameAndValue(string text)

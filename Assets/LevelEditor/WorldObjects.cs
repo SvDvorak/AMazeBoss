@@ -143,16 +143,16 @@ namespace Assets.LevelEditor
             }
         }
 
-        public static EntityPerformer VictoryExit
+        public static EntityPerformer ExitGate
         {
             get
             {
                 return Action(e => e
                     .ReplaceGameObject(ObjectType.Item)
-                    .ReplaceMaintype(ItemType.VictoryExit.ToString())
+                    .ReplaceMaintype(ItemType.ExitGate.ToString())
                     .IsDynamic(true)
                     .IsBlockingTile(true)
-                    .IsVictoryExit(true));
+                    .IsExitGate(true));
             }
         }
 

@@ -84,7 +84,7 @@ namespace Assets
                 .Add(pool.CreateSystem<CurseSwitchSystem>())
                 .Add(pool.CreateSystem<KnockBoxSystem>())
                 .Add(pool.CreateSystem<DeathSystem>())
-                .Add(pool.CreateSystem<VictoryExitSystem>())
+                .Add(pool.CreateSystem<ExitGateSystem>())
 
             // Render
                 .Add(pool.CreateSystem<SubtypeSelectorSystem>())

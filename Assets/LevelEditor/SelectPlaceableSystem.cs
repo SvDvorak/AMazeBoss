@@ -43,7 +43,7 @@ namespace Assets.LevelEditor
                 {
                     { 1, new SelectionGroup(WorldObjects.Empty) },
                     { 2, new SelectionGroup(WorldObjects.Pillar, WorldObjects.Wall) },
-                    { 3, new SelectionGroup(WorldObjects.SpikeTrap, WorldObjects.WallTrap, WorldObjects.CurseTrigger, WorldObjects.VictoryExit) },
+                    { 3, new SelectionGroup(WorldObjects.SpikeTrap, WorldObjects.WallTrap, WorldObjects.CurseTrigger, WorldObjects.ExitGate) },
                     { 4, new SelectionGroup(WorldObjects.Spikes, WorldObjects.Box) },
                     { 5, new SelectionGroup(WorldObjects.Hero, WorldObjects.Boss) },
                     { 6, new SelectionGroup(ViewMode.Area, WorldObjects.ExitTrigger, WorldObjects.PuzzleArea) }

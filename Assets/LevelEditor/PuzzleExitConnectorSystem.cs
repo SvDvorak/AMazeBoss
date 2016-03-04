@@ -18,7 +18,7 @@ namespace Assets.LevelEditor
         {
             foreach (var puzzleArea in entities)
             {
-                var exitAtSamePosition = _pool.GetEntityAt(puzzleArea.position.Value, x => x.isVictoryExit);
+                var exitAtSamePosition = _pool.GetEntityAt(puzzleArea.position.Value, x => x.isExitGate);
                 if (exitAtSamePosition != null)
                 {
                     exitAtSamePosition.ReplaceBossConnection(puzzleArea.bossConnection.BossId);
