@@ -10,7 +10,7 @@ namespace Assets.LevelEditor
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return Matcher.AnyOf(GameMatcher.Item, GameMatcher.Tile).OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return Matcher.AnyOf(GameMatcher.GameObject).OnEntityAdded(); } }
 
         public void SetPool(Pool pool)
         {
@@ -19,23 +19,19 @@ namespace Assets.LevelEditor
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var entity in entities)
+            foreach (var item in entities.Where(x => x.IsItem()))
             {
-                Execute(entity);
+                Execute(item);
             }
         }
 
-        private void Execute(Entity entity)
+        private void Execute(Entity item)
         {
-            var item = _pool.GetItemAt(entity.position.Value);
-            var tile = _pool.GetTileAt(entity.position.Value);
+            var tile = _pool.GetTileAt(item.position.Value);
 
-            if (item != null && tile != null)
+            if (tile != null && tile.isBlockingTile)
             {
-                if (tile.isBlockingTile)
-                {
-                    item.IsDestroyed(true);
-                }
+                item.IsDestroyed(true);
             }
         }
     }

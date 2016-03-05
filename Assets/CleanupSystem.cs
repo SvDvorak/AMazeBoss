@@ -1,5 +1,4 @@
-﻿using System;
-using Entitas;
+﻿using Entitas;
 
 namespace Assets
 {
@@ -14,21 +13,15 @@ namespace Assets
 
         public void Execute()
         {
-            _pool.GetEntities()
-                .DoForAll(x => x.isInputItemInteract = false)
-                .DoForAll(x => x.isInputCurseSwitch = false);
-        }
-    }
+            _pool.isLevelLoaded = false;
 
-    public static class CleanupPoolExtensions
-    {
-        public static Entity[] DoForAll(this Entity[] entities, Action<Entity> action)
-        {
-            foreach (var entity in entities)
-            {
-                action(entity);
-            }
-            return entities;
-        } 
+            _pool
+                .GetEntities()
+                .ForEach(x =>
+                {
+                    x.isInputItemInteract = false;
+                    x.isInputCurseSwitch = false;
+                });
+        }
     }
 }

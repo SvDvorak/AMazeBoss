@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using UnityEngine;
 
 namespace Assets
 {
-    public class BottomSpawnerSystem : IReactiveSystem, ISetPool
+    public class BottomSpawnerSystem : IReactiveSystem, ISetPool, IExcludeComponents
     {
         private Pool _pool;
 
-        public TriggerOnEvent trigger { get { return GameMatcher.Tile.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return GameMatcher.GameObject.OnEntityAdded(); } }
+        public IMatcher excludeComponents { get { return GameMatcher.Preview; } }
 
         public void SetPool(Pool pool)
         {
@@ -17,7 +19,7 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var entity in entities)
+            foreach (var entity in entities.Where(x => x.IsTile()))
             {
                 AddOrUpdateBottomFor(entity);
             }

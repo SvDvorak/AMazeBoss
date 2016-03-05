@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.LevelEditor;
 using Entitas;
 
 namespace Assets
@@ -20,13 +21,20 @@ namespace Assets
         {
             var hero = entities.SingleEntity();
 
-            var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, GameMatcher.Spikes);
-            var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, GameMatcher.SpikeTrap);
-            var isTrapEmpty = spikeTrapBelow != null && !spikeTrapBelow.hasLoaded;
+            var spikesOnFloor = _pool.GetEntityAt(hero.position.Value, x => x.isSpikes);
+            var spikeTrapBelow = _pool.GetEntityAt(hero.position.Value, x => x.isSpikeTrap);
+            var isEmptyTrapBelow = spikeTrapBelow != null && !spikeTrapBelow.hasLoaded;
 
-            if (hero.isSpikesCarried && isTrapEmpty)
+            if (hero.isSpikesCarried)
             {
-                PutSpikesInTrap(spikeTrapBelow, hero);
+                if (isEmptyTrapBelow)
+                {
+                    PutSpikesInTrap(spikeTrapBelow, hero);
+                }
+                else
+                {
+                    PutSpikesOnFloor(hero);
+                }
             }
             else if (!hero.isSpikesCarried && spikesOnFloor != null)
             {
@@ -37,6 +45,12 @@ namespace Assets
         private static void PutSpikesInTrap(Entity spikeTrap, Entity hero)
         {
             spikeTrap.AddLoaded(true);
+            hero.IsSpikesCarried(false);
+        }
+
+        private void PutSpikesOnFloor(Entity hero)
+        {
+            WorldObjects.Spikes.Do(_pool.CreateEntity()).ReplacePosition(hero.position.Value);
             hero.IsSpikesCarried(false);
         }
 

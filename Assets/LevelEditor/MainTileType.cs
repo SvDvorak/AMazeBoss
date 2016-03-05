@@ -42,4 +42,10 @@ namespace Assets.LevelEditor
         Box,
         VictoryExit
     }
+
+    public enum AreaType
+    {
+        ExitTrigger,
+        Puzzle
+    }
 }

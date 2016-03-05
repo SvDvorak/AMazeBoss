@@ -48,7 +48,7 @@ namespace Assets.LevelEditor
     public class WallAdjustmentSystem : IReactiveSystem, ISetPool, IEnsureComponents
     {
         private readonly Connections _connections = new Connections();
-        private Group _tilesGroup;
+        private Group _wallGroup;
         private HashSet<TilePos> _wallTiles;
 
         public TriggerOnEvent trigger { get { return GameMatcher.Maintype.OnEntityAdded(); } }
@@ -71,12 +71,12 @@ namespace Assets.LevelEditor
 
         public void SetPool(Pool pool)
         {
-            _tilesGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Tile, GameMatcher.Position));
+            _wallGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Wall, GameMatcher.Position));
         }
 
         public void Execute(List<Entity> entities)
         {
-            var walls = _tilesGroup.GetEntities().Where(x => x.maintype.Value == MainTileType.Wall.ToString());
+            var walls = _wallGroup.GetEntities();
             _wallTiles = new HashSet<TilePos>(walls.Select(x => x.position.Value));
 
             foreach (var wall in walls)

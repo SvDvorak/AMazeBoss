@@ -20,23 +20,40 @@ namespace Assets.LevelEditor
             var input = entities.SingleEntity();
             var tilePosition = input.position.Value;
 
-            RemoveTile(tilePosition);
+            if (_pool.editorViewMode.Value == ViewMode.Area)
+            {
+                RemoveArea(tilePosition);
+            }
+            else
+            {
+                RemoveTile(tilePosition);
+            }
+        }
+
+        private void RemoveArea(TilePos tilePosition)
+        {
+            TryRemove(_pool.GetAreaAt(tilePosition));
         }
 
         private void RemoveTile(TilePos tilePos)
         {
-            var selectedItem = _pool.GetItemAt(tilePos);
-            if (selectedItem != null)
+            if (TryRemove(_pool.GetItemAt(tilePos)))
             {
-                selectedItem.IsDestroyed(true);
                 return;
             }
 
-            var selectedTile = _pool.GetTileAt(tilePos);
-            if (selectedTile != null)
+            TryRemove(_pool.GetTileAt(tilePos));
+        }
+
+        private bool TryRemove(Entity entity)
+        {
+            if (entity != null)
             {
-                selectedTile.IsDestroyed(true);
+                entity.IsDestroyed(true);
+                return true;
             }
+
+            return false;
         }
     }
 }

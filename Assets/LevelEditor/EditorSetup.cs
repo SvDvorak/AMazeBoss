@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets.Camera;
 using Assets.FileOperations;
 using Assets.LevelEditor.Input;
@@ -12,10 +13,8 @@ namespace Assets.LevelEditor
 {
     public class EditorSetup : MonoBehaviour
     {
-        private Systems _systems;
-
         private static EditorSetup _setup;
-
+        private Systems _systems;
         private Pool _gamePool;
 
         public static EditorSetup Instance
@@ -36,12 +35,6 @@ namespace Assets.LevelEditor
 
         public void Start()
         {
-            SetupEntitas();
-            LoadLevel();
-        }
-
-        private void SetupEntitas()
-        {
             Random.seed = 42;
             SceneSetup.CurrentScene = "Editor";
             SceneSetup.OnSceneChanging += OnSceneChanging;
@@ -49,33 +42,13 @@ namespace Assets.LevelEditor
             _gamePool = Pools.game;
             _systems = CreateGameSystems(_gamePool);
 
+            _gamePool.isInEditor = true;
+            _gamePool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _gamePool.CreateEntity().IsInput(true);
-            _gamePool.CreateEntity().IsPreview(true);
-            _gamePool.CreateEntity().AddResource("Camera").AddRotation(0).AddFocusPoint(Vector3.zero).AddSavedFocusPoint(Vector3.zero);
 
             _systems.Initialize();
-            Update();
-        }
 
-        private void LoadLevel()
-        {
-            if (PlaySetup.FromEditor)
-            {
-                LevelLoader.ReadLevelData(PlaySetup.EditorLevel, Pools.game);
-            }
-            else
-            {
-                var lastUsedLevelName = PlayerPrefsLevelReader.LastUsedLevelName;
-
-                try
-                {
-                    PlayerPrefsLevelReader.LoadLevel(lastUsedLevelName);
-                }
-                catch (Exception)
-                {
-                    Debug.LogWarning("Unable to read last used level " + lastUsedLevelName);
-                }
-            }
+            _gamePool.CreateEntity().AddPosition(new TilePos(0, 0)).IsPreview(true);
         }
 
         public void OnDestroy()
@@ -100,6 +73,8 @@ namespace Assets.LevelEditor
             return SceneSetup.CreateSystem()
 
             // Initialize
+                .Add(pool.CreateSystem<PositionsCacheUpdateSystem>())
+                .Add(pool.CreateSystem<EditorLevelLoaderSystem>())
                 .Add(pool.CreateSystem<TemplateLoaderSystem>())
 
             // Input
@@ -113,22 +88,31 @@ namespace Assets.LevelEditor
                 .Add(pool.CreateSystem<SelectPlaceableSystem>())
                 .Add(pool.CreateSystem<PutDownPlaceableSystem>())
                 .Add(pool.CreateSystem<RemovePlaceableSystem>())
-                .Add(pool.CreateSystem<SetFocusPointSystem>())
+
                 .Add(pool.CreateSystem<BottomSpawnerSystem>())
                 .Add(pool.CreateSystem<RemoveImpossiblyPlacedItemsSystem>())
+                .Add(pool.CreateSystem<ViewModeChangedSystem>())
+                .Add(pool.CreateSystem<ViewModeVisualAddedSystem>())
                 .Add(pool.CreateSystem<PreviewTilePositionChangedSystem>())
                 .Add(pool.CreateSystem<PreviewTileTypeChangedSystem>())
                 .Add(pool.CreateSystem<PreviewMaterialChangeSystem>())
+                .Add(pool.CreateSystem<PuzzleAreaExpandedSystem>())
+                .Add(pool.CreateSystem<PuzzleAreaShrunkSystem>())
+                .Add(pool.CreateSystem<PuzzleAreaBossRemovedSystem>())
+                .Add(pool.CreateSystem<PuzzleExitConnectorSystem>())
 
             // Render
                 .Add(pool.CreateSystem<SubtypeSelectorSystem>())
                 .Add(pool.CreateSystem<TemplateSelectorSystem>())
-                .Add(pool.CreateSystem<AddViewSystem>())
+                .Add(pool.CreateSystem<AddOrRemoveViewSystem>())
                 .Add(pool.CreateSystem<SetInitialTransformSystem>())
                 .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
                 .Add(pool.CreateSystem<RenderPositionsSystem>())
                 .Add(pool.CreateSystem<TrapLoadedAnimationSystem>())
+                .Add(pool.CreateSystem<CurseAnimationSystem>())
                 .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
+
+                .Add(pool.CreateSystem<UpdateActingSystem>())
 
             // Destroy
                 .Add(pool.CreateSystem<DestroySystem>());

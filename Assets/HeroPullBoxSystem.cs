@@ -19,16 +19,16 @@ namespace Assets
         {
             var hero = entities.SingleEntity();
             var pullDirection = hero.inputPullItem.Direction;
-            var boxPosition = hero.position.Value - pullDirection;
-            var box = _pool.GetEntityAt(boxPosition, GameMatcher.Box);
+            var pushablePosition = hero.position.Value - pullDirection;
+            var pushableItem = _pool.PushableItemAt(pushablePosition, pullDirection);
 
-            if (box != null)
+            if (pushableItem != null)
             {
                 var newHeroPosition = hero.position.Value + pullDirection;
                 var playerHasOpenSpaceToMoveTo = _pool.OpenTileAt(newHeroPosition);
                 if (playerHasOpenSpaceToMoveTo)
                 {
-                    box.ReplaceKnocked(pullDirection, true);
+                    pushableItem.ReplaceKnocked(pullDirection, true);
                     hero.ReplacePosition(newHeroPosition);
                 }
             }

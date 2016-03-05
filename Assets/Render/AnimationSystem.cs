@@ -32,26 +32,22 @@ namespace Assets.Render
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
 
-            if (entity.IsMoving())
-            {
-                var animator = entity.animator.Value;
-                var moveSequence = DOTween.Sequence()
-                    .Pause()
-                    .OnStart(() =>
-                        {
-                            animator.SetBool("IsMoving", true);
-                            transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
-                        })
-                    .AppendInterval(MoveTime)
-                    .OnComplete(() =>
-                        {
-                            transform.position = newPosition;
-                            animator.SetBool("IsMoving", false);
-                        });
+            var animator = entity.animator.Value;
+            var moveSequence = DOTween.Sequence()
+                .Pause()
+                .OnStart(() =>
+                    {
+                        animator.SetBool("IsMoving", true);
+                        transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
+                    })
+                .AppendInterval(MoveTime)
+                .OnComplete(() =>
+                    {
+                        transform.position = newPosition;
+                        animator.SetBool("IsMoving", false);
+                    });
 
-                entity.AddActingAction(MoveTime, () => moveSequence.Play());
-                entity.ReplaceActingTime(MoveTime);
-            }
+            entity.AddActingSequence(MoveTime, moveSequence);
         }
     }
 
@@ -81,11 +77,10 @@ namespace Assets.Render
             {
                 var animator = entity.animator.Value;
                 var animationSequence = DOTween.Sequence()
-                    .Pause()
-                    .AppendInterval(MoveAnimationSystem.MoveTime + TrapActivateTime/2)
+                    .AppendInterval(MoveAnimationSystem.MoveTime + TrapActivateTime / 2)
                     .OnComplete(() => animator.SetTrigger("Activated"));
 
-                entity.AddActingAction(TrapActivateTime, () => animationSequence.Play());
+                entity.AddActingSequence(TrapActivateTime, animationSequence);
             }
         }
     }
@@ -99,7 +94,7 @@ namespace Assets.Render
             foreach (var entity in entities)
             {
                 var animator = entity.animator.Value;
-                entity.AddActingAction(1, () => animator.SetBool("WeightedDown", entity.isTrapActivated));
+                entity.AddActingSequence(1, () => animator.SetBool("WeightedDown", entity.isTrapActivated));
             }
         }
     }
@@ -113,14 +108,20 @@ namespace Assets.Render
             foreach (var boss in entities)
             {
                 var animator = boss.animator.Value;
-                boss.AddActingAction(1, () => animator.SetTrigger("Attack"));
+                boss.AddActingSequence(1, () => animator.SetTrigger("Attack"));
             }
         }
     }
 
-    public class HealthChangedAnimationSystem : IReactiveSystem
+    public class HealthChangedAnimationSystem : IReactiveSystem, ISetPool
     {
+        private Pool _pool;
         public TriggerOnEvent trigger { get { return GameMatcher.Health.OnEntityAdded(); } }
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
 
         public void Execute(List<Entity> entities)
         {
@@ -131,9 +132,9 @@ namespace Assets.Render
                     entity.healthVisual.Text.text = entity.health.Value.ToString();
                 }
 
-                if (entity.hasAnimator && entity.IsActing() && !entity.isDead)
+                if (entity.hasAnimator && !_pool.isLevelLoaded && !entity.isDead)
                 {
-                    entity.AddActingAction(1, () => entity.animator.Value.SetTrigger("Damage"));
+                    entity.AddActingSequence(1, () => entity.animator.Value.SetTrigger("Damage"));
                 }
             }
         }
@@ -177,8 +178,8 @@ namespace Assets.Render
             }
             else
             {
-                entity.AddActingAction(MoveAnimationSystem.MoveTime);
-                entity.AddActingAction(time, animationAction);
+                entity.AddActingSequence(MoveAnimationSystem.MoveTime);
+                entity.AddActingSequence(time, animationAction);
             }
         }
 
@@ -211,7 +212,7 @@ namespace Assets.Render
             foreach (var dead in entities)
             {
                 var animator = dead.animator.Value;
-                dead.AddActingAction(DeathTime, () => animator.SetTrigger("Killed"));
+                dead.AddActingSequence(DeathTime, () => animator.SetTrigger("Killed"));
             }
         }
     }
@@ -219,22 +220,15 @@ namespace Assets.Render
     public class CurseAnimationSystem : AnimationSystem, IReactiveSystem
     {
         private const float CurseAnimationTime = 1.1f;
-        private bool _initialCallDone;
 
         public TriggerOnEvent trigger { get { return GameMatcher.Cursed.OnEntityAddedOrRemoved(); } }
 
         public void Execute(List<Entity> entities)
         {
-            if (!_initialCallDone)
-            {
-                _initialCallDone = true;
-                return;
-            }
-
             foreach (var cursed in entities.Where(x => x.health.Value > 0))
             {
                 var animator = cursed.animator.Value;
-                cursed.AddActingAction(CurseAnimationTime, () => animator.SetBool("IsCursed", cursed.isCursed));
+                cursed.AddActingSequence(CurseAnimationTime, () => animator.SetBool("IsCursed", cursed.isCursed));
             }
         }
     }

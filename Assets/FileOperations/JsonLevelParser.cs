@@ -36,7 +36,7 @@ namespace Assets.FileOperations
         public static void LoadLevel(string levelName)
         {
             LastUsedLevelName = levelName;
-            Pools.game.SafeDeleteAll(Matcher.AnyOf(GameMatcher.Tile, GameMatcher.Item));
+            Pools.game.SafeDeleteLevel();
             EditorSetup.Instance.Update();
             var levelData = GetLevel(levelName);
             LevelLoader.ReadLevelData(levelData, Pools.game);

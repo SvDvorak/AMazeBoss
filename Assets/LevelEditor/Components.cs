@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Assets.LevelEditor.Placeables;
-using Entitas;
+﻿using Entitas;
 using Entitas.CodeGenerator;
 
 namespace Assets.LevelEditor
@@ -11,10 +8,33 @@ namespace Assets.LevelEditor
     {
     }
 
+    [SingleEntity, Game, Ui]
+    public class InEditorComponent : IComponent
+    {
+    }
+
+    [SingleEntity, Game]
+    public class EditorViewMode : IComponent
+    {
+        public ViewMode Value;
+    }
+
+    [Game, Ui]
+    public class EditorOnlyVisual : IComponent
+    {
+        public ViewMode ShowInMode;
+    }
+
+    public enum ViewMode
+    {
+        Normal,
+        Area
+    }
+
     [Game]
     public class SelectedPlaceableComponent : IComponent
     {
-        public IPlaceable Value;
+        public EntityPerformer Value;
     }
 
     [SingleEntity, Game]
@@ -28,7 +48,7 @@ namespace Assets.LevelEditor
     {
     }
 
-    [SingleEntity, Game]
+    [Game, Ui]
     public class PreviewComponent : IComponent
     {
     }

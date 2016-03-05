@@ -22,27 +22,25 @@ namespace Entitas {
             return this;
         }
     }
-
-    public partial class Pool {
-        public Entity previewEntity { get { return GetGroup(GameMatcher.Preview).GetSingleEntity(); } }
-
-        public bool isPreview {
-            get { return previewEntity != null; }
-            set {
-                var entity = previewEntity;
-                if (value != (entity != null)) {
-                    if (value) {
-                        CreateEntity().isPreview = true;
-                    } else {
-                        DestroyEntity(entity);
-                    }
-                }
-            }
-        }
-    }
 }
 
     public partial class GameMatcher {
+        static IMatcher _matcherPreview;
+
+        public static IMatcher Preview {
+            get {
+                if (_matcherPreview == null) {
+                    var matcher = (Matcher)Matcher.AllOf(GameComponentIds.Preview);
+                    matcher.componentNames = GameComponentIds.componentNames;
+                    _matcherPreview = matcher;
+                }
+
+                return _matcherPreview;
+            }
+        }
+    }
+
+    public partial class UiMatcher {
         static IMatcher _matcherPreview;
 
         public static IMatcher Preview {

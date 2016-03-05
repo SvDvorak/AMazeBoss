@@ -14,8 +14,10 @@ namespace Assets
     public class PlaySetup : MonoBehaviour
     {
         public static bool FromEditor;
+        public static bool FromSave;
         public static string LevelPath;
         public static Level EditorLevel;
+        public static Level LevelSave;
 
         public List<string> Levels; 
 
@@ -31,6 +33,7 @@ namespace Assets
             _gamePool = Pools.game;
             _systems = CreateSystems(_gamePool);
 
+            _gamePool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _gamePool.SetLevels(Levels);
 
             _systems.Initialize();
@@ -58,7 +61,8 @@ namespace Assets
             return SceneSetup.CreateSystem()
 
             // Initialize
-                .AddLevelLoaderSystem(pool)
+                .Add(pool.CreateSystem<PositionsCacheUpdateSystem>())
+                .Add(pool.CreateSystem<PlayLevelLoaderSystem>())
                 .Add(pool.CreateSystem<TemplateLoaderSystem>())
 
             // Input
@@ -82,55 +86,26 @@ namespace Assets
                 .Add(pool.CreateSystem<DeathSystem>())
                 .Add(pool.CreateSystem<VictoryExitSystem>())
 
-                .Add(pool.CreateSystem<RemoveActingOnDoneSystem>())
-
             // Render
                 .Add(pool.CreateSystem<SubtypeSelectorSystem>())
                 .Add(pool.CreateSystem<TemplateSelectorSystem>())
-                .Add(pool.CreateSystem<AddViewSystem>())
+                .Add(pool.CreateSystem<AddOrRemoveViewSystem>())
                 .Add(pool.CreateSystem<SetInitialTransformSystem>())
+                .Add(pool.CreateSystem<CameraFollowSystem>())
                 .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
                 .AddAnimationSystems(pool)
 
+                .Add(pool.CreateSystem<UpdateActingSystem>())
+
             // Level-handling
-                .AddLevelClearedSystemIfNotFromEditor(pool)
+                .Add(pool.CreateSystem<FinishedLevelLoadSystem>())
+                .Add(pool.CreateSystem<SetCheckpointSystem>())
+                .Add(pool.CreateSystem<LevelExitSystem>())
                 .Add(pool.CreateSystem<LevelRestartSystem>())
 
             // Destroy
                 .Add(pool.CreateSystem<CleanupSystem>())
                 .Add(pool.CreateSystem<DestroySystem>());
-        }
-    }
-
-    public static class EditorPlaySystemsExtensions
-    {
-        public static Systems AddLevelLoaderSystem(this Systems systems, Pool pool)
-        {
-            PlayOrEditorPlayAction(
-                () => systems.Add(pool.CreateSystem<LevelLoaderSystem>()),
-                () => systems.Add(pool.CreateSystem<EditorTestLevelLoaderSystem>()));
-            return systems;
-        }
-
-        public static Systems AddLevelClearedSystemIfNotFromEditor(this Systems systems, Pool pool)
-        {
-            PlayOrEditorPlayAction(() => systems.Add(pool.CreateSystem<LevelClearedSystem>()), null);
-            return systems;
-        }
-
-        private static void PlayOrEditorPlayAction(Action playAction, Action editorPlayAction)
-        {
-            if (PlaySetup.FromEditor)
-            {
-                if (editorPlayAction != null)
-                {
-                    editorPlayAction();
-                }
-            }
-            else if (playAction != null)
-            {
-                playAction();
-            }
         }
     }
 

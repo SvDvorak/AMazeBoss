@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Entitas;
-using UnityEngine;
 
 namespace Assets
 {
@@ -15,36 +15,55 @@ namespace Assets
 
         public static void SwitchCurse(this Pool pool)
         {
-            var heroes = pool.GetEntities(GameMatcher.Hero);
-            var bosses = pool.GetEntities(GameMatcher.Boss);
+            var hero = pool.GetHero();
+            var activeBoss = pool.GetActiveBoss();
 
-            foreach (var hero in heroes)
+            if (activeBoss != null)
             {
                 hero.isCursed = !hero.isCursed;
-            }
-
-            foreach (var boss in bosses)
-            {
-                boss.isCursed = !boss.isCursed;
+                activeBoss.isCursed = !activeBoss.isCursed;
             }
         }
 
-        public static Entity GetItemAt(this Pool pool, TilePos position)
+        public static Entity GetHero(this Pool pool)
         {
-            return pool.GetEntityAt(position, GameMatcher.Item);
+            return pool.GetEntities(GameMatcher.Hero).SingleEntity();
+        }
+
+        public static Entity GetActiveBoss(this Pool pool)
+        {
+            try
+            {
+                var currentPuzzleArea = GetCurrentPuzzleArea(pool);
+                return pool
+                    .GetEntities(GameMatcher.Boss)
+                    .Single(x => !x.isDead && x.id.Value == currentPuzzleArea.bossConnection.BossId);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static Entity GetCurrentPuzzleArea(this Pool pool)
+        {
+            var hero = pool.GetHero();
+            return pool.GetEntityAt(hero.position.Value, x => x.isPuzzleArea);
         }
 
         public static Entity GetTileAt(this Pool pool, TilePos position)
         {
-            return pool.GetEntityAt(position, GameMatcher.Tile);
+            return pool.GetEntityAt(position, x => x.gameObject.Type == ObjectType.Tile);
         }
 
-        public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection, bool immediate)
+        public static Entity GetItemAt(this Pool pool, TilePos position)
         {
-            pool.GetEntitiesAt(position + forwardDirection, GameMatcher.Item)
-                .Where(x => x.isBlockingTile)
-                .ToList()
-                .ForEach(x => x.ReplaceKnocked(forwardDirection, immediate));
+            return pool.GetEntityAt(position, x => x.gameObject.Type == ObjectType.Item);
+        }
+
+        public static Entity GetAreaAt(this Pool pool, TilePos position)
+        {
+            return pool.GetEntityAt(position, x => x.gameObject.Type == ObjectType.Area);
         }
 
         public static bool OpenTileAt(this Pool pool, TilePos position)
@@ -53,29 +72,50 @@ namespace Assets
             return entitiesAtPosition.Count > 0 && entitiesAtPosition.All(x => !x.isBlockingTile);
         }
 
-        public static bool PushableItemAt(this Pool pool, TilePos position)
+        public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection)
         {
-            var entitiesAtPosition = pool.GetEntitiesAt(position, GameMatcher.Box).ToList();
-            return entitiesAtPosition.Count > 0;
+            var pushableItem = pool.PushableItemAt(position + forwardDirection, forwardDirection);
+            if (pushableItem != null)
+            {
+                pushableItem.ReplaceKnocked(forwardDirection, false);
+            }
         }
 
-        public static IEnumerable<Entity> GetEntitiesAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)
+        public static Entity PushableItemAt(this Pool pool, TilePos position, TilePos moveDirection)
         {
-            var completeMatcher = entityMatcher != null
-                ? Matcher.AllOf(GameMatcher.Position, entityMatcher)
-                : GameMatcher.Position;
-            return pool.GetEntities(completeMatcher).Where(x => x.position.Value == position && !x.isDestroyed);
+            var newPosition = position + moveDirection;
+            var entitiesAtPosition = pool.GetEntitiesAt(position, x => x.isBox).ToList();
+            var openSpaceAtNextPosition = pool.OpenTileAt(newPosition);
+            var stillInsidePuzzle = pool.IsStillInsideSamePuzzle(position, newPosition);
+
+            return openSpaceAtNextPosition && stillInsidePuzzle ? entitiesAtPosition.SingleOrDefault() : null;
         }
 
-        public static Entity GetEntityAt(this Pool pool, TilePos position, IMatcher entityMatcher = null)
+        public static bool IsStillInsideSamePuzzle(this Pool pool, TilePos currentPosition, TilePos nextPosition)
         {
-            return pool.GetEntitiesAt(position, entityMatcher).SingleOrDefault();
+            var currentPuzzle = pool.GetEntityAt(currentPosition, x => x.isPuzzleArea && x.hasBossConnection);
+            var nextPuzzle = pool.GetEntityAt(nextPosition, x => x.isPuzzleArea && x.hasBossConnection);
+            if (currentPuzzle != null && nextPuzzle != null)
+            {
+                return nextPuzzle.bossConnection.BossId == currentPuzzle.bossConnection.BossId;
+            }
+
+            return currentPuzzle == nextPuzzle;
         }
 
-        public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null)
+        public static void SafeDeleteAll(this Pool pool, IMatcher matcher = null, Func<Entity, bool> ignore = null)
         {
-            var entities = matcher != null ? pool.GetEntities(matcher) : pool.GetEntities();
-            entities.DoForAll(x => x.IsDestroyed(true));
+            IEnumerable<Entity> entities = matcher != null ? pool.GetEntities(matcher) : pool.GetEntities();
+            if (ignore != null)
+            {
+                entities = entities.Where(ignore);
+            }
+            entities.ForEach(x => x.IsDestroyed(true));
+        }
+
+        public static void SafeDeleteLevel(this Pool pool)
+        {
+            Pools.game.SafeDeleteAll(GameMatcher.GameObject, x => !x.isPreview);
         }
 
         public static Entity FindChildFor(this Pool pool, Entity entity)
@@ -89,6 +129,51 @@ namespace Assets
                 .GetEntities(GameMatcher.Child)
                 .Where(x => x.child.ParentId == entity.id.Value)
                 .ToList();
+        }
+
+        public static Entity GetEntityAt(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher = null)
+        {
+            var entitiesAtPosition = pool
+                .GetEntitiesAt(position, entityMatcher)
+                .ToList();
+
+            if (entitiesAtPosition.Count() > 1)
+            {
+                throw new MoreThanOneMatchException(entitiesAtPosition);
+            }
+
+            return entitiesAtPosition.SingleOrDefault();
+        }
+
+        public static List<Entity> GetEntitiesAt(this Pool pool, TilePos position, Func<Entity, bool> entityMatcher = null)
+        {
+            if (!pool.objectPositionCache.Cache.ContainsKey(position))
+                return new List<Entity>();
+
+            return pool.objectPositionCache
+                .Cache[position]
+                .Where(x => x.hasGameObject && !x.isDestroyed && !x.isPreview && (entityMatcher == null || entityMatcher(x)))
+                .ToList();
+        }
+
+        public class MoreThanOneMatchException : Exception
+        {
+            public MoreThanOneMatchException(params object[] matched) :
+                base("Found multiple matches: " + string.Join(",", matched.Select(x => x.ToString()).ToArray()))
+            {
+            }
+        }
+
+        public static IEnumerable<Entity> ForEach(this IEnumerable<Entity> entities, Action<Entity> action)
+        {
+            var list = entities.ToList();
+            list.ForEach(action);
+            return list;
+        }
+
+        public static void DoForAllAtPosition(this Pool pool, TilePos position, Action<Entity> entityAction)
+        {
+            pool.objectPositionCache.Cache[position].ForEach(entityAction);
         }
     }
 }

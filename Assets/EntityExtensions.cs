@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Entitas;
 
 namespace Assets
@@ -11,13 +12,13 @@ namespace Assets
         {
             var identifiables = Pools.game.GetEntities(GameMatcher.Id);
             var currentId = identifiables.Any() ? identifiables.Max(x => x.id.Value) : 0;
-            entity.AddId(currentId+1);
+            entity.AddId(currentId + 1);
             return entity;
         }
 
         public static Entity SetParent(this Entity child, Entity parent)
         {
-            if(!parent.hasId)
+            if (!parent.hasId)
             {
                 parent.AddId();
             }
@@ -32,28 +33,54 @@ namespace Assets
             return entity.hasPosition && entity.hasView && target != current;
         }
 
-        public static void AddActingAction(this Entity entity, float time, Action action)
+        public static void AddActingSequence(this Entity entity, float time, Sequence action)
         {
-            var actingAction = new ActingAction(time, action);
-            Queue<ActingAction> actions;
-            if (entity.hasActingActions)
+            action.Pause();
+            var actingSequence = new ActingSequence(time, action);
+            Queue<ActingSequence> sequences;
+            if (entity.hasActingSequences)
             {
-                actions = entity.actingActions.Actions;
+                sequences = entity.actingSequences.Sequences;
             }
             else
             {
-                actions = new Queue<ActingAction>();
-                actingAction.Action();
+                sequences = new Queue<ActingSequence>();
+                actingSequence.Sequence.Play();
             }
 
-            actions.Enqueue(actingAction);
+            sequences.Enqueue(actingSequence);
 
-            entity.ReplaceActingActions(actions);
+            entity.ReplaceActingSequences(sequences);
         }
 
-        public static void AddActingAction(this Entity entity, float time)
+        public static void AddActingSequence(this Entity entity, float time, Action action)
         {
-            entity.AddActingAction(time, () => { });
+            entity.AddActingSequence(time, DOTween.Sequence().OnStart(() => action()));
+        }
+
+        public static void AddActingSequence(this Entity entity, float time)
+        {
+            entity.AddActingSequence(time, DOTween.Sequence());
+        }
+
+        public static bool IsTile(this Entity entity)
+        {
+            return entity.IsObjectType(ObjectType.Tile);
+        }
+
+        public static bool IsItem(this Entity entity)
+        {
+            return entity.IsObjectType(ObjectType.Item);
+        }
+
+        public static bool IsArea(this Entity entity)
+        {
+            return entity.IsObjectType(ObjectType.Area);
+        }
+
+        public static bool IsObjectType(this Entity entity, ObjectType type)
+        {
+            return entity.gameObject.Type == type;
         }
     }
 }

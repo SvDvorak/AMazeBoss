@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DG.Tweening;
 using Entitas;
 using Entitas.CodeGenerator;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace Assets
         Play,
         Editor
     }
-
+    
     [Game, Ui]
     public class IdComponent : IComponent
     {
@@ -31,22 +31,21 @@ namespace Assets
         public int ParentId;
     }
 
+    [SingleEntity, Game]
+    public class LevelLoaded : IComponent
+    {
+    }
+
     [Game]
     public class PositionComponent : IComponent
     {
         public TilePos Value;
     }
 
-    [Game]
-    public class MovesInARow : IComponent
+    [SingleEntity, Game]
+    public class ObjectPositionCacheComponent : IComponent
     {
-        public int Moves;
-    }
-
-    [Game]
-    public class QueuedPositionComponent : IComponent
-    {
-        public TilePos Value;
+        public Dictionary<TilePos, List<Entity>> Cache;
     }
 
     [Game]
@@ -73,7 +72,20 @@ namespace Assets
     }
 
     [Game]
-    public class TileComponent : IComponent
+    public class GameObjectComponent : IComponent
+    {
+        public ObjectType Type;
+    }
+
+    public enum ObjectType
+    {
+        Tile,
+        Item,
+        Area
+    }
+
+    [Game]
+    public class WallComponent : IComponent
     {
     }
 
@@ -100,11 +112,6 @@ namespace Assets
     }
 
     [Game]
-    public class ItemComponent : IComponent
-    {
-    }
-
-    [Game]
     public class SpikesComponent : IComponent
     {
     }
@@ -124,6 +131,22 @@ namespace Assets
     [Game]
     public class VictoryExitComponent : IComponent
     {
+    }
+
+    [Game]
+    public class ExitTriggerComponent : IComponent
+    {
+    }
+
+    [Game]
+    public class PuzzleAreaComponent : IComponent
+    {
+    }
+
+    [Game]
+    public class BossConnectionComponent : IComponent
+    {
+        public int BossId;
     }
 
     [Game]
@@ -147,17 +170,17 @@ namespace Assets
     }
 
     [Game]
-    public class SpikesCarried : IComponent
+    public class SpikesCarriedComponent : IComponent
     {
     }
 
     [Game]
-    public class Cursed : IComponent
+    public class CursedComponent : IComponent
     {
     }
 
     [Game]
-    public class CurseSwitch : IComponent
+    public class CurseSwitchComponent : IComponent
     {
     }
 
@@ -189,41 +212,20 @@ namespace Assets
     }
 
     [Game]
-    public class ActingActionsComponent : IComponent
+    public class ActingSequencesComponent : IComponent
     {
-        public Queue<ActingAction> Actions;
+        public Queue<ActingSequence> Sequences;
     }
 
-    public class ActingAction
+    public class ActingSequence
     {
         public float TimeLeft;
-        public Action Action;
+        public Sequence Sequence;
 
-        public ActingAction(float time, Action action)
+        public ActingSequence(float time, Sequence sequence)
         {
             TimeLeft = time;
-            Action = action;
-        }
-    }
-
-    [Game]
-    public class ActingTimeComponent : IComponent
-    {
-        public float TimeLeft;
-    }
-
-    [Game]
-    public class QueueActingComponent : IComponent
-    {
-        public float Time;
-        public Action Action;
-    }
-
-    public static class ActingEntityExtensions
-    {
-        public static bool IsActing(this Entity entity)
-        {
-            return entity.hasActingTime || entity.hasQueueActing;
+            Sequence = sequence;
         }
     }
 
@@ -239,8 +241,14 @@ namespace Assets
     }
 
     [SingleEntity, Game]
-    public class Levels : IComponent
+    public class LevelsComponent : IComponent
     {
         public List<string> Value;
+    }
+
+    [Game]
+    [CustomPrefix("Has")]
+    public class SetCheckpoint : IComponent
+    {
     }
 }

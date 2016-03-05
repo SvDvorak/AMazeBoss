@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Entitas;
 
 namespace Assets.LevelEditor.Preview
@@ -12,8 +11,10 @@ namespace Assets.LevelEditor.Preview
         {
             var selectedPlaceable = entities.SingleEntity().selectedPlaceable.Value;
 
-            var tileTemplates = Pool.tileTemplates.Value.Retrieve(selectedPlaceable.Maintype);
-            Pool.previewEntity.ReplaceResource(tileTemplates.Item2.First());
+            var oldPreview = GetPreviewEntity();
+            oldPreview.IsDestroyed(true);
+
+            selectedPlaceable.Do(Pool.CreateEntity()).IsPreview(true).AddPosition(oldPreview.position.Value);
         }
     }
 }

@@ -7,7 +7,6 @@ namespace Assets.Input
 {
     public class HeroInputSystem : IExecuteSystem, ISetPool
     {
-        private Group _heroGroup;
         private Group _cameraGroup;
 
         private readonly Dictionary<KeyCode, TilePos> _moveDirections = new Dictionary<KeyCode, TilePos>
@@ -18,15 +17,17 @@ namespace Assets.Input
                 { KeyCode.RightArrow, new TilePos(1, 0) }
             };
 
+        private Pool _pool;
+
         public void SetPool(Pool pool)
         {
-            _heroGroup = pool.GetGroup(GameMatcher.Hero);
+            _pool = pool;
             _cameraGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Camera, GameMatcher.Rotation));
         }
 
         public void Execute()
         {
-            var hero = _heroGroup.GetSingleEntity();
+            var hero = _pool.GetHero();
 
             if (hero.isCursed || hero.isDead)
             {

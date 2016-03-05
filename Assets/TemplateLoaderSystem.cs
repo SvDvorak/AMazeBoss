@@ -22,6 +22,7 @@ namespace Assets
             var templateNames = new TemplateNames();
             LoadTileTypeTemplates(templateNames, "Tiles/", EnumHelper.GetAsList<MainTileType>().Select(x => x.ToString()));
             LoadTileTypeTemplates(templateNames, "Items/", EnumHelper.GetAsList<ItemType>().Select(x => x.ToString()));
+            LoadTileTypeTemplates(templateNames, "Areas/", EnumHelper.GetAsList<AreaType>().Select(x => x.ToString()));
             _pool.SetTileTemplates(templateNames);
         }
 
