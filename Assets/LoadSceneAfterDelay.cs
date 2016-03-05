@@ -13,6 +13,6 @@ public class LoadSceneAfterDelay : MonoBehaviour
 
     public void LoadScene()
     {
-        SceneSetup.LoadScene("Play");
+        SceneSetup.LoadScene("MainMenu");
     }
 }
