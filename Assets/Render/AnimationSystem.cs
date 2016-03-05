@@ -32,22 +32,46 @@ namespace Assets.Render
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
 
+            Sequence sequence;
+
+            var time = MoveTime;
             var animator = entity.animator.Value;
-            var moveSequence = DOTween.Sequence()
-                .Pause()
-                .OnStart(() =>
+            if (entity.isPulling)
+            {
+                time = 1;
+                sequence = DOTween.Sequence()
+                    .Pause()
+                    .OnStart(() =>
+                    {
+                        animator.SetBool("IsPulling", true);
+                        transform.rotation = Quaternion.LookRotation(transform.position - newPosition, Vector3.up);
+                    })
+                    .AppendInterval(time)
+                    .OnComplete(() =>
+                    {
+                        animator.SetBool("IsPulling", false);
+                        transform.position = newPosition;
+                        entity.IsPulling(false);
+                    });
+            }
+            else
+            {
+                sequence = DOTween.Sequence()
+                    .Pause()
+                    .OnStart(() =>
                     {
                         animator.SetBool("IsMoving", true);
                         transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
                     })
-                .AppendInterval(MoveTime)
-                .OnComplete(() =>
+                    .AppendInterval(time)
+                    .OnComplete(() =>
                     {
                         transform.position = newPosition;
                         animator.SetBool("IsMoving", false);
                     });
+            }
 
-            entity.AddActingSequence(MoveTime, moveSequence);
+            entity.AddActingSequence(time, sequence);
         }
     }
 

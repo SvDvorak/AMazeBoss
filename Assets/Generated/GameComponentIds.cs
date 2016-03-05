@@ -46,22 +46,23 @@ public static class GameComponentIds {
     public const int ObjectPositionCache = 44;
     public const int Paused = 45;
     public const int Position = 46;
-    public const int PuzzleArea = 47;
-    public const int Rotation = 48;
-    public const int SelectedPlaceable = 49;
-    public const int SelectedPlaceablesGroup = 50;
-    public const int SetCheckpoint = 51;
-    public const int SpikesCarried = 52;
-    public const int Spikes = 53;
-    public const int SpikeTrap = 54;
-    public const int Subtype = 55;
-    public const int TargetFocusPoint = 56;
-    public const int TileTemplates = 57;
-    public const int TrapActivated = 58;
-    public const int ViewOffset = 59;
-    public const int Wall = 60;
+    public const int Pulling = 47;
+    public const int PuzzleArea = 48;
+    public const int Rotation = 49;
+    public const int SelectedPlaceable = 50;
+    public const int SelectedPlaceablesGroup = 51;
+    public const int SetCheckpoint = 52;
+    public const int SpikesCarried = 53;
+    public const int Spikes = 54;
+    public const int SpikeTrap = 55;
+    public const int Subtype = 56;
+    public const int TargetFocusPoint = 57;
+    public const int TileTemplates = 58;
+    public const int TrapActivated = 59;
+    public const int ViewOffset = 60;
+    public const int Wall = 61;
 
-    public const int TotalComponents = 61;
+    public const int TotalComponents = 62;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -111,6 +112,7 @@ public static class GameComponentIds {
         "ObjectPositionCache",
         "Paused",
         "Position",
+        "Pulling",
         "PuzzleArea",
         "Rotation",
         "SelectedPlaceable",
@@ -175,6 +177,7 @@ public static class GameComponentIds {
         typeof(Assets.ObjectPositionCacheComponent),
         typeof(Assets.LevelEditor.PausedComponent),
         typeof(Assets.PositionComponent),
+        typeof(Assets.PullingComponent),
         typeof(Assets.PuzzleAreaComponent),
         typeof(Assets.RotationComponent),
         typeof(Assets.LevelEditor.SelectedPlaceableComponent),

@@ -181,6 +181,11 @@ namespace Assets
     }
 
     [Game]
+    public class PullingComponent : IComponent
+    {
+    }
+
+    [Game]
     public class CurseSwitchComponent : IComponent
     {
     }

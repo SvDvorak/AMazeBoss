@@ -30,6 +30,7 @@ namespace Assets
                 {
                     pushableItem.ReplaceKnocked(pullDirection, true);
                     hero.ReplacePosition(newHeroPosition);
+                    hero.IsPulling(true);
                 }
             }
         }

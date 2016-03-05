@@ -6,17 +6,17 @@ namespace Entitas {
 
         public bool hasExitGate { get { return HasComponent(GameComponentIds.ExitGate); } }
 
-        public Entity AddExitGate(bool newUnlocked) {
+        public Entity AddExitGate(bool newLocked) {
             var componentPool = GetComponentPool(GameComponentIds.ExitGate);
             var component = (Assets.ExitGateComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ExitGateComponent());
-            component.Locked = newUnlocked;
+            component.Locked = newLocked;
             return AddComponent(GameComponentIds.ExitGate, component);
         }
 
-        public Entity ReplaceExitGate(bool newUnlocked) {
+        public Entity ReplaceExitGate(bool newLocked) {
             var componentPool = GetComponentPool(GameComponentIds.ExitGate);
             var component = (Assets.ExitGateComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.ExitGateComponent());
-            component.Locked = newUnlocked;
+            component.Locked = newLocked;
             ReplaceComponent(GameComponentIds.ExitGate, component);
             return this;
         }

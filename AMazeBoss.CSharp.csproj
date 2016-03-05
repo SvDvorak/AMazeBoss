@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.3.2f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -149,6 +147,7 @@
     <Compile Include="Assets\Generated\Assets.MaintypeComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ObjectPositionCacheComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PositionComponentGeneratedExtension.cs" />
+    <Compile Include="Assets\Generated\Assets.PullingComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.PuzzleAreaComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.ResourceComponentGeneratedExtension.cs" />
     <Compile Include="Assets\Generated\Assets.RotationComponentGeneratedExtension.cs" />
@@ -182,6 +181,7 @@
     <Compile Include="Assets\LevelEditor\DialogController.cs" />
     <Compile Include="Assets\LevelEditor\EditorSetup.cs" />
     <Compile Include="Assets\LevelEditor\Events.cs" />
+    <Compile Include="Assets\LevelEditor\ExitGatePlaceConnectSystem.cs" />
     <Compile Include="Assets\LevelEditor\Input\MouseInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Input\MoveCameraInputSystem.cs" />
     <Compile Include="Assets\LevelEditor\Input\RotateCameraInputSystem.cs" />
@@ -196,7 +196,6 @@
     <Compile Include="Assets\LevelEditor\PutDownPlaceableSystem.cs" />
     <Compile Include="Assets\LevelEditor\PuzzleAreaBossConnector.cs" />
     <Compile Include="Assets\LevelEditor\PuzzleAreaChangedSystem.cs" />
-    <Compile Include="Assets\LevelEditor\ExitGatePlaceConnectSystem.cs" />
     <Compile Include="Assets\LevelEditor\RemoveImpossiblyPlacedItemsSystem.cs" />
     <Compile Include="Assets\LevelEditor\RemovePlaceableSystem.cs" />
     <Compile Include="Assets\LevelEditor\SelectPlaceableSystem.cs" />
