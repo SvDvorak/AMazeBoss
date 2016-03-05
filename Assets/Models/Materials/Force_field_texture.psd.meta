@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: 59ec8362d2f12384bb08f8d5f80bce7a
+timeCreated: 1457017733
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Force_field_texture_0
+    21300002: Force_field_texture_1
+    21300004: Force_field_texture_2
+    21300006: Force_field_texture_3
+    21300008: Force_field_texture_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Force_field_texture_0
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 106
+        width: 582
+        height: 580
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 125.27251, y: 36.182503}
+        - {x: 108.27251, y: 77.1825}
+        - {x: 85.27251, y: 99.1825}
+        - {x: 61.272507, y: 116.1825}
+        - {x: 31.272507, y: 124.1825}
+        - {x: -32.727493, y: 124.1825}
+        - {x: -77.72749, y: 105.1825}
+        - {x: -103.72749, y: 76.1825}
+        - {x: -114.72749, y: 56.182503}
+        - {x: -123.72749, y: 27.182503}
+        - {x: -123.72749, y: -41.817497}
+        - {x: -96.72749, y: -84.8175}
+        - {x: -68.72749, y: -106.8175}
+        - {x: -44.727493, y: -119.8175}
+        - {x: -24.727493, y: -123.8175}
+        - {x: 28.272507, y: -123.8175}
+        - {x: 48.272507, y: -120.8175}
+        - {x: 90.27251, y: -97.8175}
+        - {x: 125.27251, y: -44.817497}
+    - name: Force_field_texture_1
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 106
+        width: 581
+        height: 580
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 120.125, y: -45.817497}
+        - {x: 125.125, y: -25.817497}
+        - {x: 125.125, y: 30.182503}
+        - {x: 116.125, y: 64.1825}
+        - {x: 84.125, y: 102.1825}
+        - {x: 60.125, y: 117.1825}
+        - {x: 22.125, y: 124.1825}
+        - {x: -30.875, y: 124.1825}
+        - {x: -79.875, y: 107.1825}
+        - {x: -119.875, y: 61.182503}
+        - {x: -123.875, y: 27.182503}
+        - {x: -123.875, y: -30.817497}
+        - {x: -109.875, y: -70.8175}
+        - {x: -67.875, y: -111.8175}
+        - {x: -31.875, y: -123.8175}
+        - {x: 28.125, y: -123.8175}
+        - {x: 47.125, y: -118.8175}
+        - {x: 77.125, y: -105.8175}
+        - {x: 113.125, y: -65.8175}
+    - name: Force_field_texture_2
+      rect:
+        serializedVersion: 2
+        x: 1699
+        y: 106
+        width: 581
+        height: 579
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 123.19879, y: -49.317497}
+        - {x: 124.19879, y: -38.317497}
+        - {x: 124.19879, y: 42.682503}
+        - {x: 115.19879, y: 64.6825}
+        - {x: 90.19879, y: 97.6825}
+        - {x: 61.19879, y: 117.6825}
+        - {x: 36.19879, y: 123.6825}
+        - {x: -36.80121, y: 123.6825}
+        - {x: -76.80121, y: 106.6825}
+        - {x: -102.80121, y: 80.6825}
+        - {x: -120.80121, y: 55.682503}
+        - {x: -123.80121, y: 27.682503}
+        - {x: -123.80121, y: -36.317497}
+        - {x: -116.80121, y: -56.317497}
+        - {x: -82.80121, y: -102.3175}
+        - {x: -52.80121, y: -116.3175}
+        - {x: -32.80121, y: -123.3175}
+        - {x: 39.19879, y: -123.3175}
+        - {x: 49.19879, y: -122.3175}
+        - {x: 82.19879, y: -99.3175}
+        - {x: 103.19879, y: -75.3175}
+        - {x: 112.19879, y: -61.317497}
+    - name: Force_field_texture_3
+      rect:
+        serializedVersion: 2
+        x: 2503
+        y: 113
+        width: 574
+        height: 572
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 123.90381, y: 41.166252}
+        - {x: 96.90381, y: 93.16625}
+        - {x: 49.90381, y: 122.16625}
+        - {x: -33.09619, y: 122.16625}
+        - {x: -56.09619, y: 112.16625}
+        - {x: -77.09619, y: 100.16625}
+        - {x: -112.09619, y: 59.166252}
+        - {x: -122.09619, y: 29.166252}
+        - {x: -122.09619, y: -27.833748}
+        - {x: -121.09619, y: -34.833748}
+        - {x: -117.09619, y: -43.833748}
+        - {x: -97.09619, y: -81.83375}
+        - {x: -62.09619, y: -107.83375}
+        - {x: -31.096191, y: -121.83375}
+        - {x: 43.90381, y: -121.83375}
+        - {x: 92.90381, y: -91.83375}
+        - {x: 112.90381, y: -59.833748}
+        - {x: 123.90381, y: -32.833748}
+    - name: Force_field_texture_4
+      rect:
+        serializedVersion: 2
+        x: 3305
+        y: 117
+        width: 567
+        height: 566
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 122.256226, y: 37.371246}
+        - {x: 111.256226, y: 64.37125}
+        - {x: 80.256226, y: 99.37125}
+        - {x: 47.256226, y: 119.37125}
+        - {x: 26.256226, y: 122.37125}
+        - {x: -29.743774, y: 122.37125}
+        - {x: -37.743774, y: 120.37125}
+        - {x: -77.743774, y: 97.37125}
+        - {x: -105.743774, y: 65.37125}
+        - {x: -120.743774, y: 31.371246}
+        - {x: -120.743774, y: -29.628754}
+        - {x: -110.743774, y: -50.628754}
+        - {x: -96.743774, y: -78.62875}
+        - {x: -54.743774, y: -113.62875}
+        - {x: -30.743774, y: -120.62875}
+        - {x: 36.256226, y: -120.62875}
+        - {x: 72.256226, y: -103.62875}
+        - {x: 111.256226, y: -62.628754}
+        - {x: 122.256226, y: -34.628754}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

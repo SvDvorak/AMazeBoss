@@ -101,7 +101,155 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Close
+      takeName: Close
+      firstFrame: -1
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_005
+        weight: 1
+      - path: Armature_005/Armature
+        weight: 1
+      - path: Armature_005/Armature/Bone_4
+        weight: 1
+      - path: Armature_005/Armature_001
+        weight: 1
+      - path: Armature_005/Armature_001/Bone_3
+        weight: 1
+      - path: Armature_005/Armature_002
+        weight: 1
+      - path: Armature_005/Armature_002/Bone_2
+        weight: 1
+      - path: Armature_005/Armature_003
+        weight: 1
+      - path: Armature_005/Armature_003/Bone_1
+        weight: 1
+      - path: Armature_005/Armature_004
+        weight: 1
+      - path: Armature_005/Armature_004/Bone_0
+        weight: 1
+      - path: Armature_005/Bone
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Cylinder_000
+        weight: 1
+      - path: Cylinder_001
+        weight: 1
+      - path: Cylinder_002
+        weight: 1
+      - path: Cylinder_003
+        weight: 1
+      - path: Cylinder_004
+        weight: 1
+      - path: Cylinder_005
+        weight: 1
+      - path: Cylinder_006
+        weight: 1
+      - path: Cylinder_007
+        weight: 1
+      - path: Cylinder_008
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Unlock
+      takeName: Unlock
+      firstFrame: -1
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_005
+        weight: 1
+      - path: Armature_005/Armature
+        weight: 1
+      - path: Armature_005/Armature/Bone_4
+        weight: 1
+      - path: Armature_005/Armature_001
+        weight: 1
+      - path: Armature_005/Armature_001/Bone_3
+        weight: 1
+      - path: Armature_005/Armature_002
+        weight: 1
+      - path: Armature_005/Armature_002/Bone_2
+        weight: 1
+      - path: Armature_005/Armature_003
+        weight: 1
+      - path: Armature_005/Armature_003/Bone_1
+        weight: 1
+      - path: Armature_005/Armature_004
+        weight: 1
+      - path: Armature_005/Armature_004/Bone_0
+        weight: 1
+      - path: Armature_005/Bone
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Cylinder_000
+        weight: 1
+      - path: Cylinder_001
+        weight: 1
+      - path: Cylinder_002
+        weight: 1
+      - path: Cylinder_003
+        weight: 1
+      - path: Cylinder_004
+        weight: 1
+      - path: Cylinder_005
+        weight: 1
+      - path: Cylinder_006
+        weight: 1
+      - path: Cylinder_007
+        weight: 1
+      - path: Cylinder_008
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

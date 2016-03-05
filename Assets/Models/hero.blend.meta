@@ -127,6 +127,7 @@ ModelImporter:
     7400016: Uncursed_Animation
     7400018: Walk_blocking
     7400020: Taking_damage
+    7400022: Menu_pose
     9500000: //RootNode
     13700000: Hero
   materials:
@@ -1404,6 +1405,144 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone
+        weight: 1
+      - path: Armature/Bone/Bottom
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Throth
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Throth/Head
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Midelfinger_Top_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Midelfinger_Top_L/Midelfinger_Midel_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Midelfinger_Top_L/Midelfinger_Midel_L/Midelfinger_botom_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Pinkyfinger_Top_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Pinkyfinger_Top_L/Pinkyfinger_Midel_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Pinkyfinger_Top_L/Pinkyfinger_Midel_L/Pinkyfinger_Botom_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Pointfinger_top_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Pointfinger_top_L/Pointfinger_midel_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Pointfinger_top_L/Pointfinger_midel_L/Pointfinger_Botom_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Ringfinger_Top_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Ringfinger_Top_L/RingFinger_midel_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Ringfinger_Top_L/RingFinger_midel_L/Ringfinger_Botom_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Upper_thumb_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_L/Under_arm_L/Hand_L/Upper_thumb_L/Lower_Thumb_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Midelfinger_Top_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Midelfinger_Top_R/Midelfinger_Midel_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Midelfinger_Top_R/Midelfinger_Midel_R/Midelfinger_botom_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Pinkyfinger_Top_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Pinkyfinger_Top_R/Pinkyfinger_Midel_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Pinkyfinger_Top_R/Pinkyfinger_Midel_R/Pinkyfinger_Botom_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Pointfinger_top_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Pointfinger_top_R/Pointfinger_midel_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Pointfinger_top_R/Pointfinger_midel_R/Pointfinger_Botom_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Ringfinger_Top_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Ringfinger_Top_R/RingFinger_midel_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Ringfinger_Top_R/RingFinger_midel_R/Ringfinger_Botom_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Upper_thumb_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Chest/Upper_arm_R/Under_arm_R/Hand_R/Upper_thumb_R/Lower_Thumb_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Upper_leg_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Upper_leg_L/Down_leg_L
+        weight: 1
+      - path: Armature/Bone/Bottom/Upper_leg_R
+        weight: 1
+      - path: Armature/Bone/Bottom/Upper_leg_R/Down_leg_R
+        weight: 1
+      - path: Armature/Bone/Leg_control_L
+        weight: 1
+      - path: Armature/Bone/Leg_control_L/Feet_L
+        weight: 1
+      - path: Armature/Bone/Leg_control_L/Feet_L/Toes_L
+        weight: 1
+      - path: Armature/Bone/Leg_control_R
+        weight: 1
+      - path: Armature/Bone/Leg_control_R/Feet_R
+        weight: 1
+      - path: Armature/Bone/Leg_control_R/Feet_R/Toes_R
+        weight: 1
+      - path: Armature/Bone/Upper_leg_Pole_Target_L
+        weight: 1
+      - path: Armature/Bone/Upper_leg_Pole_Target_R
+        weight: 1
+      - path: Armature/Bone_001
+        weight: 1
+      - path: Hero
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Menu_pose
+      takeName: Menu_pose
+      firstFrame: -1
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
