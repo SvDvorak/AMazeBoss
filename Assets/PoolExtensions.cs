@@ -9,7 +9,7 @@ namespace Assets
     {
         public static UnityEngine.Camera GetCamera(this Pool pool)
         {
-            var cameras = Pools.game.GetEntities(GameMatcher.Camera);
+            var cameras = pool.GetEntities(GameMatcher.Camera);
             return cameras.SingleEntity().camera.Value;
         }
 
