@@ -48,23 +48,24 @@ public static class GameComponentIds {
     public const int Paused = 46;
     public const int Position = 47;
     public const int Pulling = 48;
-    public const int PuzzleArea = 49;
-    public const int Rocked = 50;
-    public const int Rotation = 51;
-    public const int SelectedPlaceable = 52;
-    public const int SelectedPlaceablesGroup = 53;
-    public const int SetCheckpoint = 54;
-    public const int SpikesCarried = 55;
-    public const int Spikes = 56;
-    public const int SpikeTrap = 57;
-    public const int Subtype = 58;
-    public const int TargetFocusPoint = 59;
-    public const int TileTemplates = 60;
-    public const int TrapActivated = 61;
-    public const int ViewOffset = 62;
-    public const int Wall = 63;
+    public const int Pushing = 49;
+    public const int PuzzleArea = 50;
+    public const int Rocked = 51;
+    public const int Rotation = 52;
+    public const int SelectedPlaceable = 53;
+    public const int SelectedPlaceablesGroup = 54;
+    public const int SetCheckpoint = 55;
+    public const int SpikesCarried = 56;
+    public const int Spikes = 57;
+    public const int SpikeTrap = 58;
+    public const int Subtype = 59;
+    public const int TargetFocusPoint = 60;
+    public const int TileTemplates = 61;
+    public const int TrapActivated = 62;
+    public const int ViewOffset = 63;
+    public const int Wall = 64;
 
-    public const int TotalComponents = 64;
+    public const int TotalComponents = 65;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -116,6 +117,7 @@ public static class GameComponentIds {
         "Paused",
         "Position",
         "Pulling",
+        "Pushing",
         "PuzzleArea",
         "Rocked",
         "Rotation",
@@ -183,6 +185,7 @@ public static class GameComponentIds {
         typeof(Assets.LevelEditor.PausedComponent),
         typeof(Assets.PositionComponent),
         typeof(Assets.PullingComponent),
+        typeof(Assets.PushingComponent),
         typeof(Assets.PuzzleAreaComponent),
         typeof(Assets.RockedComponent),
         typeof(Assets.RotationComponent),

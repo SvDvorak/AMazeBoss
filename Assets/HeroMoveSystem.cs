@@ -32,7 +32,8 @@ namespace Assets
             }
             else if (pushableItem != null)
             {
-                pushableItem.ReplaceKnocked(moveDirection, true, 0);
+                pushableItem.ReplaceKnocked(moveDirection, true, 0.25f);
+                hero.IsPushing(true);
                 hero.ReplacePosition(newPosition);
                 hero.ReplaceRotation(LocalDirections.ToRotation(moveDirection));
             }

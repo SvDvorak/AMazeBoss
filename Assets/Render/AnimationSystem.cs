@@ -60,9 +60,20 @@ namespace Assets.Render
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
 
+            var animationAction = "IsMoving";
+            var time = MoveTime;
+            if (entity.isPushing)
+            {
+                animationAction = "IsPushing";
+                time = MoveTime*2;
+            }
+            else if (entity.isPulling)
+            {
+                animationAction = "IsPulling";
+                time = MoveTime*1.5f;
+            }
+
             var animator = entity.animator.Value;
-            var animationAction = entity.isPulling ? "IsPulling" : "IsMoving";
-            var time = entity.isPulling ? MoveTime * 2 : MoveTime;
             var sequence = DOTween.Sequence()
                 .Pause()
                 .OnStart(() => animator.SetBool(animationAction, true))

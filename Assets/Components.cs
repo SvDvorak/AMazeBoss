@@ -198,6 +198,11 @@ namespace Assets
     }
 
     [Game]
+    public class PushingComponent : IComponent
+    {
+    }
+
+    [Game]
     public class CurseSwitchComponent : IComponent
     {
     }
