@@ -65,12 +65,12 @@ namespace Assets.Render
             if (entity.isPushing)
             {
                 animationAction = "IsPushing";
-                time = MoveTime*2;
+                time = 0.7f;
             }
             else if (entity.isPulling)
             {
                 animationAction = "IsPulling";
-                time = MoveTime*1.5f;
+                time = 0.9f;
             }
 
             var animator = entity.animator.Value;

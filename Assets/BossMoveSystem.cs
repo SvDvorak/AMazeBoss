@@ -67,7 +67,7 @@ namespace Assets
 
                 boss.ReplacePosition(nextStep.Position);
 
-                var knockedObjectInFront = KnockObjectsInFront(nextStep.Position, nextStep.Direction);
+                var knockedObjectInFront = _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction, false, 0.4f);
                 if(knockedObjectInFront)
                 {
                     boss.HasBumpedIntoObject(true);
@@ -81,17 +81,6 @@ namespace Assets
             }
 
             boss.ReplaceRotation(LocalDirections.ToRotation(nextStep.Direction));
-        }
-
-        public bool KnockObjectsInFront(TilePos position, TilePos forwardDirection)
-        {
-            var knockable = _pool.GetEntityAt(position + forwardDirection, x => x.isBlockingTile);
-            if (knockable != null)
-            {
-                knockable.ReplaceKnocked(forwardDirection, false, 0.4f);
-                return true;
-            }
-            return false;
         }
 
         private void DrawBossPath(Path path)
