@@ -88,6 +88,25 @@ namespace Assets.Render
         }
     }
 
+    public class ItemCarryAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return GameMatcher.SpikesCarried.OnEntityAddedOrRemoved(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                var animator = entity.animator.Value;
+                var isSpikesCarried = entity.isSpikesCarried;
+                entity.AddActingSequence(0.75f, () =>
+                    {
+                        animator.SetBool("Pickup", isSpikesCarried);
+                        animator.SetTrigger("ItemInteract");
+                    });
+            }
+        }
+    }
+
     public class TrapLoadedAnimationSystem : AnimationSystem, IReactiveSystem
     {
         public TriggerOnEvent trigger { get { return GameMatcher.Loaded.OnEntityAddedOrRemoved(); } }
