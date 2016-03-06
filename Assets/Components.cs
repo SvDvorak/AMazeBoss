@@ -126,6 +126,7 @@ namespace Assets
     {
         public TilePos FromDirection;
         public bool Immediate;
+        public float Wait;
     }
 
     [Game]
@@ -162,6 +163,12 @@ namespace Assets
 
     [Game]
     public class AttackingComponent : IComponent
+    {
+    }
+
+    [Game]
+    [CustomPrefix("Has")]
+    public class BumpedIntoObject : IComponent
     {
     }
 

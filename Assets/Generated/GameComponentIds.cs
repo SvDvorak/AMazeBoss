@@ -16,53 +16,54 @@ public static class GameComponentIds {
     public const int Boss = 14;
     public const int BossConnection = 15;
     public const int Box = 16;
-    public const int Camera = 17;
-    public const int Character = 18;
-    public const int CurrentFocusPoint = 19;
-    public const int Cursed = 20;
-    public const int CurseSwitch = 21;
-    public const int Dead = 22;
-    public const int Dynamic = 23;
-    public const int EditorViewMode = 24;
-    public const int ExitGate = 25;
-    public const int ExitTrigger = 26;
-    public const int GameObject = 27;
-    public const int Health = 28;
-    public const int HealthVisual = 29;
-    public const int Hero = 30;
-    public const int Input = 31;
-    public const int InputCurseSwitch = 32;
-    public const int InputItemInteract = 33;
-    public const int InputMove = 34;
-    public const int InputPlace = 35;
-    public const int InputPullItem = 36;
-    public const int InputQueue = 37;
-    public const int InputRemove = 38;
-    public const int Knocked = 39;
-    public const int LevelLoaded = 40;
-    public const int Levels = 41;
-    public const int Loaded = 42;
-    public const int Maintype = 43;
-    public const int ObjectPositionCache = 44;
-    public const int Paused = 45;
-    public const int Position = 46;
-    public const int Pulling = 47;
-    public const int PuzzleArea = 48;
-    public const int Rotation = 49;
-    public const int SelectedPlaceable = 50;
-    public const int SelectedPlaceablesGroup = 51;
-    public const int SetCheckpoint = 52;
-    public const int SpikesCarried = 53;
-    public const int Spikes = 54;
-    public const int SpikeTrap = 55;
-    public const int Subtype = 56;
-    public const int TargetFocusPoint = 57;
-    public const int TileTemplates = 58;
-    public const int TrapActivated = 59;
-    public const int ViewOffset = 60;
-    public const int Wall = 61;
+    public const int BumpedIntoObject = 17;
+    public const int Camera = 18;
+    public const int Character = 19;
+    public const int CurrentFocusPoint = 20;
+    public const int Cursed = 21;
+    public const int CurseSwitch = 22;
+    public const int Dead = 23;
+    public const int Dynamic = 24;
+    public const int EditorViewMode = 25;
+    public const int ExitGate = 26;
+    public const int ExitTrigger = 27;
+    public const int GameObject = 28;
+    public const int Health = 29;
+    public const int HealthVisual = 30;
+    public const int Hero = 31;
+    public const int Input = 32;
+    public const int InputCurseSwitch = 33;
+    public const int InputItemInteract = 34;
+    public const int InputMove = 35;
+    public const int InputPlace = 36;
+    public const int InputPullItem = 37;
+    public const int InputQueue = 38;
+    public const int InputRemove = 39;
+    public const int Knocked = 40;
+    public const int LevelLoaded = 41;
+    public const int Levels = 42;
+    public const int Loaded = 43;
+    public const int Maintype = 44;
+    public const int ObjectPositionCache = 45;
+    public const int Paused = 46;
+    public const int Position = 47;
+    public const int Pulling = 48;
+    public const int PuzzleArea = 49;
+    public const int Rotation = 50;
+    public const int SelectedPlaceable = 51;
+    public const int SelectedPlaceablesGroup = 52;
+    public const int SetCheckpoint = 53;
+    public const int SpikesCarried = 54;
+    public const int Spikes = 55;
+    public const int SpikeTrap = 56;
+    public const int Subtype = 57;
+    public const int TargetFocusPoint = 58;
+    public const int TileTemplates = 59;
+    public const int TrapActivated = 60;
+    public const int ViewOffset = 61;
+    public const int Wall = 62;
 
-    public const int TotalComponents = 62;
+    public const int TotalComponents = 63;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -82,6 +83,7 @@ public static class GameComponentIds {
         "Boss",
         "BossConnection",
         "Box",
+        "BumpedIntoObject",
         "Camera",
         "Character",
         "CurrentFocusPoint",
@@ -147,6 +149,7 @@ public static class GameComponentIds {
         typeof(Assets.BossComponent),
         typeof(Assets.BossConnectionComponent),
         typeof(Assets.BoxComponent),
+        typeof(Assets.BumpedIntoObject),
         typeof(Assets.Camera.CameraComponent),
         typeof(Assets.CharacterComponent),
         typeof(Assets.Camera.CurrentFocusPointComponent),

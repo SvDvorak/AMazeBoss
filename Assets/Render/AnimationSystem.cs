@@ -26,6 +26,20 @@ namespace Assets.Render
         }
     }
 
+    public class BumpIntoObjectAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return GameMatcher.BumpedIntoObject.OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                var animator = entity.animator.Value;
+                entity.AddActingSequence(0.75f, () => animator.SetTrigger("BumpedIntoObject"));
+            }
+        }
+    }
+
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
         public const float MoveTime = 0.5f;
@@ -146,7 +160,7 @@ namespace Assets.Render
                 character.AddActingSequence(1, DOTween.Sequence()
                     .OnStart( () => animator.SetTrigger("Attack"))
                     .AppendInterval(0.3f)
-                    .AppendCallback(() => camera.transform.DOShakeRotation(0.7f, 1.5f, 30, 7)));
+                    .AppendCallback(() => camera.transform.DOShakeRotation(0.6f, 3f, 20, 7)));
             }
         }
     }
@@ -210,6 +224,7 @@ namespace Assets.Render
             var camera = _pool.GetCamera();
             var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
             var sequence = DOTween.Sequence()
+                .AppendInterval(entity.knocked.Wait)
                 .Append(transform.DORotate(-rotationDirection * 90, time, RotateMode.WorldAxisAdd))
                 .Join(transform.DOMove(moveDirection, time)
                     .SetRelative(true))

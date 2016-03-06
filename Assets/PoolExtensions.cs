@@ -72,13 +72,15 @@ namespace Assets
             return entitiesAtPosition.Any(x => x.gameObject.Type == ObjectType.Tile) && entitiesAtPosition.All(x => !x.isBlockingTile);
         }
 
-        public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection)
+        public static bool KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection)
         {
             var pushableItem = pool.PushableItemAt(position + forwardDirection, forwardDirection);
             if (pushableItem != null)
             {
-                pushableItem.ReplaceKnocked(forwardDirection, false);
+                pushableItem.ReplaceKnocked(forwardDirection, false, 0.4f);
+                return true;
             }
+            return false;
         }
 
         public static Entity PushableItemAt(this Pool pool, TilePos position, TilePos moveDirection)
