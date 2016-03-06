@@ -12,6 +12,20 @@ namespace Assets.Render
         public virtual IMatcher ensureComponents { get { return GameMatcher.Animator; } }
     }
 
+    public class RotationAnimationSystem : IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.View, GameMatcher.Rotation).OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                var transform = entity.view.Value.transform;
+                transform.rotation = Quaternion.LookRotation(LocalDirections.ToDirection(entity.rotation.Value).ToV3(), Vector3.up);
+            }
+        }
+    }
+
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
         public const float MoveTime = 0.5f;
@@ -44,7 +58,6 @@ namespace Assets.Render
                     .OnStart(() =>
                     {
                         animator.SetBool("IsPulling", true);
-                        transform.rotation = Quaternion.LookRotation(transform.position - newPosition, Vector3.up);
                     })
                     .AppendInterval(time)
                     .OnComplete(() =>
@@ -61,7 +74,6 @@ namespace Assets.Render
                     .OnStart(() =>
                     {
                         animator.SetBool("IsMoving", true);
-                        transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
                     })
                     .AppendInterval(time)
                     .OnComplete(() =>
@@ -184,7 +196,7 @@ namespace Assets.Render
         }
     }
 
-    public class BoxKnockAnimationSystem : IInitializeSystem, ISetPool
+    public class BoxMovedAnimationSystem : IInitializeSystem, ISetPool
     {
         private readonly float _startHeight = 1 - Mathf.Sin(45 * Mathf.Deg2Rad);
         private Group _boxGroup;
