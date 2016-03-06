@@ -19,6 +19,8 @@ namespace Assets
                 .GetEntities()
                 .ForEach(x =>
                 {
+                    x.isAttacking = false;
+                    x.isPulling = false;
                     x.isInputItemInteract = false;
                     x.isInputCurseSwitch = false;
                 });

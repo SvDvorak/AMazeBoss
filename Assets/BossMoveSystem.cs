@@ -66,7 +66,6 @@ namespace Assets
                 }
 
                 boss.ReplacePosition(nextStep.Position);
-                boss.ReplaceRotation(LocalDirections.ToRotation(nextStep.Direction));
 
                 _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction);
             }
@@ -76,6 +75,8 @@ namespace Assets
                 hero.ReplaceHealth(hero.health.Value - 1);
                 _pool.SwitchCurse();
             }
+
+            boss.ReplaceRotation(LocalDirections.ToRotation(nextStep.Direction));
         }
 
         private void DrawBossPath(Path path)

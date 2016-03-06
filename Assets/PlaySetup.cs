@@ -114,12 +114,13 @@ namespace Assets
         public static Systems AddAnimationSystems(this Systems systems, Pool pool)
         {
             return systems
+                .Add(pool.CreateSystem<RotationAnimationSystem>())
                 .Add(pool.CreateSystem<MoveAnimationSystem>())
                 .Add(pool.CreateSystem<TrapLoadedAnimationSystem>())
                 .Add(pool.CreateSystem<TrapActivatedAnimationSystem>())
                 .Add(pool.CreateSystem<CurseSwitchActivatedAnimationSystem>())
                 .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
-                .Add(pool.CreateSystem<BoxKnockAnimationSystem>())
+                .Add(pool.CreateSystem<BoxMovedAnimationSystem>())
                 .Add(pool.CreateSystem<AttackAnimationSystem>())
                 .Add(pool.CreateSystem<DeathAnimationSystem>())
                 .Add(pool.CreateSystem<ExitGateAnimationSystem>())

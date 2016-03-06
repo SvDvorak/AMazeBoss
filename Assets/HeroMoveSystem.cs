@@ -28,11 +28,13 @@ namespace Assets
             if (canMoveTo && !(hero.isSpikesCarried && !stillInsideSamePuzzle))
             {
                 hero.ReplacePosition(newPosition);
+                hero.ReplaceRotation(LocalDirections.ToRotation(moveDirection));
             }
             else if (pushableItem != null)
             {
                 pushableItem.ReplaceKnocked(moveDirection, true);
                 hero.ReplacePosition(newPosition);
+                hero.ReplaceRotation(LocalDirections.ToRotation(moveDirection));
             }
         }
     }

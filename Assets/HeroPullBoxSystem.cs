@@ -28,8 +28,9 @@ namespace Assets
                 var playerHasOpenSpaceToMoveTo = _pool.OpenTileAt(newHeroPosition);
                 if (playerHasOpenSpaceToMoveTo)
                 {
-                    pushableItem.ReplaceKnocked(pullDirection, true);
+                    pushableItem.ReplaceKnocked(pullDirection, false);
                     hero.ReplacePosition(newHeroPosition);
+                    hero.ReplaceRotation(LocalDirections.ToRotation(-pullDirection));
                     hero.IsPulling(true);
                 }
             }

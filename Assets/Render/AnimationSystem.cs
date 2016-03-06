@@ -12,6 +12,20 @@ namespace Assets.Render
         public virtual IMatcher ensureComponents { get { return GameMatcher.Animator; } }
     }
 
+    public class RotationAnimationSystem : IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.View, GameMatcher.Rotation).OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                var transform = entity.view.Value.transform;
+                transform.rotation = Quaternion.LookRotation(LocalDirections.ToDirection(entity.rotation.Value).ToV3(), Vector3.up);
+            }
+        }
+    }
+
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
         public const float MoveTime = 0.5f;
@@ -32,44 +46,18 @@ namespace Assets.Render
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
 
-            Sequence sequence;
-
-            var time = MoveTime;
             var animator = entity.animator.Value;
-            if (entity.isPulling)
-            {
-                time = 1;
-                sequence = DOTween.Sequence()
-                    .Pause()
-                    .OnStart(() =>
-                    {
-                        animator.SetBool("IsPulling", true);
-                        transform.rotation = Quaternion.LookRotation(transform.position - newPosition, Vector3.up);
-                    })
-                    .AppendInterval(time)
-                    .OnComplete(() =>
-                    {
-                        animator.SetBool("IsPulling", false);
-                        transform.position = newPosition;
-                        entity.IsPulling(false);
-                    });
-            }
-            else
-            {
-                sequence = DOTween.Sequence()
-                    .Pause()
-                    .OnStart(() =>
-                    {
-                        animator.SetBool("IsMoving", true);
-                        transform.rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
-                    })
-                    .AppendInterval(time)
-                    .OnComplete(() =>
-                    {
-                        transform.position = newPosition;
-                        animator.SetBool("IsMoving", false);
-                    });
-            }
+            var animationAction = entity.isPulling ? "IsPulling" : "IsMoving";
+            var time = entity.isPulling ? MoveTime * 2 : MoveTime;
+            var sequence = DOTween.Sequence()
+                .Pause()
+                .OnStart(() => animator.SetBool(animationAction, true))
+                .AppendInterval(time)
+                .OnComplete(() =>
+                {
+                    transform.position = newPosition;
+                    animator.SetBool(animationAction, false);
+                });
 
             entity.AddActingSequence(time, sequence);
         }
@@ -139,16 +127,26 @@ namespace Assets.Render
         }
     }
 
-    public class AttackAnimationSystem : AnimationSystem, IReactiveSystem
+    public class AttackAnimationSystem : AnimationSystem, IReactiveSystem, ISetPool
     {
+        private Pool _pool;
         public TriggerOnEvent trigger { get { return Matcher.AllOf(GameMatcher.Boss, GameMatcher.Attacking).OnEntityAdded(); } }
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
 
         public void Execute(List<Entity> entities)
         {
-            foreach (var boss in entities)
+            var camera = _pool.GetCamera();
+            foreach (var character in entities)
             {
-                var animator = boss.animator.Value;
-                boss.AddActingSequence(1, () => animator.SetTrigger("Attack"));
+                var animator = character.animator.Value;
+                character.AddActingSequence(1, DOTween.Sequence()
+                    .OnStart( () => animator.SetTrigger("Attack"))
+                    .AppendInterval(0.3f)
+                    .AppendCallback(() => camera.transform.DOShakeRotation(0.7f, 1.5f, 30, 7)));
             }
         }
     }
@@ -184,15 +182,15 @@ namespace Assets.Render
         }
     }
 
-    public class BoxKnockAnimationSystem : IInitializeSystem, ISetPool
+    public class BoxMovedAnimationSystem : IInitializeSystem, ISetPool
     {
         private readonly float _startHeight = 1 - Mathf.Sin(45 * Mathf.Deg2Rad);
         private Group _boxGroup;
-        private Group _cameraGroup;
+        private Pool _pool;
 
         public void SetPool(Pool pool)
         {
-            _cameraGroup = pool.GetGroup(GameMatcher.Camera);
+            _pool = pool;
             _boxGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Box, GameMatcher.View, GameMatcher.Position));
         }
 
@@ -200,41 +198,29 @@ namespace Assets.Render
         {
             _boxGroup.OnEntityUpdated +=
                 (group, entity, index, oldComponent, newComponent) =>
-                    DoKnockAnimation(entity, oldComponent as PositionComponent, newComponent as PositionComponent);
+                    DoRollAnimation(entity, oldComponent as PositionComponent, newComponent as PositionComponent);
         }
 
-        private void DoKnockAnimation(Entity entity, PositionComponent oldPosition, PositionComponent newPosition)
+        private void DoRollAnimation(Entity entity, PositionComponent oldPosition, PositionComponent newPosition)
         {
             var moveDirection = (newPosition.Value - oldPosition.Value).ToV3();
             var transform = entity.view.Value.transform;
 
             const float time = 0.5f;
-            var cameraView = _cameraGroup.GetSingleEntity().view.Value;
-            Action animationAction = () =>
-                {
-                    StartAnimation(transform, moveDirection, time);
-                    cameraView.transform.DOShakeRotation(0.3f, 1, 20, 3);
-                };
-
-            if (entity.knocked.Immediate)
-            {
-                animationAction();
-            }
-            else
-            {
-                entity.AddActingSequence(MoveAnimationSystem.MoveTime);
-                entity.AddActingSequence(time, animationAction);
-            }
-        }
-
-        private void StartAnimation(Transform transform, Vector3 moveDirection, float time)
-        {
+            var camera = _pool.GetCamera();
             var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
-            DOTween.Sequence()
+            var sequence = DOTween.Sequence()
                 .Append(transform.DORotate(-rotationDirection * 90, time, RotateMode.WorldAxisAdd))
                 .Join(transform.DOMove(moveDirection, time)
                     .SetRelative(true))
+                .Join(camera.transform.DOShakeRotation(0.3f, 1, 20, 3))
                 .OnUpdate(() => UpdateVerticalMove(transform));
+
+            if (!entity.knocked.Immediate)
+            {
+                entity.AddActingSequence(MoveAnimationSystem.MoveTime);
+                entity.AddActingSequence(time, sequence);
+            }
         }
 
         private void UpdateVerticalMove(Transform transform)
