@@ -69,7 +69,7 @@ namespace Assets
         public static bool OpenTileAt(this Pool pool, TilePos position)
         {
             var entitiesAtPosition = pool.GetEntitiesAt(position).ToList();
-            return entitiesAtPosition.Count > 0 && entitiesAtPosition.All(x => !x.isBlockingTile);
+            return entitiesAtPosition.Any(x => x.gameObject.Type == ObjectType.Tile) && entitiesAtPosition.All(x => !x.isBlockingTile);
         }
 
         public static void KnockObjectsInFront(this Pool pool, TilePos position, TilePos forwardDirection)
