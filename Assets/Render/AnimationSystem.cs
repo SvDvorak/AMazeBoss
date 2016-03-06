@@ -198,21 +198,55 @@ namespace Assets.Render
 
     public class BoxMovedAnimationSystem : IInitializeSystem, ISetPool
     {
-        private readonly float _startHeight = 1 - Mathf.Sin(45 * Mathf.Deg2Rad);
-        private Group _boxGroup;
+        // TODO: Why do I need to adjust height?
+        private const float WeirdOffset = 0.15f;
+        private readonly float _startHeight = 1 - Mathf.Sin(45*Mathf.Deg2Rad) - WeirdOffset;
+        private Group _movedBoxGroup;
+        private Group _rockedBoxGroup;
         private Pool _pool;
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
-            _boxGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Box, GameMatcher.View, GameMatcher.Position));
+            _movedBoxGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Box, GameMatcher.View, GameMatcher.Position));
+            _rockedBoxGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Box, GameMatcher.View, GameMatcher.Knocked, GameMatcher.Rocked));
         }
 
         public void Initialize()
         {
-            _boxGroup.OnEntityUpdated +=
+            _movedBoxGroup.OnEntityUpdated +=
                 (group, entity, index, oldComponent, newComponent) =>
                     DoRollAnimation(entity, oldComponent as PositionComponent, newComponent as PositionComponent);
+            _rockedBoxGroup.OnEntityAdded += (group, entity, index, newComponent) => DoRockAnimation(entity);
+        }
+
+        private void DoRockAnimation(Entity entity)
+        {
+            var moveDirection = entity.knocked.FromDirection.ToV3();
+            var transform = entity.view.Value.transform;
+
+            const float time = 0.5f;
+            var camera = _pool.GetCamera();
+            var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
+            // TODO: This looks like shit
+            var sequence = DOTween.Sequence()
+                .AppendInterval(entity.knocked.Wait)
+                .Append(transform.DORotate(-rotationDirection / 8 * 90, time / 4, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(moveDirection / 8, time / 4).SetRelative())
+                .Join(camera.transform.DOShakeRotation(0.2f, 0.7f, 20, 3))
+                .Append(transform.DORotate(rotationDirection / 8 * 90, time / 4, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(-moveDirection / 8, time / 4).SetRelative())
+                .Append(transform.DORotate(rotationDirection / 16 * 90, time / 4, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(-moveDirection / 16, time / 4).SetRelative())
+                .Append(transform.DORotate(-rotationDirection / 16 * 90, time / 4, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(moveDirection / 16, time / 4).SetRelative())
+                .OnUpdate(() => UpdateVerticalMove(transform));
+
+            if (!entity.knocked.Immediate)
+            {
+                entity.AddActingSequence(MoveAnimationSystem.MoveTime);
+                entity.AddActingSequence(time, sequence);
+            }
         }
 
         private void DoRollAnimation(Entity entity, PositionComponent oldPosition, PositionComponent newPosition)

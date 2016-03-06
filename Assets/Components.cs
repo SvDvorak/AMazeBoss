@@ -130,6 +130,11 @@ namespace Assets
     }
 
     [Game]
+    public class RockedComponent : IComponent
+    {
+    }
+
+    [Game]
     public class ExitGateComponent : IComponent
     {
         public bool Locked;

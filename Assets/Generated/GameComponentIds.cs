@@ -49,21 +49,22 @@ public static class GameComponentIds {
     public const int Position = 47;
     public const int Pulling = 48;
     public const int PuzzleArea = 49;
-    public const int Rotation = 50;
-    public const int SelectedPlaceable = 51;
-    public const int SelectedPlaceablesGroup = 52;
-    public const int SetCheckpoint = 53;
-    public const int SpikesCarried = 54;
-    public const int Spikes = 55;
-    public const int SpikeTrap = 56;
-    public const int Subtype = 57;
-    public const int TargetFocusPoint = 58;
-    public const int TileTemplates = 59;
-    public const int TrapActivated = 60;
-    public const int ViewOffset = 61;
-    public const int Wall = 62;
+    public const int Rocked = 50;
+    public const int Rotation = 51;
+    public const int SelectedPlaceable = 52;
+    public const int SelectedPlaceablesGroup = 53;
+    public const int SetCheckpoint = 54;
+    public const int SpikesCarried = 55;
+    public const int Spikes = 56;
+    public const int SpikeTrap = 57;
+    public const int Subtype = 58;
+    public const int TargetFocusPoint = 59;
+    public const int TileTemplates = 60;
+    public const int TrapActivated = 61;
+    public const int ViewOffset = 62;
+    public const int Wall = 63;
 
-    public const int TotalComponents = 63;
+    public const int TotalComponents = 64;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -116,6 +117,7 @@ public static class GameComponentIds {
         "Position",
         "Pulling",
         "PuzzleArea",
+        "Rocked",
         "Rotation",
         "SelectedPlaceable",
         "SelectedPlaceablesGroup",
@@ -182,6 +184,7 @@ public static class GameComponentIds {
         typeof(Assets.PositionComponent),
         typeof(Assets.PullingComponent),
         typeof(Assets.PuzzleAreaComponent),
+        typeof(Assets.RockedComponent),
         typeof(Assets.RotationComponent),
         typeof(Assets.LevelEditor.SelectedPlaceableComponent),
         typeof(Assets.LevelEditor.SelectedPlaceablesGroupComponent),

@@ -22,6 +22,7 @@ namespace Assets
                     x.isAttacking = false;
                     x.isPulling = false;
                     x.hasBumpedIntoObject = false;
+                    x.isRocked = false;
                     x.isInputItemInteract = false;
                     x.isInputCurseSwitch = false;
                 });
