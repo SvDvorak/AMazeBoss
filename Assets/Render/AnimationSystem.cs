@@ -158,7 +158,7 @@ namespace Assets.Render
             {
                 var animator = character.animator.Value;
                 character.AddActingSequence(1, DOTween.Sequence()
-                    .OnStart( () => animator.SetTrigger("Attack"))
+                    .OnStart(() => animator.SetTrigger("Attack"))
                     .AppendInterval(0.3f)
                     .AppendCallback(() => camera.transform.DOShakeRotation(0.6f, 3f, 20, 7)));
             }
