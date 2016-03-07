@@ -67,7 +67,11 @@ namespace Assets
 
                 boss.ReplacePosition(nextStep.Position);
 
-                _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction);
+                var knockedObjectInFront = _pool.KnockObjectsInFront(nextStep.Position, nextStep.Direction, false, 0.4f);
+                if(knockedObjectInFront)
+                {
+                    boss.HasBumpedIntoObject(true);
+                }
             }
             else
             {

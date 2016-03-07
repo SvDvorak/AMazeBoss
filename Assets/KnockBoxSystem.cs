@@ -26,6 +26,10 @@ namespace Assets
                 {
                     box.ReplacePosition(pushedToPosition);
                 }
+                else
+                {
+                    box.IsRocked(true);
+                }
             }
         }
     }

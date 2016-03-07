@@ -26,6 +26,20 @@ namespace Assets.Render
         }
     }
 
+    public class BumpIntoObjectAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return GameMatcher.BumpedIntoObject.OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                var animator = entity.animator.Value;
+                entity.AddActingSequence(0.75f, () => animator.SetTrigger("BumpedIntoObject"));
+            }
+        }
+    }
+
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
         public const float MoveTime = 0.5f;
@@ -46,9 +60,20 @@ namespace Assets.Render
             var transform = entity.view.Value.transform;
             var newPosition = entity.position.Value.ToV3() + entity.viewOffset.Value;
 
+            var animationAction = "IsMoving";
+            var time = MoveTime;
+            if (entity.isPushing)
+            {
+                animationAction = "IsPushing";
+                time = 0.7f;
+            }
+            else if (entity.isPulling)
+            {
+                animationAction = "IsPulling";
+                time = 0.9f;
+            }
+
             var animator = entity.animator.Value;
-            var animationAction = entity.isPulling ? "IsPulling" : "IsMoving";
-            var time = entity.isPulling ? MoveTime * 2 : MoveTime;
             var sequence = DOTween.Sequence()
                 .Pause()
                 .OnStart(() => animator.SetBool(animationAction, true))
@@ -60,6 +85,25 @@ namespace Assets.Render
                 });
 
             entity.AddActingSequence(time, sequence);
+        }
+    }
+
+    public class ItemCarryAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return GameMatcher.SpikesCarried.OnEntityAddedOrRemoved(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                var animator = entity.animator.Value;
+                var isSpikesCarried = entity.isSpikesCarried;
+                entity.AddActingSequence(0.75f, () =>
+                    {
+                        animator.SetBool("Pickup", isSpikesCarried);
+                        animator.SetTrigger("ItemInteract");
+                    });
+            }
         }
     }
 
@@ -144,9 +188,9 @@ namespace Assets.Render
             {
                 var animator = character.animator.Value;
                 character.AddActingSequence(1, DOTween.Sequence()
-                    .OnStart( () => animator.SetTrigger("Attack"))
+                    .OnStart(() => animator.SetTrigger("Attack"))
                     .AppendInterval(0.3f)
-                    .AppendCallback(() => camera.transform.DOShakeRotation(0.7f, 1.5f, 30, 7)));
+                    .AppendCallback(() => camera.transform.DOShakeRotation(0.6f, 3f, 20, 7)));
             }
         }
     }
@@ -184,21 +228,55 @@ namespace Assets.Render
 
     public class BoxMovedAnimationSystem : IInitializeSystem, ISetPool
     {
-        private readonly float _startHeight = 1 - Mathf.Sin(45 * Mathf.Deg2Rad);
-        private Group _boxGroup;
+        // TODO: Why do I need to adjust height?
+        private const float WeirdOffset = 0.15f;
+        private readonly float _startHeight = 1 - Mathf.Sin(45*Mathf.Deg2Rad) - WeirdOffset;
+        private Group _movedBoxGroup;
+        private Group _rockedBoxGroup;
         private Pool _pool;
 
         public void SetPool(Pool pool)
         {
             _pool = pool;
-            _boxGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Box, GameMatcher.View, GameMatcher.Position));
+            _movedBoxGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Box, GameMatcher.View, GameMatcher.Position));
+            _rockedBoxGroup = pool.GetGroup(Matcher.AllOf(GameMatcher.Box, GameMatcher.View, GameMatcher.Knocked, GameMatcher.Rocked));
         }
 
         public void Initialize()
         {
-            _boxGroup.OnEntityUpdated +=
+            _movedBoxGroup.OnEntityUpdated +=
                 (group, entity, index, oldComponent, newComponent) =>
                     DoRollAnimation(entity, oldComponent as PositionComponent, newComponent as PositionComponent);
+            _rockedBoxGroup.OnEntityAdded += (group, entity, index, newComponent) => DoRockAnimation(entity);
+        }
+
+        private void DoRockAnimation(Entity entity)
+        {
+            var moveDirection = entity.knocked.FromDirection.ToV3();
+            var transform = entity.view.Value.transform;
+
+            const float time = 0.5f;
+            var camera = _pool.GetCamera();
+            var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
+            // TODO: This looks like shit
+            var sequence = DOTween.Sequence()
+                .AppendInterval(entity.knocked.Wait)
+                .Append(transform.DORotate(-rotationDirection / 8 * 90, time / 4, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(moveDirection / 8, time / 4).SetRelative())
+                .Join(camera.transform.DOShakeRotation(0.2f, 0.7f, 20, 3))
+                .Append(transform.DORotate(rotationDirection / 8 * 90, time / 4, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(-moveDirection / 8, time / 4).SetRelative())
+                .Append(transform.DORotate(rotationDirection / 16 * 90, time / 4, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(-moveDirection / 16, time / 4).SetRelative())
+                .Append(transform.DORotate(-rotationDirection / 16 * 90, time / 4, RotateMode.WorldAxisAdd))
+                .Join(transform.DOMove(moveDirection / 16, time / 4).SetRelative())
+                .OnUpdate(() => UpdateVerticalMove(transform));
+
+            if (!entity.knocked.Immediate)
+            {
+                entity.AddActingSequence(MoveAnimationSystem.MoveTime);
+                entity.AddActingSequence(time, sequence);
+            }
         }
 
         private void DoRollAnimation(Entity entity, PositionComponent oldPosition, PositionComponent newPosition)
@@ -210,6 +288,7 @@ namespace Assets.Render
             var camera = _pool.GetCamera();
             var rotationDirection = Vector3.Cross(moveDirection.normalized, Vector3.up);
             var sequence = DOTween.Sequence()
+                .AppendInterval(entity.knocked.Wait)
                 .Append(transform.DORotate(-rotationDirection * 90, time, RotateMode.WorldAxisAdd))
                 .Join(transform.DOMove(moveDirection, time)
                     .SetRelative(true))

@@ -6,19 +6,21 @@ namespace Entitas {
 
         public bool hasKnocked { get { return HasComponent(GameComponentIds.Knocked); } }
 
-        public Entity AddKnocked(Assets.TilePos newFromDirection, bool newImmediate) {
+        public Entity AddKnocked(Assets.TilePos newFromDirection, bool newImmediate, float newWait) {
             var componentPool = GetComponentPool(GameComponentIds.Knocked);
             var component = (Assets.KnockedComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.KnockedComponent());
             component.FromDirection = newFromDirection;
             component.Immediate = newImmediate;
+            component.Wait = newWait;
             return AddComponent(GameComponentIds.Knocked, component);
         }
 
-        public Entity ReplaceKnocked(Assets.TilePos newFromDirection, bool newImmediate) {
+        public Entity ReplaceKnocked(Assets.TilePos newFromDirection, bool newImmediate, float newWait) {
             var componentPool = GetComponentPool(GameComponentIds.Knocked);
             var component = (Assets.KnockedComponent)(componentPool.Count > 0 ? componentPool.Pop() : new Assets.KnockedComponent());
             component.FromDirection = newFromDirection;
             component.Immediate = newImmediate;
+            component.Wait = newWait;
             ReplaceComponent(GameComponentIds.Knocked, component);
             return this;
         }

@@ -23,17 +23,31 @@ namespace Assets
 
             var canMoveTo = _pool.OpenTileAt(newPosition);
             var stillInsideSamePuzzle = _pool.IsStillInsideSamePuzzle(hero.position.Value, newPosition);
-            var pushableItem = _pool.PushableItemAt(newPosition, moveDirection);
 
             if (canMoveTo && !(hero.isSpikesCarried && !stillInsideSamePuzzle))
             {
                 hero.ReplacePosition(newPosition);
                 hero.ReplaceRotation(LocalDirections.ToRotation(moveDirection));
             }
-            else if (pushableItem != null)
+            else
             {
-                pushableItem.ReplaceKnocked(moveDirection, true);
-                hero.ReplacePosition(newPosition);
+                var hasKnockedObjectInFront = _pool.KnockObjectsInFront(hero.position.Value, moveDirection, true, 0.4f);
+                if (!hasKnockedObjectInFront)
+                {
+                    return;
+                }
+
+                var pushableCanMove = _pool.OpenTileAt(newPosition + moveDirection);
+                if (pushableCanMove)
+                {
+                    hero.IsPushing(true);
+                    hero.ReplacePosition(newPosition);
+                }
+                else
+                {
+                    hero.HasBumpedIntoObject(true);
+                }
+
                 hero.ReplaceRotation(LocalDirections.ToRotation(moveDirection));
             }
         }

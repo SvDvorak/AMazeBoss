@@ -126,6 +126,12 @@ namespace Assets
     {
         public TilePos FromDirection;
         public bool Immediate;
+        public float Wait;
+    }
+
+    [Game]
+    public class RockedComponent : IComponent
+    {
     }
 
     [Game]
@@ -166,6 +172,12 @@ namespace Assets
     }
 
     [Game]
+    [CustomPrefix("Has")]
+    public class BumpedIntoObject : IComponent
+    {
+    }
+
+    [Game]
     public class HeroComponent : IComponent
     {
     }
@@ -182,6 +194,11 @@ namespace Assets
 
     [Game]
     public class PullingComponent : IComponent
+    {
+    }
+
+    [Game]
+    public class PushingComponent : IComponent
     {
     }
 
