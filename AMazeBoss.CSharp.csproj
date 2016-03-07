@@ -238,6 +238,7 @@
     <Compile Include="Assets\Libraries\Entitas\ReactiveSystem.cs" />
     <Compile Include="Assets\Libraries\Entitas\Systems.cs" />
     <Compile Include="Assets\LoadSceneAfterDelay.cs" />
+    <Compile Include="Assets\LocalDirections.cs" />
     <Compile Include="Assets\MainMenu\ConnectMenuItemToParentSystem.cs" />
     <Compile Include="Assets\MainMenu\CursorClickMenuItemSystem.cs" />
     <Compile Include="Assets\MainMenu\CursorOverController.cs" />
