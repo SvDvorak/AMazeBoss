@@ -6,7 +6,7 @@ public class ShowIfDeveloper : MonoBehaviour
     {
         if (!Debug.isDebugBuild)
         {
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }
