@@ -68,7 +68,6 @@ namespace Assets.LevelEditor
         public void Play()
         {
             PlaySetup.EditorLevel = LevelLoader.CreateLevelData(Pools.game);
-            PlaySetup.FromEditor = true;
             SceneSetup.LoadScene("Play");
         }
 

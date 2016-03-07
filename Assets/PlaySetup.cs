@@ -14,7 +14,6 @@ namespace Assets
     public class PlaySetup : MonoBehaviour
     {
         public static bool FromEditor;
-        public static bool FromSave;
         public static string LevelPath;
         public static Level EditorLevel;
         public static Level LevelSave;

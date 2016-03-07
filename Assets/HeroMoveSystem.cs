@@ -34,8 +34,9 @@ namespace Assets
                 var hasKnockedObjectInFront = _pool.KnockObjectsInFront(hero.position.Value, moveDirection, true, 0.4f);
                 if (hasKnockedObjectInFront)
                 {
+                    var knockedObject = _pool.GetEntityAt(newPosition, x => x.hasKnocked);
                     var pushableCanMove = _pool.OpenTileAt(newPosition + moveDirection);
-                    if (pushableCanMove)
+                    if (pushableCanMove && knockedObject.isBox)
                     {
                         hero.IsPushing(true);
                         hero.ReplacePosition(newPosition);

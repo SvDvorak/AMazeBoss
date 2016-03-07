@@ -24,7 +24,6 @@ namespace Assets
             {
                 exitGate.HasSetCheckpoint(true);
                 PlaySetup.LevelSave = LevelLoader.CreateLevelData(Pools.game);
-                PlaySetup.FromSave = true;
             }
         }
     }

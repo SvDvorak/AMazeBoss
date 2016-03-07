@@ -59,6 +59,7 @@ namespace Assets
             {
                 try
                 {
+                    PlaySetup.LevelSave = null;
                     PlaySetup.LevelPath = GetNext(PlaySetup.LevelPath);
                     SceneSetup.LoadScene("Play");
                 }

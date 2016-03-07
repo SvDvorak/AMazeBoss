@@ -13,7 +13,6 @@ namespace Assets
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
             {
-                PlaySetup.FromSave = false;
                 PlaySetup.LevelSave = null;
                 SceneSetup.LoadPreviousScene();
             }
@@ -38,6 +37,10 @@ namespace Assets
 
         public void Execute(List<Entity> entities)
         {
+            if (entities.Any(x => x.hasActingSequences))
+            {
+                return;
+            }
             SceneSetup.LoadScene("Play");
         }
     }
