@@ -40,6 +40,20 @@ namespace Assets.Render
         }
     }
 
+    public class EdgeRecoverAnimationSystem : AnimationSystem, IReactiveSystem
+    {
+        public TriggerOnEvent trigger { get { return GameMatcher.RecoveredAtEdge.OnEntityAdded(); } }
+
+        public void Execute(List<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                var animator = entity.animator.Value;
+                entity.AddActingSequence(0.75f, () => animator.SetTrigger("StoppedAtEdge"));
+            }
+        }
+    }
+
     public class MoveAnimationSystem : IReactiveSystem, IEnsureComponents
     {
         public const float MoveTime = 0.5f;

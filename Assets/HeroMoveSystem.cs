@@ -32,23 +32,24 @@ namespace Assets
             else
             {
                 var hasKnockedObjectInFront = _pool.KnockObjectsInFront(hero.position.Value, moveDirection, true, 0.4f);
-                if (!hasKnockedObjectInFront)
+                if (hasKnockedObjectInFront)
                 {
-                    return;
-                }
+                    var pushableCanMove = _pool.OpenTileAt(newPosition + moveDirection);
+                    if (pushableCanMove)
+                    {
+                        hero.IsPushing(true);
+                        hero.ReplacePosition(newPosition);
+                    }
+                    else
+                    {
+                        hero.HasBumpedIntoObject(true);
+                    }
 
-                var pushableCanMove = _pool.OpenTileAt(newPosition + moveDirection);
-                if (pushableCanMove)
-                {
-                    hero.IsPushing(true);
-                    hero.ReplacePosition(newPosition);
+                    hero.ReplaceRotation(LocalDirections.ToRotation(moveDirection));
                 }
                 else
                 {
-                    hero.HasBumpedIntoObject(true);
                 }
-
-                hero.ReplaceRotation(LocalDirections.ToRotation(moveDirection));
             }
         }
     }

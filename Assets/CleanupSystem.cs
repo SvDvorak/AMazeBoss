@@ -23,6 +23,7 @@ namespace Assets
                     x.isPulling = false;
                     x.isPushing = false;
                     x.hasBumpedIntoObject = false;
+                    x.hasRecoveredAtEdge = false;
                     x.isRocked = false;
                     x.isInputItemInteract = false;
                     x.isInputCurseSwitch = false;

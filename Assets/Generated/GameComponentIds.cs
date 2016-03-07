@@ -50,22 +50,23 @@ public static class GameComponentIds {
     public const int Pulling = 48;
     public const int Pushing = 49;
     public const int PuzzleArea = 50;
-    public const int Rocked = 51;
-    public const int Rotation = 52;
-    public const int SelectedPlaceable = 53;
-    public const int SelectedPlaceablesGroup = 54;
-    public const int SetCheckpoint = 55;
-    public const int SpikesCarried = 56;
-    public const int Spikes = 57;
-    public const int SpikeTrap = 58;
-    public const int Subtype = 59;
-    public const int TargetFocusPoint = 60;
-    public const int TileTemplates = 61;
-    public const int TrapActivated = 62;
-    public const int ViewOffset = 63;
-    public const int Wall = 64;
+    public const int RecoveredAtEdge = 51;
+    public const int Rocked = 52;
+    public const int Rotation = 53;
+    public const int SelectedPlaceable = 54;
+    public const int SelectedPlaceablesGroup = 55;
+    public const int SetCheckpoint = 56;
+    public const int SpikesCarried = 57;
+    public const int Spikes = 58;
+    public const int SpikeTrap = 59;
+    public const int Subtype = 60;
+    public const int TargetFocusPoint = 61;
+    public const int TileTemplates = 62;
+    public const int TrapActivated = 63;
+    public const int ViewOffset = 64;
+    public const int Wall = 65;
 
-    public const int TotalComponents = 65;
+    public const int TotalComponents = 66;
 
     public static readonly string[] componentNames = {
         "Child",
@@ -119,6 +120,7 @@ public static class GameComponentIds {
         "Pulling",
         "Pushing",
         "PuzzleArea",
+        "RecoveredAtEdge",
         "Rocked",
         "Rotation",
         "SelectedPlaceable",
@@ -153,7 +155,7 @@ public static class GameComponentIds {
         typeof(Assets.BossComponent),
         typeof(Assets.BossConnectionComponent),
         typeof(Assets.BoxComponent),
-        typeof(Assets.BumpedIntoObject),
+        typeof(Assets.BumpedIntoObjectComponent),
         typeof(Assets.Camera.CameraComponent),
         typeof(Assets.CharacterComponent),
         typeof(Assets.Camera.CurrentFocusPointComponent),
@@ -187,6 +189,7 @@ public static class GameComponentIds {
         typeof(Assets.PullingComponent),
         typeof(Assets.PushingComponent),
         typeof(Assets.PuzzleAreaComponent),
+        typeof(Assets.RecoveredAtEdgeComponent),
         typeof(Assets.RockedComponent),
         typeof(Assets.RotationComponent),
         typeof(Assets.LevelEditor.SelectedPlaceableComponent),

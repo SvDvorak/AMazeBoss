@@ -117,6 +117,7 @@ namespace Assets
                 .Add(pool.CreateSystem<RotationAnimationSystem>())
                 .Add(pool.CreateSystem<MoveAnimationSystem>())
                 .Add(pool.CreateSystem<BumpIntoObjectAnimationSystem>())
+                .Add(pool.CreateSystem<EdgeRecoverAnimationSystem>())
                 .Add(pool.CreateSystem<ItemCarryAnimationSystem>())
                 .Add(pool.CreateSystem<TrapLoadedAnimationSystem>())
                 .Add(pool.CreateSystem<TrapActivatedAnimationSystem>())

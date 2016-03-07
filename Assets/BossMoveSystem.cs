@@ -72,6 +72,10 @@ namespace Assets
                 {
                     boss.HasBumpedIntoObject(true);
                 }
+                else if (_pool.GetTileAt(nextStep.Position + nextStep.Direction) == null)
+                {
+                    boss.HasRecoveredAtEdge(true);
+                }
             }
             else
             {

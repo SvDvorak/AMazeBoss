@@ -2,7 +2,7 @@ using Entitas;
 
 namespace Entitas {
     public partial class Entity {
-        static readonly Assets.BumpedIntoObject bumpedIntoObjectComponent = new Assets.BumpedIntoObject();
+        static readonly Assets.BumpedIntoObjectComponent bumpedIntoObjectComponent = new Assets.BumpedIntoObjectComponent();
 
         public bool hasBumpedIntoObject {
             get { return HasComponent(GameComponentIds.BumpedIntoObject); }

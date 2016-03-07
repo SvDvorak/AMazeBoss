@@ -173,7 +173,13 @@ namespace Assets
 
     [Game]
     [CustomPrefix("Has")]
-    public class BumpedIntoObject : IComponent
+    public class BumpedIntoObjectComponent : IComponent
+    {
+    }
+
+    [Game]
+    [CustomPrefix("Has")]
+    public class RecoveredAtEdgeComponent : IComponent
     {
     }
 
