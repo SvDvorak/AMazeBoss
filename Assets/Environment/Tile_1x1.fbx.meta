@@ -1,19 +1,69 @@
 fileFormatVersion: 2
-guid: 1ab8b00dde05b4941b8fb18f72da0b11
-timeCreated: 1450466173
+guid: 1d9585b0eb5343b44a4d78a9a7cb4ff3
+timeCreated: 1461053780
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Camera
+    100004: Grass
+    100006: Lamp
+    100008: Lifter
+    100010: Mover
+    100012: Mover.001
+    100014: Mover.002
+    100016: Mover.003
+    100018: Mover.004
+    100020: Mover.005
+    100022: Tile_1x1
+    100024: Wall_1x1
+    100026: Wall_3x1
+    100028: Wall_6x1
+    100030: Wall_corner_2x2
+    100032: Wall_peninsula_1x1
     400000: //RootNode
+    400002: Camera
+    400004: Grass
+    400006: Lamp
+    400008: Lifter
+    400010: Mover
+    400012: Mover.001
+    400014: Mover.002
+    400016: Mover.003
+    400018: Mover.004
+    400020: Mover.005
+    400022: Tile_1x1
+    400024: Wall_1x1
+    400026: Wall_3x1
+    400028: Wall_6x1
+    400030: Wall_corner_2x2
+    400032: Wall_peninsula_1x1
     2300000: //RootNode
+    2300002: Grass
+    2300004: Tile_1x1
+    2300006: Wall_1x1
+    2300008: Wall_3x1
+    2300010: Wall_6x1
+    2300012: Wall_corner_2x2
+    2300014: Wall_peninsula_1x1
     3300000: //RootNode
-    4300000: Cube
-    7400000: Default Take
-    9500000: //RootNode
+    3300002: Grass
+    3300004: Tile_1x1
+    3300006: Wall_1x1
+    3300008: Wall_3x1
+    3300010: Wall_6x1
+    3300012: Wall_corner_2x2
+    3300014: Wall_peninsula_1x1
+    4300000: Tile_1x1
+    4300002: Grass
+    4300004: Wall_1x1
+    4300006: Wall_peninsula_1x1
+    4300008: Wall_corner_2x2
+    4300010: Wall_3x1
+    4300012: Wall_6x1
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -70,7 +120,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

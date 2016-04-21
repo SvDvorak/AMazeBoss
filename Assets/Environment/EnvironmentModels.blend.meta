@@ -1,0 +1,213 @@
+fileFormatVersion: 2
+guid: 8175388855def124cafa31ab3cee69de
+timeCreated: 1460972410
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Plane
+    100004: Plane_001
+    100006: wall_3x1
+    100008: wall_6x1
+    100010: Lifter
+    100012: Mover
+    100014: Mover_001
+    100016: Empty
+    100018: Empty_001
+    100020: Mover_002
+    100022: wall_corner_2x2
+    100024: Mover_003
+    100026: wall_peninsula_1x1
+    100028: Mover_004
+    100030: wall_1x1
+    100032: Cylinder
+    100034: grass_2_0
+    100036: Mover_005
+    100038: Grass
+    100040: Tile_1x1
+    100042: Wall_1x1
+    100044: Wall_3x1
+    100046: Wall_6x1
+    100048: Wall_corner_2x2
+    100050: Wall_peninsula_1x1
+    100052: Icosphere
+    100054: Mover_006
+    100056: Mover_007
+    100058: Tile_1x1_001
+    100060: Tile_1x1_002
+    100062: Tile_1x1_003
+    100064: Tile_4x4
+    100066: Mover_008
+    100068: Mover_009
+    100070: Pillar_1x1
+    400000: //RootNode
+    400002: Plane
+    400004: Plane_001
+    400006: wall_3x1
+    400008: wall_6x1
+    400010: Lifter
+    400012: Mover
+    400014: Mover_001
+    400016: Empty
+    400018: Empty_001
+    400020: Mover_002
+    400022: wall_corner_2x2
+    400024: Mover_003
+    400026: wall_peninsula_1x1
+    400028: Mover_004
+    400030: wall_1x1
+    400032: Cylinder
+    400034: grass_2_0
+    400036: Mover_005
+    400038: Grass
+    400040: Tile_1x1
+    400042: Wall_1x1
+    400044: Wall_3x1
+    400046: Wall_6x1
+    400048: Wall_corner_2x2
+    400050: Wall_peninsula_1x1
+    400052: Icosphere
+    400054: Mover_006
+    400056: Mover_007
+    400058: Tile_1x1_001
+    400060: Tile_1x1_002
+    400062: Tile_1x1_003
+    400064: Tile_4x4
+    400066: Mover_008
+    400068: Mover_009
+    400070: Pillar_1x1
+    2300000: //RootNode
+    2300002: Plane
+    2300004: Plane_001
+    2300006: wall_3x1
+    2300008: wall_6x1
+    2300010: wall_corner_2x2
+    2300012: wall_peninsula_1x1
+    2300014: wall_1x1
+    2300016: Cylinder
+    2300018: grass_2_0
+    2300020: Grass
+    2300022: Tile_1x1
+    2300024: Wall_1x1
+    2300026: Wall_3x1
+    2300028: Wall_6x1
+    2300030: Wall_corner_2x2
+    2300032: Wall_peninsula_1x1
+    2300034: Icosphere
+    2300036: Tile_1x1_001
+    2300038: Tile_1x1_002
+    2300040: Tile_1x1_003
+    2300042: Tile_4x4
+    2300044: Pillar_1x1
+    3300000: //RootNode
+    3300002: Plane
+    3300004: Plane_001
+    3300006: wall_3x1
+    3300008: wall_6x1
+    3300010: wall_corner_2x2
+    3300012: wall_peninsula_1x1
+    3300014: wall_1x1
+    3300016: Cylinder
+    3300018: grass_2_0
+    3300020: Grass
+    3300022: Tile_1x1
+    3300024: Wall_1x1
+    3300026: Wall_3x1
+    3300028: Wall_6x1
+    3300030: Wall_corner_2x2
+    3300032: Wall_peninsula_1x1
+    3300034: Icosphere
+    3300036: Tile_1x1_001
+    3300038: Tile_1x1_002
+    3300040: Tile_1x1_003
+    3300042: Tile_4x4
+    3300044: Pillar_1x1
+    4300000: Plane
+    4300002: Plane_001
+    4300004: wall_3x1
+    4300006: wall_6x1
+    4300008: wall_corner_2x2
+    4300010: wall_peninsula_1x1
+    4300012: wall_1x1
+    4300014: grass_2_0
+    4300016: Cylinder
+    4300018: Grass
+    4300020: Tile_1x1
+    4300022: Wall_1x1
+    4300024: Wall_peninsula_1x1
+    4300026: Wall_corner_2x2
+    4300028: Wall_3x1
+    4300030: Wall_6x1
+    4300032: Tile_1x1_002
+    4300034: Icosphere
+    4300036: Tile_4x4
+    4300038: Tile_1x1_001
+    4300040: Tile_1x1_003
+    4300042: Pillar_1x1
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 0
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 50
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 2
+    tangentImportMode: 2
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

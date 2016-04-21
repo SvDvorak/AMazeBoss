@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 1ab8b00dde05b4941b8fb18f72da0b11
-timeCreated: 1450466173
+guid: 990a7778575b1f44684476076793e56a
+timeCreated: 1461190573
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,11 +9,9 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cube
-    7400000: Default Take
-    9500000: //RootNode
+    4300000: Pillar_1x1
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -70,7 +68,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
