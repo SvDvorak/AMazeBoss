@@ -5,13 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Intro.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/MainMenu/MainMenu.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Play/Play.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Gameover.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/LevelEditor/Editor.unity
+  - enabled: 1
+    path: Assets/EnvironmentTesting.unity

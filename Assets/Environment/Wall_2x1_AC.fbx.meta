@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0fecbfffa57110a49acd2488a320216a
-timeCreated: 1460981997
+guid: ddfa06fad96b64d478106e70944e69fa
+timeCreated: 1461660262
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,10 +9,9 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: wall_3x1
-    4300002: Wall_3x1
+    4300000: Wall_2x1_AC
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -40,7 +39,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -54,7 +53,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []

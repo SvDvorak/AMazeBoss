@@ -1,0 +1,160 @@
+fileFormatVersion: 2
+guid: e24e4cb6e2bcacc4086318908cfe4231
+timeCreated: 1460985143
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Camera
+    100004: Grass
+    100006: Icosphere
+    100008: Lamp
+    100010: Mover
+    100012: Mover.001
+    100014: Mover.002
+    100016: Mover.003
+    100018: Mover.004
+    100020: Mover.005
+    100022: Mover.006
+    100024: Mover.007
+    100026: Mover.008
+    100028: Mover.009
+    100030: Pillar_1x1
+    100032: Tile_1x1
+    100034: Tile_1x1.001
+    100036: Tile_1x1.002
+    100038: Tile_4x4
+    100040: Wall_1x1
+    100042: Wall_3x1
+    100044: Wall_6x1
+    100046: Wall_corner_2x2
+    100048: Wall_peninsula_1x1
+    400000: //RootNode
+    400002: Camera
+    400004: Grass
+    400006: Icosphere
+    400008: Lamp
+    400010: Mover
+    400012: Mover.001
+    400014: Mover.002
+    400016: Mover.003
+    400018: Mover.004
+    400020: Mover.005
+    400022: Mover.006
+    400024: Mover.007
+    400026: Mover.008
+    400028: Mover.009
+    400030: Pillar_1x1
+    400032: Tile_1x1
+    400034: Tile_1x1.001
+    400036: Tile_1x1.002
+    400038: Tile_4x4
+    400040: Wall_1x1
+    400042: Wall_3x1
+    400044: Wall_6x1
+    400046: Wall_corner_2x2
+    400048: Wall_peninsula_1x1
+    2300000: //RootNode
+    2300002: Grass
+    2300004: Icosphere
+    2300006: Pillar_1x1
+    2300008: Tile_1x1
+    2300010: Tile_1x1.001
+    2300012: Tile_1x1.002
+    2300014: Tile_4x4
+    2300016: Wall_1x1
+    2300018: Wall_3x1
+    2300020: Wall_6x1
+    2300022: Wall_corner_2x2
+    2300024: Wall_peninsula_1x1
+    3300000: //RootNode
+    3300002: Grass
+    3300004: Icosphere
+    3300006: Pillar_1x1
+    3300008: Tile_1x1
+    3300010: Tile_1x1.001
+    3300012: Tile_1x1.002
+    3300014: Tile_4x4
+    3300016: Wall_1x1
+    3300018: Wall_3x1
+    3300020: Wall_6x1
+    3300022: Wall_corner_2x2
+    3300024: Wall_peninsula_1x1
+    4300000: wall_6x1
+    4300002: Tile_1x1.002
+    4300004: Icosphere
+    4300006: Tile_4x4
+    4300008: Tile_1x1.001
+    4300010: Grass
+    4300012: Tile_1x1
+    4300014: Wall_1x1
+    4300016: Wall_peninsula_1x1
+    4300018: Wall_corner_2x2
+    4300020: Wall_6x1
+    4300022: Wall_3x1
+    4300024: Pillar_1x1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

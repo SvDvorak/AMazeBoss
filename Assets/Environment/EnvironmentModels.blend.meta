@@ -41,6 +41,48 @@ ModelImporter:
     100066: Mover_008
     100068: Mover_009
     100070: Pillar_1x1
+    100072: Tile_1x1_004
+    100074: Tile_1x1_005
+    100076: Tile_1x1_006
+    100078: Tile_1x1_007
+    100080: Tile_1x1_008
+    100082: Tile_1x1_009
+    100084: Tile_1x1_010
+    100086: Tile_1x1_011
+    100088: Tile_1x1_012
+    100090: Tile_1x1_013
+    100092: Tile_1x1_014
+    100094: Tile_1x1_015
+    100096: Tile_1x1_016
+    100098: Tile_1x1_017
+    100100: Tile_1x1_018
+    100102: Tile_1x1_019
+    100104: Tile_1x1_020
+    100106: Tile_1x1_021
+    100108: Tile_1x1_022
+    100110: Tile_1x1_023
+    100112: Tile_1x1_024
+    100114: Tile_1x1_025
+    100116: Wall_1x1_001
+    100118: Wall_3x1_001
+    100120: Wall_3x1_002
+    100122: Wall_corner_2x2_001
+    100124: Wall_peninsula_1x1_001
+    100126: CompleteThing
+    100128: Cylinder_002
+    100130: NurbsPath
+    100132: NurbsPath_001
+    100134: ClimbingGear
+    100136: EdgeTypeA
+    100138: EdgeTypeB
+    100140: EdgeTypeC
+    100142: Wall_2x1_AC
+    100144: Wall_3x1_CB
+    100146: Wall_corner_1x1_AA
+    100148: Wall_inner_corner_1x1_BB
+    100150: Wall_peninsula_2x1_AB
+    100152: Wall_peninsula_3x1_BA
+    100154: Wall_peninsula_3x2_BA
     400000: //RootNode
     400002: Plane
     400004: Plane_001
@@ -77,6 +119,48 @@ ModelImporter:
     400066: Mover_008
     400068: Mover_009
     400070: Pillar_1x1
+    400072: Tile_1x1_004
+    400074: Tile_1x1_005
+    400076: Tile_1x1_006
+    400078: Tile_1x1_007
+    400080: Tile_1x1_008
+    400082: Tile_1x1_009
+    400084: Tile_1x1_010
+    400086: Tile_1x1_011
+    400088: Tile_1x1_012
+    400090: Tile_1x1_013
+    400092: Tile_1x1_014
+    400094: Tile_1x1_015
+    400096: Tile_1x1_016
+    400098: Tile_1x1_017
+    400100: Tile_1x1_018
+    400102: Tile_1x1_019
+    400104: Tile_1x1_020
+    400106: Tile_1x1_021
+    400108: Tile_1x1_022
+    400110: Tile_1x1_023
+    400112: Tile_1x1_024
+    400114: Tile_1x1_025
+    400116: Wall_1x1_001
+    400118: Wall_3x1_001
+    400120: Wall_3x1_002
+    400122: Wall_corner_2x2_001
+    400124: Wall_peninsula_1x1_001
+    400126: CompleteThing
+    400128: Cylinder_002
+    400130: NurbsPath
+    400132: NurbsPath_001
+    400134: ClimbingGear
+    400136: EdgeTypeA
+    400138: EdgeTypeB
+    400140: EdgeTypeC
+    400142: Wall_2x1_AC
+    400144: Wall_3x1_CB
+    400146: Wall_corner_1x1_AA
+    400148: Wall_inner_corner_1x1_BB
+    400150: Wall_peninsula_2x1_AB
+    400152: Wall_peninsula_3x1_BA
+    400154: Wall_peninsula_3x2_BA
     2300000: //RootNode
     2300002: Plane
     2300004: Plane_001
@@ -100,6 +184,48 @@ ModelImporter:
     2300040: Tile_1x1_003
     2300042: Tile_4x4
     2300044: Pillar_1x1
+    2300046: Tile_1x1_004
+    2300048: Tile_1x1_005
+    2300050: Tile_1x1_006
+    2300052: Tile_1x1_007
+    2300054: Tile_1x1_008
+    2300056: Tile_1x1_009
+    2300058: Tile_1x1_010
+    2300060: Tile_1x1_011
+    2300062: Tile_1x1_012
+    2300064: Tile_1x1_013
+    2300066: Tile_1x1_014
+    2300068: Tile_1x1_015
+    2300070: Tile_1x1_016
+    2300072: Tile_1x1_017
+    2300074: Tile_1x1_018
+    2300076: Tile_1x1_019
+    2300078: Tile_1x1_020
+    2300080: Tile_1x1_021
+    2300082: Tile_1x1_022
+    2300084: Tile_1x1_023
+    2300086: Tile_1x1_024
+    2300088: Tile_1x1_025
+    2300090: Wall_1x1_001
+    2300092: Wall_3x1_001
+    2300094: Wall_3x1_002
+    2300096: Wall_corner_2x2_001
+    2300098: Wall_peninsula_1x1_001
+    2300100: CompleteThing
+    2300102: Cylinder_002
+    2300104: NurbsPath
+    2300106: NurbsPath_001
+    2300108: ClimbingGear
+    2300110: EdgeTypeA
+    2300112: EdgeTypeB
+    2300114: EdgeTypeC
+    2300116: Wall_2x1_AC
+    2300118: Wall_3x1_CB
+    2300120: Wall_corner_1x1_AA
+    2300122: Wall_inner_corner_1x1_BB
+    2300124: Wall_peninsula_2x1_AB
+    2300126: Wall_peninsula_3x1_BA
+    2300128: Wall_peninsula_3x2_BA
     3300000: //RootNode
     3300002: Plane
     3300004: Plane_001
@@ -123,6 +249,48 @@ ModelImporter:
     3300040: Tile_1x1_003
     3300042: Tile_4x4
     3300044: Pillar_1x1
+    3300046: Tile_1x1_004
+    3300048: Tile_1x1_005
+    3300050: Tile_1x1_006
+    3300052: Tile_1x1_007
+    3300054: Tile_1x1_008
+    3300056: Tile_1x1_009
+    3300058: Tile_1x1_010
+    3300060: Tile_1x1_011
+    3300062: Tile_1x1_012
+    3300064: Tile_1x1_013
+    3300066: Tile_1x1_014
+    3300068: Tile_1x1_015
+    3300070: Tile_1x1_016
+    3300072: Tile_1x1_017
+    3300074: Tile_1x1_018
+    3300076: Tile_1x1_019
+    3300078: Tile_1x1_020
+    3300080: Tile_1x1_021
+    3300082: Tile_1x1_022
+    3300084: Tile_1x1_023
+    3300086: Tile_1x1_024
+    3300088: Tile_1x1_025
+    3300090: Wall_1x1_001
+    3300092: Wall_3x1_001
+    3300094: Wall_3x1_002
+    3300096: Wall_corner_2x2_001
+    3300098: Wall_peninsula_1x1_001
+    3300100: CompleteThing
+    3300102: Cylinder_002
+    3300104: NurbsPath
+    3300106: NurbsPath_001
+    3300108: ClimbingGear
+    3300110: EdgeTypeA
+    3300112: EdgeTypeB
+    3300114: EdgeTypeC
+    3300116: Wall_2x1_AC
+    3300118: Wall_3x1_CB
+    3300120: Wall_corner_1x1_AA
+    3300122: Wall_inner_corner_1x1_BB
+    3300124: Wall_peninsula_2x1_AB
+    3300126: Wall_peninsula_3x1_BA
+    3300128: Wall_peninsula_3x2_BA
     4300000: Plane
     4300002: Plane_001
     4300004: wall_3x1
@@ -145,6 +313,48 @@ ModelImporter:
     4300038: Tile_1x1_001
     4300040: Tile_1x1_003
     4300042: Pillar_1x1
+    4300044: Tile_1x1_025
+    4300046: Tile_1x1_024
+    4300048: Tile_1x1_023
+    4300050: Tile_1x1_022
+    4300052: Tile_1x1_021
+    4300054: Tile_1x1_020
+    4300056: Tile_1x1_019
+    4300058: Tile_1x1_018
+    4300060: Tile_1x1_017
+    4300062: Tile_1x1_016
+    4300064: Tile_1x1_015
+    4300066: Tile_1x1_014
+    4300068: Tile_1x1_013
+    4300070: Tile_1x1_012
+    4300072: Tile_1x1_011
+    4300074: Tile_1x1_010
+    4300076: Tile_1x1_009
+    4300078: Tile_1x1_008
+    4300080: Tile_1x1_007
+    4300082: Tile_1x1_006
+    4300084: Tile_1x1_005
+    4300086: Tile_1x1_004
+    4300088: Wall_3x1_002
+    4300090: Wall_1x1_001
+    4300092: Wall_peninsula_1x1_001
+    4300094: Wall_corner_2x2_001
+    4300096: Wall_3x1_001
+    4300098: Cylinder_002
+    4300100: NurbsPath_001
+    4300102: NurbsPath
+    4300104: CompleteThing
+    4300106: ClimbingGear
+    4300108: Wall_peninsula_3x2_BA
+    4300110: Wall_2x1_AC
+    4300112: Wall_3x1_CB
+    4300114: Wall_inner_corner_1x1_BB
+    4300116: Wall_peninsula_3x1_BA
+    4300118: Wall_corner_1x1_AA
+    4300120: Wall_peninsula_2x1_AB
+    4300122: EdgeTypeC
+    4300124: EdgeTypeB
+    4300126: EdgeTypeA
     7400000: Default Take
     9500000: //RootNode
   materials:
