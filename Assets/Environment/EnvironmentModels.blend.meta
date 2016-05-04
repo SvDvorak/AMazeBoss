@@ -84,6 +84,9 @@ ModelImporter:
     100152: Wall_peninsula_3x1_BA
     100154: Wall_peninsula_3x2_BA
     100156: Ground
+    100158: Bush
+    100160: Tuft
+    100162: Tuft_001
     400000: //RootNode
     400002: Plane
     400004: Plane_001
@@ -163,6 +166,9 @@ ModelImporter:
     400152: Wall_peninsula_3x1_BA
     400154: Wall_peninsula_3x2_BA
     400156: Ground
+    400158: Bush
+    400160: Tuft
+    400162: Tuft_001
     2300000: //RootNode
     2300002: Plane
     2300004: Plane_001
@@ -229,6 +235,9 @@ ModelImporter:
     2300126: Wall_peninsula_3x1_BA
     2300128: Wall_peninsula_3x2_BA
     2300130: Ground
+    2300132: Bush
+    2300134: Tuft
+    2300136: Tuft_001
     3300000: //RootNode
     3300002: Plane
     3300004: Plane_001
@@ -295,6 +304,9 @@ ModelImporter:
     3300126: Wall_peninsula_3x1_BA
     3300128: Wall_peninsula_3x2_BA
     3300130: Ground
+    3300132: Bush
+    3300134: Tuft
+    3300136: Tuft_001
     4300000: Plane
     4300002: Plane_001
     4300004: wall_3x1
@@ -360,6 +372,9 @@ ModelImporter:
     4300124: EdgeTypeB
     4300126: EdgeTypeA
     4300128: Ground
+    4300130: Tuft_001
+    4300132: Tuft
+    4300134: Bush
     7400000: Default Take
     9500000: //RootNode
   materials:
