@@ -88,6 +88,7 @@ ModelImporter:
     100160: Tuft
     100162: Tuft_001
     100164: Cube
+    100166: Cube_001
     400000: //RootNode
     400002: Plane
     400004: Plane_001
@@ -171,6 +172,7 @@ ModelImporter:
     400160: Tuft
     400162: Tuft_001
     400164: Cube
+    400166: Cube_001
     2300000: //RootNode
     2300002: Plane
     2300004: Plane_001
@@ -241,6 +243,7 @@ ModelImporter:
     2300134: Tuft
     2300136: Tuft_001
     2300138: Cube
+    2300140: Cube_001
     3300000: //RootNode
     3300002: Plane
     3300004: Plane_001
@@ -311,6 +314,7 @@ ModelImporter:
     3300134: Tuft
     3300136: Tuft_001
     3300138: Cube
+    3300140: Cube_001
     4300000: Plane
     4300002: Plane_001
     4300004: wall_3x1
@@ -380,6 +384,7 @@ ModelImporter:
     4300132: Tuft
     4300134: Bush
     4300136: Cube
+    4300138: Cube_001
     7400000: Default Take
     9500000: //RootNode
   materials:
