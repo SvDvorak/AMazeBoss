@@ -89,6 +89,8 @@ ModelImporter:
     100162: Tuft_001
     100164: Cube
     100166: Cube_001
+    100168: Skyboxish
+    100170: SkyboxCenter
     400000: //RootNode
     400002: Plane
     400004: Plane_001
@@ -173,6 +175,8 @@ ModelImporter:
     400162: Tuft_001
     400164: Cube
     400166: Cube_001
+    400168: Skyboxish
+    400170: SkyboxCenter
     2300000: //RootNode
     2300002: Plane
     2300004: Plane_001
@@ -244,6 +248,8 @@ ModelImporter:
     2300136: Tuft_001
     2300138: Cube
     2300140: Cube_001
+    2300142: Skyboxish
+    2300144: SkyboxCenter
     3300000: //RootNode
     3300002: Plane
     3300004: Plane_001
@@ -315,6 +321,8 @@ ModelImporter:
     3300136: Tuft_001
     3300138: Cube
     3300140: Cube_001
+    3300142: Skyboxish
+    3300144: SkyboxCenter
     4300000: Plane
     4300002: Plane_001
     4300004: wall_3x1
@@ -385,6 +393,8 @@ ModelImporter:
     4300134: Bush
     4300136: Cube
     4300138: Cube_001
+    4300140: Skyboxish
+    4300142: SkyboxCenter
     7400000: Default Take
     9500000: //RootNode
   materials:
