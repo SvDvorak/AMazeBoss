@@ -1,12 +1,11 @@
 ﻿using Assets;
-using Assets.LevelEditor.Input;
 using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(PuzzleLayout))]
 public class PuzzleEditor : Editor
 {
-    private TilePos _dragStartPosition;
+    private Vector3 _dragStartPosition;
     private bool _isDragging;
 
     public override void OnInspectorGUI()
@@ -30,7 +29,7 @@ public class PuzzleEditor : Editor
         var puzzleLayout = (PuzzleLayout)target;
         var mousePosition = uiEvent.mousePosition;
 
-        var tilePos = GetTilePosition(mousePosition);
+        var dragEndPosition = GetMouseOnXZPlane(mousePosition);
 
         switch (uiEvent.type)
         {
@@ -41,7 +40,7 @@ public class PuzzleEditor : Editor
                 if (uiEvent.button == 0)
                 {
                     _isDragging = true;
-                    _dragStartPosition = tilePos;
+                    _dragStartPosition = dragEndPosition;
                 }
                 break;
             case EventType.MouseUp:
@@ -54,23 +53,24 @@ public class PuzzleEditor : Editor
 
         if (_isDragging)
         {
-            Handles.DrawDottedLine(_dragStartPosition.ToV3(), tilePos.ToV3(), 5);
+            var connectionVector = dragEndPosition - _dragStartPosition;
+            var connectionTileVector = Mathf.Abs(connectionVector.x) > Mathf.Abs(connectionVector.z)
+                ? new TilePos(connectionVector.x, 0)
+                : new TilePos(0, connectionVector.z);
+            var tileStart = new TilePos(_dragStartPosition);
+            var tileEnd = tileStart + connectionTileVector;
+            Handles.DrawDottedLine(tileStart.ToV3(), tileEnd.ToV3(), 5);
         }
 
         HandleUtility.Repaint();
     }
 
-    private static TilePos GetTilePosition(Vector2 mousePosition)
+    private static Vector3 GetMouseOnXZPlane(Vector2 mousePosition)
     {
         var xzPlane = new Plane(Vector3.up, Vector3.zero);
         var ray = Camera.current.ScreenPointToRay(new Vector2(mousePosition.x, Camera.current.pixelHeight - mousePosition.y));
         float hit;
-        if (xzPlane.Raycast(ray, out hit))
-        {
-            return new TilePos(ray.GetPoint(hit));
-        }
-
-        return new TilePos();
+        return xzPlane.Raycast(ray, out hit) ? ray.GetPoint(hit) : new Vector3();
     }
 
     private bool InEditMode
