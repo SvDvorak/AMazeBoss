@@ -22,7 +22,7 @@ namespace Assets.LevelEditor.Input
                 return;
             }
 
-            var currentPosition = GetMouseTilePosition(cameraEntity.camera.Value);
+            var currentPosition = GetMouseTilePosition(cameraEntity.camera.Value, UnityEngine.Input.mousePosition);
             var input = _pool.inputEntity;
             var hasMoved = !input.hasPosition || input.position.Value != currentPosition;
 
@@ -35,17 +35,15 @@ namespace Assets.LevelEditor.Input
             input.isInputRemove = UnityEngine.Input.GetMouseButton(1);
         }
 
-        private TilePos GetMouseTilePosition(UnityEngine.Camera camera)
+        public static TilePos GetMouseTilePosition(UnityEngine.Camera camera, Vector2 mousePosition)
         {
-            var ray = camera.ScreenPointToRay(UnityEngine.Input.mousePosition);
+            var ray = camera.ScreenPointToRay(mousePosition);
             var hPlane = new Plane(Vector3.up, Vector3.zero);
             float distance;
             if (hPlane.Raycast(ray, out distance))
             {
                 var planePos = ray.GetPoint(distance);
-                var tilePos = new TilePos(planePos);
-
-                return tilePos;
+                return new TilePos(planePos);
             }
 
             return new TilePos(0, 0);
