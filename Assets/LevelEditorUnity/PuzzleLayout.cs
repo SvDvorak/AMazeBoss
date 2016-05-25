@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class PuzzleLayout : MonoBehaviour {
+public class PuzzleLayout : MonoBehaviour
+{
+    public GameObject Connector;
+    public GameObject Node;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+
+    }
 }

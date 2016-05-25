@@ -10,6 +10,7 @@ public class PuzzleEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
         var change = GUILayout.Toggle(InEditMode, "Edit", "Button");
         if (change != InEditMode)
         {
@@ -30,6 +31,7 @@ public class PuzzleEditor : Editor
         var mousePosition = uiEvent.mousePosition;
 
         var dragEndPosition = GetMouseOnXZPlane(mousePosition);
+        var tileConnection = GetTileAdjustedConnection(_dragStartPosition, dragEndPosition);
 
         switch (uiEvent.type)
         {
@@ -47,22 +49,41 @@ public class PuzzleEditor : Editor
                 if (uiEvent.button == 0 && _isDragging)
                 {
                     _isDragging = false;
+                    var connectionView = Instantiate(
+                        puzzleLayout.Connector,
+                        tileConnection.Start.ToV3(),
+                        Quaternion.FromToRotation(Vector3.forward, (tileConnection.End - tileConnection.Start).ToV3()));
+                    Undo.RegisterCreatedObjectUndo(connectionView, "Created connection");
                 }
                 break;
         }
 
         if (_isDragging)
         {
-            var connectionVector = dragEndPosition - _dragStartPosition;
-            var connectionTileVector = Mathf.Abs(connectionVector.x) > Mathf.Abs(connectionVector.z)
-                ? new TilePos(connectionVector.x, 0)
-                : new TilePos(0, connectionVector.z);
-            var tileStart = new TilePos(_dragStartPosition);
-            var tileEnd = tileStart + connectionTileVector;
-            Handles.DrawDottedLine(tileStart.ToV3(), tileEnd.ToV3(), 5);
+            Handles.DrawDottedLine(tileConnection.Start.ToV3(), tileConnection.End.ToV3(), 5);
         }
 
         HandleUtility.Repaint();
+    }
+
+    private struct TileConnection
+    {
+        public TilePos Start { get; set; }
+        public TilePos End { get; set; }
+    } 
+
+    private static TileConnection GetTileAdjustedConnection(Vector3 start, Vector3 end)
+    {
+        var connectionVector = end - start;
+        var connectionTileVector = Mathf.Abs(connectionVector.x) > Mathf.Abs(connectionVector.z)
+            ? new TilePos(connectionVector.x, 0)
+            : new TilePos(0, connectionVector.z);
+        var tileStart = new TilePos(start);
+        return new TileConnection()
+        {
+            Start = tileStart,
+            End = tileStart + connectionTileVector
+        };
     }
 
     private static Vector3 GetMouseOnXZPlane(Vector2 mousePosition)
