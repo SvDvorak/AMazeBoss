@@ -15,7 +15,6 @@ public class PuzzleEditor : Editor
         if (change != InEditMode)
         {
             InEditMode = !InEditMode;
-            Debug.Log(InEditMode ? "Started editing" : "Stopped editing");
         }
     }
 
@@ -31,7 +30,7 @@ public class PuzzleEditor : Editor
         var mousePosition = uiEvent.mousePosition;
 
         var dragEndPosition = GetMouseOnXZPlane(mousePosition);
-        var tileConnection = GetTileAdjustedConnection(_dragStartPosition, dragEndPosition);
+        var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, dragEndPosition);
 
         switch (uiEvent.type)
         {
@@ -49,37 +48,27 @@ public class PuzzleEditor : Editor
                 if (uiEvent.button == 0 && _isDragging)
                 {
                     _isDragging = false;
-                    var connectionView = Instantiate(
-                        puzzleLayout.Connector,
-                        tileConnection.Start.ToV3(),
-                        Quaternion.FromToRotation(Vector3.forward, (tileConnection.End - tileConnection.Start).ToV3()));
-                    Undo.RegisterCreatedObjectUndo(connectionView, "Created connection");
+                    puzzleLayout.AddNodeConnection(nodeConnection);
                 }
                 break;
         }
 
         if (_isDragging)
         {
-            Handles.DrawDottedLine(tileConnection.Start.ToV3(), tileConnection.End.ToV3(), 5);
+            Handles.DrawDottedLine(nodeConnection.Start.ToV3(), nodeConnection.End.ToV3(), 5);
         }
 
         HandleUtility.Repaint();
     }
 
-    private struct TileConnection
-    {
-        public TilePos Start { get; set; }
-        public TilePos End { get; set; }
-    } 
-
-    private static TileConnection GetTileAdjustedConnection(Vector3 start, Vector3 end)
+    private static NodeConnection GetTileAdjustedConnection(Vector3 start, Vector3 end)
     {
         var connectionVector = end - start;
         var connectionTileVector = Mathf.Abs(connectionVector.x) > Mathf.Abs(connectionVector.z)
             ? new TilePos(connectionVector.x, 0)
             : new TilePos(0, connectionVector.z);
         var tileStart = new TilePos(start);
-        return new TileConnection()
+        return new NodeConnection()
         {
             Start = tileStart,
             End = tileStart + connectionTileVector
