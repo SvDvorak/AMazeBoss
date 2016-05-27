@@ -45,6 +45,7 @@ namespace Assets.LevelEditorUnity
         {
             if (NodeViews.ContainsKey(node.Position))
             {
+                DestroyImmediate(NodeViews[node.Position]);
                 NodeViews.Remove(node.Position);
             }
         }
@@ -66,6 +67,7 @@ namespace Assets.LevelEditorUnity
         {
             if (NodeConnectionViews.ContainsKey(connection))
             {
+                DestroyImmediate(NodeConnectionViews[connection]);
                 NodeConnectionViews.Remove(connection);
             }
         }

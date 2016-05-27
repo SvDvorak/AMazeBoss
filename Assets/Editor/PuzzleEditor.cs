@@ -18,6 +18,12 @@ public class PuzzleEditor : Editor
         {
             InEditMode = !InEditMode;
         }
+
+        var shouldClear = GUILayout.Button("Clear");
+        if (shouldClear)
+        {
+            PuzzleLayout.Instance.Clear();
+        }
     }
 
     public void OnSceneGUI()

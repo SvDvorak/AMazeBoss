@@ -13,7 +13,9 @@ namespace Assets.LevelEditorUnity
 
         public bool Equals(NodeConnection other)
         {
-            return Start.Equals(other.Start) && End.Equals(other.End);
+            return
+                Start.Equals(other.Start) && End.Equals(other.End) ||
+                Start.Equals(other.End) && End.Equals(other.Start);
         }
 
         public override bool Equals(object obj)
@@ -26,7 +28,7 @@ namespace Assets.LevelEditorUnity
         {
             unchecked
             {
-                return (Start.GetHashCode()*397) ^ End.GetHashCode();
+                return Start.GetHashCode() + End.GetHashCode();
             }
         }
     }

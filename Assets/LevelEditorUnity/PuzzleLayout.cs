@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.LevelEditorUnity
 {
@@ -50,8 +51,8 @@ namespace Assets.LevelEditorUnity
 
             var node1 = Nodes[connection.Start];
             var node2 = Nodes[connection.End];
-            RemoveConnection(node1, node2);
-            RemoveConnection(node2, node1);
+            RemoveOneWayConnection(node1, node2);
+            RemoveOneWayConnection(node2, node1);
 
             OnConnectionRemoved(connection);
         }
@@ -69,7 +70,7 @@ namespace Assets.LevelEditorUnity
             return newNode;
         }
 
-        private void RemoveConnection(Node node1, Node node2)
+        private void RemoveOneWayConnection(Node node1, Node node2)
         {
             node1.Connections.Remove(node2);
 
@@ -77,6 +78,19 @@ namespace Assets.LevelEditorUnity
             {
                 Nodes.Remove(node1.Position);
                 OnNodeRemoved(node1);
+            }
+        }
+
+        public void Clear()
+        {
+            while (Nodes.Count > 0)
+            {
+                var node = Nodes.Values.First();
+                while (node.Connections.Count > 0)
+                {
+                    var connection = node.Connections[0];
+                    RemoveNodeConnection(new NodeConnection(node.Position, connection.Position));
+                }
             }
         }
 
@@ -110,11 +124,6 @@ namespace Assets.LevelEditorUnity
             {
                 ConnectionRemoved(connection);
             }
-        }
-
-        public void Clear()
-        {
-            throw new NotImplementedException();
         }
     }
 }
