@@ -8,6 +8,7 @@ public class PuzzleEditor : Editor
 {
     private Vector3 _dragStartPosition;
     private bool _isDragging;
+    private bool _isDeleting;
 
     public override void OnInspectorGUI()
     {
@@ -53,17 +54,26 @@ public class PuzzleEditor : Editor
                 }
                 break;
             case EventType.MouseUp:
-                if (_isDragging)
+                if (uiEvent.button == 0 && _isDragging)
                 {
-                    if (uiEvent.button == 0)
+                    if (!_isDeleting)
                     {
                         PuzzleLayout.Instance.AddNodeConnection(nodeConnection);
                     }
-                    else if (uiEvent.button == 1)
+                    else
                     {
                         PuzzleLayout.Instance.RemoveNodeConnection(nodeConnection);
                     }
                     _isDragging = false;
+                }
+                break;
+            case EventType.KeyDown:
+                _isDeleting = uiEvent.keyCode == KeyCode.LeftControl;
+                break;
+            case EventType.KeyUp:
+                if (uiEvent.keyCode == KeyCode.LeftControl)
+                {
+                    _isDeleting = false;
                 }
                 break;
         }

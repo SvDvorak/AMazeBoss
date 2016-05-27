@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp", "AMazeBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp.Editor", "AMazeBoss.CSharp.Editor.csproj", "{5587C7A3-8F60-844B-E778-FF14AEB52985}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp.Tests", "..\AMazeBoss.CSharp.Tests\AMazeBoss.CSharp.Tests.csproj", "{B4FDF4AE-621E-4452-B0EC-6284764F7DBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp.Tests", "AMazeBoss.CSharp.Tests\AMazeBoss.CSharp.Tests.csproj", "{B4FDF4AE-621E-4452-B0EC-6284764F7DBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
