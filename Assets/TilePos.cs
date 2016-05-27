@@ -90,14 +90,19 @@ namespace Assets
             return string.Format("X: {0}, Z: {1}", X, Z);
         }
 
-        public float Length()
+        public int Length()
         {
-            return Mathf.Sqrt(X*X + Z*Z);
+            return Mathf.RoundToInt(Mathf.Sqrt(X*X + Z*Z));
         }
 
         public int ManhattanDistance()
         {
             return Mathf.Abs(X) + Mathf.Abs(Z);
+        }
+
+        public TilePos Normalized()
+        {
+            return new TilePos(Mathf.Clamp(X, -1, 1), Mathf.Clamp(Z, -1, 1));
         }
 
         public TilePos Rotate(int rotation)

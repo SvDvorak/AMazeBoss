@@ -28,6 +28,21 @@ namespace Assets.LevelEditorUnity
 
         public void AddNodeConnection(NodeConnection connection)
         {
+            var direction = connection.End - connection.Start;
+            var subdivideCount = direction.Length();
+            var directionNormalized = direction.Normalized();
+
+            for (int i = 0; i < subdivideCount; i++)
+            {
+                var subConnectionStart = connection.Start + directionNormalized*i;
+                var subConnectionEnd = connection.Start + directionNormalized*(i+1);
+                var subConnection = new NodeConnection(subConnectionStart, subConnectionEnd);
+                AddSubdividedConnection(subConnection);
+            }
+        }
+
+        public void AddSubdividedConnection(NodeConnection connection)
+        {
             var node1 = GetExistingNodeOrCreateNew(connection.Start);
             var node2 = GetExistingNodeOrCreateNew(connection.End);
 

@@ -17,6 +17,7 @@ public class PuzzleEditor : Editor
         if (change != InEditMode)
         {
             InEditMode = !InEditMode;
+            Tools.hidden = InEditMode;
         }
 
         var shouldClear = GUILayout.Button("Clear");
