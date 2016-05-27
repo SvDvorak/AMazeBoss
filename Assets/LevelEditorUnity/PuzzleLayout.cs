@@ -1,104 +1,120 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Assets;
-using UnityEditor;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
 
-public class PuzzleLayout : MonoBehaviour
+namespace Assets.LevelEditorUnity
 {
-    public GameObject Connector;
-    public GameObject Node;
-
-    public Dictionary<TilePos, Node> Nodes = new Dictionary<TilePos, Node>();
-
-    public Dictionary<TilePos, GameObject> NodeViews = new Dictionary<TilePos, GameObject>();
-    public Dictionary<NodeConnection, GameObject> NodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
-
-    public void AddNodeConnection(NodeConnection connection)
+    public class PuzzleLayout
     {
-        AddNodeIfNoneExistsAt(connection.Start);
-        AddNodeIfNoneExistsAt(connection.End);
-
-        var connectionView = (GameObject)Instantiate(
-            Connector,
-            connection.Start.ToV3(),
-            Quaternion.FromToRotation(Vector3.forward, (connection.End - connection.Start).ToV3()));
-        Undo.RegisterCreatedObjectUndo(connectionView, "Created connection");
-
-        NodeConnectionViews.Add(connection, connectionView);
-
-        var startNode = Nodes[connection.Start];
-        var endNode = Nodes[connection.End];
-
-        startNode.Connections.Add(endNode);
-        endNode.Connections.Add(startNode);
-    }
-
-    public void RemoveConnection(NodeConnection connection)
-    {
-        if (!Nodes.ContainsKey(connection.Start) || !Nodes.ContainsKey(connection.End))
+        private static PuzzleLayout _instance;
+        public static PuzzleLayout Instance
         {
-            return;
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new PuzzleLayout();
+                }
+                return _instance;
+            }
         }
 
-        var startNode = Nodes[connection.Start];
-        var endNode = Nodes[connection.End];
-        startNode.Connections.Remove(endNode);
-        endNode.Connections.Remove(startNode);
+        public Dictionary<TilePos, Node> Nodes = new Dictionary<TilePos, Node>();
 
-        if (!startNode.Connections.Any())
+        public event Action<Node> NodeAdded; 
+        public event Action<Node> NodeRemoved;
+        public event Action<NodeConnection> ConnectionAdded;
+        public event Action<NodeConnection> ConnectionRemoved;
+
+        public void AddNodeConnection(NodeConnection connection)
         {
-            Destroy(NodeViews[connection.Start]);
-            Nodes.Remove(connection.Start);
+            var node1 = GetExistingNodeOrCreateNew(connection.Start);
+            var node2 = GetExistingNodeOrCreateNew(connection.End);
+
+            var alreadyHasConnection = node1.Connections.Contains(node2) || node2.Connections.Contains(node1);
+            if(!alreadyHasConnection)
+            {
+                node1.Connections.Add(node2);
+                node2.Connections.Add(node1);
+
+                OnConnectionAdded(connection);
+            }
         }
-        if (!endNode.Connections.Any())
+
+        public void RemoveNodeConnection(NodeConnection connection)
         {
-            Destroy(NodeViews[connection.End]);
-            Nodes.Remove(connection.End);
-        }
-    }
+            var eitherNodeDoesntExistInLayout = !Nodes.ContainsKey(connection.Start) || !Nodes.ContainsKey(connection.End);
+            if (eitherNodeDoesntExistInLayout)
+            {
+                return;
+            }
 
-    private void AddNodeIfNoneExistsAt(TilePos position)
-    {
-        if (!Nodes.ContainsKey(position))
+            var node1 = Nodes[connection.Start];
+            var node2 = Nodes[connection.End];
+            RemoveConnection(node1, node2);
+            RemoveConnection(node2, node1);
+
+            OnConnectionRemoved(connection);
+        }
+
+        private Node GetExistingNodeOrCreateNew(TilePos position)
         {
-            var nodeView = Instantiate(
-                Node,
-                position.ToV3(),
-                Quaternion.identity);
-            Undo.RegisterCreatedObjectUndo(nodeView, "Created node");
+            if (Nodes.ContainsKey(position))
+            {
+                return Nodes[position];
+            }
 
-            Nodes.Add(position, new Node());
+            var newNode = new Node(position);
+            Nodes.Add(position, newNode);
+            OnNodeAdded(newNode);
+            return newNode;
         }
-    }
-}
 
-public struct NodeConnection
-{
-    public TilePos Start { get; set; }
-    public TilePos End { get; set; }
-
-    public bool Equals(NodeConnection other)
-    {
-        return Start.Equals(other.Start) && End.Equals(other.End);
-    }
-
-    public override bool Equals(object obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        return obj is NodeConnection && Equals((NodeConnection) obj);
-    }
-
-    public override int GetHashCode()
-    {
-        unchecked
+        private void RemoveConnection(Node node1, Node node2)
         {
-            return (Start.GetHashCode()*397) ^ End.GetHashCode();
+            node1.Connections.Remove(node2);
+
+            if (node1.Connections.Count == 0)
+            {
+                Nodes.Remove(node1.Position);
+                OnNodeRemoved(node1);
+            }
+        }
+
+        private void OnNodeAdded(Node node)
+        {
+            if (NodeAdded != null)
+            {
+                NodeAdded(node);
+            }
+        }
+
+        private void OnNodeRemoved(Node node)
+        {
+            if (NodeRemoved != null)
+            {
+                NodeRemoved(node);
+            }
+        }
+
+        private void OnConnectionAdded(NodeConnection connection)
+        {
+            if (ConnectionAdded != null)
+            {
+                ConnectionAdded(connection);
+            }
+        }
+
+        private void OnConnectionRemoved(NodeConnection connection)
+        {
+            if (ConnectionRemoved != null)
+            {
+                ConnectionRemoved(connection);
+            }
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
         }
     }
-}
-
-public class Node
-{
-    public List<Node> Connections = new List<Node>();
 }

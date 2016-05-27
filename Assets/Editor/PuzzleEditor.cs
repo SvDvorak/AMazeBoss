@@ -1,8 +1,9 @@
 ﻿using Assets;
+using Assets.LevelEditorUnity;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(PuzzleLayout))]
+[CustomEditor(typeof(PuzzleLayoutView))]
 public class PuzzleEditor : Editor
 {
     private Vector3 _dragStartPosition;
@@ -11,6 +12,7 @@ public class PuzzleEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
+
         var change = GUILayout.Toggle(InEditMode, "Edit", "Button");
         if (change != InEditMode)
         {
@@ -26,7 +28,6 @@ public class PuzzleEditor : Editor
         }
 
         var uiEvent = Event.current;
-        var puzzleLayout = (PuzzleLayout)target;
         var mousePosition = uiEvent.mousePosition;
 
         var dragEndPosition = GetMouseOnXZPlane(mousePosition);
@@ -45,10 +46,17 @@ public class PuzzleEditor : Editor
                 }
                 break;
             case EventType.MouseUp:
-                if (uiEvent.button == 0 && _isDragging)
+                if (_isDragging)
                 {
+                    if (uiEvent.button == 0)
+                    {
+                        PuzzleLayout.Instance.AddNodeConnection(nodeConnection);
+                    }
+                    else if (uiEvent.button == 1)
+                    {
+                        PuzzleLayout.Instance.RemoveNodeConnection(nodeConnection);
+                    }
                     _isDragging = false;
-                    puzzleLayout.AddNodeConnection(nodeConnection);
                 }
                 break;
         }
@@ -68,11 +76,7 @@ public class PuzzleEditor : Editor
             ? new TilePos(connectionVector.x, 0)
             : new TilePos(0, connectionVector.z);
         var tileStart = new TilePos(start);
-        return new NodeConnection()
-        {
-            Start = tileStart,
-            End = tileStart + connectionTileVector
-        };
+        return new NodeConnection(tileStart, tileStart + connectionTileVector);
     }
 
     private static Vector3 GetMouseOnXZPlane(Vector2 mousePosition)
