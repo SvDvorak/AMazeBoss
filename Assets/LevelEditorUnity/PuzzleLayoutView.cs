@@ -24,7 +24,7 @@ namespace Assets.LevelEditorUnity
                 var start = connector.localPosition;
                 var end = start + connector.rotation*Vector3.forward*TilePos.TileLength;
                 var nodeConnection = new NodeConnection(new TilePos(start), new TilePos(end));
-                PuzzleLayout.Instance.AddNodeConnection(nodeConnection);
+                PuzzleLayout.Instance.AddNodeConnections(nodeConnection);
             }
         }
 

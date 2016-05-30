@@ -23,7 +23,7 @@ namespace Assets.Editor.Undo
         {
             foreach (var connection in _currentConnections)
             {
-                PuzzleLayout.Instance.AddNodeConnection(connection);
+                PuzzleLayout.Instance.AddNodeConnections(connection);
             }
         }
     }

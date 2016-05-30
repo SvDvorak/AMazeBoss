@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.LevelEditorUnity;
 
 namespace Assets.Editor.Undo
@@ -5,6 +6,7 @@ namespace Assets.Editor.Undo
     public class RemoveNodeConnectionCommand : ICommand
     {
         private readonly NodeConnection _connection;
+        private List<NodeConnection> _removedConnections = new List<NodeConnection>();
 
         public string Name { get { return "Added node connection"; } }
 
@@ -15,12 +17,15 @@ namespace Assets.Editor.Undo
 
         public void Execute()
         {
-            PuzzleLayout.Instance.RemoveNodeConnection(_connection);
+            _removedConnections = PuzzleLayout.Instance.RemoveAndReturnNodeConnections(_connection);
         }
 
         public void Undo()
         {
-            PuzzleLayout.Instance.AddNodeConnection(_connection);
+            foreach (var removedConnection in _removedConnections)
+            {
+                PuzzleLayout.Instance.AddNodeConnections(removedConnection);
+            }
         }
     }
 }

@@ -26,60 +26,83 @@ namespace Assets.LevelEditorUnity
         public event Action<NodeConnection> ConnectionAdded;
         public event Action<NodeConnection> ConnectionRemoved;
 
-        public void AddNodeConnection(NodeConnection connection)
+        public void AddNodeConnections(NodeConnection wholeConnection)
         {
-            SubdivideConnectionAndDoForEachSegment(connection, AddSubdividedConnection);
+            SubdivideConnectionAndDoForEachSegment(wholeConnection, AddSubdividedConnection);
         }
 
-        private void AddSubdividedConnection(NodeConnection connection)
+        private bool AddSubdividedConnection(NodeConnection connection)
         {
             var node1 = GetExistingNodeOrCreateNew(connection.Start);
             var node2 = GetExistingNodeOrCreateNew(connection.End);
 
             var alreadyHasConnection = node1.Connections.Contains(node2) || node2.Connections.Contains(node1);
-            if(!alreadyHasConnection)
+            if (alreadyHasConnection)
             {
-                node1.Connections.Add(node2);
-                node2.Connections.Add(node1);
-
-                CallEvent(ConnectionAdded, connection);
+                return false;
             }
+
+            node1.Connections.Add(node2);
+            node2.Connections.Add(node1);
+
+            CallEvent(ConnectionAdded, connection);
+            return true;
         }
 
-        public void RemoveNodeConnection(NodeConnection connection)
+        public List<NodeConnection> RemoveAndReturnNodeConnections(NodeConnection wholeConnection)
         {
-            SubdivideConnectionAndDoForEachSegment(connection, RemoveSubdividedConnection);
+            return SubdivideConnectionAndDoForEachSegment(wholeConnection, RemoveSubdividedConnection);
         }
 
-        private void RemoveSubdividedConnection(NodeConnection connection)
+        private bool RemoveSubdividedConnection(NodeConnection connection)
         {
             var eitherNodeDoesntExistInLayout = !Nodes.ContainsKey(connection.Start) || !Nodes.ContainsKey(connection.End);
             if (eitherNodeDoesntExistInLayout)
             {
-                return;
+                return false;
             }
 
             var node1 = Nodes[connection.Start];
             var node2 = Nodes[connection.End];
+
+            if (!AreConnected(node1, node2))
+            {
+                return false;
+            }
+
             RemoveOneWayConnection(node1, node2);
             RemoveOneWayConnection(node2, node1);
 
             CallEvent(ConnectionRemoved, connection);
+            return true;
         }
 
-        private void SubdivideConnectionAndDoForEachSegment(NodeConnection connection, Action<NodeConnection> action)
+        private bool AreConnected(Node node1, Node node2)
+        {
+            return node1.Connections.Contains(node2) && node2.Connections.Contains(node1);
+        }
+
+        private List<NodeConnection> SubdivideConnectionAndDoForEachSegment(NodeConnection connection, Func<NodeConnection, bool> action)
         {
             var direction = connection.End - connection.Start;
             var subdivideCount = direction.Length();
             var directionNormalized = direction.Normalized();
+            var affectedConnections = new List<NodeConnection>();
 
             for (int i = 0; i < subdivideCount; i++)
             {
                 var subConnectionStart = connection.Start + directionNormalized * i;
                 var subConnectionEnd = connection.Start + directionNormalized * (i + 1);
                 var subConnection = new NodeConnection(subConnectionStart, subConnectionEnd);
-                action(subConnection);
+
+                var success = action(subConnection);
+                if (success)
+                {
+                    affectedConnections.Add(subConnection);
+                }
             }
+
+            return affectedConnections;
         }
 
         private Node GetExistingNodeOrCreateNew(TilePos position)
@@ -114,7 +137,7 @@ namespace Assets.LevelEditorUnity
                 while (node.Connections.Count > 0)
                 {
                     var connection = node.Connections[0];
-                    RemoveNodeConnection(new NodeConnection(node.Position, connection.Position));
+                    RemoveAndReturnNodeConnections(new NodeConnection(node.Position, connection.Position));
                 }
             }
         }

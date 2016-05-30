@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets;
 using Assets.LevelEditorUnity;
@@ -18,6 +19,7 @@ namespace AMazeBoss.CSharp.Tests
         private int _callsToNodeRemoved;
         private int _callsToConnectionRemoved;
         private int _callsToConnectionAdded;
+        private List<NodeConnection> _removedConnections;
 
         public PuzzleEditorAcceptanceTests()
         {
@@ -157,7 +159,7 @@ namespace AMazeBoss.CSharp.Tests
             }
 
             [Fact]
-            public void RemovesSubdividedConnectionsInLongConnection()
+            public void RemovesAndReturnsSubdividedConnectionsInLongConnection()
             {
                 var start = new TilePos(0, 0);
                 var farAwayEnd = new TilePos(2, 0);
@@ -169,9 +171,38 @@ namespace AMazeBoss.CSharp.Tests
                     .RemovingConnectionBetween(start, farAwayEnd);
 
                 Then
+                    .ShouldReturnRemoved(start, farAwayEnd/2, farAwayEnd)
                     .ShouldHaveNodeCountOf(0)
                     .ShouldHaveTotalConnectionCountOf(0);
             }
+
+            [Fact]
+            public void OnlyRemovesAndReturnsSubConnectionsThatExistInLayout()
+            {
+                Given
+                    .ConnectionBetween(_node1Position, _node2Position);
+
+                When
+                    .RemovingConnectionBetween(_node1Position, _node2Position*4);
+
+                Then
+                    .ShouldReturnRemoved(_node1Position, _node2Position);
+            }
+        }
+
+        public PuzzleEditorAcceptanceTests ShouldReturnRemoved(params TilePos[] nodeConnections)
+        {
+            _removedConnections.Count.Should()
+                .Be(nodeConnections.Length - 1, "removed connections does not match expected count");
+
+            for (int i = 0; i < _removedConnections.Count; i++)
+            {
+                var current = _removedConnections[i];
+                current.Start.Should().Be(nodeConnections[i], "connection " + i + " start does not match expected");
+                current.End.Should().Be(nodeConnections[i+1], "connection " + i + " end does not match expected");
+            }
+
+            return this;
         }
 
         public class LayoutEvents : PuzzleEditorAcceptanceTests
@@ -215,7 +246,7 @@ namespace AMazeBoss.CSharp.Tests
 
         public PuzzleEditorAcceptanceTests ConnectingBetween(TilePos position1, TilePos position2)
         {
-            _sut.AddNodeConnection(new NodeConnection(position1, position2));
+            _sut.AddNodeConnections(new NodeConnection(position1, position2));
             return this;
         }
 
@@ -245,7 +276,7 @@ namespace AMazeBoss.CSharp.Tests
 
         private void RemovingConnectionBetween(TilePos position1, TilePos position2)
         {
-            _sut.RemoveNodeConnection(new NodeConnection(position1, position2));
+            _removedConnections = _sut.RemoveAndReturnNodeConnections(new NodeConnection(position1, position2));
         }
 
         private PuzzleEditorAcceptanceTests ListeningToEvents()

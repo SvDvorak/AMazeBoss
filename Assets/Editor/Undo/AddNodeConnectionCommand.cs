@@ -15,12 +15,12 @@ namespace Assets.Editor.Undo
 
         public void Execute()
         {
-            PuzzleLayout.Instance.AddNodeConnection(_connection);
+            PuzzleLayout.Instance.AddNodeConnections(_connection);
         }
 
         public void Undo()
         {
-            PuzzleLayout.Instance.RemoveNodeConnection(_connection);
+            PuzzleLayout.Instance.RemoveAndReturnNodeConnections(_connection);
         }
     }
 }
