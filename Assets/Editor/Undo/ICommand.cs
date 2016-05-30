@@ -29,8 +29,6 @@
 
 #endregion License
 
-using Assets.LevelEditorUnity;
-
 namespace Assets.Editor.Undo
 {
     public interface ICommand
@@ -40,49 +38,5 @@ namespace Assets.Editor.Undo
         void Execute();
 
         void Undo();
-    }
-
-    public class AddNodeConnectionCommand : ICommand
-    {
-        private readonly NodeConnection _connection;
-
-        public string Name { get { return "Added node connection"; } }
-
-        public AddNodeConnectionCommand(NodeConnection connection)
-        {
-            _connection = connection;
-        }
-
-        public void Execute()
-        {
-            PuzzleLayout.Instance.AddNodeConnection(_connection);
-        }
-
-        public void Undo()
-        {
-            PuzzleLayout.Instance.RemoveNodeConnection(_connection);
-        }
-    }
-
-    public class RemoveNodeConnectionCommand : ICommand
-    {
-        private readonly NodeConnection _connection;
-
-        public string Name { get { return "Added node connection"; } }
-
-        public RemoveNodeConnectionCommand(NodeConnection connection)
-        {
-            _connection = connection;
-        }
-
-        public void Execute()
-        {
-            PuzzleLayout.Instance.RemoveNodeConnection(_connection);
-        }
-
-        public void Undo()
-        {
-            PuzzleLayout.Instance.AddNodeConnection(_connection);
-        }
     }
 }

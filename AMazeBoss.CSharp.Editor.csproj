@@ -114,6 +114,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\Undo\AddNodeConnectionCommand.cs" />
     <Compile Include="Assets\Editor\Undo\CommandHistory.cs" />
     <Compile Include="Assets\Editor\Undo\ICommand.cs" />
     <Compile Include="Assets\Editor\ImageEffects\AntialiasingEditor.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Assets\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
     <Compile Include="Assets\Editor\LookAtPointEditor.cs" />
     <Compile Include="Assets\Editor\PuzzleEditor.cs" />
+    <Compile Include="Assets\Editor\Undo\RemoveNodeConnectionCommand.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator.TypeReflection\Editor\TypeReflectionCodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentIndicesGenerator.cs" />

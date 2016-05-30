@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Assets;
+using Assets.Editor.Undo;
 using Assets.LevelEditorUnity;
 using FluentAssertions;
 using Xunit;
@@ -91,7 +92,7 @@ namespace AMazeBoss.CSharp.Tests
                     .ShouldHaveNodeAt(start, node => node
                         .WithConnectionsTo(middlePoint))
                     .ShouldHaveNodeAt(middlePoint, node => node
-                        .WithConnectionsTo(farAwayEnd));
+                        .WithConnectionsTo(farAwayEnd, start));
             }
         }
 
@@ -213,7 +214,6 @@ namespace AMazeBoss.CSharp.Tests
             }
         }
 
-
         public PuzzleEditorAcceptanceTests ConnectingBetween(TilePos position1, TilePos position2)
         {
             _sut.AddNodeConnection(new NodeConnection(position1, position2));
@@ -229,6 +229,7 @@ namespace AMazeBoss.CSharp.Tests
         public PuzzleEditorAcceptanceTests ShouldHaveNodeAt(TilePos position, Action<Node> nodeAction)
         {
             _sut.Nodes.ContainsKey(position).Should().BeTrue("there should be node at " + position);
+            nodeAction(_sut.Nodes[position]);
             return this;
         }
 

@@ -1,4 +1,5 @@
-﻿using Assets;
+﻿using System.Collections.Generic;
+using Assets;
 using Assets.Editor.Undo;
 using Assets.LevelEditorUnity;
 using UnityEngine;
@@ -79,14 +80,8 @@ public class PuzzleEditor : EditorWindow
             case EventType.MouseUp:
                 if (uiEvent.button == 0 && _isDragging)
                 {
-                    if (!_isDeleting)
-                    {
-                        _commandHistory.Execute(new AddNodeConnectionCommand(nodeConnection));
-                    }
-                    else
-                    {
-                        _commandHistory.Execute(new RemoveNodeConnectionCommand(nodeConnection));
-                    }
+                    var command = GetNodeConnectionCommand(nodeConnection);
+                    _commandHistory.Execute(command);
                     Repaint();
                     _isDragging = false;
                 }
@@ -108,6 +103,13 @@ public class PuzzleEditor : EditorWindow
         }
 
         HandleUtility.Repaint();
+    }
+
+    private ICommand GetNodeConnectionCommand(NodeConnection nodeConnection)
+    {
+        return _isDeleting
+            ? new RemoveNodeConnectionCommand(nodeConnection) as ICommand
+            : new AddNodeConnectionCommand(nodeConnection);
     }
 
     private static NodeConnection GetTileAdjustedConnection(Vector3 start, Vector3 end)

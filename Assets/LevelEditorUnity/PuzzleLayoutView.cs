@@ -13,6 +13,8 @@ namespace Assets.LevelEditorUnity
         public Dictionary<TilePos, GameObject> NodeViews = new Dictionary<TilePos, GameObject>();
         public Dictionary<NodeConnection, GameObject> NodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
 
+        private PuzzleLayout PuzzleLayout { get { return PuzzleLayout.Instance; } }
+
         private void LoadLevelStateFromScene()
         {
             var connectors = gameObject.GetChildren("Connector", true).Select(x => x.transform);
@@ -29,18 +31,18 @@ namespace Assets.LevelEditorUnity
         public void OnEnable()
         {
             LoadLevelStateFromScene();
-            PuzzleLayout.Instance.NodeAdded += AddNode;
-            PuzzleLayout.Instance.NodeRemoved += RemoveNode;
-            PuzzleLayout.Instance.ConnectionAdded += AddNodeConnection;
-            PuzzleLayout.Instance.ConnectionRemoved += RemoveConnection;
+            PuzzleLayout.NodeAdded += AddNode;
+            PuzzleLayout.NodeRemoved += RemoveNode;
+            PuzzleLayout.ConnectionAdded += AddNodeConnection;
+            PuzzleLayout.ConnectionRemoved += RemoveConnection;
         }
 
         public void OnDisable()
         {
-            PuzzleLayout.Instance.NodeAdded -= AddNode;
-            PuzzleLayout.Instance.NodeRemoved -= RemoveNode;
-            PuzzleLayout.Instance.ConnectionAdded -= AddNodeConnection;
-            PuzzleLayout.Instance.ConnectionRemoved -= RemoveConnection;
+            PuzzleLayout.NodeAdded -= AddNode;
+            PuzzleLayout.NodeRemoved -= RemoveNode;
+            PuzzleLayout.ConnectionAdded -= AddNodeConnection;
+            PuzzleLayout.ConnectionRemoved -= RemoveConnection;
         }
 
         private void AddNode(Node node)
