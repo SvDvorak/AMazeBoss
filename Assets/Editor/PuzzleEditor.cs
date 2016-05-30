@@ -19,12 +19,6 @@ public class PuzzleEditor : Editor
         {
             InEditMode = !InEditMode;
             Tools.hidden = InEditMode;
-
-            if (!InEditMode)
-            {
-                var puzzleLayoutView = (PuzzleLayoutView)target;
-                puzzleLayoutView.SaveAsSerializable();
-            }
         }
 
         var shouldClear = GUILayout.Button("Clear");
