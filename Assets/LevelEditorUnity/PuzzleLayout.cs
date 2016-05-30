@@ -19,7 +19,7 @@ namespace Assets.LevelEditorUnity
             }
         }
 
-        public Dictionary<TilePos, Node> Nodes = new Dictionary<TilePos, Node>();
+        public readonly Dictionary<TilePos, Node> Nodes = new Dictionary<TilePos, Node>();
 
         public event Action<Node> NodeAdded; 
         public event Action<Node> NodeRemoved;
@@ -42,7 +42,7 @@ namespace Assets.LevelEditorUnity
                 node1.Connections.Add(node2);
                 node2.Connections.Add(node1);
 
-                OnConnectionAdded(connection);
+                CallEvent(ConnectionAdded, connection);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Assets.LevelEditorUnity
             RemoveOneWayConnection(node1, node2);
             RemoveOneWayConnection(node2, node1);
 
-            OnConnectionRemoved(connection);
+            CallEvent(ConnectionRemoved, connection);
         }
 
         private void SubdivideConnectionAndDoForEachSegment(NodeConnection connection, Action<NodeConnection> action)
@@ -91,7 +91,7 @@ namespace Assets.LevelEditorUnity
 
             var newNode = new Node(position);
             Nodes.Add(position, newNode);
-            OnNodeAdded(newNode);
+            CallEvent(NodeAdded, newNode);
             return newNode;
         }
 
@@ -102,7 +102,7 @@ namespace Assets.LevelEditorUnity
             if (node1.Connections.Count == 0)
             {
                 Nodes.Remove(node1.Position);
-                OnNodeRemoved(node1);
+                CallEvent(NodeRemoved, node1);
             }
         }
 
@@ -119,35 +119,11 @@ namespace Assets.LevelEditorUnity
             }
         }
 
-        private void OnNodeAdded(Node node)
+        private void CallEvent<T>(Action<T> callback, T value)
         {
-            if (NodeAdded != null)
+            if (callback != null)
             {
-                NodeAdded(node);
-            }
-        }
-
-        private void OnNodeRemoved(Node node)
-        {
-            if (NodeRemoved != null)
-            {
-                NodeRemoved(node);
-            }
-        }
-
-        private void OnConnectionAdded(NodeConnection connection)
-        {
-            if (ConnectionAdded != null)
-            {
-                ConnectionAdded(connection);
-            }
-        }
-
-        private void OnConnectionRemoved(NodeConnection connection)
-        {
-            if (ConnectionRemoved != null)
-            {
-                ConnectionRemoved(connection);
+                callback(value);
             }
         }
     }

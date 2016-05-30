@@ -4,7 +4,7 @@ namespace Assets
 {
     public struct TilePos
     {
-        private const int TileLength = 2;
+        public const int TileLength = 2;
 
         public TilePos(Vector3 pos) : this(pos.x, pos.z)
         {
