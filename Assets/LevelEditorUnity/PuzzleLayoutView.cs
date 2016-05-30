@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.LevelEditorUnity
@@ -17,14 +16,23 @@ namespace Assets.LevelEditorUnity
 
         private void LoadLevelStateFromScene()
         {
-            var connectors = gameObject.GetChildren("Connector", true).Select(x => x.transform);
+            PuzzleLayout.Instance.Clear();
+            var nodes = gameObject.GetChildren("Node", true);
+
+            foreach (var node in nodes)
+            {
+                NodeViews.Add(new TilePos(node.transform.localPosition), node);
+            }
+
+            var connectors = gameObject.GetChildren("Connector", true);
 
             foreach (var connector in connectors)
             {
-                var start = connector.localPosition;
-                var end = start + connector.rotation*Vector3.forward*TilePos.TileLength;
+                var start = connector.transform.localPosition;
+                var end = start + connector.transform.rotation*Vector3.forward*TilePos.TileLength;
                 var nodeConnection = new NodeConnection(new TilePos(start), new TilePos(end));
                 PuzzleLayout.Instance.AddNodeConnections(nodeConnection);
+                NodeConnectionViews.Add(nodeConnection, connector);
             }
         }
 
