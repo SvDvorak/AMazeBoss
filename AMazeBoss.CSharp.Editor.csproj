@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Undo\AddNodeConnectionCommand.cs" />
+    <Compile Include="Assets\Editor\Undo\ClearLayoutCommand.cs" />
     <Compile Include="Assets\Editor\Undo\CommandHistory.cs" />
     <Compile Include="Assets\Editor\Undo\ICommand.cs" />
     <Compile Include="Assets\Editor\ImageEffects\AntialiasingEditor.cs" />

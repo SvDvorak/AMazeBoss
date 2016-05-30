@@ -119,6 +119,25 @@ namespace Assets.LevelEditorUnity
             }
         }
 
+        public List<NodeConnection> GetAllConnections()
+        {
+            var nodeConnections = new HashSet<NodeConnection>();
+
+            foreach (var node in Nodes.Values)
+            {
+                foreach (var otherNode in node.Connections)
+                {
+                    var connection = new NodeConnection(node.Position, otherNode.Position);
+                    if (!nodeConnections.Contains(connection))
+                    {
+                        nodeConnections.Add(connection);
+                    }
+                }
+            }
+
+            return nodeConnections.ToList();
+        }
+
         private void CallEvent<T>(Action<T> callback, T value)
         {
             if (callback != null)

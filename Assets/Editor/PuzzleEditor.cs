@@ -48,7 +48,7 @@ public class PuzzleEditor : EditorWindow
         var shouldClear = GUILayout.Button("Clear");
         if (shouldClear)
         {
-            PuzzleLayout.Instance.Clear();
+            _commandHistory.Execute(new ClearLayoutCommand());
         }
     }
 
