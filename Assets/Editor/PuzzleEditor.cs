@@ -1,19 +1,42 @@
 ﻿using Assets;
+using Assets.Editor.Undo;
 using Assets.LevelEditorUnity;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(PuzzleLayoutView))]
-public class PuzzleEditor : Editor
+public class PuzzleEditor : EditorWindow
 {
     private Vector3 _dragStartPosition;
     private bool _isDragging;
     private bool _isDeleting;
+    private CommandHistory _commandHistory;
 
-    public override void OnInspectorGUI()
+    [MenuItem("Window/Puzzle Editor")]
+    public static void Init()
     {
-        DrawDefaultInspector();
+        var window = GetWindow<PuzzleEditor>();
+        window.Show();
+    }
 
+    public void OnEnable()
+    {
+        _commandHistory = new CommandHistory(true);
+        SceneView.onSceneGUIDelegate += OnSceneGUI;
+    }
+
+    public void OnDisable()
+    {
+        SceneView.onSceneGUIDelegate -= OnSceneGUI;
+        _commandHistory.Dispose();
+        _commandHistory = null;
+    }
+
+    public void OnGUI()
+    {
+        foreach (var node in PuzzleLayout.Instance.Nodes.Values)
+        {
+            GUILayout.Label("X: " + node.Position.X + "\t Z: " + node.Position.Z);
+        }
         var change = GUILayout.Toggle(InEditMode, "Edit", "Button");
         if (change != InEditMode)
         {
@@ -28,7 +51,7 @@ public class PuzzleEditor : Editor
         }
     }
 
-    public void OnSceneGUI()
+    public void OnSceneGUI(SceneView sceneView)
     {
         if (!InEditMode)
         {
@@ -58,12 +81,13 @@ public class PuzzleEditor : Editor
                 {
                     if (!_isDeleting)
                     {
-                        PuzzleLayout.Instance.AddNodeConnection(nodeConnection);
+                        _commandHistory.Execute(new AddNodeConnectionCommand(nodeConnection));
                     }
                     else
                     {
-                        PuzzleLayout.Instance.RemoveNodeConnection(nodeConnection);
+                        _commandHistory.Execute(new RemoveNodeConnectionCommand(nodeConnection));
                     }
+                    Repaint();
                     _isDragging = false;
                 }
                 break;

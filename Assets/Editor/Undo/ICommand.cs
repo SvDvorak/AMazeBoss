@@ -1,0 +1,88 @@
+﻿#region License
+
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014 Vadim Macagon
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+// Code taken from https://github.com/enlight/ubonsai/blob/master/src/editor/Undo/ICommand.cs
+// Slightly modified
+
+#endregion License
+
+using Assets.LevelEditorUnity;
+
+namespace Assets.Editor.Undo
+{
+    public interface ICommand
+    {
+        string Name { get; }
+
+        void Execute();
+
+        void Undo();
+    }
+
+    public class AddNodeConnectionCommand : ICommand
+    {
+        private readonly NodeConnection _connection;
+
+        public string Name { get { return "Added node connection"; } }
+
+        public AddNodeConnectionCommand(NodeConnection connection)
+        {
+            _connection = connection;
+        }
+
+        public void Execute()
+        {
+            PuzzleLayout.Instance.AddNodeConnection(_connection);
+        }
+
+        public void Undo()
+        {
+            PuzzleLayout.Instance.RemoveNodeConnection(_connection);
+        }
+    }
+
+    public class RemoveNodeConnectionCommand : ICommand
+    {
+        private readonly NodeConnection _connection;
+
+        public string Name { get { return "Added node connection"; } }
+
+        public RemoveNodeConnectionCommand(NodeConnection connection)
+        {
+            _connection = connection;
+        }
+
+        public void Execute()
+        {
+            PuzzleLayout.Instance.RemoveNodeConnection(_connection);
+        }
+
+        public void Undo()
+        {
+            PuzzleLayout.Instance.AddNodeConnection(_connection);
+        }
+    }
+}
