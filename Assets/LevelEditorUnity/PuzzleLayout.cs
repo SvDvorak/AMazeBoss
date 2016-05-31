@@ -45,7 +45,7 @@ namespace Assets.LevelEditorUnity
             node1.Connections.Add(node2);
             node2.Connections.Add(node1);
 
-            CallEvent(ConnectionAdded, connection);
+            ConnectionAdded.CallEvent(connection);
             return true;
         }
 
@@ -73,7 +73,7 @@ namespace Assets.LevelEditorUnity
             RemoveOneWayConnection(node1, node2);
             RemoveOneWayConnection(node2, node1);
 
-            CallEvent(ConnectionRemoved, connection);
+            ConnectionRemoved.CallEvent(connection);
             return true;
         }
 
@@ -114,7 +114,7 @@ namespace Assets.LevelEditorUnity
 
             var newNode = new Node(position);
             Nodes.Add(position, newNode);
-            CallEvent(NodeAdded, newNode);
+            NodeAdded.CallEvent(newNode);
             return newNode;
         }
 
@@ -125,7 +125,7 @@ namespace Assets.LevelEditorUnity
             if (node1.Connections.Count == 0)
             {
                 Nodes.Remove(node1.Position);
-                CallEvent(NodeRemoved, node1);
+                NodeRemoved.CallEvent(node1);
             }
         }
 
@@ -159,14 +159,6 @@ namespace Assets.LevelEditorUnity
             }
 
             return nodeConnections.ToList();
-        }
-
-        private void CallEvent<T>(Action<T> callback, T value)
-        {
-            if (callback != null)
-            {
-                callback(value);
-            }
         }
     }
 }

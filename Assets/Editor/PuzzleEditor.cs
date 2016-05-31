@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using Assets;
 using Assets.Editor.Undo;
 using Assets.LevelEditorUnity;
@@ -12,6 +12,7 @@ public class PuzzleEditor : EditorWindow
     private bool _isDragging;
     private bool _isDeleting;
     private CommandHistory _commandHistory;
+    private PuzzleLayoutView _layoutView;
 
     [MenuItem("Window/Puzzle Editor")]
     public static void Init()
@@ -24,10 +25,19 @@ public class PuzzleEditor : EditorWindow
     {
         _commandHistory = new CommandHistory(true);
         SceneView.onSceneGUIDelegate += OnSceneGUI;
+        LoadLayoutView();
+        EditorApplication.hierarchyWindowChanged += LoadLayoutView;
+    }
+
+    private void LoadLayoutView()
+    {
+        _layoutView = GameObject.Find("Editor").GetComponent<PuzzleLayoutView>();
     }
 
     public void OnDisable()
     {
+        _layoutView = null;
+        EditorApplication.hierarchyWindowChanged -= LoadLayoutView;
         SceneView.onSceneGUIDelegate -= OnSceneGUI;
         _commandHistory.Dispose();
         _commandHistory = null;
@@ -68,8 +78,8 @@ public class PuzzleEditor : EditorWindow
         var uiEvent = Event.current;
         var mousePosition = uiEvent.mousePosition;
 
-        var dragEndPosition = GetMouseOnXZPlane(mousePosition);
-        var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, dragEndPosition);
+        var currentDragPosition = GetMouseOnXZPlane(mousePosition);
+        var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentDragPosition);
 
         switch (uiEvent.type)
         {
@@ -80,7 +90,7 @@ public class PuzzleEditor : EditorWindow
                 if (uiEvent.button == 0)
                 {
                     _isDragging = true;
-                    _dragStartPosition = dragEndPosition;
+                    _dragStartPosition = currentDragPosition;
                 }
                 break;
             case EventType.MouseUp:
@@ -105,7 +115,11 @@ public class PuzzleEditor : EditorWindow
 
         if (_isDragging)
         {
-            Handles.DrawDottedLine(nodeConnection.Start.ToV3(), nodeConnection.End.ToV3(), 5);
+            _layoutView.UpdatePreview(nodeConnection);
+        }
+        else
+        {
+            _layoutView.RemovePreview();
         }
 
         HandleUtility.Repaint();
