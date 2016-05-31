@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.FileOperations;
+using Assets.LevelEditor;
+using Assets.LevelEditorUnity;
 using Entitas;
 using UnityEngine;
 
@@ -42,6 +44,40 @@ namespace Assets
                 return;
             }
             SceneSetup.LoadScene("Play");
+        }
+    }
+
+    public class GameLevelLoaderSystem : IInitializeSystem, ISetPool
+    {
+        private Pool _pool;
+
+        public void SetPool(Pool pool)
+        {
+            _pool = pool;
+        }
+
+        public void Initialize()
+        {
+            var nodes = PuzzleLayout.Instance.Nodes.Values;
+
+            foreach (var node in nodes)
+            {
+                var newRotation = UnityEngine.Random.Range(0, 4);
+
+                var newObject = _pool.CreateEntity()
+                    .ReplacePosition(node.Position)
+                    .AddRotation(newRotation);
+
+                WorldObjects.Empty.Do(newObject);
+            }
+
+            var hero = _pool.CreateEntity().AddPosition(new TilePos(0, 0));
+            WorldObjects.Hero.Do(hero);
+
+            _pool.CreateEntity().AddResource("Camera").AddRotation(0).ReplaceTargetFocusPoint(Vector3.zero);
+
+
+            _pool.isLevelLoaded = true;
         }
     }
 

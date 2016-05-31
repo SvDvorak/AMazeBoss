@@ -61,7 +61,8 @@ namespace Assets
 
             // Initialize
                 .Add(pool.CreateSystem<PositionsCacheUpdateSystem>())
-                .Add(pool.CreateSystem<PlayLevelLoaderSystem>())
+                .Add(pool.CreateSystem<GameLevelLoaderSystem>())
+                //.Add(pool.CreateSystem<PlayLevelLoaderSystem>())
                 .Add(pool.CreateSystem<TemplateLoaderSystem>())
 
             // Input
