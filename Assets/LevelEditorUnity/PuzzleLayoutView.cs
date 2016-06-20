@@ -12,7 +12,8 @@ namespace Assets.LevelEditorUnity
         public Dictionary<TilePos, GameObject> NodeViews = new Dictionary<TilePos, GameObject>();
         public Dictionary<NodeConnection, GameObject> NodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
 
-        private GameObject _preview;
+        private List<GameObject> _previews = new List<GameObject>();
+        private NodeConnection _lastPreviewConnection;
 
         private PuzzleLayout PuzzleLayout { get { return PuzzleLayout.Instance; } }
 
@@ -118,25 +119,54 @@ namespace Assets.LevelEditorUnity
 
         public void UpdatePreview(NodeConnection nodeConnection)
         {
-            if (_preview == null)
+            if (!nodeConnection.Equals(_lastPreviewConnection))
             {
-                _preview = CreateNodeConnectionView(nodeConnection);
-                _preview.name = "Preview";
+                RemovePreview();
+
+                var subConnections = SubdivideConnection(nodeConnection);
+                foreach (var subConnection in subConnections)
+                {
+                    var preview = CreateNodeConnectionView(subConnection);
+                    preview.name = "Preview";
+                    preview.transform.localPosition = subConnection.Start.ToV3();
+                    preview.transform.rotation = GetRotationFromConnectionEnd(subConnection);
+                    _previews.Add(preview);
+                }
+                Debug.Log("Recreated preview");
             }
-            else
-            {
-                _preview.transform.localPosition = nodeConnection.Start.ToV3();
-                _preview.transform.rotation = GetRotationFromConnectionEnd(nodeConnection);
-            }
+
+            _lastPreviewConnection = nodeConnection;
         }
 
         public void RemovePreview()
         {
-            if (_preview != null)
+            if (_previews != null)
             {
-                DestroyImmediate(_preview);
-                _preview = null;
+                foreach (var preview in _previews)
+                {
+                    DestroyImmediate(preview);
+                }
+                _previews = new List<GameObject>();
             }
+        }
+
+        private List<NodeConnection> SubdivideConnection(NodeConnection connection)
+        {
+            var direction = connection.End - connection.Start;
+            var subdivideCount = direction.Length();
+            var directionNormalized = direction.Normalized();
+            var affectedConnections = new List<NodeConnection>();
+
+            for (int i = 0; i < subdivideCount; i++)
+            {
+                var subConnectionStart = connection.Start + directionNormalized * i;
+                var subConnectionEnd = connection.Start + directionNormalized * (i + 1);
+                var subConnection = new NodeConnection(subConnectionStart, subConnectionEnd);
+
+                affectedConnections.Add(subConnection);
+            }
+
+            return affectedConnections;
         }
     }
 }

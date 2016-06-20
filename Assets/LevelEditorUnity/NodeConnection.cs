@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Assets.LevelEditorUnity
 {
     public struct NodeConnection
@@ -30,6 +32,25 @@ namespace Assets.LevelEditorUnity
             {
                 return Start.GetHashCode() + End.GetHashCode();
             }
+        }
+
+        public List<NodeConnection> GetSubdividedConnection()
+        {
+            var direction = End - Start;
+            var subdivideCount = direction.Length();
+            var directionNormalized = direction.Normalized();
+            var affectedConnections = new List<NodeConnection>();
+
+            for (int i = 0; i < subdivideCount; i++)
+            {
+                var subConnectionStart = Start + directionNormalized * i;
+                var subConnectionEnd = Start + directionNormalized * (i + 1);
+                var subConnection = new NodeConnection(subConnectionStart, subConnectionEnd);
+
+                affectedConnections.Add(subConnection);
+            }
+
+            return affectedConnections;
         }
     }
 }

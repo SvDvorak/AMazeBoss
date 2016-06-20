@@ -28,7 +28,9 @@ namespace Assets.LevelEditorUnity
 
         public void AddNodeConnections(NodeConnection wholeConnection)
         {
-            SubdivideConnectionAndDoForEachSegment(wholeConnection, AddSubdividedConnection);
+            wholeConnection
+                .GetSubdividedConnection()
+                .ForEach(x => AddSubdividedConnection(x));
         }
 
         private bool AddSubdividedConnection(NodeConnection connection)
@@ -51,7 +53,10 @@ namespace Assets.LevelEditorUnity
 
         public List<NodeConnection> RemoveAndReturnNodeConnections(NodeConnection wholeConnection)
         {
-            return SubdivideConnectionAndDoForEachSegment(wholeConnection, RemoveSubdividedConnection);
+            return wholeConnection
+                .GetSubdividedConnection()
+                .Where(RemoveSubdividedConnection)
+                .ToList();
         }
 
         private bool RemoveSubdividedConnection(NodeConnection connection)
@@ -80,29 +85,6 @@ namespace Assets.LevelEditorUnity
         private bool AreConnected(Node node1, Node node2)
         {
             return node1.Connections.Contains(node2) && node2.Connections.Contains(node1);
-        }
-
-        private List<NodeConnection> SubdivideConnectionAndDoForEachSegment(NodeConnection connection, Func<NodeConnection, bool> action)
-        {
-            var direction = connection.End - connection.Start;
-            var subdivideCount = direction.Length();
-            var directionNormalized = direction.Normalized();
-            var affectedConnections = new List<NodeConnection>();
-
-            for (int i = 0; i < subdivideCount; i++)
-            {
-                var subConnectionStart = connection.Start + directionNormalized * i;
-                var subConnectionEnd = connection.Start + directionNormalized * (i + 1);
-                var subConnection = new NodeConnection(subConnectionStart, subConnectionEnd);
-
-                var success = action(subConnection);
-                if (success)
-                {
-                    affectedConnections.Add(subConnection);
-                }
-            }
-
-            return affectedConnections;
         }
 
         private Node GetExistingNodeOrCreateNew(TilePos position)
