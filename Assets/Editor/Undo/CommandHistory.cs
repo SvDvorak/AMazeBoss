@@ -30,6 +30,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -81,21 +82,12 @@ namespace Assets.Editor.Undo
         /// </summary>
         public void Undo()
         {
-            Undo(1);
-        }
-
-        /// <summary>
-        /// Undo multiple commands.
-        /// </summary>
-        /// <param name="commandCount">Number of commands to undo.</param>
-        public void Undo(int commandCount)
-        {
-            Debug.Log("Undo: " + commandCount);
+            Debug.Log("Undo");
             _inUndoRedo = true;
-            for (int i = 0; (i < commandCount) && (_undoStack.Count > 0); i++)
-            {
+            if (_undoStack.Count > 0) {
                 var command = _undoStack.Pop();
                 command.Undo();
+                EditorSceneManager.MarkAllScenesDirty();
                 _redoStack.Push(command);
             }
             _inUndoRedo = false;
@@ -106,21 +98,13 @@ namespace Assets.Editor.Undo
         /// </summary>
         public void Redo()
         {
-            Redo(1);
-        }
-
-        /// <summary>
-        /// Redo multiple commands.
-        /// </summary>
-        /// <param name="commandCount">Number of commands to redo.</param>
-        public void Redo(int commandCount)
-        {
-            Debug.Log("Redo: " + commandCount);
+            Debug.Log("Redo: " + 1);
             _inUndoRedo = true;
-            for (int i = 0; (i < commandCount) && (_redoStack.Count > 0); i++)
+            if (_redoStack.Count > 0)
             {
                 var command = _redoStack.Pop();
                 command.Execute();
+                EditorSceneManager.MarkAllScenesDirty();
                 _undoStack.Push(command);
             }
             _inUndoRedo = false;
@@ -135,6 +119,7 @@ namespace Assets.Editor.Undo
 
             _redoStack.Clear();
             command.Execute();
+            EditorSceneManager.MarkAllScenesDirty();
 
             if (_tracker != null)
             {

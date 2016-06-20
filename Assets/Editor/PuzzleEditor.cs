@@ -54,11 +54,6 @@ public class PuzzleEditor : EditorWindow
         {
             InEditMode = !InEditMode;
             Tools.hidden = InEditMode;
-
-            if (!InEditMode)
-            {
-                EditorSceneManager.MarkAllScenesDirty();
-            }
         }
 
         var shouldClear = GUILayout.Button("Clear");
