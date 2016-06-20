@@ -34,6 +34,11 @@ namespace Assets.LevelEditorUnity
             }
         }
 
+        public int Length()
+        {
+            return (End - Start).ManhattanDistance();
+        }
+
         public List<NodeConnection> GetSubdividedConnection()
         {
             var direction = End - Start;

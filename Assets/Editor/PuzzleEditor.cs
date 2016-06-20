@@ -96,8 +96,11 @@ public class PuzzleEditor : EditorWindow
             case EventType.MouseUp:
                 if (uiEvent.button == 0 && _isDragging)
                 {
-                    var command = GetNodeConnectionCommand(nodeConnection);
-                    _commandHistory.Execute(command);
+                    if (nodeConnection.Length() > 0)
+                    {
+                        var command = GetNodeConnectionCommand(nodeConnection);
+                        _commandHistory.Execute(command);
+                    }
                     Repaint();
                     _isDragging = false;
                 }
