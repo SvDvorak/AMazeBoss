@@ -65,9 +65,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceptanceTests.cs" />
+    <Compile Include="Editor\ClearLayout.cs" />
+    <Compile Include="Editor\CreateConnection.cs" />
+    <Compile Include="Editor\LayoutEvents.cs" />
+    <Compile Include="Editor\PuzzleEditorTestExtensions.cs" />
+    <Compile Include="Editor\RemoveConnection.cs" />
     <Compile Include="NodeConnectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PuzzleEditorAcceptanceTests.cs" />
+    <Compile Include="Editor\PuzzleEditorAcceptanceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AMazeBoss.CSharp.csproj">
