@@ -1,44 +1,15 @@
 fileFormatVersion: 2
-guid: d418955eb2063734988cf4c84efcded7
-timeCreated: 1463991700
+guid: 81bebcc281d5fdf4b9daf72736faaad1
+timeCreated: 1466455525
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Cylinder
-    100002: //RootNode
-    100004: Node
-    100006: SpikeTrap
-    100008: Player
-    100010: Boss
-    100012: Connector
-    400000: Cylinder
-    400002: //RootNode
-    400004: Node
-    400006: SpikeTrap
-    400008: Player
-    400010: Boss
-    400012: Connector
-    2300000: Cylinder
-    2300002: Node
-    2300004: SpikeTrap
-    2300006: Player
-    2300008: Boss
-    2300010: Connector
-    3300000: Cylinder
-    3300002: Node
-    3300004: SpikeTrap
-    3300006: Player
-    3300008: Boss
-    3300010: Connector
-    4300000: Cylinder
-    4300002: Node
-    4300004: SpikeTrap
-    4300006: Player
-    4300008: Boss
-    4300010: Connector
-    7400000: Default Take
-    9500000: //RootNode
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Player
   materials:
     importMaterials: 1
     materialName: 0
@@ -97,7 +68,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
