@@ -33,7 +33,7 @@ public class PuzzleEditor : EditorWindow
 
         _worldObjects.Add(new EditorWorldObject("", Resources.Load<GameObject>("Editor/Node")));
         _worldObjects.Add(new EditorWorldObject("Player", Resources.Load<GameObject>("Editor/Player")));
-        _worldObjects.Add(new EditorWorldObject("", Resources.Load<GameObject>("Editor/Boss")));
+        _worldObjects.Add(new EditorWorldObject("Boss", Resources.Load<GameObject>("Editor/Boss")));
         _worldObjects.Add(new EditorWorldObject("", Resources.Load<GameObject>("Editor/SpikeTrap")));
     }
 
@@ -104,15 +104,15 @@ public class PuzzleEditor : EditorWindow
                 }
                 break;
             case EventType.MouseUp:
-                if (selectedWorldObject.Type == "Player")
+                if (selectedWorldObject.Type != "")
                 {
                     if (uiEvent.button == 0)
                     {
-                        _commandHistory.Execute(new AddPlayerCommand(layout, new TilePos(currentInputTilePos)));
+                        _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, new TilePos(currentInputTilePos)));
                     }
                     else if (uiEvent.button == 1)
                     {
-                        _commandHistory.Execute(new RemovePlayerCommand(layout));
+                        _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, null));
                     }
                 }
                 else if (uiEvent.button == 0 && _isDragging)

@@ -21,6 +21,7 @@ namespace Assets.LevelEditorUnity
         public GameObject Connector;
         public GameObject Node;
         public GameObject Player;
+        public GameObject Boss;
 
         public Dictionary<TilePos, GameObject> NodeViews = new Dictionary<TilePos, GameObject>();
         public Dictionary<NodeConnection, GameObject> NodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
@@ -28,6 +29,7 @@ namespace Assets.LevelEditorUnity
         private List<GameObject> _previews = new List<GameObject>();
         private NodeConnection _lastPreviewConnection;
         private GameObject _player;
+        private GameObject _boss;
 
         private PuzzleLayout PuzzleLayout { get { return PuzzleLayout.Instance; } }
 
@@ -60,8 +62,8 @@ namespace Assets.LevelEditorUnity
             PuzzleLayout.NodeRemoved += RemoveNode;
             PuzzleLayout.ConnectionAdded += AddNodeConnection;
             PuzzleLayout.ConnectionRemoved += RemoveConnection;
-            PuzzleLayout.PlayerAdded += PlayerAdded;
-            PuzzleLayout.PlayerRemoved += PlayerRemoved;
+            PuzzleLayout.SingletonAdded += SingletonAdded;
+            PuzzleLayout.SingletonRemoved += SingletonRemoved;
         }
 
         public void OnDisable()
@@ -70,8 +72,8 @@ namespace Assets.LevelEditorUnity
             PuzzleLayout.NodeRemoved -= RemoveNode;
             PuzzleLayout.ConnectionAdded -= AddNodeConnection;
             PuzzleLayout.ConnectionRemoved -= RemoveConnection;
-            PuzzleLayout.PlayerAdded -= PlayerAdded;
-            PuzzleLayout.PlayerRemoved -= PlayerRemoved;
+            PuzzleLayout.SingletonAdded -= SingletonAdded;
+            PuzzleLayout.SingletonRemoved -= SingletonRemoved;
         }
 
         private void AddNode(Node node)
@@ -135,19 +137,40 @@ namespace Assets.LevelEditorUnity
             }
         }
 
-        private void PlayerAdded(TilePos position)
+        private void SingletonAdded(string type, TilePos position)
         {
-            _player = (GameObject) Instantiate(
-                Player,
-                position.ToV3(),
-                Quaternion.identity);
+            switch (type)
+            {
+                case "Player":
+                    _player = (GameObject)Instantiate(
+                        Player,
+                        position.ToV3(),
+                        Quaternion.identity);
 
-            _player.transform.SetParent(transform);
+                    _player.transform.SetParent(transform);
+                    break;
+                case "Boss":
+                    _boss = (GameObject)Instantiate(
+                        Boss,
+                        position.ToV3(),
+                        Quaternion.identity);
+
+                    _boss.transform.SetParent(transform);
+                    break;
+            }
         }
 
-        private void PlayerRemoved()
+        private void SingletonRemoved(string type)
         {
-            DestroyImmediate(_player);
+            switch (type)
+            {
+                case "Player":
+                    DestroyImmediate(_player);
+                    break;
+                case "Boss":
+                    DestroyImmediate(_boss);
+                    break;
+            }
         }
 
         public void UpdatePreview(NodeConnection nodeConnection)

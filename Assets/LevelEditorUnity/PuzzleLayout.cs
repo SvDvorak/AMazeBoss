@@ -19,27 +19,26 @@ namespace Assets.LevelEditorUnity
             }
         }
 
-        private TilePos? _playerPosition;
-        public TilePos? PlayerPosition
-        {
-            get
-            {
-                return _playerPosition;
-            }
-            set
-            {
-                _playerPosition = value;
-                PlayerRemoved.CallEvent();
+        private readonly Dictionary<string, TilePos?> _singletons = new Dictionary<string, TilePos?>();
 
-                if (_playerPosition != null)
-                {
-                    PlayerAdded.CallEvent(_playerPosition.Value);
-                }
+        public void SetSingleton(string type, TilePos? position)
+        {
+            _singletons[type] = position;
+            SingletonRemoved.CallEvent(type);
+
+            if (position != null)
+            {
+                SingletonAdded.CallEvent(type, position.Value);
             }
         }
 
-        public event Action<TilePos> PlayerAdded;
-        public event Action PlayerRemoved;
+        public TilePos? GetSingleton(string type)
+        {
+            return _singletons.ContainsKey(type) ? _singletons[type] : null;
+        }
+
+        public event Action<string, TilePos> SingletonAdded;
+        public event Action<string> SingletonRemoved;
 
         public readonly Dictionary<TilePos, Node> Nodes = new Dictionary<TilePos, Node>();
 

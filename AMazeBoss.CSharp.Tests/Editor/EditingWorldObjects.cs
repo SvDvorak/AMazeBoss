@@ -8,114 +8,137 @@ namespace AMazeBoss.CSharp.Tests.Editor
 {
     public class EditingWorldObjects : PuzzleEditorAcceptanceTests<EditingWorldObjects>
     {
-        private TilePos? _addedPlayerCallPosition;
-        private bool _playerRemovedCalled;
+        private const string PlayerType = "Player";
+
+        private string _addedSingletonCallType;
+        private TilePos? _addedSingletonCallPosition;
+        private string _singletonRemovedCallType;
         private ICommand _lastCommand;
 
         [Fact]
-        public void PlayerAddedWhenAddingToEmptyLayout()
+        public void SingletonObjectAddedWhenAddingToEmptyLayout()
         {
-            var playerPosition = new TilePos(0, 0);
+            var position = new TilePos(0, 0);
 
             When
                 .ListeningToEvents()
-                .AddingPlayerAt(playerPosition);
+                .AddingSingletonAt(PlayerType, position);
 
             Then
-                .ShouldHavePlayerAt(playerPosition)
-                .ShouldHaveCalledPlayerAdded(playerPosition);
+                .ShouldHaveSingletonAt(PlayerType, position)
+                .ShouldHaveCalledSingletonAdded(PlayerType, position);
         }
 
         [Fact]
-        public void RemovesPlayerFromLayoutWithPlayer()
+        public void RemovesSingletonFromLayoutThatAlreadyHasSingleton()
         {
             Given
-                .PlayerAt(new TilePos(1, 1));
+                .SingletonAt(PlayerType, new TilePos(1, 1));
 
             When
                 .ListeningToEvents()
-                .RemovingPlayer();
+                .RemovingSingleton(PlayerType);
 
             Then
-                .ShouldNotHavePlayer()
-                .ShouldHaveCalledPlayerRemoved();
+                .ShouldNotHaveSingleton(PlayerType)
+                .ShouldHaveCalledSingletonRemoved(PlayerType);
         }
 
         [Fact]
-        public void RemovesCurrentPlayerAndAddsNewWhenAddingToLayoutWithPlayer()
+        public void RemovesCurrentSingletonAndAddsNewWhenAddingToLayoutWithSingleton()
         {
             var playerPosition = new TilePos(1, 1);
 
             Given
-                .PlayerAt(playerPosition);
+                .SingletonAt(PlayerType, playerPosition);
 
             When
                 .ListeningToEvents()
-                .AddingPlayerAt(playerPosition);
+                .AddingSingletonAt(PlayerType, playerPosition);
 
             Then
-                .ShouldHaveCalledPlayerRemoved()
-                .ShouldHaveCalledPlayerAdded(playerPosition);
+                .ShouldHaveCalledSingletonRemoved(PlayerType)
+                .ShouldHaveCalledSingletonAdded(PlayerType, playerPosition);
         }
 
         [Fact]
-        public void ReplacesPreviousPlayerWhenUndoingTheSecondOne()
+        public void ReplacesPreviousSingletonWhenUndoingTheSecondOne()
         {
             var position1 = new TilePos(1, 1);
             var position2 = new TilePos(2, 2);
 
             Given
-                .PlayerAt(position1)
-                .AddingPlayerAt(position2);
+                .SingletonAt(PlayerType, position1)
+                .AddingSingletonAt(PlayerType, position2);
 
             When
                 .ListeningToEvents()
                 .UndoingLastCommand();
 
             Then
-                .ShouldHavePlayerAt(position1)
-                .ShouldHaveCalledPlayerRemoved()
-                .ShouldHaveCalledPlayerAdded(position1);
+                .ShouldHaveSingletonAt(PlayerType, position1)
+                .ShouldHaveCalledSingletonRemoved(PlayerType)
+                .ShouldHaveCalledSingletonAdded(PlayerType, position1);
         }
 
-        private void AddingPlayerAt(TilePos tilePos)
+        [Fact]
+        public void DoesntAffectSingletonOfOtherTypeWhenAddingSingleton()
         {
-            _lastCommand = new AddPlayerCommand(_sut, tilePos);
+            var position1 = new TilePos(1, 1);
+            var position2 = new TilePos(2, 2);
+
+            const string otherType = "Other";
+
+            Given
+                .SingletonAt(otherType, position1);
+
+            When
+                .AddingSingletonAt(PlayerType, position2);
+
+            Then
+                .ShouldHaveSingletonAt(otherType, position1)
+                .ShouldHaveSingletonAt(PlayerType, position2);
+        }
+
+        private void AddingSingletonAt(string type, TilePos tilePos)
+        {
+            _lastCommand = new SetSingletonObjectCommand(_sut, type, tilePos);
             _lastCommand.Execute();
         }
 
-        private EditingWorldObjects PlayerAt(TilePos tilePos)
+        private EditingWorldObjects SingletonAt(string type, TilePos tilePos)
         {
-            AddingPlayerAt(tilePos);
+            AddingSingletonAt(type, tilePos);
             return this;
         }
 
-        private void RemovingPlayer()
+        private void RemovingSingleton(string type)
         {
-            _lastCommand = new RemovePlayerCommand(_sut);
+            _lastCommand = new SetSingletonObjectCommand(_sut, type, null);
             _lastCommand.Execute();
         }
 
-        private EditingWorldObjects ShouldHavePlayerAt(TilePos tilePos)
+        private EditingWorldObjects ShouldHaveSingletonAt(string type, TilePos tilePos)
         {
-            _sut.PlayerPosition.Should().Be(tilePos);
+            _sut.GetSingleton(type).Should().Be(tilePos);
             return this;
         }
 
-        private EditingWorldObjects ShouldNotHavePlayer()
+        private EditingWorldObjects ShouldNotHaveSingleton(string type)
         {
-            _sut.PlayerPosition.Should().BeNull();
+            _sut.GetSingleton(type).Should().BeNull();
             return this;
         }
 
-        private void ShouldHaveCalledPlayerAdded(TilePos playerPosition)
+        private void ShouldHaveCalledSingletonAdded(string type, TilePos playerPosition)
         {
-            _addedPlayerCallPosition.Should().Be(playerPosition);
+            _addedSingletonCallType.Should().Be(type);
+            _addedSingletonCallPosition.Should().Be(playerPosition);
         }
 
-        private EditingWorldObjects ShouldHaveCalledPlayerRemoved()
+        private EditingWorldObjects ShouldHaveCalledSingletonRemoved(string type)
         {
-            _playerRemovedCalled.Should().BeTrue("should have called player removed event");
+            _singletonRemovedCallType.Should().Be(type, "should have called {0} removed event", type);
             return this;
         }
 
@@ -127,8 +150,12 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public new EditingWorldObjects ListeningToEvents()
         {
             base.ListeningToEvents();
-            _sut.PlayerAdded += playerPosition => _addedPlayerCallPosition = playerPosition;
-            _sut.PlayerRemoved += () => _playerRemovedCalled = true;
+            _sut.SingletonAdded += (type, position) =>
+                {
+                    _addedSingletonCallType = type;
+                    _addedSingletonCallPosition = position;
+                };
+            _sut.SingletonRemoved += type => _singletonRemovedCallType = type;
             return this;
         }
     }

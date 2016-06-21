@@ -19,5 +19,13 @@ namespace Assets
                 callback(value);
             }
         }
+
+        public static void CallEvent<T1, T2>(this Action<T1, T2> callback, T1 value1, T2 value2)
+        {
+            if (callback != null)
+            {
+                callback(value1, value2);
+            }
+        }
     }
 }
