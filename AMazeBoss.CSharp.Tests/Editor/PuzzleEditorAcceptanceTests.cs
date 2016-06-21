@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets;
+using Assets.Editor.Undo;
 using Assets.LevelEditorUnity;
 using FluentAssertions;
 
@@ -18,7 +19,6 @@ namespace AMazeBoss.CSharp.Tests.Editor
         protected int CallsToNodeRemoved;
         protected int CallsToConnectionRemoved;
         protected int CallsToConnectionAdded;
-        protected List<NodeConnection> RemovedConnections;
 
         public PuzzleEditorAcceptanceTests()
         {
@@ -27,7 +27,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         public PuzzleEditorAcceptanceTests<T> ConnectingBetween(TilePos position1, TilePos position2)
         {
-            _sut.AddNodeConnections(new NodeConnection(position1, position2));
+            var command = new AddNodeConnectionCommand(_sut, new NodeConnection(position1, position2));
+            command.Execute();
             return this;
         }
 
@@ -57,7 +58,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         public void RemovingConnectionBetween(TilePos position1, TilePos position2)
         {
-            RemovedConnections = _sut.RemoveAndReturnNodeConnections(new NodeConnection(position1, position2));
+            var command = new RemoveNodeConnectionCommand(_sut, new NodeConnection(position1, position2));
+            command.Execute();
         }
 
         public PuzzleEditorAcceptanceTests<T> ListeningToEvents()
@@ -90,12 +92,6 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public PuzzleEditorAcceptanceTests<T> ShouldHaveCalledConnectionRemoved(int callCount)
         {
             CallsToConnectionRemoved.Should().Be(callCount, "event should be called for each removed connection");
-            return this;
-        }
-
-        public PuzzleEditorAcceptanceTests<T> ClearingLayout()
-        {
-            _sut.Clear();
             return this;
         }
     }

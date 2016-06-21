@@ -3,17 +3,31 @@ using UnityEngine;
 
 namespace Assets.LevelEditorUnity
 {
+    public class EditorWorldObject
+    {
+        public GameObject GameObject;
+        public string Type;
+
+        public EditorWorldObject(string type, GameObject gameObject)
+        {
+            Type = type;
+            GameObject = gameObject;
+        }
+    }
+
     [ExecuteInEditMode]
     public class PuzzleLayoutView : MonoBehaviour
     {
         public GameObject Connector;
         public GameObject Node;
+        public GameObject Player;
 
         public Dictionary<TilePos, GameObject> NodeViews = new Dictionary<TilePos, GameObject>();
         public Dictionary<NodeConnection, GameObject> NodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
 
         private List<GameObject> _previews = new List<GameObject>();
         private NodeConnection _lastPreviewConnection;
+        private GameObject _player;
 
         private PuzzleLayout PuzzleLayout { get { return PuzzleLayout.Instance; } }
 
@@ -46,6 +60,8 @@ namespace Assets.LevelEditorUnity
             PuzzleLayout.NodeRemoved += RemoveNode;
             PuzzleLayout.ConnectionAdded += AddNodeConnection;
             PuzzleLayout.ConnectionRemoved += RemoveConnection;
+            PuzzleLayout.PlayerAdded += PlayerAdded;
+            PuzzleLayout.PlayerRemoved += PlayerRemoved;
         }
 
         public void OnDisable()
@@ -54,6 +70,8 @@ namespace Assets.LevelEditorUnity
             PuzzleLayout.NodeRemoved -= RemoveNode;
             PuzzleLayout.ConnectionAdded -= AddNodeConnection;
             PuzzleLayout.ConnectionRemoved -= RemoveConnection;
+            PuzzleLayout.PlayerAdded -= PlayerAdded;
+            PuzzleLayout.PlayerRemoved -= PlayerRemoved;
         }
 
         private void AddNode(Node node)
@@ -117,25 +135,50 @@ namespace Assets.LevelEditorUnity
             }
         }
 
+        private void PlayerAdded(TilePos position)
+        {
+            _player = (GameObject) Instantiate(
+                Player,
+                position.ToV3(),
+                Quaternion.identity);
+
+            _player.transform.SetParent(transform);
+        }
+
+        private void PlayerRemoved()
+        {
+            DestroyImmediate(_player);
+        }
+
         public void UpdatePreview(NodeConnection nodeConnection)
         {
             if (!nodeConnection.Equals(_lastPreviewConnection))
             {
                 RemovePreview();
 
-                var subConnections = SubdivideConnection(nodeConnection);
+                var subConnections = nodeConnection.GetSubdividedConnection();
                 foreach (var subConnection in subConnections)
                 {
-                    var preview = CreateNodeConnectionView(subConnection);
-                    preview.name = "Preview";
-                    preview.transform.localPosition = subConnection.Start.ToV3();
-                    preview.transform.rotation = GetRotationFromConnectionEnd(subConnection);
-                    _previews.Add(preview);
+                    AddPreview(CreateNodeConnectionView(subConnection), subConnection.Start, GetRotationFromConnectionEnd(subConnection));
                 }
                 Debug.Log("Recreated preview");
             }
 
             _lastPreviewConnection = nodeConnection;
+        }
+
+        public void UpdatePreview(EditorWorldObject selectedWorldObject, TilePos position)
+        {
+            RemovePreview();
+            AddPreview(Instantiate(selectedWorldObject.GameObject), position, Quaternion.identity);
+        }
+
+        private void AddPreview(GameObject preview, TilePos position, Quaternion rotation)
+        {
+            preview.name = "Preview";
+            preview.transform.localPosition = position.ToV3();
+            preview.transform.rotation = rotation;
+            _previews.Add(preview);
         }
 
         public void RemovePreview()
@@ -148,25 +191,6 @@ namespace Assets.LevelEditorUnity
                 }
                 _previews = new List<GameObject>();
             }
-        }
-
-        private List<NodeConnection> SubdivideConnection(NodeConnection connection)
-        {
-            var direction = connection.End - connection.Start;
-            var subdivideCount = direction.Length();
-            var directionNormalized = direction.Normalized();
-            var affectedConnections = new List<NodeConnection>();
-
-            for (int i = 0; i < subdivideCount; i++)
-            {
-                var subConnectionStart = connection.Start + directionNormalized * i;
-                var subConnectionEnd = connection.Start + directionNormalized * (i + 1);
-                var subConnection = new NodeConnection(subConnectionStart, subConnectionEnd);
-
-                affectedConnections.Add(subConnection);
-            }
-
-            return affectedConnections;
         }
     }
 }

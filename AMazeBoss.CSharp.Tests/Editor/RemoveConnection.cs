@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.LevelEditorUnity;
 using FluentAssertions;
 using Xunit;
 
@@ -78,7 +79,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .RemovingConnectionBetween(start, farAwayEnd);
 
             Then
-                .ShouldReturnRemoved(start, farAwayEnd / 2, farAwayEnd)
+                .ShouldNotHaveConnectionsBetween(start, farAwayEnd / 2, farAwayEnd)
                 .ShouldHaveNodeCountOf(0)
                 .ShouldHaveTotalConnectionCountOf(0);
         }
@@ -93,23 +94,35 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .RemovingConnectionBetween(Node1Position, Node2Position * 4);
 
             Then
-                .ShouldReturnRemoved(Node1Position, Node2Position);
+                .ShouldNotHaveConnectionsBetween(Node1Position, Node2Position);
         }
 
 
-        public RemoveConnection ShouldReturnRemoved(params TilePos[] nodeConnections)
+        public RemoveConnection ShouldNotHaveConnectionsBetween(params TilePos[] nodeConnections)
         {
-            RemovedConnections.Count.Should()
-                .Be(nodeConnections.Length - 1, "removed connections does not match expected count");
-
-            for (int i = 0; i < RemovedConnections.Count; i++)
+            for (int i = 0; i < nodeConnections.Length - 1; i++)
             {
-                var current = RemovedConnections[i];
-                current.Start.Should().Be(nodeConnections[i], "connection " + i + " start does not match expected");
-                current.End.Should().Be(nodeConnections[i + 1], "connection " + i + " end does not match expected");
+                var current = nodeConnections[i];
+                var next = nodeConnections[i+1];
+
+                HasConnection(current, next).Should().BeFalse($"connection between {0} and {1} shouldn't exist", current, next);
             }
 
             return this;
+        }
+
+        public bool HasConnection(TilePos start, TilePos end)
+        {
+            var startNode = _sut.Nodes.ContainsKey(start) ? _sut.Nodes[start] : null;
+            var endNode = _sut.Nodes.ContainsKey(start) ? _sut.Nodes[start] : null;
+
+            if (startNode != null && endNode != null)
+            {
+                return startNode.Connections.Contains(endNode) ||
+                       endNode.Connections.Contains(startNode);
+            }
+
+            return false;
         }
     }
 }

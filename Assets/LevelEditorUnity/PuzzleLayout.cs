@@ -19,6 +19,28 @@ namespace Assets.LevelEditorUnity
             }
         }
 
+        private TilePos? _playerPosition;
+        public TilePos? PlayerPosition
+        {
+            get
+            {
+                return _playerPosition;
+            }
+            set
+            {
+                _playerPosition = value;
+                PlayerRemoved.CallEvent();
+
+                if (_playerPosition != null)
+                {
+                    PlayerAdded.CallEvent(_playerPosition.Value);
+                }
+            }
+        }
+
+        public event Action<TilePos> PlayerAdded;
+        public event Action PlayerRemoved;
+
         public readonly Dictionary<TilePos, Node> Nodes = new Dictionary<TilePos, Node>();
 
         public event Action<Node> NodeAdded; 
@@ -30,6 +52,7 @@ namespace Assets.LevelEditorUnity
         {
             wholeConnection
                 .GetSubdividedConnection()
+                .ToList()
                 .ForEach(x => AddSubdividedConnection(x));
         }
 

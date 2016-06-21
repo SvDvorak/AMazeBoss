@@ -6,24 +6,26 @@ namespace Assets.Editor.Undo
     public class ClearLayoutCommand : ICommand
     {
         private readonly List<NodeConnection> _currentConnections;
+        private readonly PuzzleLayout _layout;
 
         public string Name { get { return "Clear Layout"; } }
 
-        public ClearLayoutCommand()
+        public ClearLayoutCommand(PuzzleLayout layout)
         {
-            _currentConnections = PuzzleLayout.Instance.GetAllConnections();
+            _layout = layout;
+            _currentConnections = layout.GetAllConnections();
         }
 
         public void Execute()
         {
-            PuzzleLayout.Instance.Clear();
+            _layout.Clear();
         }
 
         public void Undo()
         {
             foreach (var connection in _currentConnections)
             {
-                PuzzleLayout.Instance.AddNodeConnections(connection);
+                _layout.AddNodeConnections(connection);
             }
         }
     }

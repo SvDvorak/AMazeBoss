@@ -39,12 +39,11 @@ namespace Assets.LevelEditorUnity
             return (End - Start).ManhattanDistance();
         }
 
-        public List<NodeConnection> GetSubdividedConnection()
+        public IEnumerable<NodeConnection> GetSubdividedConnection()
         {
             var direction = End - Start;
             var subdivideCount = direction.Length();
             var directionNormalized = direction.Normalized();
-            var affectedConnections = new List<NodeConnection>();
 
             for (int i = 0; i < subdivideCount; i++)
             {
@@ -52,10 +51,8 @@ namespace Assets.LevelEditorUnity
                 var subConnectionEnd = Start + directionNormalized * (i + 1);
                 var subConnection = new NodeConnection(subConnectionStart, subConnectionEnd);
 
-                affectedConnections.Add(subConnection);
+                yield return subConnection;
             }
-
-            return affectedConnections;
         }
     }
 }

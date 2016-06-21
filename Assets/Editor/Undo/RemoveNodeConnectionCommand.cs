@@ -7,24 +7,26 @@ namespace Assets.Editor.Undo
     {
         private readonly NodeConnection _connection;
         private List<NodeConnection> _removedConnections = new List<NodeConnection>();
+        private readonly PuzzleLayout _layout;
 
         public string Name { get { return "Added node connection"; } }
 
-        public RemoveNodeConnectionCommand(NodeConnection connection)
+        public RemoveNodeConnectionCommand(PuzzleLayout layout, NodeConnection connection)
         {
+            _layout = layout;
             _connection = connection;
         }
 
         public void Execute()
         {
-            _removedConnections = PuzzleLayout.Instance.RemoveAndReturnNodeConnections(_connection);
+            _removedConnections = _layout.RemoveAndReturnNodeConnections(_connection);
         }
 
         public void Undo()
         {
             foreach (var removedConnection in _removedConnections)
             {
-                PuzzleLayout.Instance.AddNodeConnections(removedConnection);
+                _layout.AddNodeConnections(removedConnection);
             }
         }
     }

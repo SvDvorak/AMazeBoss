@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Assets;
 using Assets.Editor.Undo;
 using Assets.LevelEditorUnity;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 
 public class PuzzleEditor : EditorWindow
 {
@@ -13,6 +13,9 @@ public class PuzzleEditor : EditorWindow
     private bool _isDeleting;
     private CommandHistory _commandHistory;
     private PuzzleLayoutView _layoutView;
+
+    private int _selectedObjectIndex;
+    private readonly List<EditorWorldObject> _worldObjects = new List<EditorWorldObject>();
 
     [MenuItem("Window/Puzzle Editor")]
     public static void Init()
@@ -27,6 +30,11 @@ public class PuzzleEditor : EditorWindow
         SceneView.onSceneGUIDelegate += OnSceneGUI;
         LoadLayoutView();
         EditorApplication.hierarchyWindowChanged += LoadLayoutView;
+
+        _worldObjects.Add(new EditorWorldObject("", Resources.Load<GameObject>("Editor/Node")));
+        _worldObjects.Add(new EditorWorldObject("Player", Resources.Load<GameObject>("Editor/Player")));
+        _worldObjects.Add(new EditorWorldObject("", Resources.Load<GameObject>("Editor/Boss")));
+        _worldObjects.Add(new EditorWorldObject("", Resources.Load<GameObject>("Editor/SpikeTrap")));
     }
 
     private void LoadLayoutView()
@@ -45,6 +53,8 @@ public class PuzzleEditor : EditorWindow
 
     public void OnGUI()
     {
+        var layout = PuzzleLayout.Instance;
+
         foreach (var node in PuzzleLayout.Instance.Nodes.Values)
         {
             GUILayout.Label("X: " + node.Position.X + "\t Z: " + node.Position.Z);
@@ -56,10 +66,13 @@ public class PuzzleEditor : EditorWindow
             Tools.hidden = InEditMode;
         }
 
+        var textures = _worldObjects.Select(x => (Texture)AssetPreview.GetAssetPreview(x.GameObject)).ToArray();
+        _selectedObjectIndex = GUILayout.SelectionGrid(_selectedObjectIndex, textures, 3);
+
         var shouldClear = GUILayout.Button("Clear");
         if (shouldClear)
         {
-            _commandHistory.Execute(new ClearLayoutCommand());
+            _commandHistory.Execute(new ClearLayoutCommand(layout));
         }
     }
 
@@ -70,11 +83,13 @@ public class PuzzleEditor : EditorWindow
             return;
         }
 
+        var layout = PuzzleLayout.Instance;
         var uiEvent = Event.current;
         var mousePosition = uiEvent.mousePosition;
 
-        var currentDragPosition = GetMouseOnXZPlane(mousePosition);
-        var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentDragPosition);
+        var currentInputTilePos = GetMouseOnXZPlane(mousePosition);
+        var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentInputTilePos);
+        var selectedWorldObject = _worldObjects[_selectedObjectIndex];
 
         switch (uiEvent.type)
         {
@@ -82,18 +97,29 @@ public class PuzzleEditor : EditorWindow
                 HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
                 break;
             case EventType.MouseDown:
-                if (uiEvent.button == 0)
+                if (_selectedObjectIndex == 0 && uiEvent.button == 0)
                 {
                     _isDragging = true;
-                    _dragStartPosition = currentDragPosition;
+                    _dragStartPosition = currentInputTilePos;
                 }
                 break;
             case EventType.MouseUp:
-                if (uiEvent.button == 0 && _isDragging)
+                if (selectedWorldObject.Type == "Player")
+                {
+                    if (uiEvent.button == 0)
+                    {
+                        _commandHistory.Execute(new AddPlayerCommand(layout, new TilePos(currentInputTilePos)));
+                    }
+                    else if (uiEvent.button == 1)
+                    {
+                        _commandHistory.Execute(new RemovePlayerCommand(layout));
+                    }
+                }
+                else if (uiEvent.button == 0 && _isDragging)
                 {
                     if (nodeConnection.Length() > 0)
                     {
-                        var command = GetNodeConnectionCommand(nodeConnection);
+                        var command = GetNodeConnectionCommand(layout, nodeConnection);
                         _commandHistory.Execute(command);
                     }
                     Repaint();
@@ -117,17 +143,17 @@ public class PuzzleEditor : EditorWindow
         }
         else
         {
-            _layoutView.RemovePreview();
+            _layoutView.UpdatePreview(selectedWorldObject, new TilePos(currentInputTilePos));
         }
 
         HandleUtility.Repaint();
     }
 
-    private ICommand GetNodeConnectionCommand(NodeConnection nodeConnection)
+    private ICommand GetNodeConnectionCommand(PuzzleLayout layout, NodeConnection nodeConnection)
     {
         return _isDeleting
-            ? new RemoveNodeConnectionCommand(nodeConnection) as ICommand
-            : new AddNodeConnectionCommand(nodeConnection);
+            ? new RemoveNodeConnectionCommand(layout, nodeConnection) as ICommand
+            : new AddNodeConnectionCommand(layout, nodeConnection);
     }
 
     private static NodeConnection GetTileAdjustedConnection(Vector3 start, Vector3 end)

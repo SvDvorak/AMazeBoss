@@ -67,6 +67,7 @@
     <Compile Include="AcceptanceTests.cs" />
     <Compile Include="Editor\ClearLayout.cs" />
     <Compile Include="Editor\CreateConnection.cs" />
+    <Compile Include="Editor\EditingWorldObjects.cs" />
     <Compile Include="Editor\LayoutEvents.cs" />
     <Compile Include="Editor\PuzzleEditorTestExtensions.cs" />
     <Compile Include="Editor\RemoveConnection.cs" />
@@ -78,6 +79,10 @@
     <ProjectReference Include="..\AMazeBoss.CSharp.csproj">
       <Project>{3efcafb2-7574-35db-cc03-e813b27fd8a3}</Project>
       <Name>AMazeBoss.CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMazeBoss.CSharp.Editor.csproj">
+      <Project>{5587c7a3-8f60-844b-e778-ff14aeb52985}</Project>
+      <Name>AMazeBoss.CSharp.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
