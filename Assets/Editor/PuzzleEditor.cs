@@ -89,7 +89,7 @@ public class PuzzleEditor : EditorWindow
 
         var currentInputTilePos = GetMouseOnXZPlane(mousePosition);
         var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentInputTilePos);
-        var selectedWorldObject = _worldObjects[_selectedObjectIndex];
+        var selectedWorldObject = _worldObjects.Count > 0 ? _worldObjects[_selectedObjectIndex] : null;
 
         switch (uiEvent.type)
         {
@@ -104,7 +104,7 @@ public class PuzzleEditor : EditorWindow
                 }
                 break;
             case EventType.MouseUp:
-                if (selectedWorldObject.Type != "")
+                if (selectedWorldObject != null && selectedWorldObject.Type != "")
                 {
                     if (uiEvent.button == 0)
                     {

@@ -9,6 +9,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
     public class EditingWorldObjects : PuzzleEditorAcceptanceTests<EditingWorldObjects>
     {
         private const string PlayerType = "Player";
+        private const string OtherType = "Other";
 
         private string _addedSingletonCallType;
         private TilePos? _addedSingletonCallPosition;
@@ -45,7 +46,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
         }
 
         [Fact]
-        public void RemovesCurrentSingletonAndAddsNewWhenAddingToLayoutWithSingleton()
+        public void ReplacesCurrentSingletonWhenAddingToLayoutWithSameTypeSingleton()
         {
             var playerPosition = new TilePos(1, 1);
 
@@ -87,17 +88,49 @@ namespace AMazeBoss.CSharp.Tests.Editor
             var position1 = new TilePos(1, 1);
             var position2 = new TilePos(2, 2);
 
-            const string otherType = "Other";
 
             Given
-                .SingletonAt(otherType, position1);
+                .SingletonAt(OtherType, position1);
 
             When
                 .AddingSingletonAt(PlayerType, position2);
 
             Then
-                .ShouldHaveSingletonAt(otherType, position1)
+                .ShouldHaveSingletonAt(OtherType, position1)
                 .ShouldHaveSingletonAt(PlayerType, position2);
+        }
+
+        [Fact]
+        public void RemovesObjectAtSamePositionWhenPlacingNewObject()
+        {
+            var position = new TilePos(1, 1);
+
+            Given
+                .SingletonAt(PlayerType, position);
+
+            When
+                .AddingSingletonAt(OtherType, position);
+
+            Then
+                .ShouldHaveSingletonAt(OtherType, position)
+                .ShouldNotHaveSingleton(PlayerType);
+        }
+
+        [Fact]
+        public void RemovesObjectWhenRemovingNodeBelowIt()
+        {
+            var position1 = new TilePos(1, 1);
+            var position2 = new TilePos(2, 2);
+
+            Given
+                .SingletonAt(PlayerType, position1)
+                .ConnectionBetween(position1, position2);
+
+            When
+                .RemovingConnectionBetween(position1, position2);
+
+            Then
+                .ShouldNotHaveSingleton(PlayerType);
         }
 
         private void AddingSingletonAt(string type, TilePos tilePos)

@@ -23,6 +23,13 @@ namespace Assets.LevelEditorUnity
 
         public void SetSingleton(string type, TilePos? position)
         {
+            var currentAtSamePosition = GetSingletonAt(position);
+
+            if (currentAtSamePosition != null)
+            {
+                SetSingleton(currentAtSamePosition, null);
+            }
+
             _singletons[type] = position;
             SingletonRemoved.CallEvent(type);
 
@@ -30,6 +37,21 @@ namespace Assets.LevelEditorUnity
             {
                 SingletonAdded.CallEvent(type, position.Value);
             }
+        }
+
+        private string GetSingletonAt(TilePos? position)
+        {
+            if (position != null)
+            {
+                var otherAtSamePosition = _singletons.SingleOrDefault(x => x.Value == position);
+
+                if (otherAtSamePosition.Key != null)
+                {
+                    return otherAtSamePosition.Key;
+                }
+            }
+
+            return null;
         }
 
         public TilePos? GetSingleton(string type)
@@ -128,6 +150,12 @@ namespace Assets.LevelEditorUnity
 
             if (node1.Connections.Count == 0)
             {
+                var singletonAtSamePosition = GetSingletonAt(node1.Position);
+                if (singletonAtSamePosition != null)
+                {
+                    SetSingleton(singletonAtSamePosition, null);
+                }
+
                 Nodes.Remove(node1.Position);
                 NodeRemoved.CallEvent(node1);
             }
