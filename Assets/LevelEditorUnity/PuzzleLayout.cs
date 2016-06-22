@@ -19,7 +19,20 @@ namespace Assets.LevelEditorUnity
             }
         }
 
-        private readonly Dictionary<string, TilePos?> _singletons = new Dictionary<string, TilePos?>();
+        private readonly Dictionary<string, List<TilePos>> _objects = new Dictionary<string, List<TilePos>>();
+
+        public List<TilePos> GetObjects(string type)
+        {
+            return _objects.ContainsKey(type) ? _objects[type] : new List<TilePos>();
+        }
+
+        public void AddObject(string type, TilePos position)
+        {
+            var currentObjects = GetObjects(type);
+            _objects[type] = currentObjects.Concat(position).ToList();
+        }
+
+        private readonly Dictionary<string, TilePos> _singletons = new Dictionary<string, TilePos>();
 
         public void SetSingleton(string type, TilePos? position)
         {
@@ -39,7 +52,7 @@ namespace Assets.LevelEditorUnity
 
             if (position.HasValue)
             {
-                _singletons[type] = position;
+                _singletons[type] = position.Value;
                 SingletonAdded.CallEvent(type, position.Value);
             }
         }
@@ -61,7 +74,7 @@ namespace Assets.LevelEditorUnity
 
         public TilePos? GetSingleton(string type)
         {
-            return _singletons.ContainsKey(type) ? _singletons[type] : null;
+            return _singletons.ContainsKey(type) ? _singletons[type] : (TilePos?) null;
         }
 
         public event Action<string, TilePos> SingletonAdded;

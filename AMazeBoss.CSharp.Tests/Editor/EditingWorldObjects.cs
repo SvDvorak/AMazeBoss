@@ -10,10 +10,42 @@ namespace AMazeBoss.CSharp.Tests.Editor
     {
         private const string PlayerType = "Player";
         private const string OtherType = "Other";
+        private readonly TilePos _position1 = new TilePos(0, 0);
+        private readonly TilePos _position2 = new TilePos(1, 0);
 
         private string _addedSingletonCallType;
         private TilePos? _addedSingletonCallPosition;
         private string _singletonRemovedCallType;
+
+        [Fact]
+        public void AddsObjectToLayoutWithSameTypeObject()
+        {
+            Given
+                .ObjectAt(OtherType, _position1);
+
+            When
+                .ListeningToEvents()
+                .AddingObjectAt(OtherType, _position2);
+
+            Then
+                .ShouldHaveObjectsAt(OtherType, _position1, _position2);
+        }
+
+        private void AddingObjectAt(string type, TilePos position)
+        {
+            var command = new AddObjectCommand(Sut, type, position);
+            command.Execute();
+        }
+
+        private void ObjectAt(string type, TilePos position)
+        {
+            AddingObjectAt(type, position);
+        }
+
+        private void ShouldHaveObjectsAt(string type, params TilePos[] positions)
+        {
+            Sut.GetObjects(type).Should().BeEquivalentTo(positions);
+        }
 
         [Fact]
         public void SingletonObjectAddedWhenAddingToEmptyLayout()
@@ -79,39 +111,32 @@ namespace AMazeBoss.CSharp.Tests.Editor
         [Fact]
         public void ReplacesPreviousSingletonWhenUndoingTheSecondOne()
         {
-            var position1 = new TilePos(1, 1);
-            var position2 = new TilePos(2, 2);
-
             Given
-                .SingletonAt(PlayerType, position1)
-                .AddingSingletonAt(PlayerType, position2);
+                .SingletonAt(PlayerType, _position1)
+                .AddingSingletonAt(PlayerType, _position2);
 
             When
                 .ListeningToEvents()
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveSingletonAt(PlayerType, position1)
+                .ShouldHaveSingletonAt(PlayerType, _position1)
                 .ShouldHaveCalledSingletonRemoved(PlayerType)
-                .ShouldHaveCalledSingletonAdded(PlayerType, position1);
+                .ShouldHaveCalledSingletonAdded(PlayerType, _position1);
         }
 
         [Fact]
         public void DoesntAffectSingletonOfOtherTypeWhenAddingSingleton()
         {
-            var position1 = new TilePos(1, 1);
-            var position2 = new TilePos(2, 2);
-
-
             Given
-                .SingletonAt(OtherType, position1);
+                .SingletonAt(OtherType, _position1);
 
             When
-                .AddingSingletonAt(PlayerType, position2);
+                .AddingSingletonAt(PlayerType, _position2);
 
             Then
-                .ShouldHaveSingletonAt(OtherType, position1)
-                .ShouldHaveSingletonAt(PlayerType, position2);
+                .ShouldHaveSingletonAt(OtherType, _position1)
+                .ShouldHaveSingletonAt(PlayerType, _position2);
         }
 
         [Fact]
@@ -150,15 +175,12 @@ namespace AMazeBoss.CSharp.Tests.Editor
         [Fact]
         public void RemovesObjectWhenRemovingNodeBelowIt()
         {
-            var position1 = new TilePos(1, 1);
-            var position2 = new TilePos(2, 2);
-
             Given
-                .SingletonAt(PlayerType, position1)
-                .ConnectionBetween(position1, position2);
+                .SingletonAt(PlayerType, _position1)
+                .ConnectionBetween(_position1, _position2);
 
             When
-                .RemovingConnectionBetween(position1, position2);
+                .RemovingConnectionBetween(_position1, _position2);
 
             Then
                 .ShouldNotHaveSingleton(PlayerType);
@@ -167,19 +189,16 @@ namespace AMazeBoss.CSharp.Tests.Editor
         [Fact]
         public void ReplacesObjectWhenUndoingNodeConnectionRemovalThatHadObjectOnANode()
         {
-            var position1 = new TilePos(1, 1);
-            var position2 = new TilePos(2, 1);
-
             Given
-                .SingletonAt(PlayerType, position1)
-                .ConnectionBetween(position1, position2);
+                .SingletonAt(PlayerType, _position1)
+                .ConnectionBetween(_position1, _position2);
 
             When
-                .RemovingConnectionBetween(position1, position2)
+                .RemovingConnectionBetween(_position1, _position2)
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveSingletonAt(PlayerType, position1);
+                .ShouldHaveSingletonAt(PlayerType, _position1);
         }
 
         private EditingWorldObjects AddingSingletonAt(string type, TilePos tilePos)
