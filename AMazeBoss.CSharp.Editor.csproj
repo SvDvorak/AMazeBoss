@@ -136,6 +136,7 @@
     <Compile Include="Assets\Editor\LookAtPointEditor.cs" />
     <Compile Include="Assets\Editor\PuzzleEditor.cs" />
     <Compile Include="Assets\Editor\Undo\RemoveNodeConnectionCommand.cs" />
+    <Compile Include="Assets\Editor\Undo\WorldObject.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator.TypeReflection\Editor\TypeReflectionCodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentIndicesGenerator.cs" />

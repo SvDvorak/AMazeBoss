@@ -6,18 +6,6 @@ namespace Assets.Editor.Undo
 {
     public class RemoveNodeConnectionCommand : ICommand
     {
-        private class WorldObject
-        {
-            public readonly string Type;
-            public readonly TilePos? Position;
-
-            public WorldObject(string type, TilePos? position)
-            {
-                Position = position;
-                Type = type;
-            }
-        }
-
         private readonly NodeConnection _connection;
         private readonly List<NodeConnection> _removedConnections = new List<NodeConnection>();
         private readonly List<WorldObject> _removedObjects = new List<WorldObject>();

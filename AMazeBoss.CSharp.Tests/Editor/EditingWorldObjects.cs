@@ -62,6 +62,21 @@ namespace AMazeBoss.CSharp.Tests.Editor
         }
 
         [Fact]
+        public void RemovesSingletonWhenUndoingAdd()
+        {
+            var position = new TilePos(0, 0);
+
+            When
+                .AddingSingletonAt(PlayerType, position)
+                .ListeningToEvents()
+                .UndoingLastCommand();
+
+            Then
+                .ShouldNotHaveSingleton(PlayerType)
+                .ShouldHaveCalledSingletonRemoved(PlayerType);
+        }
+
+        [Fact]
         public void ReplacesPreviousSingletonWhenUndoingTheSecondOne()
         {
             var position1 = new TilePos(1, 1);
@@ -116,6 +131,23 @@ namespace AMazeBoss.CSharp.Tests.Editor
         }
 
         [Fact]
+        public void ReplacesPreviousObjectWhenUndoingObjectReplacement()
+        {
+            var position = new TilePos(1, 1);
+
+            Given
+                .SingletonAt(PlayerType, position)
+                .SingletonAt(OtherType, new TilePos(2, 2));
+
+            When
+                .AddingSingletonAt(OtherType, position)
+                .UndoingLastCommand();
+
+            Then
+                .ShouldHaveSingletonAt(PlayerType, position);
+        }
+
+        [Fact]
         public void RemovesObjectWhenRemovingNodeBelowIt()
         {
             var position1 = new TilePos(1, 1);
@@ -150,10 +182,11 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .ShouldHaveSingletonAt(PlayerType, position1);
         }
 
-        private void AddingSingletonAt(string type, TilePos tilePos)
+        private EditingWorldObjects AddingSingletonAt(string type, TilePos tilePos)
         {
             LastCommand = new SetSingletonObjectCommand(Sut, type, tilePos);
             LastCommand.Execute();
+            return This;
         }
 
         private EditingWorldObjects SingletonAt(string type, TilePos tilePos)

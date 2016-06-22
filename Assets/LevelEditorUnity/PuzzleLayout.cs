@@ -30,12 +30,16 @@ namespace Assets.LevelEditorUnity
                 SetSingleton(currentAtSamePosition, null);
             }
 
-            var previousSingletonPosition = _singletons.ContainsKey(type) ? _singletons[type] : null;
-            _singletons[type] = position;
-            SingletonRemoved.CallEvent(type, previousSingletonPosition);
-
-            if (position != null)
+            if (_singletons.ContainsKey(type))
             {
+                var removedPosition = _singletons[type];
+                _singletons.Remove(type);
+                SingletonRemoved.CallEvent(type, removedPosition);
+            }
+
+            if (position.HasValue)
+            {
+                _singletons[type] = position;
                 SingletonAdded.CallEvent(type, position.Value);
             }
         }
