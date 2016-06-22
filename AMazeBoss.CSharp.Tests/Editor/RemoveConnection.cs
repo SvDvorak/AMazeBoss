@@ -113,8 +113,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         public bool HasConnection(TilePos start, TilePos end)
         {
-            var startNode = _sut.Nodes.ContainsKey(start) ? _sut.Nodes[start] : null;
-            var endNode = _sut.Nodes.ContainsKey(start) ? _sut.Nodes[start] : null;
+            var startNode = Sut.Nodes.ContainsKey(start) ? Sut.Nodes[start] : null;
+            var endNode = Sut.Nodes.ContainsKey(start) ? Sut.Nodes[start] : null;
 
             if (startNode != null && endNode != null)
             {

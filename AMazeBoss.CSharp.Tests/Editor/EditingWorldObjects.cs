@@ -14,7 +14,6 @@ namespace AMazeBoss.CSharp.Tests.Editor
         private string _addedSingletonCallType;
         private TilePos? _addedSingletonCallPosition;
         private string _singletonRemovedCallType;
-        private ICommand _lastCommand;
 
         [Fact]
         public void SingletonObjectAddedWhenAddingToEmptyLayout()
@@ -133,10 +132,28 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .ShouldNotHaveSingleton(PlayerType);
         }
 
+        [Fact]
+        public void ReplacesObjectWhenUndoingNodeConnectionRemovalThatHadObjectOnANode()
+        {
+            var position1 = new TilePos(1, 1);
+            var position2 = new TilePos(2, 1);
+
+            Given
+                .SingletonAt(PlayerType, position1)
+                .ConnectionBetween(position1, position2);
+
+            When
+                .RemovingConnectionBetween(position1, position2)
+                .UndoingLastCommand();
+
+            Then
+                .ShouldHaveSingletonAt(PlayerType, position1);
+        }
+
         private void AddingSingletonAt(string type, TilePos tilePos)
         {
-            _lastCommand = new SetSingletonObjectCommand(_sut, type, tilePos);
-            _lastCommand.Execute();
+            LastCommand = new SetSingletonObjectCommand(Sut, type, tilePos);
+            LastCommand.Execute();
         }
 
         private EditingWorldObjects SingletonAt(string type, TilePos tilePos)
@@ -147,19 +164,19 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         private void RemovingSingleton(string type)
         {
-            _lastCommand = new SetSingletonObjectCommand(_sut, type, null);
-            _lastCommand.Execute();
+            LastCommand = new SetSingletonObjectCommand(Sut, type, null);
+            LastCommand.Execute();
         }
 
         private EditingWorldObjects ShouldHaveSingletonAt(string type, TilePos tilePos)
         {
-            _sut.GetSingleton(type).Should().Be(tilePos);
+            Sut.GetSingleton(type).Should().Be(tilePos);
             return this;
         }
 
         private EditingWorldObjects ShouldNotHaveSingleton(string type)
         {
-            _sut.GetSingleton(type).Should().BeNull();
+            Sut.GetSingleton(type).Should().BeNull();
             return this;
         }
 
@@ -177,18 +194,18 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         private void UndoingLastCommand()
         {
-            _lastCommand.Undo();
+            LastCommand.Undo();
         }
 
         public new EditingWorldObjects ListeningToEvents()
         {
             base.ListeningToEvents();
-            _sut.SingletonAdded += (type, position) =>
+            Sut.SingletonAdded += (type, position) =>
                 {
                     _addedSingletonCallType = type;
                     _addedSingletonCallPosition = position;
                 };
-            _sut.SingletonRemoved += type => _singletonRemovedCallType = type;
+            Sut.SingletonRemoved += (type, position) => _singletonRemovedCallType = type;
             return this;
         }
     }

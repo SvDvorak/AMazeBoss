@@ -23,7 +23,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         public ClearLayout ClearingLayout()
         {
-            new ClearLayoutCommand(_sut).Execute();
+            new ClearLayoutCommand(Sut).Execute();
             return this;
         }
     }

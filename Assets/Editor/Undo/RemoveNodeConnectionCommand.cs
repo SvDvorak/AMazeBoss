@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.LevelEditorUnity;
 
@@ -5,8 +6,21 @@ namespace Assets.Editor.Undo
 {
     public class RemoveNodeConnectionCommand : ICommand
     {
+        private class WorldObject
+        {
+            public readonly string Type;
+            public readonly TilePos? Position;
+
+            public WorldObject(string type, TilePos? position)
+            {
+                Position = position;
+                Type = type;
+            }
+        }
+
         private readonly NodeConnection _connection;
-        private List<NodeConnection> _removedConnections = new List<NodeConnection>();
+        private readonly List<NodeConnection> _removedConnections = new List<NodeConnection>();
+        private readonly List<WorldObject> _removedObjects = new List<WorldObject>();
         private readonly PuzzleLayout _layout;
 
         public string Name { get { return "Added node connection"; } }
@@ -19,7 +33,23 @@ namespace Assets.Editor.Undo
 
         public void Execute()
         {
-            _removedConnections = _layout.RemoveAndReturnNodeConnections(_connection);
+            _layout.ConnectionRemoved += AddRemovedConnection;
+            _layout.SingletonRemoved += AddRemovedObject;
+
+            _layout.RemoveNodeConnection(_connection);
+
+            _layout.SingletonRemoved -= AddRemovedObject;
+            _layout.ConnectionRemoved -= AddRemovedConnection;
+        }
+
+        private void AddRemovedConnection(NodeConnection connection)
+        {
+            _removedConnections.Add(connection);
+        }
+
+        private void AddRemovedObject(string type, TilePos? position)
+        {
+            _removedObjects.Add(new WorldObject(type, position));
         }
 
         public void Undo()
@@ -27,6 +57,11 @@ namespace Assets.Editor.Undo
             foreach (var removedConnection in _removedConnections)
             {
                 _layout.AddNodeConnections(removedConnection);
+            }
+
+            foreach (var removedObject in _removedObjects)
+            {
+               _layout.SetSingleton(removedObject.Type, removedObject.Position); 
             }
         }
     }

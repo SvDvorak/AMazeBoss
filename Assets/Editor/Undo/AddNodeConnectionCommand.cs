@@ -22,7 +22,7 @@ namespace Assets.Editor.Undo
 
         public void Undo()
         {
-            _layout.RemoveAndReturnNodeConnections(_connection);
+            _layout.RemoveNodeConnection(_connection);
         }
     }
 }

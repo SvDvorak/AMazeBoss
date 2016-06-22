@@ -30,8 +30,9 @@ namespace Assets.LevelEditorUnity
                 SetSingleton(currentAtSamePosition, null);
             }
 
+            var previousSingletonPosition = _singletons.ContainsKey(type) ? _singletons[type] : null;
             _singletons[type] = position;
-            SingletonRemoved.CallEvent(type);
+            SingletonRemoved.CallEvent(type, previousSingletonPosition);
 
             if (position != null)
             {
@@ -60,7 +61,7 @@ namespace Assets.LevelEditorUnity
         }
 
         public event Action<string, TilePos> SingletonAdded;
-        public event Action<string> SingletonRemoved;
+        public event Action<string, TilePos?> SingletonRemoved;
 
         public readonly Dictionary<TilePos, Node> Nodes = new Dictionary<TilePos, Node>();
 
@@ -95,20 +96,20 @@ namespace Assets.LevelEditorUnity
             return true;
         }
 
-        public List<NodeConnection> RemoveAndReturnNodeConnections(NodeConnection wholeConnection)
+        public void RemoveNodeConnection(NodeConnection wholeConnection)
         {
-            return wholeConnection
+            wholeConnection
                 .GetSubdividedConnection()
-                .Where(RemoveSubdividedConnection)
-                .ToList();
+                .ToList()
+                .ForEach(RemoveSubdividedConnection);
         }
 
-        private bool RemoveSubdividedConnection(NodeConnection connection)
+        private void RemoveSubdividedConnection(NodeConnection connection)
         {
             var eitherNodeDoesntExistInLayout = !Nodes.ContainsKey(connection.Start) || !Nodes.ContainsKey(connection.End);
             if (eitherNodeDoesntExistInLayout)
             {
-                return false;
+                return;
             }
 
             var node1 = Nodes[connection.Start];
@@ -116,14 +117,13 @@ namespace Assets.LevelEditorUnity
 
             if (!AreConnected(node1, node2))
             {
-                return false;
+                return;
             }
 
             RemoveOneWayConnection(node1, node2);
             RemoveOneWayConnection(node2, node1);
 
             ConnectionRemoved.CallEvent(connection);
-            return true;
         }
 
         private bool AreConnected(Node node1, Node node2)
@@ -169,7 +169,7 @@ namespace Assets.LevelEditorUnity
                 while (node.Connections.Count > 0)
                 {
                     var connection = node.Connections[0];
-                    RemoveAndReturnNodeConnections(new NodeConnection(node.Position, connection.Position));
+                    RemoveNodeConnection(new NodeConnection(node.Position, connection.Position));
                 }
             }
         }

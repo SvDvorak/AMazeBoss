@@ -5,5 +5,6 @@ namespace AMazeBoss.CSharp.Tests
         public T Given => (T) this;
         public T When => (T) this;
         public T Then => (T) this;
+        public T This => (T) this;
     }
 }

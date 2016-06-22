@@ -10,7 +10,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
 {
     public class PuzzleEditorAcceptanceTests<T> : AcceptanceTests<T> where T : PuzzleEditorAcceptanceTests<T>
     {
-        protected readonly PuzzleLayout _sut;
+        protected readonly PuzzleLayout Sut;
         protected readonly TilePos Node1Position = new TilePos(0, 0);
         protected readonly TilePos Node2Position = new TilePos(1, 0);
         protected readonly TilePos Node3Position = new TilePos(0, 1);
@@ -19,80 +19,82 @@ namespace AMazeBoss.CSharp.Tests.Editor
         protected int CallsToNodeRemoved;
         protected int CallsToConnectionRemoved;
         protected int CallsToConnectionAdded;
+        protected ICommand LastCommand;
 
         public PuzzleEditorAcceptanceTests()
         {
-            _sut = new PuzzleLayout();
+            Sut = new PuzzleLayout();
         }
 
         public PuzzleEditorAcceptanceTests<T> ConnectingBetween(TilePos position1, TilePos position2)
         {
-            var command = new AddNodeConnectionCommand(_sut, new NodeConnection(position1, position2));
-            command.Execute();
+            LastCommand = new AddNodeConnectionCommand(Sut, new NodeConnection(position1, position2));
+            LastCommand.Execute();
             return this;
         }
 
-        public PuzzleEditorAcceptanceTests<T> ConnectionBetween(TilePos position1, TilePos position2)
+        public T ConnectionBetween(TilePos position1, TilePos position2)
         {
             ConnectingBetween(position1, position2);
-            return this;
+            return This;
         }
 
-        public PuzzleEditorAcceptanceTests<T> ShouldHaveNodeAt(TilePos position, Action<Node> nodeAction)
+        public T ShouldHaveNodeAt(TilePos position, Action<Node> nodeAction)
         {
-            _sut.Nodes.ContainsKey(position).Should().BeTrue("there should be node at " + position);
-            nodeAction(_sut.Nodes[position]);
-            return this;
+            Sut.Nodes.ContainsKey(position).Should().BeTrue("there should be node at " + position);
+            nodeAction(Sut.Nodes[position]);
+            return This;
         }
 
-        public PuzzleEditorAcceptanceTests<T> ShouldHaveNodeCountOf(int count)
+        public T ShouldHaveNodeCountOf(int count)
         {
-            _sut.Nodes.Count.Should().Be(count);
-            return this;
+            Sut.Nodes.Count.Should().Be(count);
+            return This;
         }
 
         public void ShouldHaveTotalConnectionCountOf(int connectionCount)
         {
-            _sut.Nodes.Values.SelectMany(x => x.Connections).Count().Should().Be(connectionCount);
+            Sut.Nodes.Values.SelectMany(x => x.Connections).Count().Should().Be(connectionCount);
         }
 
-        public void RemovingConnectionBetween(TilePos position1, TilePos position2)
+        public T RemovingConnectionBetween(TilePos position1, TilePos position2)
         {
-            var command = new RemoveNodeConnectionCommand(_sut, new NodeConnection(position1, position2));
-            command.Execute();
+            LastCommand = new RemoveNodeConnectionCommand(Sut, new NodeConnection(position1, position2));
+            LastCommand.Execute();
+            return This;
         }
 
-        public PuzzleEditorAcceptanceTests<T> ListeningToEvents()
+        public T ListeningToEvents()
         {
-            _sut.NodeAdded += node => CallsToNodeAdded++;
-            _sut.ConnectionAdded += connection => CallsToConnectionAdded++;
-            _sut.NodeRemoved += node => CallsToNodeRemoved++;
-            _sut.ConnectionRemoved += node => CallsToConnectionRemoved++;
-            return this;
+            Sut.NodeAdded += node => CallsToNodeAdded++;
+            Sut.ConnectionAdded += connection => CallsToConnectionAdded++;
+            Sut.NodeRemoved += node => CallsToNodeRemoved++;
+            Sut.ConnectionRemoved += node => CallsToConnectionRemoved++;
+            return This;
         }
 
-        public PuzzleEditorAcceptanceTests<T> ShouldHaveCalledNodeAdded(int callCount)
+        public T ShouldHaveCalledNodeAdded(int callCount)
         {
             CallsToNodeAdded.Should().Be(callCount, "event should be called for each added node");
-            return this;
+            return This;
         }
 
-        public PuzzleEditorAcceptanceTests<T> ShouldHaveCalledConnectionAdded(int callCount)
+        public T ShouldHaveCalledConnectionAdded(int callCount)
         {
             CallsToConnectionAdded.Should().Be(callCount, "event should be called for each added connection");
-            return this;
+            return This;
         }
 
-        public PuzzleEditorAcceptanceTests<T> ShouldHaveCalledNodeRemoved(int callCount)
+        public T ShouldHaveCalledNodeRemoved(int callCount)
         {
             CallsToNodeRemoved.Should().Be(callCount, "event should be called for each removed node");
-            return this;
+            return This;
         }
 
-        public PuzzleEditorAcceptanceTests<T> ShouldHaveCalledConnectionRemoved(int callCount)
+        public T ShouldHaveCalledConnectionRemoved(int callCount)
         {
             CallsToConnectionRemoved.Should().Be(callCount, "event should be called for each removed connection");
-            return this;
+            return This;
         }
     }
 }

@@ -160,7 +160,7 @@ namespace Assets.LevelEditorUnity
             }
         }
 
-        private void SingletonRemoved(string type)
+        private void SingletonRemoved(string type, TilePos? position)
         {
             switch (type)
             {
