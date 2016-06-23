@@ -15,22 +15,20 @@ namespace AMazeBoss.CSharp.Tests.Editor
         private readonly TilePos _position1 = new TilePos(0, 0);
         private readonly TilePos _position2 = new TilePos(1, 0);
 
-        public readonly List<WorldObject> AddedCalls = new List<WorldObject>();
-        public readonly List<WorldObject> RemovedCalls = new List<WorldObject>();
-        private readonly WorldObjectCallsAssertions _callsAssetions = new WorldObjectCallsAssertions();
+        private readonly WorldObjectCallsAssertions _callsAssertions = new WorldObjectCallsAssertions();
 
         [Fact]
         public void AddsObjectToLayoutWithSameTypeObjectButDifferentPosition()
         {
             Given
-                .ObjectAt(OtherType, _position1);
+                .ObjectAt(ObjectType, _position1);
 
             When
                 .ListeningToEvents()
-                .AddingObjectAt(OtherType, _position2);
+                .AddingObjectAt(ObjectType, _position2);
 
             Then
-                .ShouldHaveObjectsAt(OtherType, _position1, _position2);
+                .ShouldHaveObjectsAt(ObjectType, _position1, _position2);
         }
 
         [Fact]
@@ -95,14 +93,14 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public void AddsObjectAgainWhenUndoingObjectRemove()
         {
             Given
-                .ObjectAt(OtherType, _position1);
+                .ObjectAt(ObjectType, _position1);
 
             When
                 .RemovingObject(_position1)
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveObjectsAt(OtherType, _position1);
+                .ShouldHaveObjectsAt(ObjectType, _position1);
         }
 
         [Fact]
@@ -150,7 +148,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
             Then
                 .ShouldHaveObjectsAt(OtherType, position)
-                .ShouldNotHaveObjects(PlayerType);
+                .ShouldNotHaveObjects(ObjectType);
         }
 
         [Fact]
@@ -174,8 +172,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public void RemovesObjectsWhenRemovingNodesBelowThem()
         {
             Given
-                .ObjectAt(OtherType, _position1)
-                .ObjectAt(OtherType, _position2)
+                .ObjectAt(ObjectType, _position1)
+                .ObjectAt(ObjectType, _position2)
                 .ConnectionBetween(_position1, _position2);
 
             When
@@ -183,18 +181,18 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .RemovingConnectionBetween(_position1, _position2);
 
             Then
-                .ShouldNotHaveObjects(OtherType)
+                .ShouldNotHaveObjects(ObjectType)
                 .ShouldHaveCalled(x => x
-                    .Removed(OtherType, _position1)
-                    .Removed(OtherType, _position2));
+                    .Removed(ObjectType, _position1)
+                    .Removed(ObjectType, _position2));
         }
 
         [Fact]
         public void ReplacesObjectWhenUndoingNodeConnectionRemovalThatHadObjectOnANode()
         {
             Given
-                .ObjectAt(OtherType, _position1)
-                .ObjectAt(OtherType, _position2)
+                .ObjectAt(ObjectType, _position1)
+                .ObjectAt(ObjectType, _position2)
                 .ConnectionBetween(_position1, _position2);
 
             When
@@ -202,7 +200,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveObjectsAt(OtherType, _position1, _position2);
+                .ShouldHaveObjectsAt(ObjectType, _position1, _position2);
         }
 
         private EditingWorldObjects AddingObjectAt(string type, TilePos position)
@@ -257,8 +255,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         private EditingWorldObjects ShouldHaveCalled(Action<WorldObjectCallsAssertions> func)
         {
-            func(_callsAssetions);
-            _callsAssetions.AssertAllCalls();
+            func(_callsAssertions);
+            _callsAssertions.AssertAllCalls();
             return this;
         }
 
@@ -270,8 +268,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public new EditingWorldObjects ListeningToEvents()
         {
             base.ListeningToEvents();
-            Sut.ObjectAdded += (type, position) => _callsAssetions.AddCalled(new WorldObject(type, position));
-            Sut.ObjectRemoved += (type, position) => _callsAssetions.RemoveCalled(new WorldObject(type, position));
+            Sut.ObjectAdded += (type, position) => _callsAssertions.AddCalled(new WorldObject(type, position));
+            Sut.ObjectRemoved += (type, position) => _callsAssertions.RemoveCalled(new WorldObject(type, position));
             return this;
         }
 
