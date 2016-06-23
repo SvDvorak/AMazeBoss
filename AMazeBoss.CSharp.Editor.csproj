@@ -115,7 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Undo\AddNodeConnectionCommand.cs" />
-    <Compile Include="Assets\Editor\Undo\AddObjectCommand.cs" />
+    <Compile Include="Assets\Editor\Undo\PlaceNormalObjectCommand.cs" />
+    <Compile Include="Assets\Editor\Undo\PlaceObjectCommand.cs" />
+    <Compile Include="Assets\Editor\Undo\RemoveObjectCommand.cs" />
     <Compile Include="Assets\Editor\Undo\SetSingletonObjectCommand.cs" />
     <Compile Include="Assets\Editor\Undo\ClearLayoutCommand.cs" />
     <Compile Include="Assets\Editor\Undo\CommandHistory.cs" />

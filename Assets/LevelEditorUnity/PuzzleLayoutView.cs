@@ -5,13 +5,15 @@ namespace Assets.LevelEditorUnity
 {
     public class EditorWorldObject
     {
-        public GameObject GameObject;
-        public string Type;
+        public readonly GameObject GameObject;
+        public readonly string Type;
+        public readonly bool Singleton;
 
-        public EditorWorldObject(string type, GameObject gameObject)
+        public EditorWorldObject(string type, bool singleton, GameObject gameObject)
         {
             Type = type;
             GameObject = gameObject;
+            Singleton = singleton;
         }
     }
 
@@ -22,11 +24,13 @@ namespace Assets.LevelEditorUnity
         public GameObject Node;
         public GameObject Player;
         public GameObject Boss;
+        public GameObject Trap;
 
         public Dictionary<TilePos, GameObject> NodeViews = new Dictionary<TilePos, GameObject>();
         public Dictionary<NodeConnection, GameObject> NodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
 
         private List<GameObject> _previews = new List<GameObject>();
+        private readonly Dictionary<TilePos, GameObject> _worldObjects = new Dictionary<TilePos, GameObject>();
         private NodeConnection _lastPreviewConnection;
         private GameObject _player;
         private GameObject _boss;
@@ -62,8 +66,8 @@ namespace Assets.LevelEditorUnity
             PuzzleLayout.NodeRemoved += RemoveNode;
             PuzzleLayout.ConnectionAdded += AddNodeConnection;
             PuzzleLayout.ConnectionRemoved += RemoveConnection;
-            PuzzleLayout.SingletonAdded += SingletonAdded;
-            PuzzleLayout.SingletonRemoved += SingletonRemoved;
+            PuzzleLayout.ObjectAdded += ObjectAdded;
+            PuzzleLayout.ObjectRemoved += ObjectRemoved;
         }
 
         public void OnDisable()
@@ -72,8 +76,8 @@ namespace Assets.LevelEditorUnity
             PuzzleLayout.NodeRemoved -= RemoveNode;
             PuzzleLayout.ConnectionAdded -= AddNodeConnection;
             PuzzleLayout.ConnectionRemoved -= RemoveConnection;
-            PuzzleLayout.SingletonAdded -= SingletonAdded;
-            PuzzleLayout.SingletonRemoved -= SingletonRemoved;
+            PuzzleLayout.ObjectAdded -= ObjectAdded;
+            PuzzleLayout.ObjectRemoved -= ObjectRemoved;
         }
 
         private void AddNode(Node node)
@@ -137,7 +141,7 @@ namespace Assets.LevelEditorUnity
             }
         }
 
-        private void SingletonAdded(string type, TilePos position)
+        private void ObjectAdded(string type, TilePos position)
         {
             switch (type)
             {
@@ -157,10 +161,18 @@ namespace Assets.LevelEditorUnity
 
                     _boss.transform.SetParent(transform);
                     break;
+                case "Trap":
+                    _worldObjects[position] = (GameObject)Instantiate(
+                        Trap,
+                        position.ToV3(),
+                        Quaternion.identity);
+
+                    _worldObjects[position].transform.SetParent(transform);
+                    break;
             }
         }
 
-        private void SingletonRemoved(string type, TilePos? position)
+        private void ObjectRemoved(string type, TilePos position)
         {
             switch (type)
             {
@@ -169,6 +181,9 @@ namespace Assets.LevelEditorUnity
                     break;
                 case "Boss":
                     DestroyImmediate(_boss);
+                    break;
+                case "Trap":
+                    DestroyImmediate(_worldObjects[position]);
                     break;
             }
         }

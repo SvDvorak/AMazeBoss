@@ -22,11 +22,11 @@ namespace Assets.Editor.Undo
         public void Execute()
         {
             _layout.ConnectionRemoved += AddRemovedConnection;
-            _layout.SingletonRemoved += AddRemovedObject;
+            _layout.ObjectRemoved += AddRemovedObject;
 
             _layout.RemoveNodeConnection(_connection);
 
-            _layout.SingletonRemoved -= AddRemovedObject;
+            _layout.ObjectRemoved -= AddRemovedObject;
             _layout.ConnectionRemoved -= AddRemovedConnection;
         }
 
@@ -35,7 +35,7 @@ namespace Assets.Editor.Undo
             _removedConnections.Add(connection);
         }
 
-        private void AddRemovedObject(string type, TilePos? position)
+        private void AddRemovedObject(string type, TilePos position)
         {
             _removedObjects.Add(new WorldObject(type, position));
         }
@@ -49,7 +49,7 @@ namespace Assets.Editor.Undo
 
             foreach (var removedObject in _removedObjects)
             {
-               _layout.SetSingleton(removedObject.Type, removedObject.Position); 
+               _layout.PlaceObject(removedObject.Type, removedObject.Position); 
             }
         }
     }

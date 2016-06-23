@@ -1,50 +1,26 @@
-﻿using System.Collections.Generic;
-using Assets.LevelEditorUnity;
+﻿using Assets.LevelEditorUnity;
 
 namespace Assets.Editor.Undo
 {
-    public class SetSingletonObjectCommand : ICommand
+    public class SetSingletonObjectCommand : PlaceObjectCommand
     {
-        private readonly TilePos? _position;
-        private readonly PuzzleLayout _layout;
         private readonly TilePos? _previousPosition;
-        private readonly string _type;
-        private readonly List<WorldObject> _removedObjects = new List<WorldObject>();
 
-        public string Name { get { return (_position != null ? "Added" : "Removed") + " player"; } }
+        public override string Name { get { return "Added singleton"; } }
 
-        public SetSingletonObjectCommand(PuzzleLayout layout, string type, TilePos? position)
+        public SetSingletonObjectCommand(PuzzleLayout layout, string type, TilePos position) : base(layout, type, position)
         {
-            _type = type;
-            _layout = layout;
-            _position = position;
             _previousPosition = layout.GetSingleton(type);
         }
 
-        public void Execute()
+        protected override void ExecutePlace()
         {
-            _layout.SingletonRemoved += AddRemovedObject;
-
-            _layout.SetSingleton(_type, _position);
-
-            _layout.SingletonRemoved -= AddRemovedObject;
+            Layout.SetSingleton(Type, Position);
         }
 
-        private void AddRemovedObject(string type, TilePos? position)
+        protected override void UndoPlace()
         {
-            _removedObjects.Add(new WorldObject(type, position));
-        }
-
-        public void Undo()
-        {
-            _layout.SetSingleton(_type, _previousPosition);
-
-            foreach (var removedObject in _removedObjects)
-            {
-                _layout.SetSingleton(removedObject.Type, removedObject.Position);
-            }
-
-            _removedObjects.Clear();
+            Layout.SetSingleton(Type, _previousPosition);
         }
     }
 }

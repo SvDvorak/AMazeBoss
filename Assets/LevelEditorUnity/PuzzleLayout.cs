@@ -19,66 +19,89 @@ namespace Assets.LevelEditorUnity
             }
         }
 
-        private readonly Dictionary<string, List<TilePos>> _objects = new Dictionary<string, List<TilePos>>();
-
-        public List<TilePos> GetObjects(string type)
+        private class PuzzleObjectCollection
         {
-            return _objects.ContainsKey(type) ? _objects[type] : new List<TilePos>();
+            public List<TilePos> Objects { get; private set; }
+
+            public PuzzleObjectCollection()
+            {
+                Objects = new List<TilePos>();
+            }
+
+            public PuzzleObjectCollection Concat(TilePos position)
+            {
+                Objects.Add(position);
+                return this;
+            }
         }
 
-        public void AddObject(string type, TilePos position)
-        {
-            var currentObjects = GetObjects(type);
-            _objects[type] = currentObjects.Concat(position).ToList();
-        }
-
-        private readonly Dictionary<string, TilePos> _singletons = new Dictionary<string, TilePos>();
+        private readonly Dictionary<string, PuzzleObjectCollection> _puzzleObjects = new Dictionary<string, PuzzleObjectCollection>();
 
         public void SetSingleton(string type, TilePos? position)
         {
-            var currentAtSamePosition = GetSingletonAt(position);
-
-            if (currentAtSamePosition != null)
+            if (_puzzleObjects.ContainsKey(type))
             {
-                SetSingleton(currentAtSamePosition, null);
-            }
-
-            if (_singletons.ContainsKey(type))
-            {
-                var removedPosition = _singletons[type];
-                _singletons.Remove(type);
-                SingletonRemoved.CallEvent(type, removedPosition);
+                var worldObject = _puzzleObjects[type];
+                _puzzleObjects.Remove(type);
+                ObjectRemoved.CallEvent(type, worldObject.Objects.First());
             }
 
             if (position.HasValue)
             {
-                _singletons[type] = position.Value;
-                SingletonAdded.CallEvent(type, position.Value);
+                PlaceObject(type, position.Value);
             }
         }
 
-        private string GetSingletonAt(TilePos? position)
+        public void PlaceObject(string type, TilePos position)
         {
-            if (position != null)
+            RemoveObject(position);
+
+            var collection = _puzzleObjects.ContainsKey(type)
+                ? _puzzleObjects[type]
+                : new PuzzleObjectCollection();
+
+            _puzzleObjects[type] = collection.Concat(position);
+            ObjectAdded.CallEvent(type, position);
+        }
+
+        public void RemoveObject(TilePos position)
+        {
+            var currentAtSamePosition = GetObjectAt(position);
+
+            if (currentAtSamePosition != null)
             {
-                var otherAtSamePosition = _singletons.SingleOrDefault(x => x.Value == position);
-
-                if (otherAtSamePosition.Key != null)
+                var objects = _puzzleObjects[currentAtSamePosition].Objects;
+                if (objects.Count <= 1)
                 {
-                    return otherAtSamePosition.Key;
+                    _puzzleObjects.Remove(currentAtSamePosition);
                 }
-            }
+                else
+                {
+                    objects.Remove(position);
+                }
 
-            return null;
+                ObjectRemoved.CallEvent(currentAtSamePosition, position);
+            }
+        }
+
+        public string GetObjectAt(TilePos position)
+        {
+            var otherAtSamePosition = _puzzleObjects.SingleOrDefault(x => x.Value.Objects.Any(pos => pos == position));
+            return otherAtSamePosition.Key;
         }
 
         public TilePos? GetSingleton(string type)
         {
-            return _singletons.ContainsKey(type) ? _singletons[type] : (TilePos?) null;
+            return _puzzleObjects.ContainsKey(type) ? _puzzleObjects[type].Objects.First() : (TilePos?) null;
         }
 
-        public event Action<string, TilePos> SingletonAdded;
-        public event Action<string, TilePos?> SingletonRemoved;
+        public List<TilePos> GetObjects(string type)
+        {
+            return _puzzleObjects.ContainsKey(type) ? _puzzleObjects[type].Objects : new List<TilePos>();
+        }
+
+        public event Action<string, TilePos> ObjectAdded;
+        public event Action<string, TilePos> ObjectRemoved;
 
         public readonly Dictionary<TilePos, Node> Nodes = new Dictionary<TilePos, Node>();
 
@@ -167,10 +190,10 @@ namespace Assets.LevelEditorUnity
 
             if (node1.Connections.Count == 0)
             {
-                var singletonAtSamePosition = GetSingletonAt(node1.Position);
+                var singletonAtSamePosition = GetObjectAt(node1.Position);
                 if (singletonAtSamePosition != null)
                 {
-                    SetSingleton(singletonAtSamePosition, null);
+                    RemoveObject(node1.Position);
                 }
 
                 Nodes.Remove(node1.Position);

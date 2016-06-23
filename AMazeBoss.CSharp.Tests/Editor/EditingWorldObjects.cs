@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Assets;
 using Assets.Editor.Undo;
 using FluentAssertions;
@@ -9,16 +10,17 @@ namespace AMazeBoss.CSharp.Tests.Editor
     public class EditingWorldObjects : PuzzleEditorAcceptanceTests<EditingWorldObjects>
     {
         private const string PlayerType = "Player";
+        private const string ObjectType = "Object";
         private const string OtherType = "Other";
         private readonly TilePos _position1 = new TilePos(0, 0);
         private readonly TilePos _position2 = new TilePos(1, 0);
 
-        private string _addedSingletonCallType;
-        private TilePos? _addedSingletonCallPosition;
-        private string _singletonRemovedCallType;
+        public readonly List<WorldObject> AddedCalls = new List<WorldObject>();
+        public readonly List<WorldObject> RemovedCalls = new List<WorldObject>();
+        private readonly WorldObjectCallsAssertions _callsAssetions = new WorldObjectCallsAssertions();
 
         [Fact]
-        public void AddsObjectToLayoutWithSameTypeObject()
+        public void AddsObjectToLayoutWithSameTypeObjectButDifferentPosition()
         {
             Given
                 .ObjectAt(OtherType, _position1);
@@ -31,98 +33,94 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .ShouldHaveObjectsAt(OtherType, _position1, _position2);
         }
 
-        private void AddingObjectAt(string type, TilePos position)
-        {
-            var command = new AddObjectCommand(Sut, type, position);
-            command.Execute();
-        }
-
-        private void ObjectAt(string type, TilePos position)
-        {
-            AddingObjectAt(type, position);
-        }
-
-        private void ShouldHaveObjectsAt(string type, params TilePos[] positions)
-        {
-            Sut.GetObjects(type).Should().BeEquivalentTo(positions);
-        }
-
         [Fact]
         public void SingletonObjectAddedWhenAddingToEmptyLayout()
         {
-            var position = new TilePos(0, 0);
-
             When
                 .ListeningToEvents()
-                .AddingSingletonAt(PlayerType, position);
+                .AddingObjectAt(PlayerType, _position1);
 
             Then
-                .ShouldHaveSingletonAt(PlayerType, position)
-                .ShouldHaveCalledSingletonAdded(PlayerType, position);
+                .ShouldHaveObjectsAt(PlayerType, _position1)
+                .ShouldHaveCalled(x => x.Added(PlayerType, _position1));
         }
 
         [Fact]
-        public void RemovesSingletonFromLayoutThatAlreadyHasSingleton()
+        public void RemovesObjectFromLayoutThatHasObjectAtSpecifiedPosition()
         {
             Given
-                .SingletonAt(PlayerType, new TilePos(1, 1));
+                .ObjectAt(ObjectType, _position1)
+                .ObjectAt(ObjectType, _position2);
 
             When
                 .ListeningToEvents()
-                .RemovingSingleton(PlayerType);
+                .RemovingObject(_position2);
 
             Then
-                .ShouldNotHaveSingleton(PlayerType)
-                .ShouldHaveCalledSingletonRemoved(PlayerType);
+                .ShouldHaveObjectsAt(ObjectType, _position1)
+                .ShouldHaveCalled(x => x.Removed(ObjectType, _position2));
         }
 
         [Fact]
         public void ReplacesCurrentSingletonWhenAddingToLayoutWithSameTypeSingleton()
         {
-            var playerPosition = new TilePos(1, 1);
-
             Given
-                .SingletonAt(PlayerType, playerPosition);
+                .SingletonAt(PlayerType, _position1);
 
             When
                 .ListeningToEvents()
-                .AddingSingletonAt(PlayerType, playerPosition);
+                .AddingSingletonAt(PlayerType, _position2);
 
             Then
-                .ShouldHaveCalledSingletonRemoved(PlayerType)
-                .ShouldHaveCalledSingletonAdded(PlayerType, playerPosition);
+                .ShouldHaveCalled(x => x
+                    .Removed(PlayerType, _position1)
+                    .Added(PlayerType, _position2));
         }
 
         [Fact]
-        public void RemovesSingletonWhenUndoingAdd()
+        public void RemovesObjectWhenUndoingAdd()
         {
-            var position = new TilePos(0, 0);
-
             When
-                .AddingSingletonAt(PlayerType, position)
+                .AddingObjectAt(PlayerType, _position1)
                 .ListeningToEvents()
                 .UndoingLastCommand();
 
             Then
-                .ShouldNotHaveSingleton(PlayerType)
-                .ShouldHaveCalledSingletonRemoved(PlayerType);
+                .ShouldNotHaveObjects(PlayerType)
+                .ShouldHaveCalled(x => x.Removed(PlayerType, _position1));
+        }
+
+
+        [Fact]
+        public void AddsObjectAgainWhenUndoingObjectRemove()
+        {
+            Given
+                .ObjectAt(OtherType, _position1);
+
+            When
+                .RemovingObject(_position1)
+                .UndoingLastCommand();
+
+            Then
+                .ShouldHaveObjectsAt(OtherType, _position1);
         }
 
         [Fact]
         public void ReplacesPreviousSingletonWhenUndoingTheSecondOne()
         {
             Given
-                .SingletonAt(PlayerType, _position1)
-                .AddingSingletonAt(PlayerType, _position2);
+                .SingletonAt(PlayerType, _position1);
 
             When
+                .AddingSingletonAt(PlayerType, _position2)
                 .ListeningToEvents()
                 .UndoingLastCommand();
 
             Then
                 .ShouldHaveSingletonAt(PlayerType, _position1)
-                .ShouldHaveCalledSingletonRemoved(PlayerType)
-                .ShouldHaveCalledSingletonAdded(PlayerType, _position1);
+                .ShouldHaveCalled(x => x
+                    .Removed(PlayerType, _position2)
+                    .Added(PlayerType, _position1));
         }
 
         [Fact]
@@ -145,14 +143,14 @@ namespace AMazeBoss.CSharp.Tests.Editor
             var position = new TilePos(1, 1);
 
             Given
-                .SingletonAt(PlayerType, position);
+                .ObjectAt(ObjectType, position);
 
             When
-                .AddingSingletonAt(OtherType, position);
+                .AddingObjectAt(OtherType, position);
 
             Then
-                .ShouldHaveSingletonAt(OtherType, position)
-                .ShouldNotHaveSingleton(PlayerType);
+                .ShouldHaveObjectsAt(OtherType, position)
+                .ShouldNotHaveObjects(PlayerType);
         }
 
         [Fact]
@@ -161,36 +159,42 @@ namespace AMazeBoss.CSharp.Tests.Editor
             var position = new TilePos(1, 1);
 
             Given
-                .SingletonAt(PlayerType, position)
-                .SingletonAt(OtherType, new TilePos(2, 2));
+                .ObjectAt(PlayerType, position)
+                .ObjectAt(OtherType, new TilePos(2, 2));
 
             When
-                .AddingSingletonAt(OtherType, position)
+                .AddingObjectAt(OtherType, position)
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveSingletonAt(PlayerType, position);
+                .ShouldHaveObjectsAt(PlayerType, position);
         }
 
         [Fact]
-        public void RemovesObjectWhenRemovingNodeBelowIt()
+        public void RemovesObjectsWhenRemovingNodesBelowThem()
         {
             Given
-                .SingletonAt(PlayerType, _position1)
+                .ObjectAt(OtherType, _position1)
+                .ObjectAt(OtherType, _position2)
                 .ConnectionBetween(_position1, _position2);
 
             When
+                .ListeningToEvents()
                 .RemovingConnectionBetween(_position1, _position2);
 
             Then
-                .ShouldNotHaveSingleton(PlayerType);
+                .ShouldNotHaveObjects(OtherType)
+                .ShouldHaveCalled(x => x
+                    .Removed(OtherType, _position1)
+                    .Removed(OtherType, _position2));
         }
 
         [Fact]
         public void ReplacesObjectWhenUndoingNodeConnectionRemovalThatHadObjectOnANode()
         {
             Given
-                .SingletonAt(PlayerType, _position1)
+                .ObjectAt(OtherType, _position1)
+                .ObjectAt(OtherType, _position2)
                 .ConnectionBetween(_position1, _position2);
 
             When
@@ -198,14 +202,27 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveSingletonAt(PlayerType, _position1);
+                .ShouldHaveObjectsAt(OtherType, _position1, _position2);
+        }
+
+        private EditingWorldObjects AddingObjectAt(string type, TilePos position)
+        {
+            LastCommand = new PlaceNormalObjectCommand(Sut, type, position);
+            LastCommand.Execute();
+            return this;
+        }
+
+        private EditingWorldObjects ObjectAt(string type, TilePos position)
+        {
+            AddingObjectAt(type, position);
+            return this;
         }
 
         private EditingWorldObjects AddingSingletonAt(string type, TilePos tilePos)
         {
             LastCommand = new SetSingletonObjectCommand(Sut, type, tilePos);
             LastCommand.Execute();
-            return This;
+            return this;
         }
 
         private EditingWorldObjects SingletonAt(string type, TilePos tilePos)
@@ -214,33 +231,34 @@ namespace AMazeBoss.CSharp.Tests.Editor
             return this;
         }
 
-        private void RemovingSingleton(string type)
+        private EditingWorldObjects RemovingObject(TilePos position)
         {
-            LastCommand = new SetSingletonObjectCommand(Sut, type, null);
+            LastCommand = new RemoveObjectCommand(Sut, position);
             LastCommand.Execute();
+            return this;
         }
 
+        private EditingWorldObjects ShouldHaveObjectsAt(string type, params TilePos[] positions)
+        {
+            Sut.GetObjects(type).Should().BeEquivalentTo(positions);
+            return this;
+        }
+
+        private EditingWorldObjects ShouldNotHaveObjects(string type)
+        {
+            Sut.GetObjects(type).Should().BeEquivalentTo(new TilePos[] { });
+            return this;
+        }
         private EditingWorldObjects ShouldHaveSingletonAt(string type, TilePos tilePos)
         {
             Sut.GetSingleton(type).Should().Be(tilePos);
             return this;
         }
 
-        private EditingWorldObjects ShouldNotHaveSingleton(string type)
+        private EditingWorldObjects ShouldHaveCalled(Action<WorldObjectCallsAssertions> func)
         {
-            Sut.GetSingleton(type).Should().BeNull();
-            return this;
-        }
-
-        private void ShouldHaveCalledSingletonAdded(string type, TilePos playerPosition)
-        {
-            _addedSingletonCallType.Should().Be(type);
-            _addedSingletonCallPosition.Should().Be(playerPosition);
-        }
-
-        private EditingWorldObjects ShouldHaveCalledSingletonRemoved(string type)
-        {
-            _singletonRemovedCallType.Should().Be(type, "should have called {0} removed event", type);
+            func(_callsAssetions);
+            _callsAssetions.AssertAllCalls();
             return this;
         }
 
@@ -252,13 +270,73 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public new EditingWorldObjects ListeningToEvents()
         {
             base.ListeningToEvents();
-            Sut.SingletonAdded += (type, position) =>
-                {
-                    _addedSingletonCallType = type;
-                    _addedSingletonCallPosition = position;
-                };
-            Sut.SingletonRemoved += (type, position) => _singletonRemovedCallType = type;
+            Sut.ObjectAdded += (type, position) => _callsAssetions.AddCalled(new WorldObject(type, position));
+            Sut.ObjectRemoved += (type, position) => _callsAssetions.RemoveCalled(new WorldObject(type, position));
             return this;
+        }
+
+        private class WorldObjectCallsAssertions
+        {
+            private class CallInfo
+            {
+                public enum CallType
+                {
+                    Add,
+                    Remove
+                }
+
+                public readonly CallType Call;
+                public readonly string Type;
+                public readonly TilePos Position;
+
+                public CallInfo(CallType call, string type, TilePos position)
+                {
+                    Call = call;
+                    Type = type;
+                    Position = position;
+                }
+            }
+
+            private readonly List<CallInfo> Calls = new List<CallInfo>();
+            private readonly List<CallInfo> Expected = new List<CallInfo>();
+
+            public WorldObjectCallsAssertions Added(string type, TilePos position)
+            {
+                Expected.Add(new CallInfo(CallInfo.CallType.Add, type, position));
+                return this;
+            }
+
+            public WorldObjectCallsAssertions Removed(string type, TilePos position)
+            {
+                Expected.Add(new CallInfo(CallInfo.CallType.Remove, type, position));
+                return this;
+            }
+
+            public void AssertAllCalls()
+            {
+                for (var i = 0; i < Expected.Count; i++)
+                {
+                    var currentExpected = Expected[i];
+                    if (i > Calls.Count - 1)
+                    {
+                        throw new Exception(
+                            $"Expected {currentExpected.Call} call with type: {currentExpected.Type}, position: {currentExpected.Position} but no more calls were done");
+                    }
+
+                    var currentCall = Calls[i];
+                    currentCall.ShouldBeEquivalentTo(currentExpected, "call number " + i + " did not match expected");
+                }
+            }
+
+            public void AddCalled(WorldObject worldObject)
+            {
+                Calls.Add(new CallInfo(CallInfo.CallType.Add, worldObject.Type, worldObject.Position));
+            }
+
+            public void RemoveCalled(WorldObject worldObject)
+            {
+                Calls.Add(new CallInfo(CallInfo.CallType.Remove, worldObject.Type, worldObject.Position));
+            }
         }
     }
 }

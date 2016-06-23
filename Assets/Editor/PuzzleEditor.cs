@@ -31,10 +31,10 @@ public class PuzzleEditor : EditorWindow
         LoadLayoutView();
         EditorApplication.hierarchyWindowChanged += LoadLayoutView;
 
-        _worldObjects.Add(new EditorWorldObject("", Resources.Load<GameObject>("Editor/Node")));
-        _worldObjects.Add(new EditorWorldObject("Player", Resources.Load<GameObject>("Editor/Player")));
-        _worldObjects.Add(new EditorWorldObject("Boss", Resources.Load<GameObject>("Editor/Boss")));
-        _worldObjects.Add(new EditorWorldObject("", Resources.Load<GameObject>("Editor/SpikeTrap")));
+        _worldObjects.Add(new EditorWorldObject("", false, Resources.Load<GameObject>("Editor/Node")));
+        _worldObjects.Add(new EditorWorldObject("Player", true, Resources.Load<GameObject>("Editor/Player")));
+        _worldObjects.Add(new EditorWorldObject("Boss", true, Resources.Load<GameObject>("Editor/Boss")));
+        _worldObjects.Add(new EditorWorldObject("Trap", false, Resources.Load<GameObject>("Editor/SpikeTrap")));
     }
 
     private void LoadLayoutView()
@@ -55,10 +55,6 @@ public class PuzzleEditor : EditorWindow
     {
         var layout = PuzzleLayout.Instance;
 
-        foreach (var node in PuzzleLayout.Instance.Nodes.Values)
-        {
-            GUILayout.Label("X: " + node.Position.X + "\t Z: " + node.Position.Z);
-        }
         var change = GUILayout.Toggle(InEditMode, "Edit", "Button");
         if (change != InEditMode)
         {
@@ -80,6 +76,7 @@ public class PuzzleEditor : EditorWindow
     {
         if (!InEditMode)
         {
+            _layoutView.RemovePreview();
             return;
         }
 
@@ -104,18 +101,7 @@ public class PuzzleEditor : EditorWindow
                 }
                 break;
             case EventType.MouseUp:
-                if (selectedWorldObject != null && selectedWorldObject.Type != "")
-                {
-                    if (uiEvent.button == 0)
-                    {
-                        _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, new TilePos(currentInputTilePos)));
-                    }
-                    else if (uiEvent.button == 1)
-                    {
-                        _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, null));
-                    }
-                }
-                else if (uiEvent.button == 0 && _isDragging)
+                if (uiEvent.button == 0 && _isDragging)
                 {
                     if (nodeConnection.Length() > 0)
                     {
@@ -124,6 +110,22 @@ public class PuzzleEditor : EditorWindow
                     }
                     Repaint();
                     _isDragging = false;
+                }
+                else if (selectedWorldObject != null)
+                {
+                    var tilePos = new TilePos(currentInputTilePos);
+                    if (uiEvent.button == 0 && selectedWorldObject.Singleton)
+                    {
+                        _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, tilePos));
+                    }
+                    else if (uiEvent.button == 0)
+                    {
+                        _commandHistory.Execute(new PlaceNormalObjectCommand(layout, selectedWorldObject.Type, tilePos));
+                    }
+                    else if (uiEvent.button == 1)
+                    {
+                        _commandHistory.Execute(new RemoveObjectCommand(layout, tilePos));
+                    }
                 }
                 break;
             case EventType.KeyDown:
