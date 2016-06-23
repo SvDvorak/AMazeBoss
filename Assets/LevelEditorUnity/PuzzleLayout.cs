@@ -100,6 +100,11 @@ namespace Assets.LevelEditorUnity
             return _puzzleObjects.ContainsKey(type) ? _puzzleObjects[type].Objects : new List<TilePos>();
         }
 
+        public bool CanPlaceAt(TilePos position)
+        {
+            return Nodes.ContainsKey(position);
+        }
+
         public event Action<string, TilePos> ObjectAdded;
         public event Action<string, TilePos> ObjectRemoved;
 

@@ -9,13 +9,29 @@ namespace AMazeBoss.CSharp.Tests.Editor
 {
     public class EditingWorldObjects : PuzzleEditorAcceptanceTests<EditingWorldObjects>
     {
-        private const string PlayerType = "Player";
+        private const string SingletonType = "Singleton";
         private const string ObjectType = "Object";
         private const string OtherType = "Other";
         private readonly TilePos _position1 = new TilePos(0, 0);
         private readonly TilePos _position2 = new TilePos(1, 0);
 
         private readonly WorldObjectCallsAssertions _callsAssertions = new WorldObjectCallsAssertions();
+
+        [Fact]
+        public void CannotPlaceObjectWhenThereIsNotANodeBelowIt()
+        {
+            ShouldNotBeAbleToPlace(_position1);
+        }
+
+        [Fact]
+        public void CanPlaceObjectWhenThereIsANodeBelowIt()
+        {
+            Given
+                .ConnectionBetween(_position1, _position2);
+
+            Then
+                .ShouldBeAbleToPlace(_position1);
+        }
 
         [Fact]
         public void AddsObjectToLayoutWithSameTypeObjectButDifferentPosition()
@@ -36,11 +52,11 @@ namespace AMazeBoss.CSharp.Tests.Editor
         {
             When
                 .ListeningToEvents()
-                .AddingObjectAt(PlayerType, _position1);
+                .AddingObjectAt(SingletonType, _position1);
 
             Then
-                .ShouldHaveObjectsAt(PlayerType, _position1)
-                .ShouldHaveCalled(x => x.Added(PlayerType, _position1));
+                .ShouldHaveObjectsAt(SingletonType, _position1)
+                .ShouldHaveCalled(x => x.Added(SingletonType, _position1));
         }
 
         [Fact]
@@ -63,29 +79,29 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public void ReplacesCurrentSingletonWhenAddingToLayoutWithSameTypeSingleton()
         {
             Given
-                .SingletonAt(PlayerType, _position1);
+                .SingletonAt(SingletonType, _position1);
 
             When
                 .ListeningToEvents()
-                .AddingSingletonAt(PlayerType, _position2);
+                .AddingSingletonAt(SingletonType, _position2);
 
             Then
                 .ShouldHaveCalled(x => x
-                    .Removed(PlayerType, _position1)
-                    .Added(PlayerType, _position2));
+                    .Removed(SingletonType, _position1)
+                    .Added(SingletonType, _position2));
         }
 
         [Fact]
         public void RemovesObjectWhenUndoingAdd()
         {
             When
-                .AddingObjectAt(PlayerType, _position1)
+                .AddingObjectAt(SingletonType, _position1)
                 .ListeningToEvents()
                 .UndoingLastCommand();
 
             Then
-                .ShouldNotHaveObjects(PlayerType)
-                .ShouldHaveCalled(x => x.Removed(PlayerType, _position1));
+                .ShouldNotHaveObjects(SingletonType)
+                .ShouldHaveCalled(x => x.Removed(SingletonType, _position1));
         }
 
 
@@ -107,18 +123,18 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public void ReplacesPreviousSingletonWhenUndoingTheSecondOne()
         {
             Given
-                .SingletonAt(PlayerType, _position1);
+                .SingletonAt(SingletonType, _position1);
 
             When
-                .AddingSingletonAt(PlayerType, _position2)
+                .AddingSingletonAt(SingletonType, _position2)
                 .ListeningToEvents()
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveSingletonAt(PlayerType, _position1)
+                .ShouldHaveSingletonAt(SingletonType, _position1)
                 .ShouldHaveCalled(x => x
-                    .Removed(PlayerType, _position2)
-                    .Added(PlayerType, _position1));
+                    .Removed(SingletonType, _position2)
+                    .Added(SingletonType, _position1));
         }
 
         [Fact]
@@ -128,11 +144,11 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .SingletonAt(OtherType, _position1);
 
             When
-                .AddingSingletonAt(PlayerType, _position2);
+                .AddingSingletonAt(SingletonType, _position2);
 
             Then
                 .ShouldHaveSingletonAt(OtherType, _position1)
-                .ShouldHaveSingletonAt(PlayerType, _position2);
+                .ShouldHaveSingletonAt(SingletonType, _position2);
         }
 
         [Fact]
@@ -157,7 +173,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
             var position = new TilePos(1, 1);
 
             Given
-                .ObjectAt(PlayerType, position)
+                .ObjectAt(SingletonType, position)
                 .ObjectAt(OtherType, new TilePos(2, 2));
 
             When
@@ -165,7 +181,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveObjectsAt(PlayerType, position);
+                .ShouldHaveObjectsAt(SingletonType, position);
         }
 
         [Fact]
@@ -201,6 +217,16 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
             Then
                 .ShouldHaveObjectsAt(ObjectType, _position1, _position2);
+        }
+
+        private void ShouldNotBeAbleToPlace(TilePos position)
+        {
+            Sut.CanPlaceAt(position).Should().BeFalse();
+        }
+
+        private void ShouldBeAbleToPlace(TilePos position)
+        {
+            Sut.CanPlaceAt(position).Should().BeTrue();
         }
 
         private EditingWorldObjects AddingObjectAt(string type, TilePos position)

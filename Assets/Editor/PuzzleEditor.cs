@@ -84,8 +84,8 @@ public class PuzzleEditor : EditorWindow
         var uiEvent = Event.current;
         var mousePosition = uiEvent.mousePosition;
 
-        var currentInputTilePos = GetMouseOnXZPlane(mousePosition);
-        var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentInputTilePos);
+        var currentInputPos = GetMouseOnXZPlane(mousePosition);
+        var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentInputPos);
         var selectedWorldObject = _worldObjects.Count > 0 ? _worldObjects[_selectedObjectIndex] : null;
 
         switch (uiEvent.type)
@@ -97,7 +97,7 @@ public class PuzzleEditor : EditorWindow
                 if (_selectedObjectIndex == 0 && uiEvent.button == 0)
                 {
                     _isDragging = true;
-                    _dragStartPosition = currentInputTilePos;
+                    _dragStartPosition = currentInputPos;
                 }
                 break;
             case EventType.MouseUp:
@@ -113,18 +113,21 @@ public class PuzzleEditor : EditorWindow
                 }
                 else if (selectedWorldObject != null)
                 {
-                    var tilePos = new TilePos(currentInputTilePos);
-                    if (uiEvent.button == 0 && selectedWorldObject.Singleton)
+                    var inputTilePos = new TilePos(currentInputPos);
+                    if (uiEvent.button == 0 && layout.CanPlaceAt(inputTilePos))
                     {
-                        _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, tilePos));
-                    }
-                    else if (uiEvent.button == 0)
-                    {
-                        _commandHistory.Execute(new PlaceNormalObjectCommand(layout, selectedWorldObject.Type, tilePos));
+                        if (selectedWorldObject.Singleton)
+                        {
+                            _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
+                        }
+                        else
+                        {
+                            _commandHistory.Execute(new PlaceNormalObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
+                        }
                     }
                     else if (uiEvent.button == 1)
                     {
-                        _commandHistory.Execute(new RemoveObjectCommand(layout, tilePos));
+                        _commandHistory.Execute(new RemoveObjectCommand(layout, inputTilePos));
                     }
                 }
                 break;
@@ -145,7 +148,7 @@ public class PuzzleEditor : EditorWindow
         }
         else
         {
-            _layoutView.UpdatePreview(selectedWorldObject, new TilePos(currentInputTilePos));
+            _layoutView.UpdatePreview(selectedWorldObject, new TilePos(currentInputPos));
         }
 
         HandleUtility.Repaint();
