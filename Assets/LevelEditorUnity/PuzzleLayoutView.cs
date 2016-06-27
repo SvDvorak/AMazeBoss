@@ -72,6 +72,11 @@ namespace Assets.LevelEditorUnity
                 PuzzleLayout.PlaceObject("Boss", position);
                 _worldObjects[position] = boss;
             }
+
+            if (Application.isPlaying)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public void Start()

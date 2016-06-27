@@ -44,7 +44,11 @@ public class PuzzleEditor : EditorWindow
 
     private void LoadLayoutView()
     {
-        _layoutView = GameObject.Find("Editor").GetComponent<PuzzleLayoutView>();
+        var editorObject = GameObject.Find("Editor");
+        if(editorObject != null)
+        {
+            _layoutView = editorObject.GetComponent<PuzzleLayoutView>();
+        }
     }
 
     public void OnDisable()
