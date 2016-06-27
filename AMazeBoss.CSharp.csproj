@@ -280,6 +280,7 @@
     <Compile Include="Assets\SetCheckpointSystem.cs" />
     <Compile Include="Assets\SpikeTrapSystem.cs" />
     <Compile Include="Assets\SubtypeSelectorSystem.cs" />
+    <Compile Include="Assets\SystemsExtensions.cs" />
     <Compile Include="Assets\TemplateLoaderSystem.cs" />
     <Compile Include="Assets\TemplateSelectorSystem.cs" />
     <Compile Include="Assets\TilePos.cs" />
