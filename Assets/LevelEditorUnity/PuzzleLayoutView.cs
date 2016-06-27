@@ -73,6 +73,14 @@ namespace Assets.LevelEditorUnity
                 _worldObjects[position] = boss;
             }
 
+            var traps = gameObject.GetChildren("Trap", true);
+            foreach (var trap in traps)
+            {
+                var position = new TilePos(trap.transform.position);
+                PuzzleLayout.PlaceObject("Trap", position);
+                _worldObjects[position] = trap;
+            }
+
             if (Application.isPlaying)
             {
                 gameObject.SetActive(false);
