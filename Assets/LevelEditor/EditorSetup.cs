@@ -41,7 +41,6 @@ namespace Assets.LevelEditor
             _systems = CreateGameSystems(_gamePool);
 
             _gamePool.isInEditor = true;
-            _gamePool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _gamePool.CreateEntity().IsInput(true);
 
             _systems.Initialize();

@@ -27,17 +27,16 @@ namespace Assets
 
         public static Entity GetHero(this Pool pool)
         {
-            return pool.GetEntities(GameMatcher.Hero).SingleEntity();
+            return pool.GetEntities(GameMatcher.Hero).SingleOrDefault();
         }
 
         public static Entity GetActiveBoss(this Pool pool)
         {
             try
             {
-                var currentPuzzleArea = GetCurrentPuzzleArea(pool);
                 return pool
                     .GetEntities(GameMatcher.Boss)
-                    .Single(x => !x.isDead && x.id.Value == currentPuzzleArea.bossConnection.BossId);
+                    .Single(x => !x.isDead);
             }
             catch (Exception)
             {

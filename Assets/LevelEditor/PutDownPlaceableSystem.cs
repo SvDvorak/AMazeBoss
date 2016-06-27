@@ -47,7 +47,7 @@ namespace Assets.LevelEditor
                     .ReplacePosition(position)
                     .AddRotation(newRotation);
 
-                selectedPlaceable.Do(newObject);
+                selectedPlaceable.Do(newObject, _pool);
             }
         }
     }

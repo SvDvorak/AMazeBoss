@@ -5,16 +5,16 @@ namespace Assets.LevelEditor
 {
     public class EntityPerformer
     {
-        private readonly Action<Entity> _action;
+        private readonly Action<Entity, Pool> _action;
 
-        public EntityPerformer(Action<Entity> action)
+        public EntityPerformer(Action<Entity, Pool> action)
         {
             _action = action;
         }
 
-        public Entity Do(Entity entity)
+        public Entity Do(Entity entity, Pool pool)
         {
-            _action(entity);
+            _action(entity, pool);
             return entity;
         }
     }
@@ -25,7 +25,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Tile)
                     .ReplaceMaintype(MainTileType.Normal.ToString()));
             }
@@ -35,7 +35,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Tile)
                     .ReplaceMaintype(MainTileType.Pillar.ToString())
                     .IsBlockingTile(true));
@@ -46,7 +46,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Tile)
                     .ReplaceMaintype(MainTileType.Wall.ToString())
                     .IsWall(true)
@@ -58,7 +58,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Tile)
                     .ReplaceMaintype(MainTileType.SpikeTrap.ToString())
                     .IsDynamic(true)
@@ -70,7 +70,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Tile)
                     .ReplaceMaintype(MainTileType.CurseTrigger.ToString())
                     .IsDynamic(true)
@@ -82,7 +82,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Item)
                     .ReplaceMaintype(ItemType.PillarTrap.ToString())
                     .IsDynamic(true)
@@ -94,7 +94,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Item)
                     .ReplaceMaintype(ItemType.Hero.ToString())
                     .IsDynamic(true)
@@ -107,10 +107,10 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Item)
                     .ReplaceMaintype(ItemType.Boss.ToString())
-                    .AddId()
+                    .AddId(pool)
                     .IsDynamic(true)
                     .IsBlockingTile(true)
                     .IsBoss(true)
@@ -123,7 +123,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Item)
                     .ReplaceMaintype(ItemType.Spikes.ToString())
                     .IsSpikes(true));
@@ -134,7 +134,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Item)
                     .ReplaceMaintype(ItemType.Box.ToString())
                     .IsBlockingTile(true)
@@ -147,7 +147,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Item)
                     .ReplaceMaintype(ItemType.ExitGate.ToString())
                     .IsDynamic(true)
@@ -160,7 +160,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Area)
                     .ReplaceMaintype(AreaType.ExitTrigger.ToString())
                     .IsExitTrigger(true)
@@ -172,7 +172,7 @@ namespace Assets.LevelEditor
         {
             get
             {
-                return Action(e => e
+                return Action((e, pool) => e
                     .ReplaceGameObject(ObjectType.Area)
                     .ReplaceMaintype(AreaType.Puzzle.ToString())
                     .IsPuzzleArea(true)
@@ -180,7 +180,7 @@ namespace Assets.LevelEditor
             }
         }
 
-        private static EntityPerformer Action(Action<Entity> action)
+        private static EntityPerformer Action(Action<Entity, Pool> action)
         {
             return new EntityPerformer(action);
         }

@@ -28,7 +28,7 @@ namespace Assets
         private void AddOrUpdateBottomFor(Entity entity)
         {
             _pool.CreateEntity()
-                .SetParent(entity)
+                .SetParent(entity, _pool)
                 .ReplacePosition(entity.position.Value)
                 .ReplaceRotation(Random.Range(0, 4))
                 .ReplaceResource("Bottoms/Empty");

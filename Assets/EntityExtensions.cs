@@ -8,19 +8,19 @@ namespace Assets
 {
     public static class EntityExtensions
     {
-        public static Entity AddId(this Entity entity)
+        public static Entity AddId(this Entity entity, Pool pool)
         {
-            var identifiables = Pools.game.GetEntities(GameMatcher.Id);
+            var identifiables = pool.GetEntities(GameMatcher.Id);
             var currentId = identifiables.Any() ? identifiables.Max(x => x.id.Value) : 0;
             entity.AddId(currentId + 1);
             return entity;
         }
 
-        public static Entity SetParent(this Entity child, Entity parent)
+        public static Entity SetParent(this Entity child, Entity parent, Pool pool)
         {
             if (!parent.hasId)
             {
-                parent.AddId();
+                parent.AddId(pool);
             }
             child.AddChild(parent.id.Value);
             return child;

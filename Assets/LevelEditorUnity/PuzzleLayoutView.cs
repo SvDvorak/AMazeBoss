@@ -39,7 +39,7 @@ namespace Assets.LevelEditorUnity
 
         private void LoadLevelStateFromScene()
         {
-            PuzzleLayout.Instance.Clear();
+            PuzzleLayout.Instance = new PuzzleLayout();
             var nodes = gameObject.GetChildren("Node", true);
 
             foreach (var node in nodes)
@@ -55,13 +55,32 @@ namespace Assets.LevelEditorUnity
                 var end = start + connector.transform.rotation*Vector3.forward*TilePos.TileLength;
                 var nodeConnection = new NodeConnection(new TilePos(start), new TilePos(end));
                 PuzzleLayout.Instance.AddNodeConnections(nodeConnection);
-                NodeConnectionViews.Add(nodeConnection, connector);
             }
+
+            var player = gameObject.GetChild("Player", true);
+            if (player != null)
+            {
+                var position = new TilePos(player.transform.position);
+                PuzzleLayout.PlaceObject("Player", position);
+                _worldObjects[position] = player;
+            }
+
+            var boss = gameObject.GetChild("Boss", true);
+            if (boss != null)
+            {
+                var position = new TilePos(boss.transform.position);
+                PuzzleLayout.PlaceObject("Boss", position);
+                _worldObjects[position] = boss;
+            }
+        }
+
+        public void Start()
+        {
+            LoadLevelStateFromScene();
         }
 
         public void OnEnable()
         {
-            LoadLevelStateFromScene();
             PuzzleLayout.NodeAdded += AddNode;
             PuzzleLayout.NodeRemoved += RemoveNode;
             PuzzleLayout.ConnectionAdded += AddNodeConnection;
@@ -146,46 +165,30 @@ namespace Assets.LevelEditorUnity
             switch (type)
             {
                 case "Player":
-                    _player = (GameObject)Instantiate(
-                        Player,
-                        position.ToV3(),
-                        Quaternion.identity);
-
-                    _player.transform.SetParent(transform);
+                    AddWorldObject(Player, position);
                     break;
                 case "Boss":
-                    _boss = (GameObject)Instantiate(
-                        Boss,
-                        position.ToV3(),
-                        Quaternion.identity);
-
-                    _boss.transform.SetParent(transform);
+                    AddWorldObject(Boss, position);
                     break;
                 case "Trap":
-                    _worldObjects[position] = (GameObject)Instantiate(
-                        Trap,
-                        position.ToV3(),
-                        Quaternion.identity);
-
-                    _worldObjects[position].transform.SetParent(transform);
+                    AddWorldObject(Trap, position);
                     break;
             }
         }
 
+        private void AddWorldObject(GameObject template, TilePos position)
+        {
+            _worldObjects[position] = (GameObject) Instantiate(
+                template,
+                position.ToV3(),
+                Quaternion.identity);
+
+            _worldObjects[position].transform.SetParent(transform);
+        }
+
         private void ObjectRemoved(string type, TilePos position)
         {
-            switch (type)
-            {
-                case "Player":
-                    DestroyImmediate(_player);
-                    break;
-                case "Boss":
-                    DestroyImmediate(_boss);
-                    break;
-                case "Trap":
-                    DestroyImmediate(_worldObjects[position]);
-                    break;
-            }
+            DestroyImmediate(_worldObjects[position]);
         }
 
         public void UpdatePreview(NodeConnection nodeConnection)

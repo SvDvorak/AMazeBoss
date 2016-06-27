@@ -50,7 +50,7 @@ namespace Assets
 
         private void PutSpikesOnFloor(Entity hero)
         {
-            WorldObjects.Spikes.Do(_pool.CreateEntity()).ReplacePosition(hero.position.Value);
+            WorldObjects.Spikes.Do(_pool.CreateEntity(), _pool).ReplacePosition(hero.position.Value);
             hero.IsSpikesCarried(false);
         }
 

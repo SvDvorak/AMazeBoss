@@ -17,6 +17,7 @@ namespace Assets.LevelEditorUnity
                 }
                 return _instance;
             }
+            set { _instance = value; }
         }
 
         private class PuzzleObjectCollection

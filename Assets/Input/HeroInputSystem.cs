@@ -29,7 +29,7 @@ namespace Assets.Input
         {
             var hero = _pool.GetHero();
 
-            if (hero.isCursed || hero.isDead)
+            if (hero == null || hero.isCursed || hero.isDead)
             {
                 return;
             }

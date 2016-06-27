@@ -49,7 +49,13 @@ namespace Assets
 
     public class GameLevelLoaderSystem : IInitializeSystem, ISetPool
     {
+        private readonly PuzzleLayout _layout;
         private Pool _pool;
+
+        public GameLevelLoaderSystem(PuzzleLayout layout)
+        {
+            _layout = layout;
+        }
 
         public void SetPool(Pool pool)
         {
@@ -58,26 +64,39 @@ namespace Assets
 
         public void Initialize()
         {
-            var nodes = PuzzleLayout.Instance.Nodes.Values;
+            var nodes = _layout.Nodes.Values;
 
             foreach (var node in nodes)
             {
-                var newRotation = UnityEngine.Random.Range(0, 4);
-
-                var newObject = _pool.CreateEntity()
-                    .ReplacePosition(node.Position)
-                    .AddRotation(newRotation);
-
-                WorldObjects.Empty.Do(newObject);
+                WorldObjects.Empty.Do(CreateEntity(node.Position), _pool);
             }
 
-            var hero = _pool.CreateEntity().AddPosition(new TilePos(0, 0));
-            WorldObjects.Hero.Do(hero);
+            var playerObjects = _layout.GetObjects("Player");
+            if(playerObjects.Count > 0)
+            {
+                WorldObjects.Hero.Do(CreateEntity(playerObjects.Single()), _pool);
+            }
+
+            var bossObjects = _layout.GetObjects("Boss");
+            if (bossObjects.Count > 0)
+            {
+                WorldObjects.Boss.Do(CreateEntity(bossObjects.Single()), _pool);
+            }
+
+            var trapObjects = _layout.GetObjects("Trap");
+            foreach (var trapObject in trapObjects)
+            {
+                WorldObjects.SpikeTrap.Do(CreateEntity(trapObject), _pool);
+            }
 
             _pool.CreateEntity().AddResource("Camera").AddRotation(0).ReplaceTargetFocusPoint(Vector3.zero);
 
-
             _pool.isLevelLoaded = true;
+        }
+
+        private Entity CreateEntity(TilePos position)
+        {
+            return _pool.CreateEntity().AddPosition(position).AddRotation(0);
         }
     }
 

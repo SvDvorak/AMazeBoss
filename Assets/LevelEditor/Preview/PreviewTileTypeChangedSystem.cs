@@ -14,7 +14,7 @@ namespace Assets.LevelEditor.Preview
             var oldPreview = GetPreviewEntity();
             oldPreview.IsDestroyed(true);
 
-            selectedPlaceable.Do(Pool.CreateEntity()).IsPreview(true).AddPosition(oldPreview.position.Value);
+            selectedPlaceable.Do(Pool.CreateEntity(), Pool).IsPreview(true).AddPosition(oldPreview.position.Value);
         }
     }
 }

@@ -26,6 +26,11 @@ public class PuzzleEditor : EditorWindow
 
     public void OnEnable()
     {
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
         _commandHistory = new CommandHistory(true);
         SceneView.onSceneGUIDelegate += OnSceneGUI;
         LoadLayoutView();
@@ -53,6 +58,11 @@ public class PuzzleEditor : EditorWindow
 
     public void OnGUI()
     {
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
         var layout = PuzzleLayout.Instance;
 
         var change = GUILayout.Toggle(InEditMode, "Edit", "Button");

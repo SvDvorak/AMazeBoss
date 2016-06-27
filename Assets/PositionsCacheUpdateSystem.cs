@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Entitas;
-using UnityEngine;
 
 namespace Assets
 {
@@ -17,6 +16,7 @@ namespace Assets
 
         public void Initialize()
         {
+            _pool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _positionableGroup = _pool.GetGroup(GameMatcher.Position);
             _positionableGroup.OnEntityAdded += (g, e, i, c) => AddToCache(e, c as PositionComponent);
             _positionableGroup.OnEntityRemoved += (g, e, i, c) => RemoveFromCache(e, c as PositionComponent);

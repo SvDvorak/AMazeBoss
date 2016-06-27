@@ -4,6 +4,7 @@ using Assets.Camera;
 using Assets.FileOperations;
 using Assets.Input;
 using Assets.LevelEditor.Input;
+using Assets.LevelEditorUnity;
 using Assets.Render;
 using Entitas;
 using UnityEngine;
@@ -30,9 +31,9 @@ namespace Assets
             SceneSetup.OnSceneChanging += OnSceneChanging;
 
             _gamePool = Pools.game;
-            _systems = CreateSystems(_gamePool);
+            _systems = SceneSetup.CreateSystem();
+            SetupPlaySystems(PuzzleLayout.Instance);
 
-            _gamePool.SetObjectPositionCache(new Dictionary<TilePos, List<Entity>>());
             _gamePool.SetLevels(Levels);
 
             _systems.Initialize();
@@ -55,79 +56,128 @@ namespace Assets
             _gamePool.SafeDeleteAll();
         }
 
-        public Systems CreateSystems(Pool pool)
+        private void SetupPlaySystems(PuzzleLayout layout)
         {
-            return SceneSetup.CreateSystem()
+            _systems.AddSystems(_gamePool, x => x
+                .InputSystems()
 
-            // Initialize
-                .Add(pool.CreateSystem<PositionsCacheUpdateSystem>())
-                .Add(pool.CreateSystem<GameLevelLoaderSystem>())
-                //.Add(pool.CreateSystem<PlayLevelLoaderSystem>())
-                .Add(pool.CreateSystem<TemplateLoaderSystem>())
+                .UpdateSystems()
 
-            // Input
-                .Add(pool.CreateSystem<PlayerRestartSystem>())
-                .Add(pool.CreateSystem<ReturnToPreviousViewSystem>())
-                .Add(pool.CreateSystem<RotateCameraInputSystem>())
-                .Add(pool.CreateSystem<HeroInputSystem>())
-                .Add(pool.CreateSystem<PerformInputQueueSystem>())
+                .RenderSystems()
+                .AnimationSystems()
 
-            // Update
-                .Add(pool.CreateSystem<NextTurnSystem>())
-                .Add(pool.CreateSystem<BottomSpawnerSystem>())
-                .Add(pool.CreateSystem<BossMoveSystem>())
-                .Add(pool.CreateSystem<HeroMoveSystem>())
-                .Add(pool.CreateSystem<HeroPullBoxSystem>())
-                .Add(pool.CreateSystem<HeroItemSystem>())
-                .Add(pool.CreateSystem<HeroCurseSystem>())
-                .Add(pool.CreateSystem<SpikeTrapSystem>())
-                .Add(pool.CreateSystem<CurseSwitchSystem>())
-                .Add(pool.CreateSystem<KnockBoxSystem>())
-                .Add(pool.CreateSystem<DeathSystem>())
-                .Add(pool.CreateSystem<ExitGateSystem>())
+                .LevelHandlingSystems(layout)
 
-            // Render
-                .Add(pool.CreateSystem<SubtypeSelectorSystem>())
-                .Add(pool.CreateSystem<TemplateSelectorSystem>())
-                .Add(pool.CreateSystem<AddOrRemoveViewSystem>())
-                .Add(pool.CreateSystem<SetInitialTransformSystem>())
-                .Add(pool.CreateSystem<CameraFollowSystem>())
-                .Add(pool.CreateSystem<MoveAndRotateCameraSystem>())
-                .AddAnimationSystems(pool)
-
-                .Add(pool.CreateSystem<UpdateActingSystem>())
-
-            // Level-handling
-                .Add(pool.CreateSystem<FinishedLevelLoadSystem>())
-                .Add(pool.CreateSystem<SetCheckpointSystem>())
-                .Add(pool.CreateSystem<LevelExitSystem>())
-                .Add(pool.CreateSystem<LevelRestartSystem>())
-
-            // Destroy
-                .Add(pool.CreateSystem<CleanupSystem>())
-                .Add(pool.CreateSystem<DestroySystem>());
+                .DestroySystems());
         }
     }
 
-    public static class PoolAnimationSystemsExtensions
+    public static class SystemsExtensions
     {
-        public static Systems AddAnimationSystems(this Systems systems, Pool pool)
+        public static void AddSystems(this Systems systems, Pool pool, Action<SystemsSetup> setupAction)
         {
-            return systems
-                .Add(pool.CreateSystem<RotationAnimationSystem>())
-                .Add(pool.CreateSystem<MoveAnimationSystem>())
-                .Add(pool.CreateSystem<BumpIntoObjectAnimationSystem>())
-                .Add(pool.CreateSystem<EdgeRecoverAnimationSystem>())
-                .Add(pool.CreateSystem<ItemCarryAnimationSystem>())
-                .Add(pool.CreateSystem<TrapLoadedAnimationSystem>())
-                .Add(pool.CreateSystem<TrapActivatedAnimationSystem>())
-                .Add(pool.CreateSystem<CurseSwitchActivatedAnimationSystem>())
-                .Add(pool.CreateSystem<HealthChangedAnimationSystem>())
-                .Add(pool.CreateSystem<BoxMovedAnimationSystem>())
-                .Add(pool.CreateSystem<AttackAnimationSystem>())
-                .Add(pool.CreateSystem<DeathAnimationSystem>())
-                .Add(pool.CreateSystem<ExitGateAnimationSystem>())
-                .Add(pool.CreateSystem<CurseAnimationSystem>());
+            setupAction(new SystemsSetup(systems, pool));
+        }
+    }
+
+    public class SystemsSetup
+    {
+        private readonly Systems _systems;
+        private readonly Pool _pool;
+
+        public SystemsSetup(Systems systems, Pool pool)
+        {
+            _systems = systems;
+            _pool = pool;
+        }
+
+        public SystemsSetup InputSystems()
+        {
+            _systems
+                .Add(_pool.CreateSystem<PlayerRestartSystem>())
+                .Add(_pool.CreateSystem<ReturnToPreviousViewSystem>())
+                .Add(_pool.CreateSystem<RotateCameraInputSystem>())
+                .Add(_pool.CreateSystem<HeroInputSystem>())
+                .Add(_pool.CreateSystem<PerformInputQueueSystem>());
+
+            return this;
+        }
+
+        public SystemsSetup UpdateSystems()
+        {
+            _systems
+                .Add(_pool.CreateSystem<PositionsCacheUpdateSystem>())
+                .Add(_pool.CreateSystem<NextTurnSystem>())
+                .Add(_pool.CreateSystem<BottomSpawnerSystem>())
+                .Add(_pool.CreateSystem<BossMoveSystem>())
+                .Add(_pool.CreateSystem<HeroMoveSystem>())
+                .Add(_pool.CreateSystem<HeroPullBoxSystem>())
+                .Add(_pool.CreateSystem<HeroItemSystem>())
+                .Add(_pool.CreateSystem<HeroCurseSystem>())
+                .Add(_pool.CreateSystem<SpikeTrapSystem>())
+                .Add(_pool.CreateSystem<CurseSwitchSystem>())
+                .Add(_pool.CreateSystem<KnockBoxSystem>())
+                .Add(_pool.CreateSystem<DeathSystem>())
+                .Add(_pool.CreateSystem<ExitGateSystem>());
+
+            return this;
+        }
+
+        public SystemsSetup RenderSystems()
+        {
+            _systems
+                .Add(_pool.CreateSystem<TemplateLoaderSystem>())
+                .Add(_pool.CreateSystem<SubtypeSelectorSystem>())
+                .Add(_pool.CreateSystem<TemplateSelectorSystem>())
+                .Add(_pool.CreateSystem<AddOrRemoveViewSystem>())
+                .Add(_pool.CreateSystem<SetInitialTransformSystem>())
+                .Add(_pool.CreateSystem<CameraFollowSystem>())
+                .Add(_pool.CreateSystem<MoveAndRotateCameraSystem>());
+
+            return this;
+        }
+
+        public SystemsSetup AnimationSystems()
+        {
+            _systems
+                .Add(_pool.CreateSystem<RotationAnimationSystem>())
+                .Add(_pool.CreateSystem<MoveAnimationSystem>())
+                .Add(_pool.CreateSystem<BumpIntoObjectAnimationSystem>())
+                .Add(_pool.CreateSystem<EdgeRecoverAnimationSystem>())
+                .Add(_pool.CreateSystem<ItemCarryAnimationSystem>())
+                .Add(_pool.CreateSystem<TrapLoadedAnimationSystem>())
+                .Add(_pool.CreateSystem<TrapActivatedAnimationSystem>())
+                .Add(_pool.CreateSystem<CurseSwitchActivatedAnimationSystem>())
+                .Add(_pool.CreateSystem<HealthChangedAnimationSystem>())
+                .Add(_pool.CreateSystem<BoxMovedAnimationSystem>())
+                .Add(_pool.CreateSystem<AttackAnimationSystem>())
+                .Add(_pool.CreateSystem<DeathAnimationSystem>())
+                .Add(_pool.CreateSystem<ExitGateAnimationSystem>())
+                .Add(_pool.CreateSystem<CurseAnimationSystem>())
+                .Add(_pool.CreateSystem<UpdateActingSystem>());
+
+            return this;
+        }
+
+        public SystemsSetup LevelHandlingSystems(PuzzleLayout layout)
+        {
+            _systems
+                .Add(_pool.CreateSystem(new GameLevelLoaderSystem(layout)))
+                .Add(_pool.CreateSystem<FinishedLevelLoadSystem>())
+                .Add(_pool.CreateSystem<SetCheckpointSystem>())
+                .Add(_pool.CreateSystem<LevelExitSystem>())
+                .Add(_pool.CreateSystem<LevelRestartSystem>());
+
+            return this;
+        }
+
+        public SystemsSetup DestroySystems()
+        {
+            _systems
+                .Add(_pool.CreateSystem<CleanupSystem>())
+                .Add(_pool.CreateSystem<DestroySystem>());
+
+            return this;
         }
     }
 }
