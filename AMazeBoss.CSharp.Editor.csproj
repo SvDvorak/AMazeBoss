@@ -136,7 +136,6 @@
     <Compile Include="Assets\Editor\ImageEffects\SunShaftsEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\TonemappingEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
-    <Compile Include="Assets\Editor\LookAtPointEditor.cs" />
     <Compile Include="Assets\Editor\PuzzleEditor.cs" />
     <Compile Include="Assets\Editor\Undo\RemoveNodeConnectionCommand.cs" />
     <Compile Include="Assets\Editor\Undo\WorldObject.cs" />

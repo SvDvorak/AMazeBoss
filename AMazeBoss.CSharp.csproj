@@ -216,7 +216,6 @@
     <Compile Include="Assets\LevelEditor\ViewModeChangedSystem.cs" />
     <Compile Include="Assets\LevelEditor\WallAdjustmentSystem.cs" />
     <Compile Include="Assets\LevelEditor\WorldObjects.cs" />
-    <Compile Include="Assets\LevelEditorUnity\LookAtPoint.cs" />
     <Compile Include="Assets\LevelEditorUnity\PuzzleLayoutView.cs" />
     <Compile Include="Assets\LevelExitSystem.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Attributes\CustomPrefixAttribute.cs" />
