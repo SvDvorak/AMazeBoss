@@ -64,11 +64,21 @@ namespace Assets
 
         public void Initialize()
         {
-            var nodes = _layout.Nodes.Values;
+            var placedTiles = new HashSet<TilePos>();
 
-            foreach (var node in nodes)
+            var trapObjects = _layout.GetObjects("Trap");
+            foreach (var trapObject in trapObjects)
             {
-                WorldObjects.Empty.Do(CreateEntity(node.Position), _pool);
+                WorldObjects.SpikeTrap.Do(CreateEntity(trapObject), _pool);
+                placedTiles.Add(trapObject);
+            }
+
+            foreach (var node in _layout.Nodes.Values)
+            {
+                if (!placedTiles.Contains(node.Position))
+                {
+                    WorldObjects.Empty.Do(CreateEntity(node.Position), _pool);
+                }
             }
 
             var playerObjects = _layout.GetObjects("Player");
@@ -81,12 +91,6 @@ namespace Assets
             if (bossObjects.Count > 0)
             {
                 WorldObjects.Boss.Do(CreateEntity(bossObjects.Single()), _pool);
-            }
-
-            var trapObjects = _layout.GetObjects("Trap");
-            foreach (var trapObject in trapObjects)
-            {
-                WorldObjects.SpikeTrap.Do(CreateEntity(trapObject), _pool);
             }
 
             _pool.CreateEntity().AddResource("Camera").AddRotation(0).ReplaceTargetFocusPoint(Vector3.zero);
