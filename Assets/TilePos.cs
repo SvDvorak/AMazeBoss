@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets
 {
+    [Serializable]
     public struct TilePos
     {
         public const int TileLength = 2;
@@ -20,8 +22,10 @@ namespace Assets
             Z = z;
         }
 
-        public int X { get; private set; }
-        public int Z { get; private set; }
+        [SerializeField]
+        public int X;
+        [SerializeField]
+        public int Z;
 
         public static TilePos operator +(TilePos pos1, TilePos pos2)
         {

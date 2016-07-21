@@ -12,6 +12,7 @@ ModelImporter:
     100008: Player
     100010: Boss
     100012: Connector
+    100014: Spikes
     400000: Cylinder
     400002: //RootNode
     400004: Node
@@ -19,24 +20,28 @@ ModelImporter:
     400008: Player
     400010: Boss
     400012: Connector
+    400014: Spikes
     2300000: Cylinder
     2300002: Node
     2300004: SpikeTrap
     2300006: Player
     2300008: Boss
     2300010: Connector
+    2300012: Spikes
     3300000: Cylinder
     3300002: Node
     3300004: SpikeTrap
     3300006: Player
     3300008: Boss
     3300010: Connector
+    3300012: Spikes
     4300000: Cylinder
     4300002: Node
     4300004: SpikeTrap
     4300006: Player
     4300008: Boss
     4300010: Connector
+    4300012: Spikes
     7400000: Default Take
     9500000: //RootNode
   materials:

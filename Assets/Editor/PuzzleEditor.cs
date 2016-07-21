@@ -40,6 +40,7 @@ public class PuzzleEditor : EditorWindow
         _worldObjects.Add(new EditorWorldObject("Player", true, Resources.Load<GameObject>("Editor/Player")));
         _worldObjects.Add(new EditorWorldObject("Boss", true, Resources.Load<GameObject>("Editor/Boss")));
         _worldObjects.Add(new EditorWorldObject("Trap", false, Resources.Load<GameObject>("Editor/SpikeTrap")));
+        _worldObjects.Add(new EditorWorldObject("TrapItem", false, Resources.Load<GameObject>("Editor/Spikes")));
     }
 
     private void LoadLayoutView()
@@ -88,6 +89,11 @@ public class PuzzleEditor : EditorWindow
 
     public void OnSceneGUI(SceneView sceneView)
     {
+        if (_layoutView == null)
+        {
+            return;
+        }
+
         if (!InEditMode)
         {
             _layoutView.RemovePreview();

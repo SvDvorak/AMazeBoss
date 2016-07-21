@@ -15,6 +15,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
         protected readonly TilePos Node2Position = new TilePos(1, 0);
         protected readonly TilePos Node3Position = new TilePos(0, 1);
         protected readonly TilePos Node4Position = new TilePos(1, 1);
+        protected int CallsToLayoutChanged;
         protected int CallsToNodeAdded;
         protected int CallsToNodeRemoved;
         protected int CallsToConnectionRemoved;
@@ -66,10 +67,17 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         public T ListeningToEvents()
         {
+            Sut.LayoutChanged += () => CallsToLayoutChanged++;
             Sut.NodeAdded += node => CallsToNodeAdded++;
             Sut.ConnectionAdded += connection => CallsToConnectionAdded++;
             Sut.NodeRemoved += node => CallsToNodeRemoved++;
             Sut.ConnectionRemoved += node => CallsToConnectionRemoved++;
+            return This;
+        }
+
+        public T ShouldHaveCalledLayoutChanged(int callCount)
+        {
+            CallsToLayoutChanged.Should().Be(callCount, "event should be called each layout change");
             return This;
         }
 

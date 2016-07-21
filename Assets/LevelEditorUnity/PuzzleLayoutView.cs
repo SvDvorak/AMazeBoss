@@ -3,20 +3,6 @@ using UnityEngine;
 
 namespace Assets.LevelEditorUnity
 {
-    public class EditorWorldObject
-    {
-        public readonly GameObject GameObject;
-        public readonly string Type;
-        public readonly bool Singleton;
-
-        public EditorWorldObject(string type, bool singleton, GameObject gameObject)
-        {
-            Type = type;
-            GameObject = gameObject;
-            Singleton = singleton;
-        }
-    }
-
     [ExecuteInEditMode]
     public class PuzzleLayoutView : MonoBehaviour
     {
@@ -25,6 +11,7 @@ namespace Assets.LevelEditorUnity
         public GameObject Player;
         public GameObject Boss;
         public GameObject Trap;
+        public GameObject TrapItem;
 
         public Dictionary<TilePos, GameObject> NodeViews = new Dictionary<TilePos, GameObject>();
         public Dictionary<NodeConnection, GameObject> NodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
@@ -32,65 +19,8 @@ namespace Assets.LevelEditorUnity
         private List<GameObject> _previews = new List<GameObject>();
         private readonly Dictionary<TilePos, GameObject> _worldObjects = new Dictionary<TilePos, GameObject>();
         private NodeConnection _lastPreviewConnection;
-        private GameObject _player;
-        private GameObject _boss;
 
         private PuzzleLayout PuzzleLayout { get { return PuzzleLayout.Instance; } }
-
-        private void LoadLevelStateFromScene()
-        {
-            PuzzleLayout.Instance = new PuzzleLayout();
-            var nodes = gameObject.GetChildren("Node", true);
-
-            foreach (var node in nodes)
-            {
-                NodeViews.Add(new TilePos(node.transform.localPosition), node);
-            }
-
-            var connectors = gameObject.GetChildren("Connector", true);
-
-            foreach (var connector in connectors)
-            {
-                var start = connector.transform.localPosition;
-                var end = start + connector.transform.rotation*Vector3.forward*TilePos.TileLength;
-                var nodeConnection = new NodeConnection(new TilePos(start), new TilePos(end));
-                PuzzleLayout.Instance.AddNodeConnections(nodeConnection);
-            }
-
-            var player = gameObject.GetChild("Player", true);
-            if (player != null)
-            {
-                var position = new TilePos(player.transform.position);
-                PuzzleLayout.PlaceObject("Player", position);
-                _worldObjects[position] = player;
-            }
-
-            var boss = gameObject.GetChild("Boss", true);
-            if (boss != null)
-            {
-                var position = new TilePos(boss.transform.position);
-                PuzzleLayout.PlaceObject("Boss", position);
-                _worldObjects[position] = boss;
-            }
-
-            var traps = gameObject.GetChildren("Trap", true);
-            foreach (var trap in traps)
-            {
-                var position = new TilePos(trap.transform.position);
-                PuzzleLayout.PlaceObject("Trap", position);
-                _worldObjects[position] = trap;
-            }
-
-            if (Application.isPlaying)
-            {
-                gameObject.SetActive(false);
-            }
-        }
-
-        public void Start()
-        {
-            LoadLevelStateFromScene();
-        }
 
         public void OnEnable()
         {
@@ -100,10 +30,16 @@ namespace Assets.LevelEditorUnity
             PuzzleLayout.ConnectionRemoved += RemoveConnection;
             PuzzleLayout.ObjectAdded += ObjectAdded;
             PuzzleLayout.ObjectRemoved += ObjectRemoved;
+
+            if (Application.isPlaying)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public void OnDisable()
         {
+            RemovePreview();
             PuzzleLayout.NodeAdded -= AddNode;
             PuzzleLayout.NodeRemoved -= RemoveNode;
             PuzzleLayout.ConnectionAdded -= AddNodeConnection;
@@ -123,10 +59,7 @@ namespace Assets.LevelEditorUnity
 
         private GameObject CreateNodeView(Node node)
         {
-            var nodeView = (GameObject) Instantiate(
-                Node,
-                node.Position.ToV3(),
-                Quaternion.identity);
+            var nodeView = CreateTemporary(Node, node.Position.ToV3(), Quaternion.identity);
             nodeView.transform.SetParent(transform);
             return nodeView;
         }
@@ -151,7 +84,7 @@ namespace Assets.LevelEditorUnity
 
         private GameObject CreateNodeConnectionView(NodeConnection connection)
         {
-            var connectionView = (GameObject) Instantiate(
+            var connectionView = CreateTemporary(
                 Connector,
                 connection.Start.ToV3(),
                 GetRotationFromConnectionEnd(connection));
@@ -186,12 +119,15 @@ namespace Assets.LevelEditorUnity
                 case "Trap":
                     AddWorldObject(Trap, position);
                     break;
+                case "TrapItem":
+                    AddWorldObject(TrapItem, position);
+                    break;
             }
         }
 
         private void AddWorldObject(GameObject template, TilePos position)
         {
-            _worldObjects[position] = (GameObject) Instantiate(
+            _worldObjects[position] = CreateTemporary(
                 template,
                 position.ToV3(),
                 Quaternion.identity);
@@ -201,7 +137,10 @@ namespace Assets.LevelEditorUnity
 
         private void ObjectRemoved(string type, TilePos position)
         {
-            DestroyImmediate(_worldObjects[position]);
+            if(_worldObjects.ContainsKey(position))
+            {
+                DestroyImmediate(_worldObjects[position]);
+            }
         }
 
         public void UpdatePreview(NodeConnection nodeConnection)
@@ -213,7 +152,7 @@ namespace Assets.LevelEditorUnity
                 var subConnections = nodeConnection.GetSubdividedConnection();
                 foreach (var subConnection in subConnections)
                 {
-                    AddPreview(CreateNodeConnectionView(subConnection), subConnection.Start, GetRotationFromConnectionEnd(subConnection));
+                    AddPreview(CreateNodeConnectionView(subConnection));
                 }
                 Debug.Log("Recreated preview");
             }
@@ -224,14 +163,12 @@ namespace Assets.LevelEditorUnity
         public void UpdatePreview(EditorWorldObject selectedWorldObject, TilePos position)
         {
             RemovePreview();
-            AddPreview(Instantiate(selectedWorldObject.GameObject), position, Quaternion.identity);
+            AddPreview(CreateTemporary(selectedWorldObject.GameObject, position.ToV3(), Quaternion.identity));
         }
 
-        private void AddPreview(GameObject preview, TilePos position, Quaternion rotation)
+        private void AddPreview(GameObject preview)
         {
             preview.name = "Preview";
-            preview.transform.localPosition = position.ToV3();
-            preview.transform.rotation = rotation;
             _previews.Add(preview);
         }
 
@@ -245,6 +182,18 @@ namespace Assets.LevelEditorUnity
                 }
                 _previews = new List<GameObject>();
             }
+        }
+
+        private GameObject CreateTemporary(GameObject template, Vector3 position, Quaternion rotation)
+        {
+            var newObject = (GameObject) Instantiate(
+                template,
+                position,
+                rotation);
+            
+            newObject.hideFlags = HideFlags.DontSave;
+
+            return newObject;
         }
     }
 }

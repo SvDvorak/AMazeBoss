@@ -1,11 +1,16 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.LevelEditorUnity
 {
+    [Serializable]
     public struct NodeConnection
     {
-        public TilePos Start { get; private set; }
-        public TilePos End { get; private set; }
+        [SerializeField]
+        public TilePos Start;
+        [SerializeField]
+        public TilePos End;
 
         public NodeConnection(TilePos start, TilePos end)
         {

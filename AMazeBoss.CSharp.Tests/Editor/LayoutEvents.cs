@@ -15,6 +15,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .RemovingConnectionBetween(Node1Position, Node2Position);
 
             Then
+                .ShouldHaveCalledLayoutChanged(6)
                 .ShouldHaveCalledNodeAdded(2)
                 .ShouldHaveCalledConnectionAdded(1)
                 .ShouldHaveCalledNodeRemoved(2)

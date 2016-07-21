@@ -93,6 +93,12 @@ namespace Assets
                 WorldObjects.Boss.Do(CreateEntity(bossObjects.Single()), _pool);
             }
 
+            var trapItemObjects = _layout.GetObjects("TrapItem");
+            foreach (var trapItemObject in trapItemObjects)
+            {
+                WorldObjects.Spikes.Do(CreateEntity(trapItemObject), _pool);
+            }
+
             _pool.CreateEntity().AddResource("Camera").AddRotation(0).ReplaceTargetFocusPoint(Vector3.zero);
 
             _pool.isLevelLoaded = true;

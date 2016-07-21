@@ -4,12 +4,11 @@ namespace Assets.LevelEditorUnity
 {
     public class Node
     {
-        public List<Node> Connections { get; private set; }
-        public TilePos Position { get; private set; }
+        public List<Node> Connections = new List<Node>();
+        public TilePos Position;
 
         public Node(TilePos position)
         {
-            Connections = new List<Node>();
             Position = position;
         }
     }
