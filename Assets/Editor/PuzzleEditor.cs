@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Assets;
 using Assets.Editor.Undo;
 using Assets.LevelEditorUnity;
@@ -15,7 +14,6 @@ public class PuzzleEditor : EditorWindow
     private PuzzleLayoutView _layoutView;
 
     private int _selectedObjectIndex;
-    private readonly List<EditorWorldObject> _worldObjects = new List<EditorWorldObject>();
 
     [MenuItem("Window/Puzzle Editor")]
     public static void Init()
@@ -35,12 +33,6 @@ public class PuzzleEditor : EditorWindow
         SceneView.onSceneGUIDelegate += OnSceneGUI;
         LoadLayoutView();
         EditorApplication.hierarchyWindowChanged += LoadLayoutView;
-
-        _worldObjects.Add(new EditorWorldObject("", false, Resources.Load<GameObject>("Editor/Node")));
-        _worldObjects.Add(new EditorWorldObject("Player", true, Resources.Load<GameObject>("Editor/Player")));
-        _worldObjects.Add(new EditorWorldObject("Boss", true, Resources.Load<GameObject>("Editor/Boss")));
-        _worldObjects.Add(new EditorWorldObject("Trap", false, Resources.Load<GameObject>("Editor/SpikeTrap")));
-        _worldObjects.Add(new EditorWorldObject("TrapItem", false, Resources.Load<GameObject>("Editor/Spikes")));
     }
 
     private void LoadLayoutView()
@@ -77,7 +69,7 @@ public class PuzzleEditor : EditorWindow
             Tools.hidden = InEditMode;
         }
 
-        var textures = _worldObjects.Select(x => (Texture)AssetPreview.GetAssetPreview(x.GameObject)).ToArray();
+        var textures = EditorWorldObjects.Instance.GetAllGameObjects().Select(x => (Texture)AssetPreview.GetAssetPreview(x)).ToArray();
         _selectedObjectIndex = GUILayout.SelectionGrid(_selectedObjectIndex, textures, 3);
 
         var shouldClear = GUILayout.Button("Clear");
@@ -106,7 +98,7 @@ public class PuzzleEditor : EditorWindow
 
         var currentInputPos = GetMouseOnXZPlane(mousePosition);
         var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentInputPos);
-        var selectedWorldObject = _worldObjects.Count > 0 ? _worldObjects[_selectedObjectIndex] : null;
+        var selectedWorldObject = EditorWorldObjects.Instance.GetByIndex(_selectedObjectIndex);
 
         switch (uiEvent.type)
         {

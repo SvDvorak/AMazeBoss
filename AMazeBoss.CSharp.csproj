@@ -184,6 +184,7 @@
     <Compile Include="Assets\Input\PerformInputQueueSystem.cs" />
     <Compile Include="Assets\KnockBoxSystem.cs" />
     <Compile Include="Assets\ActionExtensions.cs" />
+    <Compile Include="Assets\LevelEditorUnity\EditorWorldObjects.cs" />
     <Compile Include="Assets\LevelEditorUnity\EditorWorldObject.cs" />
     <Compile Include="Assets\LevelEditorUnity\Node.cs" />
     <Compile Include="Assets\LevelEditorUnity\NodeConnection.cs" />

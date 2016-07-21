@@ -8,7 +8,7 @@ namespace Assets.Editor.Undo
     {
         private readonly NodeConnection _connection;
         private readonly List<NodeConnection> _removedConnections = new List<NodeConnection>();
-        private readonly List<WorldObject> _removedObjects = new List<WorldObject>();
+        private readonly List<ChangedObject> _removedObjects = new List<ChangedObject>();
         private readonly PuzzleLayout _layout;
 
         public string Name { get { return "Added node connection"; } }
@@ -37,7 +37,7 @@ namespace Assets.Editor.Undo
 
         private void AddRemovedObject(string type, TilePos position)
         {
-            _removedObjects.Add(new WorldObject(type, position));
+            _removedObjects.Add(new ChangedObject(type, position));
         }
 
         public void Undo()

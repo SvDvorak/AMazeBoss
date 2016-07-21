@@ -62,11 +62,23 @@ namespace Assets
             _pool = pool;
         }
 
+        private class TypeToEntityPerformer
+        {
+            public readonly string Type;
+            public readonly EntityPerformer EntityPerformer;
+
+            public TypeToEntityPerformer(string type, EntityPerformer entityPerformerPerformer)
+            {
+                Type = type;
+                EntityPerformer = entityPerformerPerformer;
+            }
+        }
+
         public void Initialize()
         {
             var placedTiles = new HashSet<TilePos>();
 
-            var trapObjects = _layout.GetObjects("Trap");
+            var trapObjects = _layout.GetPositions("Trap");
             foreach (var trapObject in trapObjects)
             {
                 WorldObjects.SpikeTrap.Do(CreateEntity(trapObject), _pool);
@@ -81,22 +93,21 @@ namespace Assets
                 }
             }
 
-            var playerObjects = _layout.GetObjects("Player");
-            if(playerObjects.Count > 0)
-            {
-                WorldObjects.Hero.Do(CreateEntity(playerObjects.Single()), _pool);
-            }
+            var objectCreator = new List<TypeToEntityPerformer>()
+                {
+                    new TypeToEntityPerformer("Player", WorldObjects.Hero),
+                    new TypeToEntityPerformer("Boss", WorldObjects.Boss),
+                    new TypeToEntityPerformer("TrapItem", WorldObjects.Spikes),
+                    new TypeToEntityPerformer("MoveableBlocker", WorldObjects.Box)
+                };
 
-            var bossObjects = _layout.GetObjects("Boss");
-            if (bossObjects.Count > 0)
+            foreach (var creator in objectCreator)
             {
-                WorldObjects.Boss.Do(CreateEntity(bossObjects.Single()), _pool);
-            }
-
-            var trapItemObjects = _layout.GetObjects("TrapItem");
-            foreach (var trapItemObject in trapItemObjects)
-            {
-                WorldObjects.Spikes.Do(CreateEntity(trapItemObject), _pool);
+                var objectPositions = _layout.GetPositions(creator.Type);
+                foreach (var position in objectPositions)
+                {
+                    creator.EntityPerformer.Do(CreateEntity(position), _pool);
+                }
             }
 
             _pool.CreateEntity().AddResource("Camera").AddRotation(0).ReplaceTargetFocusPoint(Vector3.zero);

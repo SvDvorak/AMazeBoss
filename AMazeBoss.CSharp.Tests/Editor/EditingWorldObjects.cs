@@ -264,13 +264,13 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         private EditingWorldObjects ShouldHaveObjectsAt(string type, params TilePos[] positions)
         {
-            Sut.GetObjects(type).Should().BeEquivalentTo(positions);
+            Sut.GetPositions(type).Should().BeEquivalentTo(positions);
             return this;
         }
 
         private EditingWorldObjects ShouldNotHaveObjects(string type)
         {
-            Sut.GetObjects(type).Should().BeEquivalentTo(new TilePos[] { });
+            Sut.GetPositions(type).Should().BeEquivalentTo(new TilePos[] { });
             return this;
         }
         private EditingWorldObjects ShouldHaveSingletonAt(string type, TilePos tilePos)
@@ -294,8 +294,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public new EditingWorldObjects ListeningToEvents()
         {
             base.ListeningToEvents();
-            Sut.ObjectAdded += (type, position) => _callsAssertions.AddCalled(new WorldObject(type, position));
-            Sut.ObjectRemoved += (type, position) => _callsAssertions.RemoveCalled(new WorldObject(type, position));
+            Sut.ObjectAdded += (type, position) => _callsAssertions.AddCalled(new ChangedObject(type, position));
+            Sut.ObjectRemoved += (type, position) => _callsAssertions.RemoveCalled(new ChangedObject(type, position));
             return this;
         }
 
@@ -352,14 +352,14 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 }
             }
 
-            public void AddCalled(WorldObject worldObject)
+            public void AddCalled(ChangedObject changedObject)
             {
-                Calls.Add(new CallInfo(CallInfo.CallType.Add, worldObject.Type, worldObject.Position));
+                Calls.Add(new CallInfo(CallInfo.CallType.Add, changedObject.Type, changedObject.Position));
             }
 
-            public void RemoveCalled(WorldObject worldObject)
+            public void RemoveCalled(ChangedObject changedObject)
             {
-                Calls.Add(new CallInfo(CallInfo.CallType.Remove, worldObject.Type, worldObject.Position));
+                Calls.Add(new CallInfo(CallInfo.CallType.Remove, changedObject.Type, changedObject.Position));
             }
         }
     }

@@ -230,14 +230,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TestLayout:
     Objects:
-    - Type: Boss
-      Position:
-        X: -2
-        Z: -3
     - Type: Player
       Position:
         X: -1
         Z: 2
+    - Type: Trap
+      Position:
+        X: 0
+        Z: 1
+    - Type: Trap
+      Position:
+        X: -2
+        Z: 1
+    - Type: TrapItem
+      Position:
+        X: 0
+        Z: -1
+    - Type: TrapItem
+      Position:
+        X: -2
+        Z: -1
+    - Type: Boss
+      Position:
+        X: 0
+        Z: -3
     Connections:
     - Start:
         X: 0
@@ -371,18 +387,6 @@ MonoBehaviour:
       End:
         X: -3
         Z: 0
-    - Start:
-        X: -3
-        Z: 0
-      End:
-        X: -3
-        Z: 1
-    - Start:
-        X: -3
-        Z: 1
-      End:
-        X: -2
-        Z: 1
     - Start:
         X: -2
         Z: 1

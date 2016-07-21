@@ -224,7 +224,7 @@ namespace Assets.LevelEditorUnity
             return _puzzleObjects.ContainsKey(type) ? _puzzleObjects[type].First() : (TilePos?)null;
         }
 
-        public List<TilePos> GetObjects(string type)
+        public List<TilePos> GetPositions(string type)
         {
             return _puzzleObjects.ContainsKey(type) ? _puzzleObjects[type] : new List<TilePos>();
         }

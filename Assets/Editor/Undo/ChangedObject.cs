@@ -1,11 +1,11 @@
 namespace Assets.Editor.Undo
 {
-    public class WorldObject
+    public class ChangedObject
     {
         public readonly string Type;
         public readonly TilePos Position;
 
-        public WorldObject(string type, TilePos position)
+        public ChangedObject(string type, TilePos position)
         {
             Position = position;
             Type = type;

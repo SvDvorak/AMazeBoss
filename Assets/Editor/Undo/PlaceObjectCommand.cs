@@ -9,7 +9,7 @@ namespace Assets.Editor.Undo
         protected readonly TilePos Position;
         protected readonly string Type;
         protected readonly PuzzleLayout Layout;
-        private readonly List<WorldObject> _removedObjects = new List<WorldObject>();
+        private readonly List<ChangedObject> _removedObjects = new List<ChangedObject>();
 
         public abstract string Name { get; }
 
@@ -35,7 +35,7 @@ namespace Assets.Editor.Undo
 
         private void AddRemovedObject(string type, TilePos position)
         {
-            _removedObjects.Add(new WorldObject(type, position));
+            _removedObjects.Add(new ChangedObject(type, position));
         }
 
         public void Undo()

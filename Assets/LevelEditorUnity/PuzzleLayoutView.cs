@@ -108,21 +108,8 @@ namespace Assets.LevelEditorUnity
 
         private void ObjectAdded(string type, TilePos position)
         {
-            switch (type)
-            {
-                case "Player":
-                    AddWorldObject(Player, position);
-                    break;
-                case "Boss":
-                    AddWorldObject(Boss, position);
-                    break;
-                case "Trap":
-                    AddWorldObject(Trap, position);
-                    break;
-                case "TrapItem":
-                    AddWorldObject(TrapItem, position);
-                    break;
-            }
+            var addedObjectView = EditorWorldObjects.Instance.GetByType(type);
+            AddWorldObject(addedObjectView, position);
         }
 
         private void AddWorldObject(GameObject template, TilePos position)

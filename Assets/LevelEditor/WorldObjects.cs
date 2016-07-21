@@ -98,6 +98,7 @@ namespace Assets.LevelEditor
                     .ReplaceGameObject(ObjectType.Item)
                     .ReplaceMaintype(ItemType.Hero.ToString())
                     .IsDynamic(true)
+                    .IsCharacter(true)
                     .IsHero(true)
                     .ReplaceHealth(3));
             }
@@ -113,6 +114,7 @@ namespace Assets.LevelEditor
                     .AddId(pool)
                     .IsDynamic(true)
                     .IsBlockingTile(true)
+                    .IsCharacter(true)
                     .IsBoss(true)
                     .IsCursed(true)
                     .ReplaceHealth(3));
