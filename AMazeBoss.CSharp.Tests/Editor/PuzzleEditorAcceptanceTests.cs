@@ -65,6 +65,38 @@ namespace AMazeBoss.CSharp.Tests.Editor
             return This;
         }
 
+        public T AddingObjectAt(string type, TilePos position)
+        {
+            LastCommand = new PlaceNormalObjectCommand(Sut, type, position);
+            LastCommand.Execute();
+            return This;
+        }
+
+        public T ObjectAt(string type, TilePos position, Dictionary<string, string> properties = null)
+        {
+            Sut.PlaceObject(type, position, properties);
+            return This;
+        }
+
+        public T AddingSingletonAt(string type, TilePos tilePos)
+        {
+            LastCommand = new SetSingletonObjectCommand(Sut, type, tilePos);
+            LastCommand.Execute();
+            return This;
+        }
+
+        public T SingletonAt(string type, TilePos tilePos)
+        {
+            AddingSingletonAt(type, tilePos);
+            return This;
+        }
+
+        public T SettingProperty<Y>(TilePos position, string key, Y value)
+        {
+            Sut.SetProperty(position, key, value);
+            return This;
+        }
+
         public T ListeningToEvents()
         {
             Sut.LayoutChanged += () => CallsToLayoutChanged++;

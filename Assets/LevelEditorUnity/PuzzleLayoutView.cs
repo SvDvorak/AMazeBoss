@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.LevelEditorUnity
@@ -13,11 +15,11 @@ namespace Assets.LevelEditorUnity
         public GameObject Trap;
         public GameObject TrapItem;
 
-        public Dictionary<TilePos, GameObject> NodeViews = new Dictionary<TilePos, GameObject>();
-        public Dictionary<NodeConnection, GameObject> NodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
+        private readonly Dictionary<TilePos, GameObject> _nodeViews = new Dictionary<TilePos, GameObject>();
+        private readonly Dictionary<NodeConnection, GameObject> _nodeConnectionViews = new Dictionary<NodeConnection, GameObject>();
+        private readonly Dictionary<TilePos, GameObject> _worldObjects = new Dictionary<TilePos, GameObject>();
 
         private List<GameObject> _previews = new List<GameObject>();
-        private readonly Dictionary<TilePos, GameObject> _worldObjects = new Dictionary<TilePos, GameObject>();
         private NodeConnection _lastPreviewConnection;
 
         private PuzzleLayout PuzzleLayout { get { return PuzzleLayout.Instance; } }
@@ -40,6 +42,7 @@ namespace Assets.LevelEditorUnity
         public void OnDisable()
         {
             RemovePreview();
+
             PuzzleLayout.NodeAdded -= AddNode;
             PuzzleLayout.NodeRemoved -= RemoveNode;
             PuzzleLayout.ConnectionAdded -= AddNodeConnection;
@@ -50,10 +53,10 @@ namespace Assets.LevelEditorUnity
 
         private void AddNode(Node node)
         {
-            if (!NodeViews.ContainsKey(node.Position))
+            if (!_nodeViews.ContainsKey(node.Position))
             {
                 var nodeView = CreateNodeView(node);
-                NodeViews.Add(node.Position, nodeView);
+                _nodeViews.Add(node.Position, nodeView);
             }
         }
 
@@ -66,19 +69,19 @@ namespace Assets.LevelEditorUnity
 
         private void RemoveNode(Node node)
         {
-            if (NodeViews.ContainsKey(node.Position))
+            if (_nodeViews.ContainsKey(node.Position))
             {
-                DestroyImmediate(NodeViews[node.Position]);
-                NodeViews.Remove(node.Position);
+                DestroyImmediate(_nodeViews[node.Position]);
+                _nodeViews.Remove(node.Position);
             }
         }
 
         public void AddNodeConnection(NodeConnection connection)
         {
-            if (!NodeConnectionViews.ContainsKey(connection))
+            if (!_nodeConnectionViews.ContainsKey(connection))
             {
                 var connectionView = CreateNodeConnectionView(connection);
-                NodeConnectionViews.Add(connection, connectionView);
+                _nodeConnectionViews.Add(connection, connectionView);
             }
         }
 
@@ -99,34 +102,37 @@ namespace Assets.LevelEditorUnity
 
         public void RemoveConnection(NodeConnection connection)
         {
-            if (NodeConnectionViews.ContainsKey(connection))
+            if (_nodeConnectionViews.ContainsKey(connection))
             {
-                DestroyImmediate(NodeConnectionViews[connection]);
-                NodeConnectionViews.Remove(connection);
+                DestroyImmediate(_nodeConnectionViews[connection]);
+                _nodeConnectionViews.Remove(connection);
             }
         }
 
         private void ObjectAdded(string type, TilePos position)
         {
             var addedObjectView = EditorWorldObjects.Instance.GetByType(type);
-            AddWorldObject(addedObjectView, position);
-        }
 
-        private void AddWorldObject(GameObject template, TilePos position)
-        {
-            _worldObjects[position] = CreateTemporary(
-                template,
+            var newObject = CreateTemporary(
+                addedObjectView,
                 position.ToV3(),
                 Quaternion.identity);
 
-            _worldObjects[position].transform.SetParent(transform);
+            var layoutLink = newObject.GetComponent<LayoutLink>();
+            if (layoutLink != null)
+            {
+                layoutLink.SetLinkInfo(PuzzleLayout, type, position);
+            }
+            newObject.transform.SetParent(transform);
+
+            _worldObjects[position] = newObject;
         }
 
-        private void ObjectRemoved(string type, TilePos position)
+        private void ObjectRemoved(PuzzleObject puzzleObject)
         {
-            if(_worldObjects.ContainsKey(position))
+            if(_worldObjects.ContainsKey(puzzleObject.Position))
             {
-                DestroyImmediate(_worldObjects[position]);
+                DestroyImmediate(_worldObjects[puzzleObject.Position]);
             }
         }
 
@@ -141,7 +147,6 @@ namespace Assets.LevelEditorUnity
                 {
                     AddPreview(CreateNodeConnectionView(subConnection));
                 }
-                Debug.Log("Recreated preview");
             }
 
             _lastPreviewConnection = nodeConnection;
@@ -150,7 +155,7 @@ namespace Assets.LevelEditorUnity
         public void UpdatePreview(EditorWorldObject selectedWorldObject, TilePos position)
         {
             RemovePreview();
-            AddPreview(CreateTemporary(selectedWorldObject.GameObject, position.ToV3(), Quaternion.identity));
+            AddPreview(CreateTemporary(selectedWorldObject.LoadPreview(), position.ToV3(), Quaternion.identity));
         }
 
         private void AddPreview(GameObject preview)

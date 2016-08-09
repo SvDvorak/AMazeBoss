@@ -6,7 +6,7 @@ namespace Assets.Editor.Undo
     {
         private readonly PuzzleLayout _layout;
         private readonly TilePos _position;
-        private readonly string _previousType;
+        private readonly PuzzleObject _previousPuzzleObject;
 
         public string Name { get { return "Added object"; } }
 
@@ -14,7 +14,7 @@ namespace Assets.Editor.Undo
         {
             _position = position;
             _layout = layout;
-            _previousType = _layout.GetObjectAt(_position);
+            _previousPuzzleObject = _layout.GetObjectAt(_position);
         }
 
         public void Execute()
@@ -24,7 +24,7 @@ namespace Assets.Editor.Undo
 
         public void Undo()
         {
-            _layout.PlaceObject(_previousType, _position);
+            _layout.PlaceObject(_previousPuzzleObject.Type, _position);
         }
     }
 }

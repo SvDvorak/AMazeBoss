@@ -1,15 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Assets.LevelEditorUnity
 {
-    public class PuzzleObjectCollection : List<TilePos>
+    public class PuzzleObject
     {
-        public PuzzleObjectCollection Concat(TilePos position)
+        public readonly string Type;
+        public readonly TilePos Position;
+        public readonly Dictionary<string, string> Properties;
+
+        public PuzzleObject(string type, TilePos position)
         {
-            Add(position);
-            return this;
+            Position = position;
+            Type = type;
+            Properties = new Dictionary<string, string>();
         }
     }
 
@@ -33,15 +39,15 @@ namespace Assets.LevelEditorUnity
 
         public event Action LayoutChanged;
 
-        public event Action<Node> NodeAdded; 
+        public event Action<Node> NodeAdded;
         public event Action<Node> NodeRemoved;
         public event Action<NodeConnection> ConnectionAdded;
         public event Action<NodeConnection> ConnectionRemoved;
 
-        private readonly Dictionary<string, PuzzleObjectCollection> _puzzleObjects = new Dictionary<string, PuzzleObjectCollection>();
+        private readonly Dictionary<TilePos, PuzzleObject> _puzzleObjects = new Dictionary<TilePos, PuzzleObject>();
 
         public event Action<string, TilePos> ObjectAdded;
-        public event Action<string, TilePos> ObjectRemoved;
+        public event Action<PuzzleObject> ObjectRemoved;
 
         public void AddNodeConnections(NodeConnection wholeConnection)
         {
@@ -113,7 +119,7 @@ namespace Assets.LevelEditorUnity
 
             var newNode = new Node(position);
             Nodes.Add(position, newNode);
-            CallLayoutChanged(() => NodeAdded.CallEvent(newNode));
+            NodeAdded.CallEvent(newNode);
             return newNode;
         }
 
@@ -130,7 +136,7 @@ namespace Assets.LevelEditorUnity
                 }
 
                 Nodes.Remove(node1.Position);
-                CallLayoutChanged(() => NodeRemoved.CallEvent(node1));
+                NodeRemoved.CallEvent(node1);
             }
         }
 
@@ -166,30 +172,28 @@ namespace Assets.LevelEditorUnity
             return nodeConnections.ToList();
         }
 
-        public void SetSingleton(string type, TilePos? position)
+        public void SetSingleton(string type, TilePos position)
         {
-            if (_puzzleObjects.ContainsKey(type))
+            var existingObject = _puzzleObjects.Values.SingleOrDefault(x => x.Type == type);
+            if (existingObject != null)
             {
-                var worldObjects = _puzzleObjects[type];
-                _puzzleObjects.Remove(type);
-                CallLayoutChanged(() => ObjectRemoved.CallEvent(type, worldObjects.First()));
+                RemoveObject(existingObject.Position);
             }
 
-            if (position.HasValue)
-            {
-                PlaceObject(type, position.Value);
-            }
+            PlaceObject(type, position);
         }
 
-        public void PlaceObject(string type, TilePos position)
+        public void PlaceObject(string type, TilePos position, Dictionary<string, string> properties = null)
         {
             RemoveObject(position);
 
-            var collection = _puzzleObjects.ContainsKey(type)
-                ? _puzzleObjects[type]
-                : new PuzzleObjectCollection();
+            _puzzleObjects[position] = new PuzzleObject(type, position);
 
-            _puzzleObjects[type] = collection.Concat(position);
+            if (properties != null)
+            {
+                properties.ToList().ForEach(x => SetProperty(position, x.Key, x.Value));
+            }
+
             CallLayoutChanged(() => ObjectAdded.CallEvent(type, position));
         }
 
@@ -199,39 +203,30 @@ namespace Assets.LevelEditorUnity
 
             if (currentAtSamePosition != null)
             {
-                var objects = _puzzleObjects[currentAtSamePosition];
-                if (objects.Count <= 1)
-                {
-                    _puzzleObjects.Remove(currentAtSamePosition);
-                }
-                else
-                {
-                    objects.Remove(position);
-                }
+                _puzzleObjects.Remove(position);
 
-                CallLayoutChanged(() => ObjectRemoved.CallEvent(currentAtSamePosition, position));
+                CallLayoutChanged(() => ObjectRemoved.CallEvent(currentAtSamePosition));
             }
         }
 
-        public string GetObjectAt(TilePos position)
+        public PuzzleObject GetObjectAt(TilePos position)
         {
-            var otherAtSamePosition = _puzzleObjects.SingleOrDefault(x => x.Value.Any(pos => pos == position));
-            return otherAtSamePosition.Key;
+            return _puzzleObjects.ContainsKey(position) ? _puzzleObjects[position] : null;
         }
 
-        public TilePos? GetSingleton(string type)
+        public PuzzleObject GetSingleton(string type)
         {
-            return _puzzleObjects.ContainsKey(type) ? _puzzleObjects[type].First() : (TilePos?)null;
+            return _puzzleObjects.Values.SingleOrDefault(x => x.Type == type);
         }
 
-        public List<TilePos> GetPositions(string type)
+        public List<PuzzleObject> GetObjects(string type)
         {
-            return _puzzleObjects.ContainsKey(type) ? _puzzleObjects[type] : new List<TilePos>();
+            return GetAllObjects().Where(x => x.Type == type).ToList();
         }
 
-        public Dictionary<string, PuzzleObjectCollection> GetAllObjects()
+        public List<PuzzleObject> GetAllObjects()
         {
-            return _puzzleObjects;
+            return _puzzleObjects.Values.ToList();
         }
 
         public bool CanPlaceAt(TilePos position)
@@ -244,5 +239,51 @@ namespace Assets.LevelEditorUnity
             action();
             LayoutChanged.CallEvent();
         }
+
+        public void SetProperty(TilePos position, string key, object value)
+        {
+            try
+            {
+                var objectToSetProperty = GetObjectAt(position);
+                objectToSetProperty.Properties[key] = value.ToString();
+                CallLayoutChanged(() => { });
+            }
+            catch (Exception)
+            {
+                throw new ObjectNotFoundException();
+            }
+        }
+
+        public bool HasProperty(TilePos position, string key)
+        {
+            var puzzleObject = GetObjectAt(position);
+            return puzzleObject != null && puzzleObject.Properties.ContainsKey(key);
+        }
+
+        public T GetProperty<T>(TilePos position, string key)
+        {
+            try
+            {
+                var property = GetObjectAt(position).Properties[key];
+
+                var converter = TypeDescriptor.GetConverter(typeof(T));
+                return (T)converter.ConvertFromString(property);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new Exception(string.Format("Could not find property {0} at {1}", key, position));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Unable to get {0} as {1} because {2}",
+                    key,
+                    typeof(T),
+                    ex.Message));
+            }
+        }
+    }
+
+    public class ObjectNotFoundException : Exception
+    {
     }
 }

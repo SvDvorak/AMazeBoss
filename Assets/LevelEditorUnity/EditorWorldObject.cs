@@ -4,15 +4,32 @@ namespace Assets.LevelEditorUnity
 {
     public class EditorWorldObject
     {
-        public readonly GameObject GameObject;
         public readonly string Type;
         public readonly bool Singleton;
+        private readonly string _path;
 
-        public EditorWorldObject(string type, bool singleton, GameObject gameObject)
+        public EditorWorldObject(string type, bool singleton, string path)
         {
             Type = type;
-            GameObject = gameObject;
             Singleton = singleton;
+            _path = path;
+        }
+
+        public GameObject LoadView()
+        {
+            return Resources.Load<GameObject>(_path);
+        }
+
+        public GameObject LoadPreview()
+        {
+            var preview = Resources.Load<GameObject>(_path + "_preview");
+
+            if (preview == null)
+            {
+                preview = LoadView();
+            }
+
+            return preview;
         }
     }
 }

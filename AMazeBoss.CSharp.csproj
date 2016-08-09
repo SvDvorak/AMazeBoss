@@ -186,10 +186,12 @@
     <Compile Include="Assets\ActionExtensions.cs" />
     <Compile Include="Assets\LevelEditorUnity\EditorWorldObjects.cs" />
     <Compile Include="Assets\LevelEditorUnity\EditorWorldObject.cs" />
+    <Compile Include="Assets\LevelEditorUnity\LayoutLink.cs" />
     <Compile Include="Assets\LevelEditorUnity\Node.cs" />
     <Compile Include="Assets\LevelEditorUnity\NodeConnection.cs" />
     <Compile Include="Assets\LevelEditorUnity\PuzzleLayout.cs" />
     <Compile Include="Assets\LevelEditorUnity\PuzzleLayoutLoader.cs" />
+    <Compile Include="Assets\LevelEditorUnity\TrapLoading.cs" />
     <Compile Include="Assets\LevelEditor\CloseDialog.cs" />
     <Compile Include="Assets\LevelEditor\Components.cs" />
     <Compile Include="Assets\LevelEditor\DialogController.cs" />

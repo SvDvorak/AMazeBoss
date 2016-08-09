@@ -4,13 +4,13 @@ namespace Assets.Editor.Undo
 {
     public class SetSingletonObjectCommand : PlaceObjectCommand
     {
-        private readonly TilePos? _previousPosition;
+        private readonly PuzzleObject _previousPuzzleObject;
 
         public override string Name { get { return "Added singleton"; } }
 
         public SetSingletonObjectCommand(PuzzleLayout layout, string type, TilePos position) : base(layout, type, position)
         {
-            _previousPosition = layout.GetSingleton(type);
+            _previousPuzzleObject = layout.GetSingleton(type);
         }
 
         protected override void ExecutePlace()
@@ -20,7 +20,10 @@ namespace Assets.Editor.Undo
 
         protected override void UndoPlace()
         {
-            Layout.SetSingleton(Type, _previousPosition);
+            if (_previousPuzzleObject != null)
+            {
+                Layout.SetSingleton(Type, _previousPuzzleObject.Position);
+            }
         }
     }
 }

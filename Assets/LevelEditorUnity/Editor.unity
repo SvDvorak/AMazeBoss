@@ -162,7 +162,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -230,199 +230,76 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TestLayout:
     Objects:
-    - Type: Player
+    - Type: MoveableBlocker
+      Position:
+        X: 0
+        Z: -1
+      Properties: []
+    - Type: TrapItem
       Position:
         X: -1
-        Z: 2
-    - Type: Trap
-      Position:
-        X: 0
-        Z: 1
-    - Type: Trap
-      Position:
-        X: -2
-        Z: 1
-    - Type: TrapItem
-      Position:
-        X: 0
         Z: -1
-    - Type: TrapItem
-      Position:
-        X: -2
-        Z: -1
+      Properties: []
     - Type: Boss
       Position:
         X: 0
         Z: -3
+      Properties: []
+    - Type: Trap
+      Position:
+        X: 0
+        Z: 0
+      Properties:
+      - Key: IsLoaded
+        Value: True
+    - Type: Player
+      Position:
+        X: 0
+        Z: 1
+      Properties: []
     Connections:
     - Start:
         X: 0
         Z: -3
       End:
-        X: -1
-        Z: -3
-    - Start:
-        X: 0
-        Z: -3
-      End:
         X: 0
         Z: -2
     - Start:
         X: 0
+        Z: -3
+      End:
+        X: -1
+        Z: -3
+    - Start:
+        X: 0
         Z: -2
       End:
         X: 0
         Z: -1
     - Start:
-        X: -1
-        Z: -3
-      End:
-        X: -2
-        Z: -3
-    - Start:
-        X: 0
-        Z: -1
-      End:
-        X: -1
-        Z: -1
-    - Start:
-        X: 0
-        Z: -1
-      End:
-        X: 0
-        Z: 0
-    - Start:
-        X: 0
-        Z: -1
-      End:
-        X: 1
-        Z: -1
-    - Start:
-        X: 1
-        Z: -1
-      End:
-        X: 2
-        Z: -1
-    - Start:
-        X: 0
-        Z: 0
-      End:
         X: 0
         Z: 1
+      End:
+        X: 0
+        Z: 0
     - Start:
+        X: 0
+        Z: 0
+      End:
+        X: 0
+        Z: -1
+    - Start:
+        X: -2
+        Z: -1
+      End:
         X: -1
         Z: -1
-      End:
-        X: -2
-        Z: -1
     - Start:
-        X: 2
-        Z: -1
-      End:
-        X: 2
-        Z: 0
-    - Start:
-        X: 2
-        Z: 0
-      End:
-        X: 2
-        Z: 1
-    - Start:
-        X: 2
-        Z: 1
-      End:
-        X: 1
-        Z: 1
-    - Start:
-        X: 1
-        Z: 1
-      End:
-        X: 1
-        Z: 2
-    - Start:
-        X: 1
-        Z: 1
-      End:
         X: 0
-        Z: 1
-    - Start:
-        X: -2
-        Z: -3
-      End:
-        X: -2
-        Z: -2
-    - Start:
-        X: -2
-        Z: -2
-      End:
-        X: -2
         Z: -1
-    - Start:
-        X: -2
-        Z: -1
-      End:
-        X: -2
-        Z: 0
-    - Start:
-        X: -2
-        Z: -1
-      End:
-        X: -3
-        Z: -1
-    - Start:
-        X: -3
-        Z: -1
-      End:
-        X: -3
-        Z: 0
-    - Start:
-        X: -2
-        Z: 0
-      End:
-        X: -2
-        Z: 1
-    - Start:
-        X: -2
-        Z: 0
-      End:
-        X: -3
-        Z: 0
-    - Start:
-        X: -2
-        Z: 1
       End:
         X: -1
-        Z: 1
-    - Start:
-        X: -1
-        Z: 1
-      End:
-        X: -1
-        Z: 2
-    - Start:
-        X: -1
-        Z: 1
-      End:
-        X: 0
-        Z: 1
-    - Start:
-        X: 1
-        Z: 2
-      End:
-        X: 0
-        Z: 2
-    - Start:
-        X: 0
-        Z: 1
-      End:
-        X: 0
-        Z: 2
-    - Start:
-        X: -1
-        Z: 2
-      End:
-        X: 0
-        Z: 2
+        Z: -1
 --- !u!1 &1178042602
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +398,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
       propertyPath: m_Materials.Array.data[0]

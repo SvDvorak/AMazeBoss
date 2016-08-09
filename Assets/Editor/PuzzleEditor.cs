@@ -14,6 +14,8 @@ public class PuzzleEditor : EditorWindow
     private PuzzleLayoutView _layoutView;
 
     private int _selectedObjectIndex;
+    private bool _updatePreview;
+    private TilePos _previousTilePosition;
 
     [MenuItem("Window/Puzzle Editor")]
     public static void Init()
@@ -69,8 +71,14 @@ public class PuzzleEditor : EditorWindow
             Tools.hidden = InEditMode;
         }
 
-        var textures = EditorWorldObjects.Instance.GetAllGameObjects().Select(x => (Texture)AssetPreview.GetAssetPreview(x)).ToArray();
+        var textures = EditorWorldObjects.Instance.GetAllViewObjects().Select(x => (Texture)AssetPreview.GetAssetPreview(x)).ToArray();
+        var previouslySelectedIndex = _selectedObjectIndex;
         _selectedObjectIndex = GUILayout.SelectionGrid(_selectedObjectIndex, textures, 3);
+
+        if (_selectedObjectIndex != previouslySelectedIndex)
+        {
+            _updatePreview = true;
+        }
 
         var shouldClear = GUILayout.Button("Clear");
         if (shouldClear)
@@ -100,6 +108,14 @@ public class PuzzleEditor : EditorWindow
         var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentInputPos);
         var selectedWorldObject = EditorWorldObjects.Instance.GetByIndex(_selectedObjectIndex);
 
+        var inputTilePos = new TilePos(currentInputPos);
+
+        if (inputTilePos != _previousTilePosition)
+        {
+            _updatePreview = true;
+        }
+        _previousTilePosition = inputTilePos;
+
         switch (uiEvent.type)
         {
             case EventType.Layout:
@@ -125,7 +141,6 @@ public class PuzzleEditor : EditorWindow
                 }
                 else if (selectedWorldObject != null)
                 {
-                    var inputTilePos = new TilePos(currentInputPos);
                     if (uiEvent.button == 0 && layout.CanPlaceAt(inputTilePos))
                     {
                         if (selectedWorldObject.Singleton)
@@ -158,9 +173,10 @@ public class PuzzleEditor : EditorWindow
         {
             _layoutView.UpdatePreview(nodeConnection);
         }
-        else
+        else if(_updatePreview)
         {
             _layoutView.UpdatePreview(selectedWorldObject, new TilePos(currentInputPos));
+            _updatePreview = false;
         }
 
         HandleUtility.Repaint();

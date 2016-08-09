@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets;
 using Assets.Editor.Undo;
 using FluentAssertions;
 using Xunit;
+using Assets.LevelEditorUnity;
 
 namespace AMazeBoss.CSharp.Tests.Editor
 {
@@ -229,32 +231,6 @@ namespace AMazeBoss.CSharp.Tests.Editor
             Sut.CanPlaceAt(position).Should().BeTrue();
         }
 
-        private EditingWorldObjects AddingObjectAt(string type, TilePos position)
-        {
-            LastCommand = new PlaceNormalObjectCommand(Sut, type, position);
-            LastCommand.Execute();
-            return this;
-        }
-
-        private EditingWorldObjects ObjectAt(string type, TilePos position)
-        {
-            AddingObjectAt(type, position);
-            return this;
-        }
-
-        private EditingWorldObjects AddingSingletonAt(string type, TilePos tilePos)
-        {
-            LastCommand = new SetSingletonObjectCommand(Sut, type, tilePos);
-            LastCommand.Execute();
-            return this;
-        }
-
-        private EditingWorldObjects SingletonAt(string type, TilePos tilePos)
-        {
-            AddingSingletonAt(type, tilePos);
-            return this;
-        }
-
         private EditingWorldObjects RemovingObject(TilePos position)
         {
             LastCommand = new RemoveObjectCommand(Sut, position);
@@ -264,18 +240,18 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         private EditingWorldObjects ShouldHaveObjectsAt(string type, params TilePos[] positions)
         {
-            Sut.GetPositions(type).Should().BeEquivalentTo(positions);
+            Sut.GetObjects(type).ShouldAllBeEquivalentTo(positions.Select(x => new PuzzleObject(type, x)).ToList());
             return this;
         }
 
         private EditingWorldObjects ShouldNotHaveObjects(string type)
         {
-            Sut.GetPositions(type).Should().BeEquivalentTo(new TilePos[] { });
+            Sut.GetObjects(type).Should().BeEquivalentTo(new TilePos[] { });
             return this;
         }
-        private EditingWorldObjects ShouldHaveSingletonAt(string type, TilePos tilePos)
+        private EditingWorldObjects ShouldHaveSingletonAt(string type, TilePos position)
         {
-            Sut.GetSingleton(type).Should().Be(tilePos);
+            Sut.GetSingleton(type).ShouldBeEquivalentTo(new PuzzleObject(type, position));
             return this;
         }
 
@@ -294,8 +270,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
         public new EditingWorldObjects ListeningToEvents()
         {
             base.ListeningToEvents();
-            Sut.ObjectAdded += (type, position) => _callsAssertions.AddCalled(new ChangedObject(type, position));
-            Sut.ObjectRemoved += (type, position) => _callsAssertions.RemoveCalled(new ChangedObject(type, position));
+            Sut.ObjectAdded += (type, position) => _callsAssertions.AddCalled(new PuzzleObject(type, position));
+            Sut.ObjectRemoved += puzzleObject => _callsAssertions.RemoveCalled(puzzleObject);
             return this;
         }
 
@@ -352,12 +328,12 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 }
             }
 
-            public void AddCalled(ChangedObject changedObject)
+            public void AddCalled(PuzzleObject changedObject)
             {
                 Calls.Add(new CallInfo(CallInfo.CallType.Add, changedObject.Type, changedObject.Position));
             }
 
-            public void RemoveCalled(ChangedObject changedObject)
+            public void RemoveCalled(PuzzleObject changedObject)
             {
                 Calls.Add(new CallInfo(CallInfo.CallType.Remove, changedObject.Type, changedObject.Position));
             }

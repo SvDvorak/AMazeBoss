@@ -78,11 +78,11 @@ namespace Assets
         {
             var placedTiles = new HashSet<TilePos>();
 
-            var trapObjects = _layout.GetPositions("Trap");
+            var trapObjects = _layout.GetObjects("Trap");
             foreach (var trapObject in trapObjects)
             {
-                WorldObjects.SpikeTrap.Do(CreateEntity(trapObject), _pool);
-                placedTiles.Add(trapObject);
+                WorldObjects.SpikeTrap.Do(CreateEntity(trapObject.Position), _pool);
+                placedTiles.Add(trapObject.Position);
             }
 
             foreach (var node in _layout.Nodes.Values)
@@ -103,10 +103,10 @@ namespace Assets
 
             foreach (var creator in objectCreator)
             {
-                var objectPositions = _layout.GetPositions(creator.Type);
-                foreach (var position in objectPositions)
+                var puzzleObjects = _layout.GetObjects(creator.Type);
+                foreach (var puzzleObject in puzzleObjects)
                 {
-                    creator.EntityPerformer.Do(CreateEntity(position), _pool);
+                    creator.EntityPerformer.Do(CreateEntity(puzzleObject.Position), _pool);
                 }
             }
 

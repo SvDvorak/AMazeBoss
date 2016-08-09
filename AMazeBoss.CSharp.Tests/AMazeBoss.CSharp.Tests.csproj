@@ -71,6 +71,7 @@
     <Compile Include="Editor\LayoutEvents.cs" />
     <Compile Include="Editor\PuzzleEditorTestExtensions.cs" />
     <Compile Include="Editor\RemoveConnection.cs" />
+    <Compile Include="Editor\WorldObjectProperties.cs" />
     <Compile Include="GameLevelLoaderSystemTests.cs" />
     <Compile Include="LevelLoadingTests.cs" />
     <Compile Include="NodeConnectionTests.cs" />

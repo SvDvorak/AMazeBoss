@@ -15,6 +15,16 @@ namespace Assets.LevelEditorUnity
             public string Type;
             [SerializeField]
             public TilePos Position;
+
+            [SerializeField]
+            public List<Property> Properties = new List<Property>();
+
+            [Serializable]
+            public class Property
+            {
+                public string Key;
+                public string Value;
+            }
         }
 
         [SerializeField]
@@ -45,7 +55,15 @@ namespace Assets.LevelEditorUnity
         private void LoadFromFlatLayout(PuzzleLayout layout)
         {
             TestLayout.Connections.ForEach(layout.AddNodeConnections);
-            TestLayout.Objects.ForEach(x => layout.PlaceObject(x.Type, x.Position));
+            TestLayout.Objects.ForEach(puzzleObject =>
+                {
+                    var properties = new Dictionary<string, string>();
+                    puzzleObject.Properties.ForEach(property =>
+                    {
+                        properties.Add(property.Key, property.Value);
+                    });
+                    layout.PlaceObject(puzzleObject.Type, puzzleObject.Position, properties);
+                });
         }
 
         private void SaveToFlatLayout()
@@ -53,8 +71,16 @@ namespace Assets.LevelEditorUnity
             TestLayout.Connections = PuzzleLayout.Instance.GetAllConnections();
             TestLayout.Objects =
                 PuzzleLayout.Instance.GetAllObjects()
-                    .SelectMany(x => x.Value
-                        .Select(y => new FlatLayout.PuzzleObject { Type = x.Key, Position = y }))
+                    .Select(puzzleObject => new FlatLayout.PuzzleObject
+                        {
+                            Type = puzzleObject.Type,
+                            Position = puzzleObject.Position,
+                            Properties = puzzleObject.Properties.Select(x => new FlatLayout.PuzzleObject.Property()
+                                {
+                                    Key = x.Key,
+                                    Value = x.Value
+                                }).ToList()
+                        })
                     .ToList();
         }
     }

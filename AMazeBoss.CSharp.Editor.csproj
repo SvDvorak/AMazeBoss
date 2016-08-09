@@ -116,7 +116,6 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\PuzzleEditor.cs" />
     <Compile Include="Assets\Editor\Undo\AddNodeConnectionCommand.cs" />
-    <Compile Include="Assets\Editor\Undo\ChangedObject.cs" />
     <Compile Include="Assets\Editor\Undo\PlaceNormalObjectCommand.cs" />
     <Compile Include="Assets\Editor\Undo\PlaceObjectCommand.cs" />
     <Compile Include="Assets\Editor\Undo\RemoveObjectCommand.cs" />

@@ -7,21 +7,24 @@ public class EditorWorldObjects
 {
     public static readonly EditorWorldObjects Instance = new EditorWorldObjects();
 
-    private readonly List<EditorWorldObject> _worldObjects = new List<EditorWorldObject>();
+    private readonly List<EditorWorldObject> _worldObjects;
 
     private EditorWorldObjects()
     {
-        _worldObjects.Add(new EditorWorldObject("", false, Resources.Load<GameObject>("Editor/Node")));
-        _worldObjects.Add(new EditorWorldObject("Player", true, Resources.Load<GameObject>("Editor/Player")));
-        _worldObjects.Add(new EditorWorldObject("Boss", true, Resources.Load<GameObject>("Editor/Boss")));
-        _worldObjects.Add(new EditorWorldObject("Trap", false, Resources.Load<GameObject>("Editor/SpikeTrap")));
-        _worldObjects.Add(new EditorWorldObject("TrapItem", false, Resources.Load<GameObject>("Editor/Spikes")));
-        _worldObjects.Add(new EditorWorldObject("MoveableBlocker", false, Resources.Load<GameObject>("Editor/Box")));
+        _worldObjects = new List<EditorWorldObject>()
+            {
+                new EditorWorldObject("", false, "Editor/Node"),
+                new EditorWorldObject("Player", true, "Editor/Player"),
+                new EditorWorldObject("Boss", true, "Editor/Boss"),
+                new EditorWorldObject("Trap", false, "Editor/SpikeTrap"),
+                new EditorWorldObject("TrapItem", false, "Editor/Spikes"),
+                new EditorWorldObject("MoveableBlocker", false, "Editor/Box")
+            };
     }
 
-    public IEnumerable<GameObject> GetAllGameObjects()
+    public IEnumerable<GameObject> GetAllViewObjects()
     {
-        return _worldObjects.Select(x => x.GameObject);
+        return _worldObjects.Select(x => x.LoadView());
     }
 
     public EditorWorldObject GetByIndex(int index)
@@ -31,6 +34,6 @@ public class EditorWorldObjects
 
     public GameObject GetByType(string type)
     {
-        return _worldObjects.Single(x => x.Type == type).GameObject;
+        return _worldObjects.Single(x => x.Type == type).LoadView();
     }
 }
