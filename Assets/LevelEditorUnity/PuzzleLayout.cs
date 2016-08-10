@@ -49,6 +49,8 @@ namespace Assets.LevelEditorUnity
         public event Action<string, TilePos> ObjectAdded;
         public event Action<PuzzleObject> ObjectRemoved;
 
+        public event Action<TilePos, string, object> PropertySet;
+
         public void AddNodeConnections(NodeConnection wholeConnection)
         {
             wholeConnection
@@ -246,9 +248,23 @@ namespace Assets.LevelEditorUnity
             {
                 var objectToSetProperty = GetObjectAt(position);
                 objectToSetProperty.Properties[key] = value.ToString();
-                CallLayoutChanged(() => { });
+                CallLayoutChanged(() => PropertySet.CallEvent(position, key, value));
             }
             catch (Exception)
+            {
+                throw new ObjectNotFoundException();
+            }
+        }
+
+        public void RemoveProperty(TilePos position, string key)
+        {
+            try
+            {
+                var objectToSetProperty = GetObjectAt(position);
+                objectToSetProperty.Properties.Remove(key);
+                CallLayoutChanged(() => { });
+            }
+            catch (NullReferenceException)
             {
                 throw new ObjectNotFoundException();
             }
@@ -260,18 +276,26 @@ namespace Assets.LevelEditorUnity
             return puzzleObject != null && puzzleObject.Properties.ContainsKey(key);
         }
 
-        public T GetProperty<T>(TilePos position, string key)
+        public string GetProperty(TilePos position, string key)
         {
             try
             {
-                var property = GetObjectAt(position).Properties[key];
-
-                var converter = TypeDescriptor.GetConverter(typeof(T));
-                return (T)converter.ConvertFromString(property);
+                return GetObjectAt(position).Properties[key];
             }
             catch (KeyNotFoundException)
             {
                 throw new Exception(string.Format("Could not find property {0} at {1}", key, position));
+            }
+        }
+
+        public T GetProperty<T>(TilePos position, string key)
+        {
+            try
+            {
+                var property = GetProperty(position, key);
+
+                var converter = TypeDescriptor.GetConverter(typeof(T));
+                return (T)converter.ConvertFromString(property);
             }
             catch (Exception ex)
             {

@@ -32,7 +32,6 @@ using System;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Assets.Editor.Undo
 {

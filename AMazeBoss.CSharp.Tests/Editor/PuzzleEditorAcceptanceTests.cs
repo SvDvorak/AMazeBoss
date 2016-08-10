@@ -93,8 +93,14 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         public T SettingProperty<Y>(TilePos position, string key, Y value)
         {
-            Sut.SetProperty(position, key, value);
+            LastCommand = new SetPropertyCommand(Sut, position, key, value);
+            LastCommand.Execute();
             return This;
+        }
+
+        public void UndoingLastCommand()
+        {
+            LastCommand.Undo();
         }
 
         public T ListeningToEvents()

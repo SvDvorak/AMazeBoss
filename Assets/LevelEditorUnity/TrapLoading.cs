@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.LevelEditorUnity;
+using UnityEngine;
 
-namespace Assets.LevelEditorUnity
+namespace Assets.Editor
 {
     [RequireComponent(typeof(LayoutLink))]
     [ExecuteInEditMode]
@@ -24,29 +25,52 @@ namespace Assets.LevelEditorUnity
 
         public void LayoutLinkSet()
         {
-            if (_layoutLink.HasBoolProperty("IsLoaded"))
+            if (_layoutLink.PuzzleLayout.HasProperty(_layoutLink.Position, "IsLoaded"))
             {
-                IsLoaded = _layoutLink.GetBoolProperty("IsLoaded");
-                UpdateMaterialIfLoaded();
+                _layoutLink.PuzzleLayout.PropertySet += PropertyChanged;
+                var isNowLoaded =  _layoutLink.PuzzleLayout.GetProperty<bool>(_layoutLink.Position, "IsLoaded");
+                UpdateLoadedState(isNowLoaded);
             }
         }
 
-        public void OnValidate()
+        public void OnDisable()
         {
-            if (_layoutLink != null && _layoutLink.HasSetLink)
+            _layoutLink.PuzzleLayout.PropertySet -= PropertyChanged;
+        }
+
+        private void PropertyChanged(TilePos position, string key, object value)
+        {
+            if (_layoutLink.Position == position)
             {
-                UpdateMaterialIfLoaded();
-            }
-            else
-            {
-                Debug.LogWarning("Layout link not set for " + gameObject.name);
+                UpdateLoadedState((bool)value);
             }
         }
 
-        private void UpdateMaterialIfLoaded()
+        private void UpdateLoadedState(bool isNowLoaded)
         {
+            IsLoaded = isNowLoaded;
             _renderer.material = IsLoaded ? _loadedMaterial : _originalMaterial;
-            _layoutLink.SetProperty("IsLoaded", IsLoaded);
         }
+
+        //public void OnValidate()
+        //{
+        //    if (_layoutLink != null && _layoutLink.HasSetLink)
+        //    {
+        //        SetPropertyIfChanged();
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("Layout link not set for " + gameObject.name);
+        //    }
+        //}
+
+        //private void SetPropertyIfChanged()
+        //{
+        //    if (_currentIsLoadedValue != IsLoaded)
+        //    {
+        //        //var setPropertyCommand = new SetPropertyCommand(_layoutLink.PuzzleLayout, _layoutLink.Position, "IsLoaded", IsLoaded);
+        //        //PuzzleEditor.CommandsInstance.Execute(setPropertyCommand);
+        //    }
+        //}
     }
 }

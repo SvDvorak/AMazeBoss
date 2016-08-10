@@ -10,7 +10,7 @@ public class PuzzleEditor : EditorWindow
     private Vector3 _dragStartPosition;
     private bool _isDragging;
     private bool _isDeleting;
-    private CommandHistory _commandHistory;
+    private static CommandHistory _commandHistory;
     private PuzzleLayoutView _layoutView;
 
     private int _selectedObjectIndex;

@@ -262,11 +262,6 @@ namespace AMazeBoss.CSharp.Tests.Editor
             return this;
         }
 
-        private void UndoingLastCommand()
-        {
-            LastCommand.Undo();
-        }
-
         public new EditingWorldObjects ListeningToEvents()
         {
             base.ListeningToEvents();

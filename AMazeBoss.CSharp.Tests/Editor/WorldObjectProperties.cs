@@ -33,10 +33,43 @@ namespace AMazeBoss.CSharp.Tests.Editor
             _objectPosition = new TilePos(1, 1);
 
             Given
-                .ObjectAt("Trap", _objectPosition, new Dictionary<string, string>() { { "IsLoaded", true.ToString() } });
+                .ObjectAt("Trap", _objectPosition, new Dictionary<string, string>() { { "IsLoaded", "true" } });
 
             Then
                 .ShouldHaveSetting(_objectPosition, "IsLoaded", true);
+        }
+
+        [Fact]
+        public void UndoRemovesPropertyIfItWasntSetPreviously()
+        {
+            _objectPosition = new TilePos(1, 1);
+
+            Given
+                .ObjectAt("Trap", _objectPosition);
+
+            When
+                .SettingProperty(_objectPosition, "property", "true")
+                .UndoingLastCommand();
+
+            Then
+                .ShouldNotHaveSetting(_objectPosition, "property");
+        }
+
+        [Fact]
+        public void UndoSetsPreviousValueIfWasAlreadySet()
+        {
+            _objectPosition = new TilePos(1, 1);
+
+            Given
+                .ObjectAt("Trap", _objectPosition);
+
+            When
+                .SettingProperty(_objectPosition, "property", "true")
+                .SettingProperty(_objectPosition, "property", "false")
+                .UndoingLastCommand();
+
+            Then
+                .ShouldHaveSetting(_objectPosition, "property", "true");
         }
 
         [Fact]
@@ -58,6 +91,11 @@ namespace AMazeBoss.CSharp.Tests.Editor
         private void ShouldHaveSetting<T>(TilePos position, string key, T value)
         {
             Sut.GetProperty<T>(position, key).Should().Be(value);
+        }
+
+        private void ShouldNotHaveSetting(TilePos position, string key)
+        {
+            Sut.HasProperty(position, key).Should().BeFalse();
         }
     }
 }
