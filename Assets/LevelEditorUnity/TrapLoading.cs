@@ -25,12 +25,14 @@ namespace Assets.LevelEditorUnity
         public void LayoutLinkSet()
         {
             _layout = _layoutLink.PuzzleLayout;
-            if (_layout.HasProperty(_layoutLink.Position, "IsLoaded"))
+            if (!_layout.HasProperty(_layoutLink.Position, "IsLoaded"))
             {
-                _layout.PropertySet += PropertyChanged;
-                var isNowLoaded =  _layout.GetProperty<bool>(_layoutLink.Position, "IsLoaded");
-                UpdateLoadedState(isNowLoaded);
+                _layout.SetProperty(_layoutLink.Position, "IsLoaded", false);
             }
+
+            _layout.PropertySet += PropertyChanged;
+            var isNowLoaded = _layout.GetProperty<bool>(_layoutLink.Position, "IsLoaded");
+            UpdateLoadedState(isNowLoaded);
         }
 
         public void OnDisable()

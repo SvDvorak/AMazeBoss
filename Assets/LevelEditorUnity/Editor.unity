@@ -230,15 +230,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TestLayout:
     Objects:
-    - Type: MoveableBlocker
+    - Type: Trap
       Position:
-        X: 0
-        Z: -1
-      Properties: []
-    - Type: TrapItem
-      Position:
-        X: -1
-        Z: -1
+        X: 2
+        Z: 0
       Properties: []
     - Type: Boss
       Position:
@@ -247,46 +242,125 @@ MonoBehaviour:
       Properties: []
     - Type: Trap
       Position:
+        X: -2
+        Z: -2
+      Properties: []
+    - Type: MoveableBlocker
+      Position:
+        X: 2
+        Z: 1
+      Properties: []
+    - Type: TrapItem
+      Position:
+        X: 1
+        Z: -1
+      Properties: []
+    - Type: Trap
+      Position:
+        X: -1
+        Z: 2
+      Properties: []
+    - Type: MoveableBlocker
+      Position:
+        X: 1
+        Z: 1
+      Properties: []
+    - Type: Trap
+      Position:
         X: 0
         Z: 0
       Properties:
       - Key: IsLoaded
-        Value: True
+        Value: False
     - Type: Player
       Position:
         X: 0
-        Z: 1
+        Z: 2
       Properties: []
     Connections:
     - Start:
-        X: 0
-        Z: -3
+        X: 2
+        Z: -1
       End:
-        X: 0
-        Z: -2
+        X: 2
+        Z: 0
     - Start:
-        X: 0
-        Z: -3
+        X: 2
+        Z: -1
       End:
-        X: -1
-        Z: -3
-    - Start:
-        X: 0
-        Z: -2
-      End:
-        X: 0
+        X: 1
         Z: -1
     - Start:
-        X: 0
+        X: 2
+        Z: 0
+      End:
+        X: 2
+        Z: 1
+    - Start:
+        X: 2
         Z: 1
       End:
-        X: 0
-        Z: 0
+        X: 1
+        Z: 1
     - Start:
-        X: 0
-        Z: 0
+        X: 1
+        Z: 2
       End:
         X: 0
+        Z: 2
+    - Start:
+        X: 1
+        Z: 2
+      End:
+        X: 1
+        Z: 1
+    - Start:
+        X: -1
+        Z: 2
+      End:
+        X: -1
+        Z: 1
+    - Start:
+        X: -1
+        Z: 2
+      End:
+        X: 0
+        Z: 2
+    - Start:
+        X: -3
+        Z: 0
+      End:
+        X: -3
+        Z: -1
+    - Start:
+        X: -3
+        Z: 0
+      End:
+        X: -2
+        Z: 0
+    - Start:
+        X: -2
+        Z: 1
+      End:
+        X: -2
+        Z: 0
+    - Start:
+        X: -2
+        Z: 1
+      End:
+        X: -1
+        Z: 1
+    - Start:
+        X: -2
+        Z: 0
+      End:
+        X: -2
+        Z: -1
+    - Start:
+        X: -3
+        Z: -1
+      End:
+        X: -2
         Z: -1
     - Start:
         X: -2
@@ -295,11 +369,83 @@ MonoBehaviour:
         X: -1
         Z: -1
     - Start:
+        X: -2
+        Z: -1
+      End:
+        X: -2
+        Z: -2
+    - Start:
+        X: -1
+        Z: -1
+      End:
+        X: 0
+        Z: -1
+    - Start:
+        X: 0
+        Z: 2
+      End:
+        X: 0
+        Z: 1
+    - Start:
+        X: -1
+        Z: 1
+      End:
+        X: 0
+        Z: 1
+    - Start:
+        X: 1
+        Z: 1
+      End:
+        X: 0
+        Z: 1
+    - Start:
+        X: 0
+        Z: 0
+      End:
+        X: 0
+        Z: 1
+    - Start:
+        X: 0
+        Z: 0
+      End:
+        X: 0
+        Z: -1
+    - Start:
         X: 0
         Z: -1
       End:
-        X: -1
+        X: 0
+        Z: -2
+    - Start:
+        X: 0
         Z: -1
+      End:
+        X: 1
+        Z: -1
+    - Start:
+        X: 0
+        Z: -2
+      End:
+        X: 0
+        Z: -3
+    - Start:
+        X: -2
+        Z: -2
+      End:
+        X: -2
+        Z: -3
+    - Start:
+        X: -2
+        Z: -3
+      End:
+        X: -1
+        Z: -3
+    - Start:
+        X: 0
+        Z: -3
+      End:
+        X: -1
+        Z: -3
 --- !u!1 &1178042602
 GameObject:
   m_ObjectHideFlags: 0
