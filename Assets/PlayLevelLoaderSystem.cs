@@ -81,7 +81,11 @@ namespace Assets
             var trapObjects = _layout.GetObjects("Trap");
             foreach (var trapObject in trapObjects)
             {
-                WorldObjects.SpikeTrap.Do(CreateEntity(trapObject.Position), _pool);
+                var trapEntity = WorldObjects.SpikeTrap.Do(CreateEntity(trapObject.Position), _pool);
+                if (trapObject.Properties.ContainsKey("IsLoaded") && trapObject.Properties["IsLoaded"] == true.ToString())
+                {
+                    trapEntity.ReplaceLoaded(true);
+                }
                 placedTiles.Add(trapObject.Position);
             }
 

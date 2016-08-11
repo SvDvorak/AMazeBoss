@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Assets;
 using Assets.Editor.Undo;
 using Assets.LevelEditorUnity;
@@ -16,6 +17,8 @@ public class PuzzleEditor : EditorWindow
     private int _selectedObjectIndex;
     private bool _updatePreview;
     private TilePos _previousTilePosition;
+    private bool _showPropertyDialog;
+    private TilePos _propertyDialogPosition;
 
     [MenuItem("Window/Puzzle Editor")]
     public static void Init()
@@ -40,7 +43,7 @@ public class PuzzleEditor : EditorWindow
     private void LoadLayoutView()
     {
         var editorObject = GameObject.Find("Editor");
-        if(editorObject != null)
+        if (editorObject != null)
         {
             _layoutView = editorObject.GetComponent<PuzzleLayoutView>();
         }
@@ -116,9 +119,16 @@ public class PuzzleEditor : EditorWindow
         }
         _previousTilePosition = inputTilePos;
 
+        if (_showPropertyDialog)
+        {
+            var properties = layout.GetObjectAt(_propertyDialogPosition).Properties;
+            DrawObjectProperties(properties, layout);
+        }
+
         switch (uiEvent.type)
         {
             case EventType.Layout:
+            case EventType.Repaint:
                 HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
                 break;
             case EventType.MouseDown:
@@ -141,15 +151,32 @@ public class PuzzleEditor : EditorWindow
                 }
                 else if (selectedWorldObject != null)
                 {
-                    if (uiEvent.button == 0 && layout.CanPlaceAt(inputTilePos))
+                    var existingObjectAtPosition = layout.GetObjectAt(inputTilePos);
+
+                    if (uiEvent.button == 0)
                     {
-                        if (selectedWorldObject.Singleton)
+                        if (existingObjectAtPosition == null && layout.CanPlaceAt(inputTilePos))
                         {
-                            _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
+                            if (selectedWorldObject.Singleton)
+                            {
+                                _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
+                            }
+                            else
+                            {
+                                _commandHistory.Execute(new PlaceNormalObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
+                            }
                         }
-                        else
+                        else if (existingObjectAtPosition != null)
                         {
-                            _commandHistory.Execute(new PlaceNormalObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
+                            if (_showPropertyDialog && _propertyDialogPosition == inputTilePos)
+                            {
+                                _showPropertyDialog = false;
+                            }
+                            else
+                            {
+                                _showPropertyDialog = true;
+                                _propertyDialogPosition = inputTilePos;
+                            }
                         }
                     }
                     else if (uiEvent.button == 1)
@@ -173,13 +200,46 @@ public class PuzzleEditor : EditorWindow
         {
             _layoutView.UpdatePreview(nodeConnection);
         }
-        else if(_updatePreview)
+        else if (_updatePreview)
         {
             _layoutView.UpdatePreview(selectedWorldObject, new TilePos(currentInputPos));
             _updatePreview = false;
         }
 
         HandleUtility.Repaint();
+    }
+
+    private void DrawObjectProperties(Dictionary<string, string> propertiesObject, PuzzleLayout layout)
+    {
+        var propertyPosition = Camera.current.WorldToScreenPoint(_propertyDialogPosition.ToV3());
+
+        Handles.BeginGUI();
+        GUI.enabled = true;
+
+        GUILayout.BeginArea(new Rect(propertyPosition.x - 100, Screen.height - propertyPosition.y - 100, 220, 200));
+        GUILayout.BeginVertical(GUI.skin.box, GUILayout.Width(200));
+
+        if (propertiesObject.Count == 0)
+        {
+            EditorGUILayout.LabelField("No properties");
+        }
+        else
+        {
+            foreach (var property in propertiesObject.ToList())
+            {
+                var currentValue = bool.Parse(property.Value);
+                var possiblyChangedValue = EditorGUILayout.Toggle(property.Key, currentValue);
+                if (currentValue != possiblyChangedValue)
+                {
+                    layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
+                }
+            }
+        }
+
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+
+        Handles.EndGUI();
     }
 
     private ICommand GetNodeConnectionCommand(PuzzleLayout layout, NodeConnection nodeConnection)
