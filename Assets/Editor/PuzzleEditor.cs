@@ -75,6 +75,12 @@ public class PuzzleEditor : EditorWindow
             Tools.hidden = InEditMode;
         }
 
+        var deselect = GUILayout.Button("Deselect placeable");
+        if (deselect)
+        {
+            _selectedObjectIndex = -1;
+        }
+
         var textures = EditorWorldObjects.Instance.GetAllViewObjects().Select(x => (Texture)AssetPreview.GetAssetPreview(x)).ToArray();
         var previouslySelectedIndex = _selectedObjectIndex;
         _selectedObjectIndex = GUILayout.SelectionGrid(_selectedObjectIndex, textures, 3);
@@ -110,9 +116,15 @@ public class PuzzleEditor : EditorWindow
 
         var currentInputPos = GetMouseOnXZPlane(mousePosition);
         var nodeConnection = GetTileAdjustedConnection(_dragStartPosition, currentInputPos);
-        var selectedWorldObject = EditorWorldObjects.Instance.GetByIndex(_selectedObjectIndex);
+
+        EditorWorldObject selectedWorldObject = null;
+        if (_selectedObjectIndex >= 0)
+        {
+            selectedWorldObject = EditorWorldObjects.Instance.GetByIndex(_selectedObjectIndex);
+        }
 
         var inputTilePos = new TilePos(currentInputPos);
+        var existingObjectAtPosition = layout.GetObjectAt(inputTilePos);
 
         if (inputTilePos != _previousTilePosition)
         {
@@ -140,50 +152,45 @@ public class PuzzleEditor : EditorWindow
                 }
                 break;
             case EventType.MouseUp:
-                if (uiEvent.button == 0 && _isDragging)
+                if (uiEvent.button == 0)
                 {
-                    if (nodeConnection.Length() > 0)
+                    if (_isDragging)
                     {
-                        var command = GetNodeConnectionCommand(layout, nodeConnection);
-                        _commandHistory.Execute(command);
+                        if (nodeConnection.Length() > 0)
+                        {
+                            var command = GetNodeConnectionCommand(layout, nodeConnection);
+                            _commandHistory.Execute(command);
+                        }
+                        Repaint();
+                        _isDragging = false;
                     }
-                    Repaint();
-                    _isDragging = false;
+                    else if (selectedWorldObject == null && existingObjectAtPosition != null)
+                    {
+                        if (_showPropertyDialog && _propertyDialogPosition == inputTilePos)
+                        {
+                            _showPropertyDialog = false;
+                        }
+                        else
+                        {
+                            _showPropertyDialog = true;
+                            _propertyDialogPosition = inputTilePos;
+                        }
+                    }
+                    else if (selectedWorldObject != null && existingObjectAtPosition == null && layout.CanPlaceAt(inputTilePos))
+                    {
+                        if (selectedWorldObject.Singleton)
+                        {
+                            _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
+                        }
+                        else
+                        {
+                            _commandHistory.Execute(new PlaceNormalObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
+                        }
+                    }
                 }
-                else if (selectedWorldObject != null)
+                else if (uiEvent.button == 1 && existingObjectAtPosition != null)
                 {
-                    var existingObjectAtPosition = layout.GetObjectAt(inputTilePos);
-
-                    if (uiEvent.button == 0)
-                    {
-                        if (existingObjectAtPosition == null && layout.CanPlaceAt(inputTilePos))
-                        {
-                            if (selectedWorldObject.Singleton)
-                            {
-                                _commandHistory.Execute(new SetSingletonObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
-                            }
-                            else
-                            {
-                                _commandHistory.Execute(new PlaceNormalObjectCommand(layout, selectedWorldObject.Type, inputTilePos));
-                            }
-                        }
-                        else if (existingObjectAtPosition != null)
-                        {
-                            if (_showPropertyDialog && _propertyDialogPosition == inputTilePos)
-                            {
-                                _showPropertyDialog = false;
-                            }
-                            else
-                            {
-                                _showPropertyDialog = true;
-                                _propertyDialogPosition = inputTilePos;
-                            }
-                        }
-                    }
-                    else if (uiEvent.button == 1)
-                    {
-                        _commandHistory.Execute(new RemoveObjectCommand(layout, inputTilePos));
-                    }
+                    _commandHistory.Execute(new RemoveObjectCommand(layout, inputTilePos));
                 }
                 break;
             case EventType.KeyDown:
@@ -201,7 +208,7 @@ public class PuzzleEditor : EditorWindow
         {
             _layoutView.UpdatePreview(nodeConnection);
         }
-        else if (_updatePreview)
+        else if (_updatePreview && selectedWorldObject != null)
         {
             _layoutView.UpdatePreview(selectedWorldObject, new TilePos(currentInputPos));
             _updatePreview = false;
