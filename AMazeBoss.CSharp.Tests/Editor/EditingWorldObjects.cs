@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets;
 using Assets.Editor.Undo;
+using Assets.Features.Level;
 using Assets.Level;
 using FluentAssertions;
 using Xunit;

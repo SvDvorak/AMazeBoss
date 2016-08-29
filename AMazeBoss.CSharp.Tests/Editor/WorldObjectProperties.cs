@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets;
+using Assets.Features.Level;
 using Assets.Level;
 using FluentAssertions;
 using Xunit;
@@ -80,7 +81,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
                     .SettingProperty(new TilePos(), "property", true));
 
             Then
-                .ExceptionWasThrown<ObjectNotFoundException>(exception);
+                .ExceptionWasThrown<PuzzleObjects.ObjectNotFoundException>(exception);
         }
 
         private void ExceptionWasThrown<T>(Exception exception)

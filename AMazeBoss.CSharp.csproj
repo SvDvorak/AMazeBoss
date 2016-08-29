@@ -112,6 +112,8 @@
     <Compile Include="Assets\Features\Level\PlaySetup.cs" />
     <Compile Include="Assets\Features\Level\PositionsCacheUpdateSystem.cs" />
     <Compile Include="Assets\Features\Level\PuzzleLayout.cs" />
+    <Compile Include="Assets\Features\Level\PuzzleNodes.cs" />
+    <Compile Include="Assets\Features\Level\PuzzleObjects.cs" />
     <Compile Include="Assets\Features\Level\SceneSetup.cs" />
     <Compile Include="Assets\Features\Level\SubtypeSelectorSystem.cs" />
     <Compile Include="Assets\Features\Level\TemplateLoaderSystem.cs" />
