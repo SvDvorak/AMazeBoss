@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets;
-using Assets.LevelEditorUnity;
+using Assets.Level;
 using FluentAssertions;
 using Xunit;
 

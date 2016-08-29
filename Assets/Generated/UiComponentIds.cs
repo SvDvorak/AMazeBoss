@@ -34,10 +34,7 @@ public static class UiComponentIds {
     public static readonly System.Type[] componentTypes = {
         typeof(Assets.ChildComponent),
         typeof(Assets.DestroyedComponent),
-        typeof(Assets.LevelEditor.EditorOnlyVisual),
         typeof(Assets.IdComponent),
-        typeof(Assets.LevelEditor.InEditorComponent),
-        typeof(Assets.LevelEditor.PreviewComponent),
         typeof(Assets.ResourceComponent),
         typeof(Assets.SceneComponent),
         typeof(Assets.ViewComponent),

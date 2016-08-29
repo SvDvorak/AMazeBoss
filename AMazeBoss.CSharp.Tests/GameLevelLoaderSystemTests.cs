@@ -1,5 +1,6 @@
 ﻿using Assets;
-using Assets.LevelEditorUnity;
+using Assets.Level;
+using Assets.Level.Editor_;
 using Entitas;
 using FluentAssertions;
 using Xunit;

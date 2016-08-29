@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.Level;
 using UnityEngine;
 
 public class LoadSceneAfterDelay : MonoBehaviour

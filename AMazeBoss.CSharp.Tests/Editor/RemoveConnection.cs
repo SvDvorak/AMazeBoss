@@ -1,5 +1,4 @@
 ﻿using Assets;
-using Assets.LevelEditorUnity;
 using FluentAssertions;
 using Xunit;
 

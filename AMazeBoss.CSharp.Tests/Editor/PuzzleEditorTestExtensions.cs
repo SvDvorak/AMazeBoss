@@ -1,6 +1,6 @@
 using System.Linq;
 using Assets;
-using Assets.LevelEditorUnity;
+using Assets.Level.Editor_;
 using FluentAssertions;
 
 namespace AMazeBoss.CSharp.Tests.Editor

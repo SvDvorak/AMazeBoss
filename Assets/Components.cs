@@ -209,11 +209,6 @@ namespace Assets
     }
 
     [Game]
-    public class CurseSwitchComponent : IComponent
-    {
-    }
-
-    [Game]
     public class DynamicComponent : IComponent
     {
     }
@@ -267,12 +262,6 @@ namespace Assets
     [Game, Ui]
     public class DestroyedComponent : IComponent
     {
-    }
-
-    [SingleEntity, Game]
-    public class LevelsComponent : IComponent
-    {
-        public List<string> Value;
     }
 
     [Game]

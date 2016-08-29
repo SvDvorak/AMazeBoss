@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets;
 using Assets.Editor.Undo;
+using Assets.Level;
 using FluentAssertions;
 using Xunit;
-using Assets.LevelEditorUnity;
 
 namespace AMazeBoss.CSharp.Tests.Editor
 {

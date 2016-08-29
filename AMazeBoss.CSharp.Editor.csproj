@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.3.4f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -114,16 +112,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\PuzzleEditor.cs" />
-    <Compile Include="Assets\Editor\Undo\AddNodeConnectionCommand.cs" />
-    <Compile Include="Assets\Editor\Undo\CommandHistory.cs" />
-    <Compile Include="Assets\Editor\Undo\ICommand.cs" />
-    <Compile Include="Assets\Editor\Undo\PlaceNormalObjectCommand.cs" />
-    <Compile Include="Assets\Editor\Undo\PlaceObjectCommand.cs" />
-    <Compile Include="Assets\Editor\Undo\RemoveObjectCommand.cs" />
-    <Compile Include="Assets\Editor\Undo\SetPropertyCommand.cs" />
-    <Compile Include="Assets\Editor\Undo\SetSingletonObjectCommand.cs" />
-    <Compile Include="Assets\Editor\Undo\ClearLayoutCommand.cs" />
     <Compile Include="Assets\Editor\ImageEffects\AntialiasingEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\BloomAndFlaresEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\BloomEditor.cs" />
@@ -138,7 +126,17 @@
     <Compile Include="Assets\Editor\ImageEffects\SunShaftsEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\TonemappingEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
-    <Compile Include="Assets\Editor\Undo\RemoveNodeConnectionCommand.cs" />
+    <Compile Include="Assets\Editor\PuzzleEditor.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\AddNodeConnectionCommand.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\ClearLayoutCommand.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\CommandHistory.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\ICommand.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\PlaceNormalObjectCommand.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\PlaceObjectCommand.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\RemoveNodeConnectionCommand.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\RemoveObjectCommand.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\SetPropertyCommand.cs" />
+    <Compile Include="Assets\Editor\UndoRedo\SetSingletonObjectCommand.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator.TypeReflection\Editor\TypeReflectionCodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\CodeGenerator.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Editor\Generators\ComponentIndicesGenerator.cs" />
