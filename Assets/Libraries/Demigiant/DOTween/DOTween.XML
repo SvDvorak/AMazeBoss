@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>DOTween</name>
@@ -194,14 +194,14 @@
             <para>Beware: doesn't work with LoopType.Incremental (neither directly nor if inside a LoopType.Incremental Sequence).</para>
             <para>To use it, call DOTween.To with the plugin parameter overload, passing it <c>PureQuaternionPlugin.Plug()</c> as first parameter
             (do not use any of the other public PureQuaternionPlugin methods):</para>
-            <code>DOTween.To(PureQuaternionPlugin.Plug(), ()=> myQuaternionProperty, x=> myQuaternionProperty = x, myQuaternionEndValue, duration);</code>
+            <code>DOTween.To(PureQuaternionPlugin.Plug(), ()=> myQuaternionProperty, x=> myQuaternionFlatProperty = x, myQuaternionEndValue, duration);</code>
             </summary>
         </member>
         <member name="M:DG.Tweening.CustomPlugins.PureQuaternionPlugin.Plug">
             <summary>
             Plug this plugin inside a DOTween.To call.
             <para>Example:</para>
-            <code>DOTween.To(PureQuaternionPlugin.Plug(), ()=> myQuaternionProperty, x=> myQuaternionProperty = x, myQuaternionEndValue, duration);</code>
+            <code>DOTween.To(PureQuaternionPlugin.Plug(), ()=> myQuaternionProperty, x=> myQuaternionFlatProperty = x, myQuaternionEndValue, duration);</code>
             </summary>
         </member>
         <member name="M:DG.Tweening.CustomPlugins.PureQuaternionPlugin.Reset(DG.Tweening.Core.TweenerCore{UnityEngine.Quaternion,UnityEngine.Quaternion,DG.Tweening.Plugins.Options.NoOptions})">

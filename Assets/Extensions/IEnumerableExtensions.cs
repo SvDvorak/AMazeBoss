@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets
+namespace Assets.Extensions
 {
     public static class IEnumerableExtensions
     {

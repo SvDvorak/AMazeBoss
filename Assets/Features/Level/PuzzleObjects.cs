@@ -1,10 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Assets.Features.Level
 {
+    public class SetProperties : Dictionary<string, object>
+    {
+        public new SetProperties Add(string key, object value)
+        {
+            base.Add(key, value);
+            return this;
+        }
+    }
+
     public class PuzzleObjects
     {
         private readonly Dictionary<TilePos, PuzzleObject> _objects = new Dictionary<TilePos, PuzzleObject>();
@@ -25,7 +33,7 @@ namespace Assets.Features.Level
             PlaceObject(type, position);
         }
 
-        public void PlaceObject(string type, TilePos position, Dictionary<string, PuzzleObject.Property> properties = null)
+        public void PlaceObject(string type, TilePos position, SetProperties properties = null)
         {
             RemoveObject(position);
 

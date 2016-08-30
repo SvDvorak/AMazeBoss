@@ -26,7 +26,7 @@ namespace Assets.Editor.Undo
         {
             try
             {
-                _currentValue = _sut.GetProperty(_position, _key);
+                _currentValue = _sut.GetProperty(_position, _key).Value;
             }
             catch (Exception)
             {

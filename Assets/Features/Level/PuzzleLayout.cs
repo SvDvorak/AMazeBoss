@@ -104,7 +104,7 @@ namespace Assets.Features.Level
             return _puzzleNodes.CanPlaceAt(position);
         }
 
-        public void PlaceObject(string type, TilePos position, Dictionary<string, PuzzleObject.Property> properties = null)
+        public void PlaceObject(string type, TilePos position, SetProperties properties = null)
         {
             _puzzleObjects.PlaceObject(type, position, properties);
         }
@@ -139,7 +139,7 @@ namespace Assets.Features.Level
             return _puzzleObjects.GetAllObjects();
         }
 
-        public object GetProperty(TilePos position, string key)
+        public PuzzleObject.Property GetProperty(TilePos position, string key)
         {
             return _puzzleObjects.GetProperty(position, key);
         }

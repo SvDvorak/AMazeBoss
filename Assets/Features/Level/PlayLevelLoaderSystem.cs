@@ -79,7 +79,7 @@ namespace Assets
             foreach (var trapObject in trapObjects)
             {
                 var trapEntity = WorldObjects.SpikeTrap.Do(CreateEntity(trapObject.Position), _pool);
-                if (trapObject.Properties.ContainsKey("IsLoaded") && trapObject.Properties["IsLoaded"].Value == true.ToString())
+                if (trapObject.Properties.ContainsKey("IsLoaded") && (bool)trapObject.Properties["IsLoaded"].Value)
                 {
                     trapEntity.ReplaceLoaded(true);
                 }

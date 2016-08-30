@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp.Plugins", "AMazeBoss.CSharp.Plugins.csproj", "{65216638-1246-9E05-FB6A-33D7505705E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp", "AMazeBoss.CSharp.csproj", "{3EFCAFB2-7574-35DB-CC03-E813B27FD8A3}"

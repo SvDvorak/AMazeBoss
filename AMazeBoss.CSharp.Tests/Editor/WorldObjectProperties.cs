@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Assets;
 using Assets.Features.Level;
-using Assets.Level;
 using FluentAssertions;
 using Xunit;
 
@@ -34,7 +32,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
             _objectPosition = new TilePos(1, 1);
 
             Given
-                .ObjectAt("Trap", _objectPosition, new Dictionary<string, object>() { { "IsLoaded", true } });
+                .ObjectAt("Trap", _objectPosition, new SetProperties().Add("IsLoaded", true));
 
             Then
                 .ShouldHaveSetting(_objectPosition, "IsLoaded", true);
@@ -65,12 +63,12 @@ namespace AMazeBoss.CSharp.Tests.Editor
                 .ObjectAt("Trap", _objectPosition);
 
             When
-                .SettingProperty(_objectPosition, "property", "true")
-                .SettingProperty(_objectPosition, "property", "false")
+                .SettingProperty(_objectPosition, "property", true)
+                .SettingProperty(_objectPosition, "property", false)
                 .UndoingLastCommand();
 
             Then
-                .ShouldHaveSetting(_objectPosition, "property", "true");
+                .ShouldHaveSetting(_objectPosition, "property", true);
         }
 
         [Fact]
@@ -91,7 +89,8 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         private void ShouldHaveSetting<T>(TilePos position, string key, T value)
         {
-            Sut.GetObjectAt(position).Properties[key].Value.Should().Be(value);
+            var property = Sut.GetObjectAt(position).Properties[key];
+            property.Value.Should().Be(value);
         }
 
         private void ShouldNotHaveSetting(TilePos position, string key)
