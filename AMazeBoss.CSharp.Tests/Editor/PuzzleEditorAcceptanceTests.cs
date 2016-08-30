@@ -74,9 +74,10 @@ namespace AMazeBoss.CSharp.Tests.Editor
             return This;
         }
 
-        public T ObjectAt(string type, TilePos position, Dictionary<string, string> properties = null)
+        public T ObjectAt(string type, TilePos position, Dictionary<string, object> properties = null)
         {
-            Sut.PlaceObject(type, position, properties);
+            var typeModifiedProperties = properties?.ToDictionary(property => property.Key, property => new PuzzleObject.Property(property.Key, property.Value));
+            Sut.PlaceObject(type, position, typeModifiedProperties);
             return This;
         }
 

@@ -32,7 +32,7 @@ namespace Assets.Level.Editor_
             }
 
             _layout.PropertySet += PropertyChanged;
-            var isNowLoaded = _layout.GetProperty<bool>(_layoutLink.Position, "IsLoaded");
+            var isNowLoaded = (bool)_layout.GetObjectAt(_layoutLink.Position).Properties["IsLoaded"].Value;
             UpdateLoadedState(isNowLoaded);
         }
 

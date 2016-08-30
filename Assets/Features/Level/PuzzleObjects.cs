@@ -25,7 +25,7 @@ namespace Assets.Features.Level
             PlaceObject(type, position);
         }
 
-        public void PlaceObject(string type, TilePos position, Dictionary<string, string> properties = null)
+        public void PlaceObject(string type, TilePos position, Dictionary<string, PuzzleObject.Property> properties = null)
         {
             RemoveObject(position);
 
@@ -76,7 +76,7 @@ namespace Assets.Features.Level
             try
             {
                 var objectToSetProperty = GetObjectAt(position);
-                objectToSetProperty.Properties[key] = value.ToString();
+                objectToSetProperty.Properties[key] = new PuzzleObject.Property(key, value);
                 PropertySet.CallEvent(position, key, value);
             }
             catch (Exception)
@@ -105,7 +105,7 @@ namespace Assets.Features.Level
             return puzzleObject != null && puzzleObject.Properties.ContainsKey(key);
         }
 
-        public string GetProperty(TilePos position, string key)
+        public PuzzleObject.Property GetProperty(TilePos position, string key)
         {
             try
             {
@@ -114,24 +114,6 @@ namespace Assets.Features.Level
             catch (KeyNotFoundException)
             {
                 throw new Exception(string.Format("Could not find property {0} at {1}", key, position));
-            }
-        }
-
-        public T GetProperty<T>(TilePos position, string key)
-        {
-            try
-            {
-                var property = GetProperty(position, key);
-
-                var converter = TypeDescriptor.GetConverter(typeof(T));
-                return (T)converter.ConvertFromString(property);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Format("Unable to get {0} as {1} because {2}",
-                    key,
-                    typeof(T),
-                    ex.Message));
             }
         }
 

@@ -34,7 +34,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
             _objectPosition = new TilePos(1, 1);
 
             Given
-                .ObjectAt("Trap", _objectPosition, new Dictionary<string, string>() { { "IsLoaded", "true" } });
+                .ObjectAt("Trap", _objectPosition, new Dictionary<string, object>() { { "IsLoaded", true } });
 
             Then
                 .ShouldHaveSetting(_objectPosition, "IsLoaded", true);
@@ -91,7 +91,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
 
         private void ShouldHaveSetting<T>(TilePos position, string key, T value)
         {
-            Sut.GetProperty<T>(position, key).Should().Be(value);
+            Sut.GetObjectAt(position).Properties[key].Value.Should().Be(value);
         }
 
         private void ShouldNotHaveSetting(TilePos position, string key)

@@ -218,7 +218,7 @@ public class PuzzleEditor : EditorWindow
         HandleUtility.Repaint();
     }
 
-    private void DrawObjectProperties(Dictionary<string, string> propertiesObject, PuzzleLayout layout)
+    private void DrawObjectProperties(Dictionary<string, PuzzleObject.Property> propertiesObject, PuzzleLayout layout)
     {
         var propertyPosition = Camera.current.WorldToScreenPoint(_propertyDialogPosition.ToV3());
 
@@ -234,9 +234,9 @@ public class PuzzleEditor : EditorWindow
         }
         else
         {
-            foreach (var property in propertiesObject.ToList())
+            foreach (var property in propertiesObject.Select(x => x.Value).ToList())
             {
-                var currentValue = bool.Parse(property.Value);
+                var currentValue = (bool)property.Value;
                 var possiblyChangedValue = EditorGUILayout.Toggle(property.Key, currentValue);
                 if (currentValue != possiblyChangedValue)
                 {

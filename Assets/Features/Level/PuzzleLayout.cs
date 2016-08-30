@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using Assets.Level.Editor_;
 
 namespace Assets.Features.Level
@@ -10,13 +8,27 @@ namespace Assets.Features.Level
     {
         public readonly string Type;
         public readonly TilePos Position;
-        public readonly Dictionary<string, string> Properties;
+        public readonly Dictionary<string, Property> Properties;
 
         public PuzzleObject(string type, TilePos position)
         {
             Position = position;
             Type = type;
-            Properties = new Dictionary<string, string>();
+            Properties = new Dictionary<string, Property>();
+        }
+
+        public class Property
+        {
+            public readonly string Key;
+            public readonly object Value;
+            public readonly Type Type;
+
+            public Property(string key, object value)
+            {
+                Key = key;
+                Value = value;
+                Type = value.GetType();
+            }
         }
     }
 
@@ -92,7 +104,7 @@ namespace Assets.Features.Level
             return _puzzleNodes.CanPlaceAt(position);
         }
 
-        public void PlaceObject(string type, TilePos position, Dictionary<string, string> properties = null)
+        public void PlaceObject(string type, TilePos position, Dictionary<string, PuzzleObject.Property> properties = null)
         {
             _puzzleObjects.PlaceObject(type, position, properties);
         }
@@ -130,11 +142,6 @@ namespace Assets.Features.Level
         public object GetProperty(TilePos position, string key)
         {
             return _puzzleObjects.GetProperty(position, key);
-        }
-
-        public T GetProperty<T>(TilePos position, string key)
-        {
-            return _puzzleObjects.GetProperty<T>(position, key);
         }
 
         public void SetProperty(TilePos position, string key, object value)

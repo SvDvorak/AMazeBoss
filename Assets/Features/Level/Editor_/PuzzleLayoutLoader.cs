@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Features.Level;
+using Assets.Level.Editor_;
 using UnityEngine;
 
-namespace Assets.Level.Editor_
+namespace Assets.Features.Level.Editor_
 {
     [Serializable]
     public class FlatLayout
@@ -25,6 +25,7 @@ namespace Assets.Level.Editor_
             {
                 public string Key;
                 public string Value;
+                public string Type;
             }
         }
 
@@ -58,10 +59,13 @@ namespace Assets.Level.Editor_
             TestLayout.Connections.ForEach(layout.AddNodeConnections);
             TestLayout.Objects.ForEach(puzzleObject =>
                 {
-                    var properties = new Dictionary<string, string>();
+                    var properties = new Dictionary<string, PuzzleObject.Property>();
                     puzzleObject.Properties.ForEach(property =>
                     {
-                        properties.Add(property.Key, property.Value);
+                        var type = Type.GetType(property.Type);
+                        var converter = System.ComponentModel.TypeDescriptor.GetConverter(type);
+                        var value = converter.ConvertFromInvariantString(property.Value);
+                        properties.Add(property.Key, new PuzzleObject.Property(property.Key, value));
                     });
                     layout.PlaceObject(puzzleObject.Type, puzzleObject.Position, properties);
                 });
@@ -76,10 +80,11 @@ namespace Assets.Level.Editor_
                         {
                             Type = puzzleObject.Type,
                             Position = puzzleObject.Position,
-                            Properties = puzzleObject.Properties.Select(x => new FlatLayout.PuzzleObject.Property()
+                            Properties = puzzleObject.Properties.Values.Select(x => new FlatLayout.PuzzleObject.Property()
                                 {
                                     Key = x.Key,
-                                    Value = x.Value
+                                    Value = x.Value.ToString(),
+                                    Type = x.Type.ToString()
                                 }).ToList()
                         })
                     .ToList();
