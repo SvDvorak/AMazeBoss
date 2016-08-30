@@ -135,7 +135,8 @@ public class PuzzleEditor : EditorWindow
 
         if (_showPropertyDialog)
         {
-            var properties = layout.GetObjectAt(_propertyDialogPosition).Properties;
+            var puzzleObject = layout.GetObjectAt(_propertyDialogPosition);
+            var properties = puzzleObject.Properties;
             DrawObjectProperties(properties, layout);
         }
 
@@ -191,6 +192,11 @@ public class PuzzleEditor : EditorWindow
                 }
                 else if (uiEvent.button == 1 && existingObjectAtPosition != null)
                 {
+                    if (inputTilePos == _propertyDialogPosition)
+                    {
+                        _showPropertyDialog = false;
+                    }
+
                     _commandHistory.Execute(new RemoveObjectCommand(layout, inputTilePos));
                 }
                 break;
