@@ -31,7 +31,7 @@ namespace Assets.Level.Editor_
             PuzzleLayout.ConnectionRemoved += RemoveConnection;
             PuzzleLayout.ObjectAdded += ObjectAdded;
             PuzzleLayout.ObjectRemoved += ObjectRemoved;
-            var lol = 0;
+
             if (Application.isPlaying)
             {
                 gameObject.SetActive(false);
@@ -41,6 +41,9 @@ namespace Assets.Level.Editor_
         public void OnDisable()
         {
             RemovePreview();
+            _nodeViews.Clear();
+            _nodeConnectionViews.Clear();
+            _worldObjects.Clear();
 
             PuzzleLayout.NodeAdded -= AddNode;
             PuzzleLayout.NodeRemoved -= RemoveNode;
