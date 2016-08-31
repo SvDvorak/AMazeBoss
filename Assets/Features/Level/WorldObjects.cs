@@ -87,8 +87,7 @@ namespace Assets.Level
                     .ReplaceMaintype(ItemType.Hero.ToString())
                     .IsDynamic(true)
                     .IsCharacter(true)
-                    .IsHero(true)
-                    .ReplaceHealth(3));
+                    .IsHero(true));
             }
         }
 
@@ -104,8 +103,7 @@ namespace Assets.Level
                     .IsBlockingTile(true)
                     .IsCharacter(true)
                     .IsBoss(true)
-                    .IsCursed(true)
-                    .ReplaceHealth(3));
+                    .IsCursed(true));
             }
         }
 

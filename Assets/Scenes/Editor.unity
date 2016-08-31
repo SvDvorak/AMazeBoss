@@ -13,7 +13,7 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.42467603, g: 0.3794599, b: 0.296793, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_GIWorkflowMode: 0
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,17 +53,22 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 4
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 0}
@@ -110,6 +115,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -178,8 +184,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1042791389}
-  - 114: {fileID: 1042791388}
   - 114: {fileID: 1042791390}
+  - 114: {fileID: 1042791388}
   m_Layer: 0
   m_Name: Editor
   m_TagString: Untagged
@@ -213,6 +219,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -227,20 +234,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206e363edbc33b44c91a06f4928488d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLayout:
+  SavedLayout:
     Objects:
-    - Type: Trap
-      Position:
-        X: 0
-        Z: 0
-      Properties:
-      - Key: IsLoaded
-        Value: True
     - Type: Player
       Position:
         X: 0
         Z: 2
-      Properties: []
+      Properties:
+      - Key: Health
+        Value: 2
+        Type: System.Int32
+    - Type: Boss
+      Position:
+        X: 0
+        Z: -3
+      Properties:
+      - Key: Health
+        Value: 4
+        Type: System.Int32
     - Type: MoveableBlocker
       Position:
         X: 1
@@ -250,129 +261,62 @@ MonoBehaviour:
       Position:
         X: 2
         Z: 1
+      Properties: []
+    - Type: Trap
+      Position:
+        X: 0
+        Z: 0
+      Properties:
+      - Key: IsLoaded
+        Value: False
+        Type: System.Boolean
+    - Type: Trap
+      Position:
+        X: -2
+        Z: -2
+      Properties:
+      - Key: IsLoaded
+        Value: True
+        Type: System.Boolean
+    - Type: Trap
+      Position:
+        X: -1
+        Z: 2
+      Properties:
+      - Key: IsLoaded
+        Value: True
+        Type: System.Boolean
+    - Type: Trap
+      Position:
+        X: 2
+        Z: 0
+      Properties:
+      - Key: IsLoaded
+        Value: False
+        Type: System.Boolean
+    - Type: TrapItem
+      Position:
+        X: 2
+        Z: -1
       Properties: []
     - Type: TrapItem
       Position:
         X: 1
         Z: -1
       Properties: []
-    - Type: Trap
-      Position:
-        X: -1
-        Z: 2
-      Properties:
-      - Key: IsLoaded
-        Value: False
-    - Type: Trap
-      Position:
-        X: -2
-        Z: -2
-      Properties:
-      - Key: IsLoaded
-        Value: False
-    - Type: Trap
-      Position:
-        X: 2
-        Z: 0
-      Properties:
-      - Key: IsLoaded
-        Value: False
-    - Type: Boss
-      Position:
-        X: 0
-        Z: -3
-      Properties: []
     Connections:
     - Start:
-        X: 2
-        Z: -1
-      End:
-        X: 1
-        Z: -1
-    - Start:
-        X: 2
-        Z: -1
-      End:
-        X: 2
-        Z: 0
-    - Start:
-        X: 2
-        Z: 0
-      End:
-        X: 2
-        Z: 1
-    - Start:
-        X: 1
-        Z: -1
-      End:
-        X: 0
-        Z: -1
-    - Start:
-        X: 2
-        Z: 1
-      End:
-        X: 1
-        Z: 1
-    - Start:
-        X: 1
-        Z: 1
-      End:
-        X: 0
-        Z: 1
-    - Start:
-        X: 1
-        Z: 1
-      End:
-        X: 1
-        Z: 2
-    - Start:
-        X: 1
-        Z: 2
-      End:
-        X: 0
-        Z: 2
-    - Start:
-        X: 0
-        Z: 2
-      End:
-        X: -1
-        Z: 2
-    - Start:
-        X: 0
-        Z: 2
-      End:
-        X: 0
-        Z: 1
-    - Start:
-        X: -1
-        Z: 2
-      End:
-        X: -1
-        Z: 1
-    - Start:
-        X: -2
-        Z: 1
-      End:
-        X: -1
-        Z: 1
-    - Start:
-        X: -2
-        Z: 1
-      End:
-        X: -2
-        Z: 0
-    - Start:
-        X: -1
-        Z: 1
-      End:
-        X: 0
-        Z: 1
-    - Start:
-        X: -3
-        Z: 0
-      End:
         X: -3
         Z: -1
+      End:
+        X: -2
+        Z: -1
+    - Start:
+        X: -3
+        Z: -1
+      End:
+        X: -3
+        Z: 0
     - Start:
         X: -3
         Z: 0
@@ -380,29 +324,11 @@ MonoBehaviour:
         X: -2
         Z: 0
     - Start:
-        X: -3
-        Z: -1
-      End:
         X: -2
         Z: -1
-    - Start:
+      End:
         X: -2
         Z: 0
-      End:
-        X: -2
-        Z: -1
-    - Start:
-        X: -1
-        Z: -1
-      End:
-        X: -2
-        Z: -1
-    - Start:
-        X: -1
-        Z: -1
-      End:
-        X: 0
-        Z: -1
     - Start:
         X: -2
         Z: -1
@@ -411,10 +337,58 @@ MonoBehaviour:
         Z: -2
     - Start:
         X: -2
-        Z: -2
+        Z: -1
+      End:
+        X: -1
+        Z: -1
+    - Start:
+        X: -2
+        Z: 0
       End:
         X: -2
-        Z: -3
+        Z: 1
+    - Start:
+        X: -2
+        Z: 1
+      End:
+        X: -1
+        Z: 1
+    - Start:
+        X: -1
+        Z: 2
+      End:
+        X: 0
+        Z: 2
+    - Start:
+        X: -1
+        Z: 2
+      End:
+        X: -1
+        Z: 1
+    - Start:
+        X: 1
+        Z: 2
+      End:
+        X: 1
+        Z: 1
+    - Start:
+        X: 1
+        Z: 2
+      End:
+        X: 0
+        Z: 2
+    - Start:
+        X: 0
+        Z: 2
+      End:
+        X: 0
+        Z: 1
+    - Start:
+        X: -1
+        Z: 1
+      End:
+        X: 0
+        Z: 1
     - Start:
         X: 0
         Z: 1
@@ -423,21 +397,63 @@ MonoBehaviour:
         Z: 0
     - Start:
         X: 0
-        Z: -1
+        Z: 1
       End:
-        X: 0
+        X: 1
+        Z: 1
+    - Start:
+        X: 1
+        Z: 1
+      End:
+        X: 2
+        Z: 1
+    - Start:
+        X: 2
+        Z: 1
+      End:
+        X: 2
         Z: 0
     - Start:
+        X: 2
+        Z: 0
+      End:
+        X: 2
+        Z: -1
+    - Start:
+        X: 2
+        Z: -1
+      End:
+        X: 1
+        Z: -1
+    - Start:
+        X: -1
+        Z: -1
+      End:
+        X: 0
+        Z: -1
+    - Start:
+        X: 1
+        Z: -1
+      End:
+        X: 0
+        Z: -1
+    - Start:
+        X: 0
+        Z: 0
+      End:
+        X: 0
+        Z: -1
+    - Start:
         X: 0
         Z: -1
       End:
         X: 0
         Z: -2
     - Start:
-        X: 0
+        X: -2
         Z: -2
       End:
-        X: 0
+        X: -2
         Z: -3
     - Start:
         X: -2
@@ -447,9 +463,15 @@ MonoBehaviour:
         Z: -3
     - Start:
         X: 0
+        Z: -2
+      End:
+        X: 0
+        Z: -3
+    - Start:
+        X: -1
         Z: -3
       End:
-        X: -1
+        X: 0
         Z: -3
 --- !u!1 &1178042602
 GameObject:
@@ -474,7 +496,7 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1178042602}
   m_Enabled: 1
-  serializedVersion: 6
+  serializedVersion: 7
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
@@ -484,6 +506,7 @@ Light:
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
+    m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
@@ -496,10 +519,10 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-  m_AreaSize: {x: 1, y: 1}
 --- !u!4 &1178042604
 Transform:
   m_ObjectHideFlags: 0
@@ -509,6 +532,7 @@ Transform:
   m_LocalRotation: {x: 0.40821794, y: -0.23456973, z: 0.109381676, w: 0.87542605}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets;
 using Assets.Editor.Undo;
@@ -136,8 +137,15 @@ public class PuzzleEditor : EditorWindow
         if (_showPropertyDialog)
         {
             var puzzleObject = layout.GetObjectAt(_propertyDialogPosition);
-            var properties = puzzleObject.Properties;
-            DrawObjectProperties(properties, layout);
+            if (puzzleObject != null)
+            {
+                var properties = puzzleObject.Properties;
+                DrawObjectProperties(properties, layout);
+            }
+            else
+            {
+                _showPropertyDialog = false;
+            }
         }
 
         switch (uiEvent.type)
@@ -192,11 +200,6 @@ public class PuzzleEditor : EditorWindow
                 }
                 else if (uiEvent.button == 1 && existingObjectAtPosition != null)
                 {
-                    if (inputTilePos == _propertyDialogPosition)
-                    {
-                        _showPropertyDialog = false;
-                    }
-
                     _commandHistory.Execute(new RemoveObjectCommand(layout, inputTilePos));
                 }
                 break;
@@ -240,13 +243,25 @@ public class PuzzleEditor : EditorWindow
         }
         else
         {
-            foreach (var property in propertiesObject.Select(x => x.Value).ToList())
+            foreach (var property in propertiesObject.Values.ToList())
             {
-                var currentValue = (bool)property.Value;
-                var possiblyChangedValue = EditorGUILayout.Toggle(property.Key, currentValue);
-                if (currentValue != possiblyChangedValue)
+                if (property.Type == typeof(bool))
                 {
-                    layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
+                    var value = (bool)property.Value;
+                    var possiblyChangedValue = EditorGUILayout.Toggle(property.Key, value);
+                    if (value != possiblyChangedValue)
+                    {
+                        layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
+                    }
+                }
+                else if (property.Type == typeof(int))
+                {
+                    var value = (int)property.Value;
+                    var possiblyChangedValue = EditorGUILayout.IntField(property.Key, value);
+                    if (value != possiblyChangedValue)
+                    {
+                        layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
+                    }
                 }
             }
         }

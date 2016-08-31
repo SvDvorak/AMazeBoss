@@ -53,6 +53,7 @@ namespace Assets.Features.Level.Editor_
         {
             PuzzleLayout.Instance.Clear();
             _loader.LoadFromFlatLayout(SavedLayout, PuzzleLayout.Instance);
+            var lol = 0;
             PuzzleLayout.Instance.LayoutChanged += SaveLayout;
         }
 

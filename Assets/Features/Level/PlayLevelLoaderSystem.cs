@@ -107,7 +107,15 @@ namespace Assets
                 var puzzleObjects = _layout.GetObjects(creator.Type);
                 foreach (var puzzleObject in puzzleObjects)
                 {
-                    creator.EntityPerformer.Do(CreateEntity(puzzleObject.Position), _pool);
+                    var entity = creator.EntityPerformer.Do(CreateEntity(puzzleObject.Position), _pool);
+
+                    foreach (var property in puzzleObject.Properties.Select(x => x.Value))
+                    {
+                        if (property.Key == "Health")
+                        {
+                            entity.AddHealth((int) property.Value);
+                        }
+                    }
                 }
             }
 

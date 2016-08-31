@@ -109,6 +109,7 @@
     <Compile Include="Assets\Features\Level\DestroySystem.cs" />
     <Compile Include="Assets\Features\Level\Editor_\EditorWorldObject.cs" />
     <Compile Include="Assets\Features\Level\Editor_\EditorWorldObjects.cs" />
+    <Compile Include="Assets\Features\Level\Editor_\HealthView.cs" />
     <Compile Include="Assets\Features\Level\Editor_\LayoutLink.cs" />
     <Compile Include="Assets\Features\Level\Editor_\Node.cs" />
     <Compile Include="Assets\Features\Level\Editor_\NodeConnection.cs" />
