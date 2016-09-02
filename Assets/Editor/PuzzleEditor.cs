@@ -77,12 +77,6 @@ public class PuzzleEditor : EditorWindow
             Tools.hidden = InEditMode;
         }
 
-        var deselect = GUILayout.Button("Deselect placeable");
-        if (deselect)
-        {
-            _selectedObjectIndex = -1;
-        }
-
         var textures = EditorWorldObjects.Instance.GetAllViewObjects().Select(x => (Texture)AssetPreview.GetAssetPreview(x)).ToArray();
         var previouslySelectedIndex = _selectedObjectIndex;
         _selectedObjectIndex = GUILayout.SelectionGrid(_selectedObjectIndex, textures, 3);
@@ -174,19 +168,12 @@ public class PuzzleEditor : EditorWindow
                         Repaint();
                         _isDragging = false;
                     }
-                    else if (selectedWorldObject == null && existingObjectAtPosition != null)
+                    else if (existingObjectAtPosition != null)
                     {
-                        if (_showPropertyDialog && _propertyDialogPosition == inputTilePos)
-                        {
-                            _showPropertyDialog = false;
-                        }
-                        else
-                        {
-                            _showPropertyDialog = true;
-                            _propertyDialogPosition = inputTilePos;
-                        }
+                        _showPropertyDialog = !(_showPropertyDialog && _propertyDialogPosition == inputTilePos);
+                        _propertyDialogPosition = inputTilePos;
                     }
-                    else if (selectedWorldObject != null && existingObjectAtPosition == null && layout.CanPlaceAt(inputTilePos))
+                    else if (selectedWorldObject != null && layout.CanPlaceAt(inputTilePos))
                     {
                         if (selectedWorldObject.Singleton)
                         {
