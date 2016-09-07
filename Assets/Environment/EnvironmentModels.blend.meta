@@ -93,6 +93,9 @@ ModelImporter:
     100170: SkyboxCenter
     100172: Rock_000
     100174: Rock_001
+    100176: CompleteThing_NewLevel1
+    100178: RockDownward
+    100180: RockUpward
     400000: //RootNode
     400002: Plane
     400004: Plane_001
@@ -181,6 +184,9 @@ ModelImporter:
     400170: SkyboxCenter
     400172: Rock_000
     400174: Rock_001
+    400176: CompleteThing_NewLevel1
+    400178: RockDownward
+    400180: RockUpward
     2300000: //RootNode
     2300002: Plane
     2300004: Plane_001
@@ -256,6 +262,9 @@ ModelImporter:
     2300144: SkyboxCenter
     2300146: Rock_000
     2300148: Rock_001
+    2300150: CompleteThing_NewLevel1
+    2300152: RockDownward
+    2300154: RockUpward
     3300000: //RootNode
     3300002: Plane
     3300004: Plane_001
@@ -331,6 +340,9 @@ ModelImporter:
     3300144: SkyboxCenter
     3300146: Rock_000
     3300148: Rock_001
+    3300150: CompleteThing_NewLevel1
+    3300152: RockDownward
+    3300154: RockUpward
     4300000: Plane
     4300002: Plane_001
     4300004: wall_3x1
@@ -405,6 +417,9 @@ ModelImporter:
     4300142: SkyboxCenter
     4300144: Rock_000
     4300146: Rock_001
+    4300148: RockDownward
+    4300150: RockUpward
+    4300152: CompleteThing_NewLevel1
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -414,7 +429,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 

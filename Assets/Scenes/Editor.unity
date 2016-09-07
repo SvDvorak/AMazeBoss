@@ -121,52 +121,6 @@ Transform:
   - {fileID: 2090101699}
   m_Father: {fileID: 1629913518}
   m_RootOrder: 3
---- !u!1001 &679038384
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 902117102}
-    m_Modifications:
-    - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.5184059
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.4808901
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.4808901
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.51840603
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f27c59021bcc85343a22256529c28860, type: 2}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-  m_IsPrefabParent: 0
 --- !u!1 &902117101
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,15 +148,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 1705135734}
-  - {fileID: 1028777968}
+  m_Children: []
   m_Father: {fileID: 1629913518}
   m_RootOrder: 2
---- !u!4 &1028777968 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: a2fa89de138466d4698d07941e5a8590, type: 3}
-  m_PrefabInternal: {fileID: 679038384}
 --- !u!1 &1060003759
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,282 +217,151 @@ MonoBehaviour:
     Objects:
     - Type: Boss
       Position:
-        X: 1
-        Z: -3
+        X: -2
+        Z: -2
       Properties:
       - Key: Health
         Value: 1
         Type: System.Int32
-    - Type: Player
-      Position:
-        X: 1
-        Z: 2
-      Properties:
-      - Key: Health
-        Value: 1
-        Type: System.Int32
-    - Type: MoveableBlocker
-      Position:
-        X: 3
-        Z: 1
-      Properties: []
-    - Type: MoveableBlocker
-      Position:
-        X: 2
-        Z: 1
-      Properties: []
     - Type: Trap
       Position:
-        X: 3
-        Z: 0
-      Properties:
-      - Key: IsLoaded
-        Value: True
-        Type: System.Boolean
-    - Type: Trap
-      Position:
-        X: 1
-        Z: 0
+        X: 0
+        Z: -1
       Properties:
       - Key: IsLoaded
         Value: False
         Type: System.Boolean
     - Type: Trap
       Position:
-        X: -1
-        Z: -2
+        X: 1
+        Z: 1
       Properties:
       - Key: IsLoaded
-        Value: True
+        Value: False
         Type: System.Boolean
     - Type: Trap
       Position:
-        X: 0
-        Z: 2
+        X: -2
+        Z: 0
       Properties:
       - Key: IsLoaded
-        Value: True
+        Value: False
         Type: System.Boolean
-    - Type: TrapItem
+    - Type: Player
       Position:
-        X: 1
-        Z: -1
+        X: 0
+        Z: 0
+      Properties:
+      - Key: Health
+        Value: 1
+        Type: System.Int32
+    - Type: MoveableBlocker
+      Position:
+        X: -1
+        Z: 0
+      Properties: []
+    - Type: MoveableBlocker
+      Position:
+        X: 0
+        Z: 1
       Properties: []
     Connections:
     - Start:
         X: -2
-        Z: -1
-      End:
-        X: -2
         Z: 0
-    - Start:
-        X: -2
-        Z: -1
       End:
         X: -1
-        Z: -1
+        Z: 0
     - Start:
         X: -2
         Z: 0
       End:
-        X: -1
+        X: -2
+        Z: -1
+    - Start:
+        X: 2
+        Z: 1
+      End:
+        X: 1
+        Z: 1
+    - Start:
+        X: 2
+        Z: 1
+      End:
+        X: 2
         Z: 0
     - Start:
-        X: -1
+        X: 2
+        Z: 0
+      End:
+        X: 2
+        Z: -1
+    - Start:
+        X: 2
         Z: -2
       End:
-        X: -1
-        Z: -3
-    - Start:
-        X: -1
-        Z: -2
-      End:
-        X: -1
-        Z: -1
-    - Start:
-        X: 3
-        Z: 0
-      End:
-        X: 3
-        Z: -1
-    - Start:
-        X: 3
-        Z: 0
-      End:
-        X: 3
-        Z: 1
-    - Start:
-        X: -1
-        Z: 0
-      End:
-        X: -1
-        Z: 1
-    - Start:
-        X: -1
-        Z: 0
-      End:
-        X: -1
-        Z: -1
-    - Start:
-        X: 3
-        Z: -1
-      End:
         X: 2
         Z: -1
     - Start:
-        X: 3
-        Z: 1
-      End:
         X: 2
-        Z: 1
-    - Start:
-        X: 1
-        Z: 2
-      End:
-        X: 2
-        Z: 2
-    - Start:
-        X: 1
-        Z: 2
-      End:
-        X: 0
-        Z: 2
-    - Start:
-        X: 1
-        Z: 2
-      End:
-        X: 1
-        Z: 1
-    - Start:
-        X: 2
-        Z: 1
-      End:
-        X: 2
-        Z: 2
-    - Start:
-        X: 2
-        Z: 1
-      End:
-        X: 1
-        Z: 1
-    - Start:
-        X: -1
-        Z: -1
-      End:
-        X: 0
-        Z: -1
-    - Start:
-        X: -1
-        Z: 1
-      End:
-        X: 0
-        Z: 1
-    - Start:
-        X: 0
-        Z: 1
-      End:
-        X: 0
-        Z: 2
-    - Start:
-        X: 0
-        Z: 1
-      End:
-        X: 1
-        Z: 1
-    - Start:
-        X: 0
-        Z: -1
-      End:
-        X: 1
-        Z: -1
-    - Start:
-        X: 1
         Z: -2
       End:
         X: 1
-        Z: -3
+        Z: -2
     - Start:
-        X: 1
+        X: 0
+        Z: -2
+      End:
+        X: 0
+        Z: -1
+    - Start:
+        X: 0
         Z: -2
       End:
         X: 1
+        Z: -2
+    - Start:
+        X: 0
+        Z: -2
+      End:
+        X: -1
+        Z: -2
+    - Start:
+        X: -2
+        Z: -2
+      End:
+        X: -2
         Z: -1
     - Start:
-        X: 2
-        Z: -1
+        X: -2
+        Z: -2
       End:
-        X: 1
-        Z: -1
+        X: -1
+        Z: -2
     - Start:
         X: 1
         Z: 1
       End:
-        X: 1
-        Z: 0
+        X: 0
+        Z: 1
     - Start:
-        X: 1
+        X: 0
         Z: -1
       End:
-        X: 1
+        X: 0
+        Z: 0
+    - Start:
+        X: 0
+        Z: 1
+      End:
+        X: 0
         Z: 0
     - Start:
         X: -1
-        Z: -3
+        Z: 0
       End:
         X: 0
-        Z: -3
-    - Start:
-        X: 1
-        Z: -3
-      End:
-        X: 0
-        Z: -3
---- !u!1001 &1245880923
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 902117102}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f27c59021bcc85343a22256529c28860, type: 2}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-  m_IsPrefabParent: 0
+        Z: 0
 --- !u!1 &1614541329
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,10 +439,6 @@ Transform:
   - {fileID: 305617212}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!4 &1705135734 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: 5e2c8885f6678624e84278d852261208, type: 3}
-  m_PrefabInternal: {fileID: 1245880923}
 --- !u!1 &2090101698
 GameObject:
   m_ObjectHideFlags: 0
