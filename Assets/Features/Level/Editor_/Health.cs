@@ -7,14 +7,22 @@ namespace Assets.Level.Editor_
     [ExecuteInEditMode]
     public class Health : MonoBehaviour
     {
-
         private MeshRenderer _renderer;
         private LayoutLink _layoutLink;
         private Material _originalMaterial;
         private Material _loadedMaterial;
         private PuzzleLayout _layout;
+	    private TextMesh _healthTextMesh;
+	    private int _health;
 
-        public void OnEnable()
+	    public void Start()
+	    {
+		    var child = transform.GetChild(0);
+		    _healthTextMesh = child.GetComponent<TextMesh>();
+		    UpdateLoadedState(_health);
+	    }
+
+	    public void OnEnable()
         {
             _layoutLink = GetComponent<LayoutLink>();
             _renderer = GetComponent<MeshRenderer>();
@@ -32,8 +40,7 @@ namespace Assets.Level.Editor_
             }
 
             _layout.PropertySet += PropertyChanged;
-            var health = (int)_layout.GetObjectAt(_layoutLink.Position).Properties["Health"].Value;
-            UpdateLoadedState(health);
+            _health = (int)_layout.GetObjectAt(_layoutLink.Position).Properties["Health"].Value;
         }
 
         public void OnDisable()
@@ -54,7 +61,7 @@ namespace Assets.Level.Editor_
 
         private void UpdateLoadedState(int health)
         {
-
+	        _healthTextMesh.text = health.ToString();
         }
     }
 }

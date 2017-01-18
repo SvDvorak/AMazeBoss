@@ -130,11 +130,12 @@ public class PuzzleEditor : EditorWindow
 
         if (_showPropertyDialog)
         {
-            var puzzleObject = layout.GetObjectAt(_propertyDialogPosition);
-            if (puzzleObject != null)
-            {
-                var properties = puzzleObject.Properties;
-                DrawObjectProperties(properties, layout);
+	        var propertyDialogObject = layout.GetObjectAt(_propertyDialogPosition);
+	        if (propertyDialogObject != null)
+	        {
+				var properties = propertyDialogObject.Properties;
+				DrawObjectProperties(properties, layout);
+	        }
             }
             else
             {
