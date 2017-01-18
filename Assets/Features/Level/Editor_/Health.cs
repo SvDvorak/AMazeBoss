@@ -5,7 +5,7 @@ namespace Assets.Level.Editor_
 {
     [RequireComponent(typeof(LayoutLink))]
     [ExecuteInEditMode]
-    public class TrapLoading : MonoBehaviour
+    public class Health : MonoBehaviour
     {
 
         private MeshRenderer _renderer;
@@ -26,14 +26,14 @@ namespace Assets.Level.Editor_
         public void LayoutLinkSet()
         {
             _layout = _layoutLink.PuzzleLayout;
-            if (!_layout.HasProperty(_layoutLink.Position, "IsLoaded"))
+            if (!_layout.HasProperty(_layoutLink.Position, "Health"))
             {
-                _layout.SetProperty(_layoutLink.Position, "IsLoaded", false);
+                _layout.SetProperty(_layoutLink.Position, "Health", 3);
             }
 
             _layout.PropertySet += PropertyChanged;
-            var isNowLoaded = (bool)_layout.GetObjectAt(_layoutLink.Position).Properties["IsLoaded"].Value;
-            UpdateLoadedState(isNowLoaded);
+            var health = (int)_layout.GetObjectAt(_layoutLink.Position).Properties["Health"].Value;
+            UpdateLoadedState(health);
         }
 
         public void OnDisable()
@@ -46,15 +46,15 @@ namespace Assets.Level.Editor_
 
         private void PropertyChanged(TilePos position, string key, object value)
         {
-            if (_layoutLink.Position == position && key == "IsLoaded")
+            if (_layoutLink.Position == position && key == "Health")
             {
-                UpdateLoadedState((bool)value);
+                UpdateLoadedState((int)value);
             }
         }
 
-        private void UpdateLoadedState(bool isLoaded)
+        private void UpdateLoadedState(int health)
         {
-            _renderer.material = isLoaded ? _loadedMaterial : _originalMaterial;
+
         }
     }
 }

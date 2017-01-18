@@ -33,7 +33,7 @@ namespace Assets.Features.Level
             PlaceObject(type, position);
         }
 
-        public void PlaceObject(string type, TilePos position, SetProperties properties = null)
+        public void PlaceObject(string type, TilePos position, Dictionary<string, object> properties = null)
         {
             RemoveObject(position);
 
@@ -113,11 +113,11 @@ namespace Assets.Features.Level
             return puzzleObject != null && puzzleObject.Properties.ContainsKey(key);
         }
 
-        public PuzzleObject.Property GetProperty(TilePos position, string key)
+        public object GetProperty(TilePos position, string key)
         {
             try
             {
-                return GetObjectAt(position).Properties[key];
+                return GetObjectAt(position).Properties[key].Value;
             }
             catch (KeyNotFoundException)
             {

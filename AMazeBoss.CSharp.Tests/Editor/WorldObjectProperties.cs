@@ -93,7 +93,7 @@ namespace AMazeBoss.CSharp.Tests.Editor
             property.Value.Should().Be(value);
         }
 
-        private void ShouldNotHaveSetting(TilePos position, string key)
+	    private void ShouldNotHaveSetting(TilePos position, string key)
         {
             Sut.HasProperty(position, key).Should().BeFalse();
         }

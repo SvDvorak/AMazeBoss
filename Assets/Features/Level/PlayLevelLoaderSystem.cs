@@ -75,8 +75,8 @@ namespace Assets
         {
             var placedTiles = new HashSet<TilePos>();
 
-            var trapObjects = _layout.GetObjects("Trap");
-            foreach (var trapObject in trapObjects)
+            var layoutTraps = _layout.GetObjects("Trap");
+            foreach (var trapObject in layoutTraps)
             {
                 var trapEntity = WorldObjects.SpikeTrap.Do(CreateEntity(trapObject.Position), _pool);
                 if (trapObject.Properties.ContainsKey("IsLoaded") && (bool)trapObject.Properties["IsLoaded"].Value)
@@ -85,6 +85,16 @@ namespace Assets
                 }
                 placedTiles.Add(trapObject.Position);
             }
+
+            var layoutPlayers = _layout.GetObjects("Player");
+	        foreach (var player in layoutPlayers)
+	        {
+                var playerEntity = WorldObjects.Hero.Do(CreateEntity(player.Position), _pool);
+                if (player.Properties.ContainsKey("Health"))
+                {
+	                playerEntity.ReplaceHealth((int) player.Properties["Health"].Value);
+                }
+	        }
 
             foreach (var node in _layout.Nodes.Values)
             {
@@ -96,7 +106,6 @@ namespace Assets
 
             var objectCreator = new List<TypeToEntityPerformer>()
                 {
-                    new TypeToEntityPerformer("Player", WorldObjects.Hero),
                     new TypeToEntityPerformer("Boss", WorldObjects.Boss),
                     new TypeToEntityPerformer("TrapItem", WorldObjects.Spikes),
                     new TypeToEntityPerformer("MoveableBlocker", WorldObjects.Box)

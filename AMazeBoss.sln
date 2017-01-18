@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp.Plugins", "AMazeBoss.CSharp.Plugins.csproj", "{65216638-1246-9E05-FB6A-33D7505705E8}"
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.Plugins", "AMazeBoss.Plugins.csproj", "{801292DA-A64C-0CDE-226D-ACED6C99A4F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp", "AMazeBoss.CSharp.csproj", "{3EFCAFB2-7574-35DB-CC03-E813B27FD8A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss", "AMazeBoss.csproj", "{2E4E18E2-4E1E-06C2-409D-23F5F9BFDC03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp.Editor", "AMazeBoss.CSharp.Editor.csproj", "{5587C7A3-8F60-844B-E778-FF14AEB52985}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.Editor", "AMazeBoss.Editor.csproj", "{C7AE67DB-55FD-301D-61A7-A254ABB38FAD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMazeBoss.CSharp.Tests", "AMazeBoss.CSharp.Tests\AMazeBoss.CSharp.Tests.csproj", "{B4FDF4AE-621E-4452-B0EC-6284764F7DBD}"
 EndProject
@@ -15,18 +17,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{65216638-1246-9E05-FB6A-33D7505705E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65216638-1246-9E05-FB6A-33D7505705E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65216638-1246-9E05-FB6A-33D7505705E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65216638-1246-9E05-FB6A-33D7505705E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3EFCAFB2-7574-35DB-CC03-E813B27FD8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EFCAFB2-7574-35DB-CC03-E813B27FD8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EFCAFB2-7574-35DB-CC03-E813B27FD8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EFCAFB2-7574-35DB-CC03-E813B27FD8A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5587C7A3-8F60-844B-E778-FF14AEB52985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5587C7A3-8F60-844B-E778-FF14AEB52985}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5587C7A3-8F60-844B-E778-FF14AEB52985}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5587C7A3-8F60-844B-E778-FF14AEB52985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801292DA-A64C-0CDE-226D-ACED6C99A4F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801292DA-A64C-0CDE-226D-ACED6C99A4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801292DA-A64C-0CDE-226D-ACED6C99A4F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801292DA-A64C-0CDE-226D-ACED6C99A4F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E4E18E2-4E1E-06C2-409D-23F5F9BFDC03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E4E18E2-4E1E-06C2-409D-23F5F9BFDC03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E4E18E2-4E1E-06C2-409D-23F5F9BFDC03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E4E18E2-4E1E-06C2-409D-23F5F9BFDC03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7AE67DB-55FD-301D-61A7-A254ABB38FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7AE67DB-55FD-301D-61A7-A254ABB38FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7AE67DB-55FD-301D-61A7-A254ABB38FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7AE67DB-55FD-301D-61A7-A254ABB38FAD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4FDF4AE-621E-4452-B0EC-6284764F7DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4FDF4AE-621E-4452-B0EC-6284764F7DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4FDF4AE-621E-4452-B0EC-6284764F7DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -81,17 +81,17 @@
     <Compile Include="TestGamePool.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AMazeBoss.CSharp.csproj">
-      <Project>{3efcafb2-7574-35db-cc03-e813b27fd8a3}</Project>
-      <Name>AMazeBoss.CSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AMazeBoss.CSharp.Editor.csproj">
-      <Project>{5587c7a3-8f60-844b-e778-ff14aeb52985}</Project>
-      <Name>AMazeBoss.CSharp.Editor</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\AMazeBoss.csproj">
+      <Project>{2e4e18e2-4e1e-06c2-409d-23f5f9bfdc03}</Project>
+      <Name>AMazeBoss</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMazeBoss.Editor.csproj">
+      <Project>{c7ae67db-55fd-301d-61a7-a254abb38fad}</Project>
+      <Name>AMazeBoss.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

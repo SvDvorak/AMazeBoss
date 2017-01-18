@@ -232,11 +232,11 @@ public class PuzzleEditor : EditorWindow
         {
             foreach (var property in propertiesObject.Values.ToList())
             {
-                if (property.Type == typeof(bool))
-                {
-                    var value = (bool)property.Value;
-                    var possiblyChangedValue = EditorGUILayout.Toggle(property.Key, value);
-                    if (value != possiblyChangedValue)
+	            if (property.Type == typeof(bool))
+	            {
+					var currentValue = (bool)property.Value;
+					var possiblyChangedValue = EditorGUILayout.Toggle(property.Key, currentValue);
+					if (currentValue != possiblyChangedValue)
                     {
                         layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
                     }
@@ -246,10 +246,20 @@ public class PuzzleEditor : EditorWindow
                     var value = (int)property.Value;
                     var possiblyChangedValue = EditorGUILayout.IntField(property.Key, value);
                     if (value != possiblyChangedValue)
-                    {
-                        layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
+					{
+						layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
                     }
-                }
+					}
+	            }
+	            else if (property.Type == typeof(int))
+	            {
+					var currentValue = (int)property.Value;
+					var possiblyChangedValue = EditorGUILayout.IntSlider(property.Key, currentValue, 1, 5);
+					if (currentValue != possiblyChangedValue)
+					{
+						layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
+					}
+	            }
             }
         }
 
