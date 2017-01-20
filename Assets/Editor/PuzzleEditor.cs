@@ -136,7 +136,6 @@ public class PuzzleEditor : EditorWindow
 				var properties = propertyDialogObject.Properties;
 				DrawObjectProperties(properties, layout);
 	        }
-            }
             else
             {
                 _showPropertyDialog = false;
@@ -250,7 +249,6 @@ public class PuzzleEditor : EditorWindow
 					{
 						layout.SetProperty(_propertyDialogPosition, property.Key, possiblyChangedValue);
                     }
-					}
 	            }
 	            else if (property.Type == typeof(int))
 	            {

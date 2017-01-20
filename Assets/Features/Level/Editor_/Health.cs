@@ -19,7 +19,7 @@ namespace Assets.Level.Editor_
 	    {
 		    var child = transform.GetChild(0);
 		    _healthTextMesh = child.GetComponent<TextMesh>();
-		    UpdateLoadedState(_health);
+		    SetHealth(_health);
 	    }
 
 	    public void OnEnable()
@@ -55,11 +55,11 @@ namespace Assets.Level.Editor_
         {
             if (_layoutLink.Position == position && key == "Health")
             {
-                UpdateLoadedState((int)value);
+                SetHealth((int)value);
             }
         }
 
-        private void UpdateLoadedState(int health)
+        private void SetHealth(int health)
         {
 	        _healthTextMesh.text = health.ToString();
         }

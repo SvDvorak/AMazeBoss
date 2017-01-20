@@ -139,7 +139,7 @@ namespace Assets.Features.Level
             return _puzzleObjects.GetAllObjects();
         }
 
-        public PuzzleObject.Property GetProperty(TilePos position, string key)
+        public object GetProperty(TilePos position, string key)
         {
             return _puzzleObjects.GetProperty(position, key);
         }
